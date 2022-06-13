@@ -6,14 +6,23 @@
  	<th:block layout:fragment="customScript">
  		<script>
  			$(function(){
- 				$(document).on('change', 'select', function(){
+ 				$(document).on('change', '#topCategory', function(){
+ 				var $topCategory =$("#topCategory").val()
+ 					console.log($topCategory)
  					var request = $.ajax({
-						url: "/userpage/getCategory",
-						method: "POST",
-						data: {'g.goodsTopCategoryName' : g.goodsTopCategoryName},
-						dataType: "json"
-					});
- 					console.log(topCategory);
+ 						  url: "/getCategory",
+ 						  method: "POST",
+ 						  data: { 'topCategory' : $topCategory},
+ 						  dataType: "json"
+ 						});
+ 						 
+ 						request.done(function( data ) {
+ 							console.log(data)
+ 						});
+ 						 
+ 						request.fail(function( jqXHR, textStatus ) {
+ 						  alert( "Request failed: " + textStatus );
+ 						});
  				});
  			});
  		</script>
@@ -60,7 +69,7 @@
 		          <div class="row">
 		            <div class="col-md-6 mb-4">
 		               <label for="userId"></label>
-		               <input type="hidden" class="form-control" id="userId" name="userId" placeholder="" th:value="${session.CheckId}" required>
+		               <input type="hidden" class="form-control" id="userId1" name="userId1" placeholder="" th:value="${session.CheckId}" required>
 		             </div>
 		             
 		            </div>
@@ -69,7 +78,7 @@
 		              <select id="topCategory" name="topCategory">
 		              	 <option value="">: : : : 1차카테고리 : : : : </option>
 		              	 <th:block th:if="${not #lists.isEmpty(topcategory)}" th:each="g : ${topcategory}">
-		              	 	<option th:value="${g.goodsTopCategoryName}">[[${g.goodsTopCategoryName}]]</option>
+		              	 	<option th:value="${g.goodsTopCategoryCode}">[[${g.goodsTopCategoryName}]]</option>
 		              	 </th:block>
 		              	 <th:block th:unless="${not #lists.isEmpty(topcategory)}">
 		              	 	<option value="">등록된 카테고리가 없습니다</option>
@@ -109,7 +118,7 @@
 		          </div>
 		          
 		          <div class="mb-4"></div>
-		          <button class="btn btn-primary btn-lg btn-block" type="submit">가입 완료</button>
+		          <button class="btn btn-primary btn-lg btn-block" type="submit">다음단계이동</button>
 		        </form>
 		      </div>
 		    </div>

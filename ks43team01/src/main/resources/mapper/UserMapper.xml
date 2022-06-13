@@ -17,13 +17,13 @@
 	  		<result column="user_reg_date" property="userRreDate"/>
 	  		<result column="user_update_date" property="userUpDate"/>
 	  		<result column="level_num_code" property="userLevel"/>
-	  		<association property="topcategory" javaType="ks43team01.dto.goodsTopCategory">
+  		</resultMap>
+	  		<resultMap type="ks43team01.dto.goodsTopCategory" id="goodsTopCategoryResultMap">
 	  			<id column="goods_top_category_name" property="goodsTopCategoryName"/>
 	  			<result column="goods_top_category_code" property="goodsTopCategoryCode"/>
-	  			<result column="user_id_code " property="userIdocde"/>
+	  			<result column="user_id_code " property="userIdCode"/>
 	  			<result column="goods_top_category_reg_date" property="goodsTopCategoryRegDate"/>
-	  		</association>	
-  		</resultMap>
+	  		</resultMap>	
   
   
   	<insert id="addUserInsert" parameterType="ks43team01.dto.User">
@@ -59,7 +59,7 @@
     
     <select id="getTopCategory" resultType="ks43team01.dto.goodsTopCategory">
 		
-		/*판매가 비지니스 탑카테고리*/
+			/*판매가 비지니스 탑카테고리*/
 		SELECT 
 			g.goods_top_category_name as goodsTopCategoryName
 			,g.goods_top_category_code as goodsTopCategoryCode
@@ -69,6 +69,24 @@
 			tb_g_goods_top_category as g
     
     </select>
+    
+    <select id="getUserInfoById" parameterType="String" resultMap="userResultMap">
+	  		/*로그인을 위한 정보조회*/
+	  	SELECT 
+			u.user_id_code
+			,u.user_pw 
+			,u.user_name 
+			,u.user_contact 
+			,u.user_email 
+			,u.user_activity_area 
+			,u.user_retention_Points 
+			,u.user_rating 
+			,u.level_num_code 
+		FROM 
+			tb_u_all_user as u
+		WHERE 
+			u.user_id_code = #{userId};
+  	</select>	
 				
 	
 

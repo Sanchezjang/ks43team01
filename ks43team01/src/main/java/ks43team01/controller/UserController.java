@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ks43team01.dto.User;
 import ks43team01.dto.goodsTopCategory;
@@ -59,5 +61,10 @@ public class UserController {
 		log.info("탑카테고리들어온값   :{}",topcategory);
 		return "userpage/sellerjoin";
 	}
-	
+	@PostMapping("/getCategory")
+	@ResponseBody
+	public String getCategory(@RequestParam(name="topCategory")String topCategory) {
+		log.info("탑카테고리받아온값제이즌  :{}", topCategory);
+		return "redirect:/userpage/sellerjoin";
+	}
 }
