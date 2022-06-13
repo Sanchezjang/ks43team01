@@ -7,15 +7,15 @@
 	<header>
 		<div th:replace="userpage/fragments/header :: headerFragment"></div>	  
 	</header>
-		<div layout:fragment="content"></div>
+		
+		
+	<div layout:fragment="content"></div><!-- 각자컨텐츠 넣을곳 -->
+	
 	<footer th:replace="userpage/fragments/footer :: footerFragment"></footer>
 
 	<!-- template 공통 -->
-	
-	
-	<!-- 사용자정의 js file -->
-	<th:block layout:fragment="customJsFile">
-	
+
+	<th:block layout:fragment="customScript">
 	</th:block>
 </body>
 	

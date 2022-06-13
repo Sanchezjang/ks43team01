@@ -12,10 +12,9 @@
             </div>
         </div>
     </div>
-    <!-- Preloader Start -->
+    <!-- Preloader end -->
         <!-- Header Start -->
-     <header>
-        <div class="header-area">
+    <div class="header-area">
             <div class="main-header ">
                 <div class="header-top d-none d-lg-block">
                     <!-- Left Social -->
@@ -39,8 +38,8 @@
                                 <div class="header-info-right">
                                     <ul>    
                                        <li><a href="#"><i class="ti-user"></i>전문가 등록</a></li>
-                                        <li><a href="#"><i class="ti-user"></i>로그인</a></li>
-                                        <li><a href="#"><i class="ti-lock"></i>회원가입</a></li>
+                                        <li><a th:href="@{/login}"><i class="ti-user"></i>로그인</a></li>
+                                        <li><a th:href="@{/userjoin}"><i class="ti-lock"></i>회원가입</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -50,7 +49,7 @@
                 <div class="header-bottom header-sticky">
                     <!-- Logo -->
                     <div class="logo d-none d-lg-block">
-                        <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                        <a th:href="@{/}"><img src="assets/img/logo/logo.png" alt=""></a>
                     </div>
                     <div class="container">
                         <div class="menu-wrapper">
@@ -61,6 +60,7 @@
                             <!-- Main-menu -->
                             <div class="main-menu d-none d-lg-block">
                                 <nav>
+<<<<<<< HEAD
                                 	<ul id="navigation">                                                                                          
                                         <li><a href="#">전체카테고리</a>
                                             <ul class="submenu">
@@ -69,7 +69,21 @@
                                                 <li><a href="#">영상/사진/음향</a></li>
                                                 <li><a href="#">마케팅</a></li>
                                             </ul>
+=======
+                                    <ul id="navigation">                                                                                          
+                                        <li><a href="index.html">상품검색</a></li>
+                                        <li><a href="about.html">이용방법</a></li>
+                                        <li><a href="courses.html">고객센터</a></li>
+                                        <li><a href="instructor.html">게시판</a></li>
+                                        <li><a href="blog.html">위치</a>
+                                    		<ul class="submenu">
+		                                        <li><a href="blog.html">상품검색</a></li>
+		                                        <li><a href="blog_details.html">이용방법</a></li>
+		                                        <li><a href="elements.html">고객센터</a></li>
+                                        	</ul>
+>>>>>>> refs/heads/Sanchezjang
                                         </li>
+<<<<<<< HEAD
                                         <li><a href="#">커뮤니티</a>
                                         <ul class="submenu">
                                                 <li><a href="#">자유게시판</a></li>
@@ -84,6 +98,9 @@
                                             </ul>
                                         </li>
                                       
+=======
+                                        <li><a href="contact.html">게시판</a></li>
+>>>>>>> refs/heads/Sanchezjang
                                     </ul>
                                 </nav>
                             </div>
@@ -104,7 +121,6 @@
                     </div>
                 </div>
             </div>
-        </div>
         </div>
      </header>
         <!-- Header End -->
