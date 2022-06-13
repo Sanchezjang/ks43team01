@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="userpage/fragments/head :: headFragment"></head>	  
+<body>
+	<!-- Preloader Start -->
+	<header>
+		<div th:replace="userpage/fragments/header :: headerFragment"></div>	  
+	</header>
+		<div layout:fragment="content"></div>
+	<footer th:replace="userpage/fragments/footer :: footerFragment"></footer>
+
+	<!-- template 공통 -->
+	
+	
+	<!-- 사용자정의 js file -->
+	<th:block layout:fragment="customJsFile">
+	
+	</th:block>
+</body>
+	
+</html>

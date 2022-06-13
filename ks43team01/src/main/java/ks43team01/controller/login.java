@@ -14,11 +14,11 @@ public class login {
 	}
 
 
-@GetMapping("/test")
+@GetMapping("1323")
 
 	public String test() {
 
-		return "adminpage/main";
+		return "userpage/fragments/layout/userdefault.html";
 	}
 
 }

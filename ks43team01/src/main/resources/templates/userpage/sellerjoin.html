@@ -96,7 +96,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	            <label for="phone">자기소개</label>
 	            <input type="text" class="form-control" id="phone" name="userContact" placeholder="ex) 안녕하세요 잘부탁드립니다" required>
             <div class="invalid-feedback">
-              휴대폰번호을 입력해주세요.
+       	       휴대폰번호을 입력해주세요.
          	 </div>
             </div>
           </div>
@@ -111,8 +111,29 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     </footer>
   </div>
 </body>
- <script type="text/javascript">
- 	$("#topCategory").change()
+  <script type="text/javascript">
+  var $topCategory = $("#topCategory").val();
+  console.log($topCategory);
+  $topCategory.click(function(){
+ 		 console.log(11111);
+ 		var request = $.ajax({
+			url: "/member/idCheck",
+			method: "POST",
+			data: {'memberId' : memberId},
+			dataType: "json"
+		})
+ 			success : function(data) {
+ 				
+ 			},
+ 			error : function(error) {
+ 			
+ 			},
+ 			complete : function() {
+ 			
+ 			}
+ 		});
+ 		
+ 	})
  </script>
 
 <footer th:replace="fragments/footer.html :: footerFragment"></footer>

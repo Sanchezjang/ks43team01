@@ -26,6 +26,10 @@ public class UserController {
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
+	@GetMapping("/user/main")
+	public String userMain() {
+		return "userpage/main_user";
+	}
 	
 	@GetMapping("/userjoin") //회원가입시겟맵핑 잡아주는거//
 	public String addUserInsert() {

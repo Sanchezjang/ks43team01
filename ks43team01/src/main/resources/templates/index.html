@@ -1,9 +1,9 @@
 <!doctype html>
 <html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org"
- xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head th:replace="fragments/head.html :: headFragment"></head>
+ 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ 	layout:decorate="~{userpage/layout/userdefault}">
     <!-- Preloader Start -->
-<header th:replace="fragments/header.html :: headerFragment"></header>
+     <div layout:fragment="content">
     <main>
         <!--? slider Area Start-->
                 <!-- Single Slider -->
@@ -431,11 +431,7 @@
             </div>
         </div>
         <!-- About Law End-->
-       
-  
     </main>
-        <!-- Footer End-->
-    <footer th:replace="fragments/footer.html :: footerFragment"></footer>
-    
+    </div>
     </body>
 </html>
