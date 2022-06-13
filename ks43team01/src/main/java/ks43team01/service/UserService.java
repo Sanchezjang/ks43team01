@@ -32,4 +32,12 @@ public class UserService {
 		
 		return Tcategory;
 	}
+	
+	//로그인을 위한 조회//
+	public User getUserInfoById(String userId) {
+		
+		User user = userMapper.getUserInfoById(userId);
+		
+		return user;
+	}
 }	
