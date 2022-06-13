@@ -17,5 +17,9 @@ public interface UserMapper {
 
 	//판매자 비지니스 탑카테고리//
 	public List<goodsTopCategory> getTopCategory();
+	
+	//로그인을위한아이디조회///
+
+	public User getUserInfoById(String userId);
 		
 }

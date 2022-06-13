@@ -4,7 +4,7 @@ public class goodsTopCategory {
 
 	private String	goodsTopCategoryName; 
 	private String	goodsTopCategoryCode; 
-	private String	userIdocde; 
+	private String	userIdCode; 
 	private String	goodsTopCategoryRegDate;
 	
 	
@@ -15,8 +15,8 @@ public class goodsTopCategory {
 		builder.append(goodsTopCategoryName);
 		builder.append(", goodsTopCategoryCode=");
 		builder.append(goodsTopCategoryCode);
-		builder.append(", userIdocde=");
-		builder.append(userIdocde);
+		builder.append(", userIdCode=");
+		builder.append(userIdCode);
 		builder.append(", goodsTopCategoryRegDate=");
 		builder.append(goodsTopCategoryRegDate);
 		builder.append("]");
@@ -35,10 +35,10 @@ public class goodsTopCategory {
 		this.goodsTopCategoryCode = goodsTopCategoryCode;
 	}
 	public String getUserIdocde() {
-		return userIdocde;
+		return userIdCode;
 	}
 	public void setUserIdocde(String userIdocde) {
-		this.userIdocde = userIdocde;
+		this.userIdCode = userIdocde;
 	}
 	public String getGoodsTopCategoryRegDate() {
 		return goodsTopCategoryRegDate;
