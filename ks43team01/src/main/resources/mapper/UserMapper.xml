@@ -131,7 +131,7 @@
 			,expert_update_date
 			)values(
 			"x수정x"
-			,#{userId}
+			,#{userIdCode}
 			,#{topCategory}
 			,#{subCategory}
 			,#{technology}

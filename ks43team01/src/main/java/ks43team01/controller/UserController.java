@@ -71,8 +71,9 @@ public class UserController {
 	}
 	
 	@PostMapping("/sellerBusiness")
-	public String addSellerBusiness(SellerBusiness sellerBusiness,Model model) {
-		model.
+	public String addSellerBusiness(SellerBusiness sellerBusiness,Model model, Object userIdCode) {
+		model.addAttribute("userIdCode", userIdCode);
+		log.info("가져온아이디값 :  {}",userIdCode);
 		userService.addSellerBusiness(sellerBusiness);
 		log.info("셀러비지니스분야입력   :{}",sellerBusiness);
 		return "/sellerCareer";
