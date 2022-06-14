@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ks43team01.dto.SellerBusiness;
 import ks43team01.dto.User;
+import ks43team01.dto.goodsSubCategory;
 import ks43team01.dto.goodsTopCategory;
 import ks43team01.mapper.UserMapper;
 
@@ -32,6 +34,11 @@ public class UserService {
 		
 		return Tcategory;
 	}
+	//비지니스 서브카테고리만들기
+	public List<goodsSubCategory> getSubCategory(String topCategory) {
+		List<goodsSubCategory> Scategory = userMapper.getSubCategory(topCategory);
+		return Scategory;
+	}
 	
 	//로그인을 위한 조회//
 	public User getUserInfoById(String userId) {
@@ -39,5 +46,12 @@ public class UserService {
 		User user = userMapper.getUserInfoById(userId);
 		
 		return user;
+	}
+	//판매자 기술분야, 스킬, 자기소개 입력//
+	public int addSellerBusiness(SellerBusiness sellerBusiness) {
+		
+		int result = userMapper.addSellerBusiness(sellerBusiness);
+		
+		return result;
 	}
 }	

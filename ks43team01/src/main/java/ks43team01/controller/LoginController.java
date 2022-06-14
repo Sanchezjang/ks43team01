@@ -30,6 +30,12 @@ public class LoginController {
 		session.invalidate();
 		return "index";
 	}
+	@GetMapping("/login")
+
+	public String login() {
+	
+		return "userpage/user/login";
+	}
 	@PostMapping("/login")
 	public String login(@RequestParam(name="userId",required = false)String userId
 						,@RequestParam(name="userPw",required = false)String userPw

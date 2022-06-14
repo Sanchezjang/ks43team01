@@ -11,10 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ks43team01.dto.SellerBusiness;
 import ks43team01.dto.User;
+import ks43team01.dto.goodsSubCategory;
 import ks43team01.dto.goodsTopCategory;
 import ks43team01.service.UserService;
 
@@ -36,7 +39,7 @@ public class UserController {
 	@GetMapping("/userjoin") //회원가입시겟맵핑 잡아주는거//
 	public String addUserInsert() {
 		
-		return "userpage/userjoin";
+		return "userpage/user/userjoin";
 	}
 	@PostMapping("/userjoin") //회원가입시겟맵핑 잡아주는거//
 	public String addUserInsert(User user,HttpSession session) {
@@ -48,8 +51,6 @@ public class UserController {
 		session.setAttribute("CheckPhone", user.getUserContact());
 		session.setAttribute("CheckEmail", user.getUserEmail());
 		session.setAttribute("CheckArea", user.getUserArea());
-		
-		
 		return "userpage/userjoinCheck";
 	}
 	
@@ -57,14 +58,25 @@ public class UserController {
 	public String userInsertCheck(Model model) {
 		
 		List<goodsTopCategory> topcategory = userService.getTopCategory();
-		model.addAttribute("topcategory",topcategory);
+		model.addAttribute("topcategory",topcategory);//탑카테고리 받아옴
 		log.info("탑카테고리들어온값   :{}",topcategory);
-		return "userpage/sellerjoin";
+		return "userpage/user/sellerjoin";
 	}
-	@PostMapping("/getCategory")
+	@PostMapping("/getCategory")//탑카테고리잡아서 서브 카테고리 출력
 	@ResponseBody
-	public String getCategory(@RequestParam(name="topCategory")String topCategory) {
-		log.info("탑카테고리받아온값제이즌  :{}", topCategory);
-		return "redirect:/userpage/sellerjoin";
+	public List<goodsSubCategory> getSubCategory(@RequestParam(name="topCategory")String topCategory) {
+		List<goodsSubCategory> scategory = userService.getSubCategory(topCategory);
+		log.info("서브카테고리받아온값제이즌  :{}", scategory);
+		return scategory;
 	}
+	
+	@PostMapping("/sellerBusiness")
+	public String addSellerBusiness(SellerBusiness sellerBusiness,Model model) {
+		model.
+		userService.addSellerBusiness(sellerBusiness);
+		log.info("셀러비지니스분야입력   :{}",sellerBusiness);
+		return "/sellerCareer";
+		
+	}
+	
 }
