@@ -1,7 +1,6 @@
 
     <!--? Preloader Start -->
-    
-     <div th:fragment="headerFragment">
+   <div th:fragment="headerFragment">
      <div id="preloader-active" >
         <div class="preloader d-flex align-items-center justify-content-center">
             <div class="preloader-inner position-relative">
@@ -30,15 +29,20 @@
                         <div class="col-xl-12">
                             <div class="row d-flex justify-content-between align-items-center">
                                 <div class="header-info-left">
-                                    <ul>     
+                                    <ul th:unless="${session.UID == null}" style="text-align: right;">     
                                         <li >[[${session.UID}]]님 로그인중입니다.</li>
-                                        
+                                        <li>언제나 환영합니다^^</li>
+                                    </ul>
+                                    <ul th:unless="${session.UID != null}" style="text-align: right;">     
+                                        <li >로그인을 해주세요~!</li>
                                         <li>언제나 환영합니다^^</li>
                                     </ul>
                                 </div>
                                 <div class="header-info-right">
-                                    <ul>
-                                        <li><a th:href="@{/login}"><i class="ti-user"></i>로그인</a></li>
+                                    <ul>    
+                                       	<li><a href="#"><i class="ti-user"></i>전문가 등록</a></li>
+                                       	<li th:unless="${session.UID == null}"><a th:href="@{/logout}"><i class="ti-user"></i>로그아웃</a></li>
+                                        <li th:unless="${session.UID != null}"><a th:href="@{/login}"><i class="ti-user"></i>로그인</a></li>
                                         <li><a th:href="@{/userjoin}"><i class="ti-lock"></i>회원가입</a></li>
                                     </ul>
                                 </div>
@@ -60,19 +64,28 @@
                             <!-- Main-menu -->
                             <div class="main-menu d-none d-lg-block">
                                 <nav>
-                                    <ul id="navigation">                                                                                          
-                                        <li><a href="index.html">상품검색</a></li>
-                                        <li><a href="about.html">이용방법</a></li>
-                                        <li><a href="courses.html">고객센터</a></li>
-                                        <li><a href="instructor.html">게시판</a></li>
-                                        <li><a href="blog.html">위치</a>
-                                    		<ul class="submenu">
-		                                        <li><a href="blog.html">상품검색</a></li>
-		                                        <li><a href="blog_details.html">이용방법</a></li>
-		                                        <li><a href="elements.html">고객센터</a></li>
-                                        	</ul>
+                                	<ul id="navigation">                                                                                          
+                                        <li><a href="#">전체카테고리</a>
+                                            <ul class="submenu">
+                                                <li><a href="#">디자인</a></li>
+                                                <li><a href="#">IT/프로그래밍</a></li>
+                                                <li><a href="#">영상/사진/음향</a></li>
+                                                <li><a href="#">마케팅</a></li>
+                                            </ul>
                                         </li>
-                                        <li><a href="contact.html">게시판</a></li>
+                                        <li><a href="#">커뮤니티</a>
+                                        <ul class="submenu">
+                                               <li><a href="#">자유게시판</a></li>
+                                                
+                                        </ul>
+                                        </li>
+                                        <li><a href="#">고객센터</a>
+                                         <ul class="submenu">
+                                                <li><a href="#">공지 사항</a></li>
+                                                <li><a href="#">자주하는 질문</a></li>
+                                                <li><a href="#">1:1 문의 게시판</a></li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </nav>
                             </div>
