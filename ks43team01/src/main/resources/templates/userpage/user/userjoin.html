@@ -1,17 +1,10 @@
 <!DOCTYPE html>
 <html class="no-js" lang="zxx" 
 xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-	 
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<head th:replace="fragments/head.html :: headFragment">
-</head>
-
-<header th:replace="fragments/header.html :: headerFragment"></header>
-<body>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">
 <!------ Include the above in your HEAD tag ---------->
+<div layout:fragment="content">
 <style>
 	.row{
 		justify-content: center;
@@ -42,9 +35,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
       box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
     }
   </style>
-</head>
 
-<body>
   <div class="container">
     <div class="input-form-backgroud row">
       <div class="input-form col-md-6 mx-auto">
@@ -161,9 +152,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 		}else{}
 	});
   </script>
-</body>
+</div>
 
-
-<footer th:replace="fragments/footer.html :: footerFragment"></footer>
 
 

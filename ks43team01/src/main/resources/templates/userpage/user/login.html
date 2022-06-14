@@ -1,17 +1,12 @@
 <!DOCTYPE html>
 <html class="no-js" lang="zxx" 
 xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">
 	 
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<head th:replace="fragments/head.html :: headFragment">
-</head>
 
-<header th:replace="fragments/header.html :: headerFragment"></header>
-<body>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
+ <div layout:fragment="content">
  <style>
  body {
       min-height: 100vh;
@@ -23,7 +18,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
       background: linear-gradient(to top right, #92b5db 0%, #1d466c 100%);
     }
   </style>
-<div layout:fragment="content">
 	<div class="container">
 	    <div class="row">
 	        <div class="row1 col-sm-6 col-md-4 col-md-offset-4">
@@ -49,6 +43,5 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	</div>
 </div>
 
-<footer th:replace="fragments/footer.html :: footerFragment"></footer>
 
 
