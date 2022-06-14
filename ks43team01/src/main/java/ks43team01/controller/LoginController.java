@@ -25,10 +25,10 @@ public class LoginController {
 	public  LoginController(UserService userService) {
 		this.userService = userService;
 	}
-	@GetMapping("/loguut")
+	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/index";
+		return "index";
 	}
 	@PostMapping("/login")
 	public String login(@RequestParam(name="userId",required = false)String userId
