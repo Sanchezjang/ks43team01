@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,9 +72,8 @@ public class UserController {
 	}
 	
 	@PostMapping("/sellerBusiness")
-	public String addSellerBusiness(SellerBusiness sellerBusiness,Model model, Object userIdCode) {
-		model.addAttribute("userIdCode", userIdCode);
-		log.info("가져온아이디값 :  {}",userIdCode);
+	public String addSellerBusiness(SellerBusiness sellerBusiness,Model model,HttpSession session) {
+		session.setAttribute("userId", sellerBusiness.getUserIdCode());
 		userService.addSellerBusiness(sellerBusiness);
 		log.info("셀러비지니스분야입력   :{}",sellerBusiness);
 		return "/sellerCareer";
