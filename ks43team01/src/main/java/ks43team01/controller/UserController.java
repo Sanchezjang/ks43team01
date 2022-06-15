@@ -58,22 +58,22 @@ public class UserController {
 	@GetMapping("/sellerjoin")//가입내역을 확인하고 판매자회원추가진행로
 	public String userInsertCheck(Model model) {
 		
-		List<goodsTopCategory> topcategory = userService.getTopCategory();
-		model.addAttribute("topcategory",topcategory);//탑카테고리 받아옴
-		log.info("탑카테고리들어온값   :{}",topcategory);
+		List<goodsTopCategory> expertBusinessField = userService.getTopCategory();
+		model.addAttribute("topcategory",expertBusinessField);//탑카테고리 받아옴
+		log.info("탑카테고리들어온값   :{}",expertBusinessField);
 		return "userpage/user/sellerjoin";
 	}
 	@PostMapping("/getCategory")//탑카테고리잡아서 서브 카테고리 출력
 	@ResponseBody
-	public List<goodsSubCategory> getSubCategory(@RequestParam(name="topCategory")String topCategory) {
-		List<goodsSubCategory> scategory = userService.getSubCategory(topCategory);
+	public List<goodsSubCategory> getSubCategory(@RequestParam(name="expertBusinessField")String expertBusinessField) {
+		List<goodsSubCategory> scategory = userService.getSubCategory(expertBusinessField);
 		log.info("서브카테고리받아온값제이즌  :{}", scategory);
 		return scategory;
 	}
 	
 	@PostMapping("/sellerBusiness")
 	public String addSellerBusiness(SellerBusiness sellerBusiness,Model model,HttpSession session) {
-		session.setAttribute("userId", sellerBusiness.getUserIdCode());
+		
 		userService.addSellerBusiness(sellerBusiness);
 		log.info("셀러비지니스분야입력   :{}",sellerBusiness);
 		return "/sellerCareer";
