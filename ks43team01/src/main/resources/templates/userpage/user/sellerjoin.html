@@ -76,11 +76,11 @@
 		    <div class="input-form-backgroud row">
 		      <div class="input-form col-md-6 mx-auto">
 		        <h4 class="mb-3">판매자추가가입</h4>
-		        <form class="validation-form" novalidate id="addUserForm" th:action="@{sellerBusiness}" method="post">
+		        <form class="validation-form" novalidate id="sellerBusiness" th:action="@{sellerBusiness}" method="post">
 		          <div class="row">
 		            <div class="col-md-6 mb-4">
 		               <label for="userId"></label>
-		               <input type="hidden" class="form-control" id="userId1" name="userId1" placeholder="" th:value="${session.CheckId}" required>
+		               <input type="hidden" class="form-control" id="userId" name="userId" placeholder="" th:value="${session.CheckId}" required>
 		             </div>
 		             
 		            </div>
