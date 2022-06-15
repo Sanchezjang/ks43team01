@@ -120,6 +120,7 @@
   	</select>	
   	
   	<insert id="addSellerBusiness" parameterType="ks43team01.dto.SellerBusiness">
+  		/*판매적 비지니스 입력*/  		
   		INSERT into tb_u_expert_business_filed
 		(	expert_business_code 
 			,user_id_code
@@ -130,12 +131,12 @@
 			,expert_reg_date
 			,expert_update_date
 			)values(
-			"x수정x"
-			,#{userIdCode}
-			,#{topCategory}
-			,#{subCategory}
-			,#{technology}
-			,#{introduction}
+			'x수정x'
+			,'x수정x'
+			,#{expertBusinessField}
+			,#{expertDetailedBusiness}
+			,#{expertRetentionTechnology}
+			,#{expertIntroduction}
 			,CURDATE()
 			,CURDATE()
 		);
