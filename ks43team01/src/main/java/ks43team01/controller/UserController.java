@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
+import javax.xml.ws.http.HTTPBinding;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ks43team01.dto.SellerBusiness;
+import ks43team01.dto.SellerCareer;
 import ks43team01.dto.User;
 import ks43team01.dto.goodsSubCategory;
 import ks43team01.dto.goodsTopCategory;
@@ -52,32 +54,42 @@ public class UserController {
 		session.setAttribute("CheckPhone", user.getUserContact());
 		session.setAttribute("CheckEmail", user.getUserEmail());
 		session.setAttribute("CheckArea", user.getUserArea());
-		return "userpage/userjoinCheck";
+		return "userpage/user/userjoinCheck";
 	}
 	
 	@GetMapping("/sellerjoin")//가입내역을 확인하고 판매자회원추가진행로
 	public String userInsertCheck(Model model) {
 		
-		List<goodsTopCategory> topcategory = userService.getTopCategory();
-		model.addAttribute("topcategory",topcategory);//탑카테고리 받아옴
-		log.info("탑카테고리들어온값   :{}",topcategory);
+		List<goodsTopCategory> expertBusinessField = userService.getTopCategory();
+		model.addAttribute("topcategory",expertBusinessField);//탑카테고리 받아옴
+		log.info("탑카테고리들어온값   :{}",expertBusinessField);
 		return "userpage/user/sellerjoin";
 	}
-	@PostMapping("/getCategory")//탑카테고리잡아서 서브 카테고리 출력
+	@GetMapping("/getCategory")//탑카테고리잡아서 서브 카테고리 출력
 	@ResponseBody
-	public List<goodsSubCategory> getSubCategory(@RequestParam(name="topCategory")String topCategory) {
-		List<goodsSubCategory> scategory = userService.getSubCategory(topCategory);
+	public List<goodsSubCategory> getSubCategory(@RequestParam(name="expertBusinessField")String expertBusinessField) {
+		List<goodsSubCategory> scategory = userService.getSubCategory(expertBusinessField);
 		log.info("서브카테고리받아온값제이즌  :{}", scategory);
 		return scategory;
 	}
 	
-	@PostMapping("/sellerBusiness")
-	public String addSellerBusiness(SellerBusiness sellerBusiness,Model model,HttpSession session) {
-		session.setAttribute("userId", sellerBusiness.getUserIdCode());
-		userService.addSellerBusiness(sellerBusiness);
+	@PostMapping("/sellerBusiness")////판매자 비지니스 내용 제출폼..//
+	public String addSellerBusiness(SellerBusiness sellerBusiness,
+									HttpSession session) {
+		String UID =  (String)session.getAttribute("UID");
+		sellerBusiness.setUserIdCode(UID);
+		log.info("세션아이디 받아오는지  :  {}",UID);
 		log.info("셀러비지니스분야입력   :{}",sellerBusiness);
-		return "/sellerCareer";
-		
+		userService.addSellerBusiness(sellerBusiness);
+		return "userpage/user/sellerCareer";
 	}
-	
+	@PostMapping("/sellerCareersend")
+	public String addSellerCareer(SellerCareer sellerCareer,HttpSession session) {
+		String UID =  (String)session.getAttribute("UID");
+		sellerCareer.setUserIdCode(UID);
+		log.info("세션아이디 받아오는지  :  {}",UID);
+		userService.addSellerCareer(sellerCareer);
+		log.info("SellerEducation분야입력   :{}",sellerCareer);
+		return "userpage/user/sellerCareer";
+	}
 }

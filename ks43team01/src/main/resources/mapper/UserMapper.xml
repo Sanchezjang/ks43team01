@@ -120,6 +120,7 @@
   	</select>	
   	
   	<insert id="addSellerBusiness" parameterType="ks43team01.dto.SellerBusiness">
+  		/*판매적 비지니스 입력*/  		
   		INSERT into tb_u_expert_business_filed
 		(	expert_business_code 
 			,user_id_code
@@ -130,14 +131,41 @@
 			,expert_reg_date
 			,expert_update_date
 			)values(
-			"x수정x"
+			'x수정x1'
 			,#{userIdCode}
-			,#{topCategory}
-			,#{subCategory}
-			,#{technology}
-			,#{introduction}
+			,#{expertBusinessField}
+			,#{expertDetailedBusiness}
+			,#{expertRetentionTechnology}
+			,#{expertIntroduction}
 			,CURDATE()
 			,CURDATE()
+		);
+	</insert>
+	
+	<insert id="addSellerCareer" parameterType="ks43team01.dto.SellerBusiness">
+  		/*판매적 비지니스 입력*/  		
+  		INSERT into tb_u_expert_career
+		(	expert_career_details_code 
+			,user_id_code
+			,expert_company_name
+			,expert_work_department
+			,expert_position 
+			,expert_work_place
+			,expert_work_date
+			,expert_etc
+			,expert_stay_use
+			,expert_career_proof_matters_attachments
+			)values(
+			'x수정x1'
+			,#{userIdCode}
+			,#{expertCompanyName}
+			,#{expertWorkDepartment}
+			,#{expertPosition}
+			,#{expertWorkPlace}
+			,#{expertWorkDate}
+			,#{expertEtc}
+			,#{expertStayUse}
+			,#{expertCareerProofMattersAttachments}
 		);
 	</insert>
 				

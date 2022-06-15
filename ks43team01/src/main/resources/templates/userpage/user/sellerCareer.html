@@ -1,0 +1,123 @@
+<!doctype html>
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org"
+ 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ 	layout:decorate="~{userpage/layout/userdefault}">
+ 	
+ 	<th:block layout:fragment="customScript">
+ 		<script>
+ 			
+ 		</script>
+	</th:block>
+	<!------ Include the above in your HEAD tag ---------->
+		<div layout:fragment="content">	
+			<style>
+			.row{
+				justify-content: center;
+			}
+		    body {
+		      font-size : 15px;
+		      min-height: 100vh;
+		
+		      background: -webkit-gradient(linear, left bottom, right top, from(#92b5db), to(#1d466c));
+		      background: -webkit-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
+		      background: -moz-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
+		      background: -o-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
+		      background: linear-gradient(to top right, #92b5db 0%, #1d466c 100%);
+		    }
+		
+		    .input-form {
+		      max-width: 680px;
+		
+		      margin-top: 80px;
+		      padding: 32px;
+		
+		      background: #fff;
+		      -webkit-border-radius: 10px;
+		      -moz-border-radius: 10px;
+		      border-radius: 10px;
+		      -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+		      -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+		      box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
+		    }
+		  </style>
+    <!-- Preloader Start -->
+
+		  <div class="container">
+		    <div class="input-form-backgroud row">
+		      <div class="input-form col-md-6 mx-auto">
+		        <h4 class="mb-3">판매자근무경력등록</h4>
+		        <form class="validation-form" novalidate id="addsellerForm" th:action="@{sellerCareersend}" method="post" enctype="multipart/form-data">
+		          <div class="row">
+		            <div class="col-md-6 mb-4">
+		               <label for="userIdCode"></label>
+		               <input type="hidden" class="form-control" id="userIdCode" name="userIdCode" th:value="${session.UID}" readonly>
+		             </div>
+		             
+		            </div>
+		            <div class="row">
+		            <div class="col-md-6 mb-3">
+		              <label for="expertCompanyName">회사명</label>
+		              <input type="text" id="expertCompanyName" class="form-control" name="expertCompanyName" placeholder="ex ) 재직하신 직장명을 적어주세요!"value=''>
+		            </div>
+		          </div>
+		           <div class="row">
+		            <div class="col-md-6 mb-3">
+		              <label for="expertWorkDepartment">근무부서</label>
+		              <input type="text" id="expertWorkDepartment" class="form-control" name="expertWorkDepartment" placeholder="ex ) 재직중 근무부서를 적어주세요!"value=''>
+		            </div>
+		          </div>
+		             <div class="row">
+		            <div class="col-md-6 mb-3">
+		              <label for="expertPosition">직위</label>
+		              <input type="text" id="expertPosition" class="form-control" name="expertPosition" placeholder="ex ) 근무당시 직위를 적어주세요!"value=''>
+		            </div>
+		          </div>
+		          <div class="row">
+		            <div class="col-md-6 mb-3">
+			            <label for="expertWorkPlace">근무지</label>
+			            <input type="text" class="form-control" id="expertWorkPlace" name="expertWorkPlace" placeholder="ex) 근무하신장소를 적어주세요!" required>
+		            </div>
+		          </div>
+		          <div class="row">
+		            <div class="col-md-6 mb-3">
+			            <label for="expertWorkDate">근무기간</label>
+			            <input type="text" class="form-control" id="expertWorkDate" name="expertWorkDate" placeholder="ex) 총근무기간을 적어주세요!" required>
+		            </div>
+		          </div>
+		          <div class="row">
+		            <div class="col-md-6 mb-3">
+			            <label for="expertEtc">기타기록사항</label>
+			            <input type="text" class="form-control" id="expertEtc" name="expertEtc" placeholder="ex) 그외 필요하신 사항을 적어주세요!" required>
+		            </div>
+		          </div>
+		          <div class="row">
+		            <div class="col-md-6 mb-3">
+			            <label for="expertStayUse">근무지상주가능여부</label>
+			            <input type="text" class="form-control" id="expertStayUse" name="expertStayUse" placeholder="ex) 근무시 상주가능여부를 적어주세요!" required>
+		            </div>
+		          </div>
+		          <div class="row">
+		            <div class="col-md-6 mb-3">
+			            <label for="expertCareerProofMattersAttachments">경력증명사항첨부서류</label>
+			             <div class="form-group fileUpload">
+						    <label for="exampleInputFile">파일업로드</label>
+						    <input type="file" id="exampleInputFile">
+						    <p class="help-block">반드시PDF파일로 변환하여 업로드해주세요!</p>
+						 </div>
+		            </div>
+		          </div>
+		          
+		          <div class="mb-4"></div>
+		          <button class="btn btn-primary btn-lg btn-block" type="submit" >다음단계이동</button>
+		        </form>
+		      </div>
+		    </div>
+		    <footer class="my-3 text-center text-small">
+		      <p class="mb-1">&copy; 2022 </p>
+		    </footer>
+		  </div>
+  		</div>
+ 
+
+
+
