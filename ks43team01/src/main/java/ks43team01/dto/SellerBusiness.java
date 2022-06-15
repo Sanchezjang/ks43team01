@@ -2,7 +2,7 @@ package ks43team01.dto;
 
 public class SellerBusiness {
 	private String expertBusinessCode;
-	private String useIdCode;
+	private String userIdCode;
 	private String expertBusinessField;
 	private String expertDetailedBusiness;
 	private String expertRetentionTechnology;
@@ -15,8 +15,8 @@ public class SellerBusiness {
 		StringBuilder builder = new StringBuilder();
 		builder.append("SellerBusiness [expertBusinessCode=");
 		builder.append(expertBusinessCode);
-		builder.append(", useIdCode=");
-		builder.append(useIdCode);
+		builder.append(", userIdCode=");
+		builder.append(userIdCode);
 		builder.append(", expertBusinessField=");
 		builder.append(expertBusinessField);
 		builder.append(", expertDetailedBusiness=");
@@ -41,12 +41,12 @@ public class SellerBusiness {
 		this.expertBusinessCode = expertBusinessCode;
 	}
 
-	public String getUseIdCode() {
-		return useIdCode;
+	public String getUserIdCode() {
+		return userIdCode;
 	}
 
-	public void setUseIdCode(String useIdCode) {
-		this.useIdCode = useIdCode;
+	public void setUserIdCode(String userIdCode) {
+		this.userIdCode = userIdCode;
 	}
 
 	public String getExpertBusinessField() {
