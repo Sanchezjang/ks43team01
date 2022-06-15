@@ -5,7 +5,7 @@ public class SellerBusiness {
 	private String useIdCode;
 	private String expertBusinessField;
 	private String expertDetailedBusiness;
-	private  expertRetentionTechnology;
+	private String expertRetentionTechnology;
 	private String expertIntroduction;
 	private String expertRegDate;
 	private String expertUpdateDate;
