@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ks43team01.dto.SellerBusiness;
 import ks43team01.dto.SellerCareer;
+import ks43team01.dto.SellerEducation;
 import ks43team01.dto.User;
 import ks43team01.dto.goodsSubCategory;
 import ks43team01.dto.goodsTopCategory;
@@ -31,6 +32,12 @@ public class UserService {
 		int result = userMapper.addUserInsert(user);
 		
 		return result;
+	}
+	////admin회원총리스트 가져오기//
+	public List<User> getAdminUserList(){
+		List<User> userList = userMapper.getAdminUserList();
+		log.info("회원리스트 잘들어왓는지 확인  :   {}", userList);
+		return userList;
 	}
 	
 	//비지니스 선택 탑카테고리 만들기
@@ -64,5 +71,13 @@ public class UserService {
 			
 			int result = userMapper.addSellerCareer(sellerCareer);
 			return result;
+	}
+	//판매자의 학력증명사항//
+		public int SellerEducation(SellerEducation sellerEducation) {
+		
+			int result = userMapper.addSellerEducation(sellerEducation);
+			
+			return result;
 		}
+		
 }	

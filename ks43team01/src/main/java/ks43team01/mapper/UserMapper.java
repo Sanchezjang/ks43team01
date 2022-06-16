@@ -12,6 +12,7 @@ import ks43team01.dto.User;
 import ks43team01.dto.goodsSubCategory;
 import ks43team01.dto.goodsTopCategory;
 import ks43team01.dto.SellerCareer;
+import ks43team01.dto.SellerEducation;
 
 
 
@@ -21,6 +22,9 @@ public interface UserMapper {
 
 	//회원가입//	
 	public int addUserInsert(User user);
+	
+	//admin회원총리스트 가져오기//
+	public List<User> getAdminUserList(); 
 
 	//판매자 비지니스 탑카테고리//
 	public List<goodsTopCategory> getTopCategory();
@@ -36,5 +40,8 @@ public interface UserMapper {
 	
 	//판매자의 근무경력사항을 증빙함//
 	public int addSellerCareer(SellerCareer sellerCareer);
+	
+	//판매자의 학력증명사항//
+	public int addSellerEducation(SellerEducation sellerEducation);
 		
 }

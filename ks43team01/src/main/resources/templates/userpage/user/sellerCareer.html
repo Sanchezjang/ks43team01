@@ -45,8 +45,8 @@
 		  <div class="container">
 		    <div class="input-form-backgroud row">
 		      <div class="input-form col-md-6 mx-auto">
-		        <h4 class="mb-3">판매자근무경력등록</h4>
-		        <form class="validation-form" novalidate id="addsellerForm" th:action="@{sellerCareersend}" method="post" enctype="multipart/form-data">
+		        <h4 class="mb-3" id="main">판매자근무경력등록</h4>
+		        <form class="validation-form" novalidate id="addsellerForm" th:action="@{sellerEducation}" method="post" >
 		          <div class="row">
 		            <div class="col-md-6 mb-4">
 		               <label for="userIdCode"></label>
@@ -101,8 +101,9 @@
 			            <label for="expertCareerProofMattersAttachments">경력증명사항첨부서류</label>
 			             <div class="form-group fileUpload">
 						    <label for="exampleInputFile">파일업로드</label>
-						    <input type="file" id="exampleInputFile">
+						    <input type="file" name="expertCareerProofMattersAttachments">
 						    <p class="help-block">반드시PDF파일로 변환하여 업로드해주세요!</p>
+						    <p class="help-block">건강보험득실확인서첨부 권장합니다^^</p>
 						 </div>
 		            </div>
 		          </div>
