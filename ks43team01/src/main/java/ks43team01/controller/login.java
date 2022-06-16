@@ -5,11 +5,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller  ////URL 맵핑테스트용임, -한진-
 public class login {
-
 	
-
-
-@GetMapping("1323")
+	@GetMapping("/default")
+	public String login() {
+	
+		return "adminpage/layout/default";
+	}
+		@GetMapping("1323")
 
 	public String test() {
 

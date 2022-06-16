@@ -45,6 +45,7 @@
 		  <div class="container">
 		    <div class="input-form-backgroud row">
 		      <div class="input-form col-md-6 mx-auto">
+<<<<<<< HEAD
 		        <h4 class="mb-3">판매자학력사항</h4>
 		        <form class="validation-form" novalidate id="addsellerForm" th:action="@{SellerEducation}" method="post">
 		          <div class="row">
@@ -109,6 +110,48 @@
 		          
 		          <div class="mb-4"></div>
 		          <button class="btn btn-primary btn-lg btn-block" type="submit" >다음단계이동</button>
+=======
+		        <h4 class="mb-3" id="main">판매자학력사항</h4>
+		        <form class="validation-form" novalidate id="addsellerForm" th:action="@{sellerComplete}" method="post">
+		          <div class="row">
+		            <div class="col-md-6 mb-4">
+		               <label for="userIdCode"></label>
+		               <input type="hidden" class="form-control" id="userIdCode" name="userIdCode" th:value="${session.UID}" readonly>
+		             </div>
+		             
+		            </div>
+		            <div class="row">
+		            <div class="col-md-6 mb-3">
+		              <label for="expertCompanyName">학교명</label>
+		              <input type="text" id="expertSchoolName" class="form-control" name="expertSchoolName" placeholder="ex ) 졸업,졸업예정학교를 적어주세요"value=''>
+		            </div>
+		          </div>
+		           <div class="row">
+		            <div class="col-md-6 mb-3">
+		              <label for="expertWorkDepartment">전공</label>
+		              <input type="text" id="expertMajor" class="form-control" name="expertMajor" placeholder="ex ) 전공을 적어주세요~!"value=''>
+		            </div>
+		          </div>
+		             <div class="row">
+		            <div class="col-md-6 mb-3">
+		              <label for="expertPosition">학력최종상황</label>
+		              <input type="text" id="expertFinalState" class="form-control" name="expertFinalState" placeholder="ex ) 졸업한 최종학력을 적어주세요"value=''>
+		            </div>
+		          </div>
+		       	 <div class="row">
+		           <div class="col-md-6 mb-3">
+			          <label for="expertAcademicDocument">학력증명사항첨부서류</label>
+			            <div class="form-group fileUpload">
+						    <label for="exampleInputFile">파일업로드</label>
+						    <input type="file" name="expertAcademicDocument">
+						    <p class="help-block">반드시PDF파일로 변환하여 업로드해주세요!</p>
+						    <p class="help-block">학력증명서업로드를 권장합니다^^</p>
+						 </div>
+		            </div>
+		          </div>
+		      	  <div class="mb-4"></div>
+		          <button class="btn btn-primary btn-lg btn-block" type="submit" >판매자가입완료!!</button>
+>>>>>>> refs/heads/develop
 		        </form>
 		      </div>
 		    </div>
