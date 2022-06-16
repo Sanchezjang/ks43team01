@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks43team01.mapper.ProfitAndLossMapper">
+	
+	<resultMap type="Spending" id="SpendingResultMap">
+		<id 	column="spending_group_code"	property="spendingGroupCode"/>
+		<result column="account_subject_code" 	property="accountSubjectCode"/>
+		<result column="spending_year" 			property="spendingYear"/>
+		<result column="spending_month" 		property="spendingMonth"/>
+		<result column="account_name" 			property="accountName"/>
+		<result column="spending_date" 			property="spendingDate"/>
+		<result column="spending_amount" 		property="spendingAmount"/>
+		<result column="spending_info" 			property="spendingInfo"/>
+		<result column="user_id_code" 			property="userIdCode"/>
+		<result column="spending_reg_date"		property="spendingRegDate"/>
+	</resultMap>
+	
+	<resultMap type="Sales" id="SalesResultMap">
+		<id 	column="sales_group_code"		property="salesGroupCode"/>
+		<result column="account_subject_code" 	property="accountSubjectCode"/>
+		<result column="sales_year" 			property="salesYear"/>
+		<result column="sales_month" 			property="salesMonth"/>
+		<result column="account_name" 			property="accountName"/>
+		<result column="sales_date" 			property="salesDate"/>
+		<result column="sales_amount" 			property="salesAmount"/>
+		<result column="sales_info" 			property="salesInfo"/>
+		<result column="user_id_code" 			property="userIdCode"/>
+		<result column="sales_reg_date"			property="salesRegDate"/>
+	</resultMap>
+
+	
+	<insert id="addSales" parameterType="Sales">
+		INSERT INTO tb_gr_group_monthly_spending
+		(
+			 account_name 	AS accountName
+			,sales_year 	AS salesYear
+			,sales_month 	AS salesMonth
+			,sales_date 	AS salesDate
+			,sales_amount 	AS salesAmount
+			,sales_info		AS salesInfo
+		) VALUES (
+			 #{accountName}
+			,#{salesYear}
+			,#{salesMonth}
+			,#{salesDate}
+			,#{salesAmount}
+			,#{salesInfo}
+		);
+	</insert>
+	
+	<insert id="addSpending" parameterType="Spending">
+		INSERT INTO tb_gr_group_monthly_spending
+		(
+			 account_name 		AS accountName
+			,spending_year 		AS spendingYear
+			,spending_month 	AS spendingMonth
+			,spending_date 		AS spendingDate
+			,spending_amount 	AS spendingAmount
+			,spending_info		AS spendingInfo
+		) VALUES (
+			 #{accountName}
+			,#{spendingYear}
+			,#{spendingMonth}
+			,#{spendingDate}
+			,#{spendingAmount}
+			,#{spendingInfo}
+		);
+	</insert>
+	
+	<select id="getSpendingList" resultType="Spending">
+		SELECT
+			spending_group_code AS spendingGroupCode,
+			account_name 		AS accountName,
+			spending_date 		AS spendingDate,
+			spending_amount 	AS spendingAmount,
+			spending_info 		AS spendingInfo,
+			user_id_code 		AS userIdCode,
+			spending_reg_date	AS spendingRegDate
+		FROM
+			tb_gr_group_monthly_spending;
+	</select>
+	
+	<select id="getSalesList" resultType="Sales">
+		SELECT
+			gr.sales_group_code AS salesGroupCode,
+			gr.account_name 	AS accountName,
+			gr.sales_date 		AS salesDate,
+			gr.sales_amount 	AS salesAmount,
+			gr.sales_info 		AS salesInfo,
+			gr.user_id_code 	AS userIdCode,
+			gr.sales_reg_date	AS salesRegDate
+		FROM
+			tb_gr_group_monthly_sales AS gr;
+	</select>
+
+</mapper> 
