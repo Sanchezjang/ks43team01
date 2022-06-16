@@ -86,7 +86,8 @@
 	margin-top : 30px;
 	justify-content: center;
 }
-
-#fileUpload{
-	border: 1px solid block;
+#main{
+	text-align: center;
+	font-weight: bold;
+	
 }

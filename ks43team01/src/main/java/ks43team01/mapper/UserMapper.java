@@ -21,6 +21,9 @@ public interface UserMapper {
 
 	//회원가입//	
 	public int addUserInsert(User user);
+	
+	//admin회원총리스트 가져오기//
+	public List<User> getAdminUserList(); 
 
 	//판매자 비지니스 탑카테고리//
 	public List<goodsTopCategory> getTopCategory();

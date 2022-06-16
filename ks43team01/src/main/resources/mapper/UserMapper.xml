@@ -74,6 +74,25 @@
 			,'3'
 		);
   	</insert>
+  	
+  	<select id="getAdminUserList" resultType="User">
+  		/*회원모두보여주기*/
+  		SELECT
+			user_id_code as userId
+			,user_pw as userPw
+			,user_name as userName
+			,user_contact as userContact
+			,user_email as userEmail
+			,user_withdraw_status as userStatus
+			,user_activity_area as userArea
+			,user_retention_Points as userPoint
+			,user_rating as userRating
+			,user_reg_date as userRreDate
+			,user_update_date as userUpDate
+			,level_num_code as userLevel
+		from
+			tb_u_all_user
+  	</select>
     
     <select id="getTopCategory" resultType="ks43team01.dto.goodsTopCategory">
 		

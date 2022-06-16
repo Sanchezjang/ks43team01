@@ -32,6 +32,12 @@ public class UserService {
 		
 		return result;
 	}
+	////admin회원총리스트 가져오기//
+	public List<User> getAdminUserList(){
+		List<User> userList = userMapper.getAdminUserList();
+		log.info("회원리스트 잘들어왓는지 확인  :   {}", userList);
+		return userList;
+	}
 	
 	//비지니스 선택 탑카테고리 만들기
 	public List<goodsTopCategory> getTopCategory() {
@@ -64,5 +70,6 @@ public class UserService {
 			
 			int result = userMapper.addSellerCareer(sellerCareer);
 			return result;
-		}
+	}
+		
 }	

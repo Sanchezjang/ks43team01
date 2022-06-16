@@ -51,6 +51,14 @@ public class UserController {
 		session.setAttribute("CheckArea", user.getUserArea());
 		return "userpage/user/userjoinCheck";
 	}
+	@GetMapping("/adminpage/user/userList")//admin회원총리스트 가져오기//
+	public String getAdminUserList(Model model) {
+		List<User> userList = userService.getAdminUserList();
+		log.info("회원리스트 잘들어왓는지 확인  :   {}", userList); 
+		model.addAttribute("userList", userList);
+		
+		return "/adminpage/user/userList";
+	}
 	
 	@GetMapping("/sellerjoin")//가입내역을 확인하고 판매자회원추가진행로
 	public String userInsertCheck(Model model) {
@@ -89,4 +97,5 @@ public class UserController {
 		log.info("SellerEducation분야입력   :{}",sellerCareer);
 		return "userpage/user/sellerEducation";
 	}
+	
 }
