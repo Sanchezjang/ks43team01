@@ -44,6 +44,9 @@
 	  			<result column="expert_update_date" property="expertUpdateDate"/>
 	  		</resultMap>		
 
+
+
+
 	  		
 	  		<resultMap type="ks43team01.dto.SellerEducation" id="SellerEducationResultMap">
   	  			<id column="expert_business_code" property="expertFinalEducationCode"/>
@@ -105,6 +108,10 @@
 			,#{expertCareerProofMattersAttachments}
 		);
 	</insert>
+  
+  
+  
+  
   	
   	<insert id="addUserInsert" parameterType="ks43team01.dto.User">
   		/* 구매자회원가입*/
@@ -222,6 +229,10 @@
 			,CURDATE()
 		);
 	</insert>
+	
+	
+	
+	
 	
 	
 

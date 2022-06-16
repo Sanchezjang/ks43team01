@@ -30,6 +30,9 @@ public class BoardController {
 	}
 	
 
+	
+	
+	
 
     
 	/*공지사항 게시글 등록*/

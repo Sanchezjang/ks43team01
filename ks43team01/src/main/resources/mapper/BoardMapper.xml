@@ -24,6 +24,9 @@
 
 
 
+
+
+
 	<select id="getFreeBoardList" resultMap="boardResultMap">
 	/*사용자용 자유게시판 조회*/
 		SELECT

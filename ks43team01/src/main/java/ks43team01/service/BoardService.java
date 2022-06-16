@@ -21,6 +21,10 @@ public class BoardService {
 		this.boardMapper = boardMapper;
 	}
 
+	
+	
+	
+	
 	/*일반 게시글 등록*/
 	public int addBoard(Board board) {
 		int result = boardMapper.addBoard(board);
