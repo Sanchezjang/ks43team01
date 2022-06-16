@@ -124,4 +124,9 @@ public class UserController {
 		log.info("SellerEducation분야입력   :{}",sellerCareer);
 		return "userpage/user/sellerCareer";
 	}
+	@GetMapping("/userinfomation")
+	public String getUserInfomation(){
+		
+		return "userpage/user/userinfomation";
+	}
 }
