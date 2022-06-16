@@ -50,7 +50,7 @@ $(document).ready(function(){
                     required: "no email, no message"
                 },
                 message: {
-                    required: "um...yea, you have to write something to send this form.",
+                    required: "본문 내용을 입력하세요.",
                     minlength: "thats all? really?"
                 }
             },

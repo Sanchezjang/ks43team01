@@ -7,16 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class login {
 	
 	@GetMapping("/default")
-	
 	public String login() {
 	
 		return "adminpage/layout/default";
 	}
-
-	
-
-
-@GetMapping("1323")
+		@GetMapping("1323")
 
 	public String test() {
 
