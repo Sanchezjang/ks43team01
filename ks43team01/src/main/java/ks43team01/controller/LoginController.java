@@ -1,7 +1,11 @@
 package ks43team01.controller;
 
-import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -39,8 +43,9 @@ public class LoginController {
 	@PostMapping("/login")
 	public String login(@RequestParam(name="userId",required = false)String userId
 						,@RequestParam(name="userPw",required = false)String userPw
-						,HttpSession session) {
+						,HttpSession session,HttpServletRequest request) {
 		
+		log.info("session에서 받아온값 :   {}",request.getRemoteAddr());
 		User user = userService.getUserInfoById(userId);
 		log.info("user에서 받아온값 :   {}",user);
 
@@ -48,6 +53,9 @@ public class LoginController {
 			String userPwCheck = user.getUserPw();
 			if(userPw != null && userPw.equals(userPwCheck)) {
 				session.setAttribute("UID"   , userId);
+				Date loginTime = new Date();
+				SimpleDateFormat format1 = new SimpleDateFormat("yyyy-mm-dd");
+				log.info("로그인시간찍기:   {}", format1.format(loginTime));
 				return "redirect:/";
 		}
 	}
