@@ -43,7 +43,68 @@
 	  			<result column="expert_reg_date" property="expertRegDate"/>
 	  			<result column="expert_update_date" property="expertUpdateDate"/>
 	  		</resultMap>		
-  	  	 
+	  		
+	  		<resultMap type="ks43team01.dto.SellerEducation" id="SellerEducationResultMap">
+  	  			<id column="expert_business_code" property="expertFinalEducationCode"/>
+  	  			<result column="expert_final_education_code" property="userIdCode"/>
+  	  			<result column="user_id_code" property="expertSchoolName"/>
+  	  			<result column="expert_school_name" property="expertMajor"/>
+  	  			<result column="expert_major" property="expertFinalState"/>
+  	  			<result column="expert_final_state" property="expertAcademicDocument"/>
+  	  			<result column="expert_academic_document" property="expertRegDate"/>
+  	  			<result column="expert_update_date" property="expertUpdateDate"/>
+  	  	 	</resultMap>
+  
+  	<insert id="addSellerEducation" parameterType="ks43team01.dto.SellerEducation">
+  		/*판매적 학력 입력*/  		
+  		INSERT into tb_u_expert_education
+		(	expert_final_education_code 
+			,user_id_code
+			,expert_school_name
+			,expert_major
+			,expert_final_state 
+			,expert_academic_document
+			,expert_reg_date
+			,expert_update_date
+			)values(
+			'자동코드생성'
+			,#{userIdCode}
+			,#{expertSchoolName}
+			,#{expertMajor}
+			,#{expertFinalState}
+			,#{expertAcademicDocument}
+			,CURDATE()
+			,CURDATE()
+		);
+	</insert>
+	
+	<insert id="addSellerCareer" parameterType="ks43team01.dto.SellerBusiness">
+  		/*판매적 근무사항 입력*/  		
+  		INSERT into tb_u_expert_career
+		(	expert_career_details_code 
+			,user_id_code
+			,expert_company_name
+			,expert_work_department
+			,expert_position 
+			,expert_work_place
+			,expert_work_date
+			,expert_etc
+			,expert_stay_use
+			,expert_career_proof_matters_attachments
+			)values(
+			'자동코드생성'
+			,#{userIdCode}
+			,#{expertCompanyName}
+			,#{expertWorkDepartment}
+			,#{expertPosition}
+			,#{expertWorkPlace}
+			,#{expertWorkDate}
+			,#{expertEtc}
+			,#{expertStayUse}
+			,#{expertCareerProofMattersAttachments}
+		);
+	</insert>
+  	
   	<insert id="addUserInsert" parameterType="ks43team01.dto.User">
   		/* 구매자회원가입*/
   		INSERT into tb_u_all_user
@@ -150,7 +211,7 @@
 			,expert_reg_date
 			,expert_update_date
 			)values(
-			'x수정x1'
+			'자동코드생성'
 			,#{userIdCode}
 			,#{expertBusinessField}
 			,#{expertDetailedBusiness}
@@ -161,32 +222,7 @@
 		);
 	</insert>
 	
-	<insert id="addSellerCareer" parameterType="ks43team01.dto.SellerBusiness">
-  		/*판매적 비지니스 입력*/  		
-  		INSERT into tb_u_expert_career
-		(	expert_career_details_code 
-			,user_id_code
-			,expert_company_name
-			,expert_work_department
-			,expert_position 
-			,expert_work_place
-			,expert_work_date
-			,expert_etc
-			,expert_stay_use
-			,expert_career_proof_matters_attachments
-			)values(
-			'x수정x1'
-			,#{userIdCode}
-			,#{expertCompanyName}
-			,#{expertWorkDepartment}
-			,#{expertPosition}
-			,#{expertWorkPlace}
-			,#{expertWorkDate}
-			,#{expertEtc}
-			,#{expertStayUse}
-			,#{expertCareerProofMattersAttachments}
-		);
-	</insert>
+	
 				
 	
 

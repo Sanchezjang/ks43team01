@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ks43team01.dto.SellerBusiness;
 import ks43team01.dto.SellerCareer;
+import ks43team01.dto.SellerEducation;
 import ks43team01.dto.User;
 import ks43team01.dto.goodsSubCategory;
 import ks43team01.dto.goodsTopCategory;
@@ -71,5 +72,12 @@ public class UserService {
 			int result = userMapper.addSellerCareer(sellerCareer);
 			return result;
 	}
+	//판매자의 학력증명사항//
+		public int SellerEducation(SellerEducation sellerEducation) {
+		
+			int result = userMapper.addSellerEducation(sellerEducation);
+			
+			return result;
+		}
 		
 }	
