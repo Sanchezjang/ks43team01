@@ -21,19 +21,6 @@ public class BoardService {
 		this.boardMapper = boardMapper;
 	}
 
-	/*사용자용 게시판 대분류 카테고리 조회*/
-	public List<BoardCategory> getBoardCategorySelect(){
-		List<BoardCategory> getBoardCategorySelect = boardMapper.getBoardCategorySelect();
-		return getBoardCategorySelect;
-	}
-	
-	
-	/*관리자용 게시판 대분류 카테고리 조회*/
-	public List<BoardCategory> getBoardCategoryList(){
-		List<BoardCategory> boardCategotyList = boardMapper.getBoardCategoryList();
-		return boardCategotyList;
-	}
-	
 	/*일반 게시글 등록*/
 	public int addBoard(Board board) {
 		int result = boardMapper.addBoard(board);
