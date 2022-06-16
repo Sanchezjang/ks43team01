@@ -222,6 +222,7 @@
                           <th>리뷰 등록 날짜</th>
                           <th>상품 이름</th>
                           <th>리뷰 내용</th>
+                          <th>리뷰 별점</th>
                           <th>리뷰 추천 횟수</th>
                           <th>리뷰 비추천 횟수</th>
                           <th>수정</th>
@@ -229,13 +230,14 @@
                         </tr>
                       </thead>
                        <tbody>
-                     <tr th:if="${not #lists.isEmpty(reviewList)}" th:each="r:${reivewList}">
+                     <tr th:if="${not #lists.isEmpty(reviewList)}" th:each="r:${reviewList}">
                      <td>
                         <input type="checkbox" id="check-all" >
                      </td>
                      	<td th:text="${r.reviewRegDate}"></td>
                         <td th:text="${r.goodsName}"></td>
-		                <td th:text="${r.reviewContents}"></td>
+		                <td th:text="${r.reviewContent}"></td>
+		                <td th:text="${r.reviewStarScore}"></td>
 		                <td th:text="${r.reviewRecommendationsCount}"></td>
               			<td th:text="${r.reviewDecommendationsCount}"></td>
               			<td></td>

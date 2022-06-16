@@ -47,14 +47,15 @@
 	</resultMap>
 	
 	
-	<select id="getReviewList" resultType="ReviewContentsReg">
+	<select id="getReviewList" resultType="Map">
 	
 	SELECT
-	    tr.review_reg_date                       			AS reviewRegDate
-	   ,gg.goods_name										AS goodsName 
-	   ,tr.review_content									AS reviewContents
-	   ,tr.review_recommendations_count						AS reviewRecommendationsCount
-	   ,tr.review_decommendations_count						AS reviewDecommendationsCount
+	    tr.review_reg_date                   	AS  reviewRegDate    			
+	   ,gg.goods_name							AS	goodsName		
+	   ,tr.review_content						AS  reviewContent
+	   ,rb.review_star_score					AS  reviewStarScore			
+	   ,tr.review_recommendations_count			AS	reviewRecommendationsCount		
+	   ,tr.review_decommendations_count			AS	reviewDecommendationsCount		
 	FROM 
 		tb_r_review_contents AS tr 
 		INNER join
