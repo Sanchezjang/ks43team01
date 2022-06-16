@@ -31,7 +31,7 @@ public class BoardController {
 		this.boardService = boardService;
 	}
 	
-	/* 사용자용 게시판 대분류 카테고리 가져오기 */
+	/* 사용자용 게시판 대분류 카테고리 가져오기 
 	@GetMapping("/addBoard")//가입내역을 확인하고 판매자회원추가진행로
 	public String getBoardCategorySelect(Model model) {
 		
@@ -40,7 +40,7 @@ public class BoardController {
 		log.info("게시판 대분류 카테고리   :{}",bigCategory);
 		
 		return "userpage/board/addBoard";
-	}
+	}*/
 	
 	/* 관리자용 게시판 대분류 카테고리 조회*/
 	@GetMapping("/boardCategoryList")
