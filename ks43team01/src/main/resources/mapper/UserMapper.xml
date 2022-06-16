@@ -43,7 +43,9 @@
 	  			<result column="expert_reg_date" property="expertRegDate"/>
 	  			<result column="expert_update_date" property="expertUpdateDate"/>
 	  		</resultMap>		
+<<<<<<< HEAD
 
+=======
 	  		
 	  		<resultMap type="ks43team01.dto.SellerEducation" id="SellerEducationResultMap">
   	  			<id column="expert_business_code" property="expertFinalEducationCode"/>
@@ -106,6 +108,7 @@
 		);
 	</insert>
   	
+  >>>>>>> refs/heads/develop
   	<insert id="addUserInsert" parameterType="ks43team01.dto.User">
   		/* 구매자회원가입*/
   		INSERT into tb_u_all_user
@@ -212,6 +215,7 @@
 			,expert_reg_date
 			,expert_update_date
 			)values(
+<<<<<<< HEAD
 			'x수정x1'
 			,#{userIdCode}
 			,#{expertBusinessField}
@@ -223,6 +227,47 @@
 		);
 	</insert>
 	
+	<insert id="addSellerCareer" parameterType="ks43team01.dto.SellerBusiness">
+  		/*판매적 비지니스 입력*/  		
+  		INSERT into tb_u_expert_career
+		(	expert_career_details_code 
+			,user_id_code
+			,expert_company_name
+			,expert_work_department
+			,expert_position 
+			,expert_work_place
+			,expert_work_date
+			,expert_etc
+			,expert_stay_use
+			,expert_career_proof_matters_attachments
+			)values(
+			'x수정x1'
+			,#{userIdCode}
+			,#{expertCompanyName}
+			,#{expertWorkDepartment}
+			,#{expertPosition}
+			,#{expertWorkPlace}
+			,#{expertWorkDate}
+			,#{expertEtc}
+			,#{expertStayUse}
+			,#{expertCareerProofMattersAttachments}
+		);
+	</insert>
+=======
+			'자동코드생성'
+			,#{userIdCode}
+			,#{expertBusinessField}
+			,#{expertDetailedBusiness}
+			,#{expertRetentionTechnology}
+			,#{expertIntroduction}
+			,CURDATE()
+			,CURDATE()
+		);
+	</insert>
+
+
+>>>>>>> refs/heads/develop
 	
+
 
   </mapper>
