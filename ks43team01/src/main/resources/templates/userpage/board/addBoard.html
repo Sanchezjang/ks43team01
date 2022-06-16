@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	 
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<head th:replace="/userpage/fragments/head.html :: headFragment">
+</head>
+<header th:replace="/userpage/fragments/header.html :: headerFragment"></header>
+<body>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<style>
+
+.row{
+		width: 1200px;
+	margin:0 auto;	
+
+}
+
+.addBoardForm {
+	width: 1200px;
+	margin:0 auto;	
+	margin-bottom: 100px;
+	margin-top:100px;
+}
+
+
+
+.single-element-widget{
+	margin-bottom: 30px;
+}
+
+.clickBtn{
+	width: 1200px;
+	text-align:center;
+}
+
+</style>
+
+ <div class="slider-area">
+            <div class="slider-height2 d-flex align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="hero-cap hero-cap2 text-center">
+                                <h2>Board</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Hero End -->
+        <!-- About Details Start -->
+
+	 
+<div class="addBoardForm">
+		<div class="single-element-widget mt-30">
+								<div class="default-select" id="default-select">
+									<select id="bigCategory" name="bigCategory">
+										<option th:value="카테고리" selected="selected">- 게시판 카테고리 -</option>
+										<th:block th:if="${not #lists.isEmpty(addBoard)}" th:each="l : ${addBoard}"></th:block>
+										<option th:value="{l.board_category_code}">[[${l.board_category_name]]</option>
+								
+									</select>
+								</div>
+								
+								
+			</div>
+			
+	<div class="row">
+			<div class="col-lg-8">
+				<form class="form-contact contact_form" th:action="@{userpage/board/addBoard}" method="post" id="contactForm" novalidate="novalidate">
+					<div class="row">
+						<div class="col-12">
+							<div class="form-group">
+								<h4>제목</h4>
+								<input class="form-control" name="boardPostTitle" id="boardPostTitle" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '입력하세요.'" placeholder="제목을 입력하세요."  required>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+							<h4>이름</h4>
+								<input class="form-control valid" name="boardUserName" id="boardUserName" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '입력하세요.'" placeholder="이름을 입력하세요."  required>
+							</div>
+						</div>
+					
+						<div class="col-12">
+							<div class="form-group">
+							<h4>본문</h4>
+								<textarea class="form-control w-100" name="boardPostContent" id="boardPostContent" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = '본문을 입력하세요.'" placeholder="본문을 입력하세요."  required></textarea>
+							</div>
+						</div>
+					
+					</div>
+						<div class="clickBtn mt-3" >
+							<button type="submit" class="button button-contactForm boxed-btn">저장</button>
+							<button type="submit" class="button2 button-contactForm boxed-btn">취소</button>
+						</div>
+				</form>
+		</div>
+	</div>
+</div>
+
+
+
+</body>
+
+
+
+<footer th:replace="/userpage/fragments/footer.html :: footerFragment"></footer>	
+	
+</html>

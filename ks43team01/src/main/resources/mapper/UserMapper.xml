@@ -17,15 +17,33 @@
 	  		<result column="user_reg_date" property="userRreDate"/>
 	  		<result column="user_update_date" property="userUpDate"/>
 	  		<result column="level_num_code" property="userLevel"/>
-	  		<association property="topcategory" javaType="ks43team01.dto.goodsTopCategory">
+  		</resultMap>
+	  		<resultMap type="ks43team01.dto.goodsTopCategory" id="goodsTopCategoryResultMap">
 	  			<id column="goods_top_category_name" property="goodsTopCategoryName"/>
 	  			<result column="goods_top_category_code" property="goodsTopCategoryCode"/>
-	  			<result column="user_id_code " property="userIdocde"/>
+	  			<result column="user_id_code " property="userIdCode"/>
 	  			<result column="goods_top_category_reg_date" property="goodsTopCategoryRegDate"/>
-	  		</association>	
-  		</resultMap>
-  
-  
+	  		</resultMap>
+	  		
+	  		<resultMap type="ks43team01.dto.goodsSubCategory" id="goodsSubCategoryResultMap">
+	  			<id column="goods_sub_category_code" property="goodsSubCategoryCode"/>
+	  			<result column="goods_sub_category_name" property="goodsSubCategoryName"/>
+	  			<result column="goods_sub_category_reg_date " property="goodsSubCategoryRegDate"/>
+	  			<result column="goods_top_category_code" property="goodsTopCategoryCode"/>
+	  			<result column="goods_top_category_name" property="goodsTopCategoryName"/>
+	  		</resultMap>
+	  		
+	  		<resultMap type="ks43team01.dto.SellerBusiness" id="SellerBusinessResultMap">
+	  			<id column="expert_business_code" property="expertBusinessCode"/>
+	  			<result column="user_id_code" property="userIdCode"/>
+	  			<result column="expert_business_field " property="expertBusinessField"/>
+	  			<result column="expert_detailed_business" property="expertDetailedBusiness"/>
+	  			<result column="expert_retention_technology" property="expertRetentionTechnology"/>
+	  			<result column="expert_introduction" property="expertIntroduction"/>
+	  			<result column="expert_reg_date" property="expertRegDate"/>
+	  			<result column="expert_update_date" property="expertUpdateDate"/>
+	  		</resultMap>		
+  	  	 
   	<insert id="addUserInsert" parameterType="ks43team01.dto.User">
   		/* 구매자회원가입*/
   		INSERT into tb_u_all_user
@@ -59,7 +77,7 @@
     
     <select id="getTopCategory" resultType="ks43team01.dto.goodsTopCategory">
 		
-		/*판매가 비지니스 탑카테고리*/
+			/*판매가 비지니스 탑카테고리*/
 		SELECT 
 			g.goods_top_category_name as goodsTopCategoryName
 			,g.goods_top_category_code as goodsTopCategoryCode
@@ -69,6 +87,87 @@
 			tb_g_goods_top_category as g
     
     </select>
+    
+    <select id="getSubCategory" parameterType="String" resultMap="goodsSubCategoryResultMap">
+    	select 
+			g.goods_sub_category_code 
+			,g.goods_sub_category_name 
+			,g.goods_sub_category_reg_date 
+			,g.goods_top_category_code 
+			,g.goods_top_category_name 
+		from 
+			tb_g_goods_sub_category as g
+		where
+			g.goods_top_category_code = #{topCategory};
+    </select>
+    
+    <select id="getUserInfoById" parameterType="String" resultMap="userResultMap">
+	  		/*로그인을 위한 정보조회*/
+	  	SELECT 
+			u.user_id_code
+			,u.user_pw 
+			,u.user_name 
+			,u.user_contact 
+			,u.user_email 
+			,u.user_activity_area 
+			,u.user_retention_Points 
+			,u.user_rating 
+			,u.level_num_code 
+		FROM 
+			tb_u_all_user as u
+		WHERE 
+			u.user_id_code = #{userId};
+  	</select>	
+  	
+  	<insert id="addSellerBusiness" parameterType="ks43team01.dto.SellerBusiness">
+  		/*판매적 비지니스 입력*/  		
+  		INSERT into tb_u_expert_business_filed
+		(	expert_business_code 
+			,user_id_code
+			,expert_business_field
+			,expert_detailed_business
+			,expert_retention_technology 
+			,expert_introduction
+			,expert_reg_date
+			,expert_update_date
+			)values(
+			'x수정x1'
+			,#{userIdCode}
+			,#{expertBusinessField}
+			,#{expertDetailedBusiness}
+			,#{expertRetentionTechnology}
+			,#{expertIntroduction}
+			,CURDATE()
+			,CURDATE()
+		);
+	</insert>
+	
+	<insert id="addSellerCareer" parameterType="ks43team01.dto.SellerBusiness">
+  		/*판매적 비지니스 입력*/  		
+  		INSERT into tb_u_expert_career
+		(	expert_career_details_code 
+			,user_id_code
+			,expert_company_name
+			,expert_work_department
+			,expert_position 
+			,expert_work_place
+			,expert_work_date
+			,expert_etc
+			,expert_stay_use
+			,expert_career_proof_matters_attachments
+			)values(
+			'x수정x1'
+			,#{userIdCode}
+			,#{expertCompanyName}
+			,#{expertWorkDepartment}
+			,#{expertPosition}
+			,#{expertWorkPlace}
+			,#{expertWorkDate}
+			,#{expertEtc}
+			,#{expertStayUse}
+			,#{expertCareerProofMattersAttachments}
+		);
+	</insert>
 				
 	
 
