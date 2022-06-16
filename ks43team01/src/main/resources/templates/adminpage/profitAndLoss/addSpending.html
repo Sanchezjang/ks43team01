@@ -176,20 +176,14 @@
 			<!-- /top navigation -->
 
 			<!-- page content -->
-					<div class="right_col" role="main">
-						<div class="col-md-6 ">
+				<div class="right_col" role="main">
+					<h3>손익</h3>
+						<div class="col-md-9 ">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Form Basic Elements <small>different form elements</small></h2>
+									<h2>지출 내역 등록</h2>
 									<ul class="nav navbar-right panel_toolbox">
 										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-										</li>
-										<li class="dropdown">
-											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-												<a class="dropdown-item" href="#">Settings 1</a>
-												<a class="dropdown-item" href="#">Settings 2</a>
-											</div>
 										</li>
 										<li><a class="close-link"><i class="fa fa-close"></i></a>
 										</li>
@@ -200,33 +194,34 @@
 									<br />
 									<form class="form-horizontal form-label-left">
 										<div class="form-group row">
-											<label class="control-label col-md-3 col-sm-3 ">계정과목</label>
+											<label class="control-label col-md-3 col-sm-3 ">계정과목<span class="required">*</span></label>
 											<div class="col-md-9 col-sm-9 ">
-												<select class="form-control">
-													<option> :: 계정과목 선택::</option>
-													<option>복리후생비</option>
-													<option>여비교통비</option>
-													<option>접대비</option>
-													<option>통신비</option>
-													<option>수도광열비</option>
-													<option>세금과공과</option>
-													<option>지급임차료</option>
-													<option>보험료</option>
-													<option>차량유지비</option>
-													<option>운반비</option>
-													<option>도서인쇄비</option>
-													<option>지급수수료</option>
-													<option>광고선전비 비용</option>
-													<option>판매촉진비</option>
+												<select required="required" class="form-control">
+													<option value="" disabled selected> :: 계정과목 선택:: </option>
+													<option value="80100">급여</option>
+													<option value="81100">복리후생비</option>
+													<option value="81200">여비교통비</option>
+													<option value="81300">접대비</option>
+													<option value="81400">통신비</option>
+													<option value="81500">수도광열비</option>
+													<option value="81700">세금과공과</option>
+													<option value="81900">지급임차료</option>
+													<option value="82100">보험료</option>
+													<option value="82200">차량유지비</option>
+													<option value="82400">운반비</option>
+													<option value="82600">도서인쇄비</option>
+													<option value="83100">지급수수료</option>
+													<option value="83300">광고선전비 비용</option>
+													<option value="83900">판매촉진비</option>
 												</select>
 											</div>
 										</div>
 										
 										<div class="form-group row">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">Date Of Birth <span class="required">*</span>
+											<label class="control-label col-md-3 col-sm-3">지출 날짜<span class="required">*</span>
 											</label>
 											<div class="col-md-9 col-sm-9">
-												<input id="birthday" class="date-picker form-control" placeholder="dd-mm-yyyy" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+												<input id="spendingDate" class="date-picker form-control" placeholder="연도-월-일" type="text" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
 												<script>
 													function timeFunctionLong(input) {
 														setTimeout(function() {
@@ -236,223 +231,27 @@
 												</script>
 											</div>
 										</div>
-
+										
 										<div class="form-group row">
-											<label class="control-label col-md-3 col-sm-3 ">Default Input</label>
-											<div class="col-md-9 col-sm-9 ">
-												<input type="text" class="form-control" placeholder="Default Input">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="control-label col-md-3 col-sm-3 ">Disabled Input </label>
-											<div class="col-md-9 col-sm-9 ">
-												<input type="text" class="form-control" disabled="disabled" placeholder="Disabled Input">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="control-label col-md-3 col-sm-3 ">Read-Only Input</label>
-											<div class="col-md-9 col-sm-9 ">
-												<input type="text" class="form-control" readonly="readonly" placeholder="Read-Only Input">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="control-label col-md-3 col-sm-3 ">Date Of Birth <span class="required">*</span>
+											<label class="control-label col-md-3 col-sm-3 ">지출 금액<span class="required">*</span>
 											</label>
 											<div class="col-md-9 col-sm-9 ">
-												<textarea class="form-control" rows="3" placeholder="Date Of Birth"></textarea>
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="control-label col-md-3 col-sm-3 ">Password</label>
-											<div class="col-md-9 col-sm-9 ">
-												<input type="password" class="form-control" value="passwordonetwo">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="control-label col-md-3 col-sm-3 ">AutoComplete</label>
-											<div class="col-md-9 col-sm-9 ">
-												<input type="text" name="country" id="autocomplete-custom-append" class="form-control col-md-10" />
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="control-label col-md-3 col-sm-3 ">Select</label>
-											<div class="col-md-9 col-sm-9 ">
-												<select class="form-control">
-													<option>Choose option</option>
-													<option>Option one</option>
-													<option>Option two</option>
-												</select>
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="control-label col-md-3 col-sm-3 ">Select Custom</label>
-											<div class="col-md-9 col-sm-9 ">
-												<select class="select2_single form-control" tabindex="-1">
-													<option></option>
-													<option value="AK">Alaska</option>
-													<option value="HI">Hawaii</option>
-													<option value="CA">California</option>
-
-												</select>
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="control-label col-md-3 col-sm-3 ">Select Grouped</label>
-											<div class="col-md-9 col-sm-9 ">
-												<select class="select2_group form-control">
-													<optgroup label="Alaskan/Hawaiian Time Zone">
-														<option value="AK">Alaska</option>
-														<option value="HI">Hawaii</option>
-													</optgroup>
-													<optgroup label="Pacific Time Zone">
-														<option value="CA">California</option>
-														<option value="NV">Nevada</option>
-														<option value="OR">Oregon</option>
-														<option value="WA">Washington</option>
-													</optgroup>
-													<optgroup label="Mountain Time Zone">
-														<option value="AZ">Arizona</option>
-														<option value="CO">Colorado</option>
-														<option value="ID">Idaho</option>
-													</optgroup>
-													<optgroup label="Central Time Zone">
-														<option value="AL">Alabama</option>
-														<option value="AR">Arkansas</option>
-													</optgroup>
-												</select>
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="control-label col-md-3 col-sm-3 ">Select Multiple</label>
-											<div class="col-md-9 col-sm-9 ">
-												<select class="select2_multiple form-control" multiple="multiple">
-													<option>Choose option</option>
-													<option>Option one</option>
-													<option>Option two</option>
-													<option>Option three</option>
-													<option>Option four</option>
-												</select>
+												<input type="text" name="spendingAmount" id="spendingAmount" required="required" class="form-control col-md-10" /><span style="font-size: 20px; line-height: 40px;"> 원</span>
 											</div>
 										</div>
 
-										<div class="control-group row">
-											<label class="control-label col-md-3 col-sm-3 ">Input Tags</label>
-											<div class="col-md-9 col-sm-9 ">
-												<input id="tags_1" type="text" class="tags form-control" value="social, adverts, sales" />
-												<div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
-											</div>
-										</div>
 										<div class="form-group row">
-											<label class="col-md-3 col-sm-3  control-label">Checkboxes and radios
-												<br>
-												<small class="text-navy">Normal Bootstrap elements</small>
+											<label class="control-label col-md-3 col-sm-3 ">지출 내역<span class="required">*</span>
 											</label>
-
 											<div class="col-md-9 col-sm-9 ">
-												<div class="checkbox">
-													<label>
-														<input type="checkbox" value=""> Option one. select more than one options
-													</label>
-												</div>
-												<div class="checkbox">
-													<label>
-														<input type="checkbox" value=""> Option two. select more than one options
-													</label>
-												</div>
-												<div class="radio">
-													<label>
-														<input type="radio" checked="" value="option1" id="optionsRadios1" name="optionsRadios"> Option one. only select one option
-													</label>
-												</div>
-												<div class="radio">
-													<label>
-														<input type="radio" value="option2" id="optionsRadios2" name="optionsRadios"> Option two. only select one option
-													</label>
-												</div>
-											</div>
-										</div>
-
-										<div class="form-group row">
-											<label class="col-md-3 col-sm-3  control-label">Checkboxes and radios
-												<br>
-												<small class="text-navy">Normal Bootstrap elements</small>
-											</label>
-
-											<div class="col-md-9 col-sm-9 ">
-												<div class="checkbox">
-													<label>
-														<input type="checkbox" class="flat" checked="checked"> Checked
-													</label>
-												</div>
-												<div class="checkbox">
-													<label>
-														<input type="checkbox" class="flat"> Unchecked
-													</label>
-												</div>
-												<div class="checkbox">
-													<label>
-														<input type="checkbox" class="flat" disabled="disabled"> Disabled
-													</label>
-												</div>
-												<div class="checkbox">
-													<label>
-														<input type="checkbox" class="flat" disabled="disabled" checked="checked"> Disabled & checked
-													</label>
-												</div>
-												<div class="radio">
-													<label>
-														<input type="radio" class="flat" checked name="iCheck"> Checked
-													</label>
-												</div>
-												<div class="radio">
-													<label>
-														<input type="radio" class="flat" name="iCheck"> Unchecked
-													</label>
-												</div>
-												<div class="radio">
-													<label>
-														<input type="radio" class="flat" name="iCheck" disabled="disabled"> Disabled
-													</label>
-												</div>
-												<div class="radio">
-													<label>
-														<input type="radio" class="flat" name="iCheck3" disabled="disabled" checked> Disabled & Checked
-													</label>
-												</div>
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="control-label col-md-3 col-sm-3 ">Switch</label>
-											<div class="col-md-9 col-sm-9 ">
-												<div class="">
-													<label>
-														<input type="checkbox" class="js-switch" checked /> Checked
-													</label>
-												</div>
-												<div class="">
-													<label>
-														<input type="checkbox" class="js-switch" /> Unchecked
-													</label>
-												</div>
-												<div class="">
-													<label>
-														<input type="checkbox" class="js-switch" disabled="disabled" /> Disabled
-													</label>
-												</div>
-												<div class="">
-													<label>
-														<input type="checkbox" class="js-switch" disabled="disabled" checked="checked" /> Disabled Checked
-													</label>
-												</div>
+												<textarea class="form-control" required="required" rows="3"></textarea>
 											</div>
 										</div>
 
 										<div class="ln_solid"></div>
 										<div class="form-group">
-											<div class="col-md-9 col-sm-9  offset-md-3">
-												<button type="button" class="btn btn-primary">Cancel</button>
-												<button type="reset" class="btn btn-primary">Reset</button>
-												<button type="submit" class="btn btn-success">Submit</button>
+											<div class="col-md-12">
+												<button style="float: right;" type="submit" class="btn btn-success">등록</button>
 											</div>
 										</div>
 
@@ -462,6 +261,8 @@
 						</div>
 			<!-- /page content -->
 
+		</div>
+	</div>
 			<!-- footer content -->
 			<footer>
 				<div class="pull-right">
@@ -470,8 +271,6 @@
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->
-		</div>
-	</div>
 
 	<!-- jQuery -->
 	<script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>
