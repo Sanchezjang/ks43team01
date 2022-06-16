@@ -17,59 +17,13 @@
  			<result column="board_post_use"  property="boardPostUse"/>
   </resultMap>
 
-	<resultMap type="BoardCategory" id="boardCategoryResultMap">
- 			<id 	column="board_category_code" 	 property="boardCategoryCode"/>
- 			<result column="user_id_code" 	 property="userIdCode"/>
- 			<result column="board_category_name" 	 property="boardCategoryName"/>
- 			<result column="board_category_reg_date" property="boardCategoryRegDate"/>
- 			<result column="board_category_use"  property="boardCategoryUse"/>
-  	</resultMap>
 
-  <select id="getBoardCategorySelect" resultMap="boardCategoryResultMap">
-		/* 관리자용 게시판 대분류 카테고리 조회 */
- 		SELECT 
-			board_category_code
-			,board_category_name
-		FROM
-			tb_b_board_category;
-	</select>
+  
 
 
- 	<select id="getBoardCategoryList" resultMap="boardCategoryResultMap">
-		/* 관리자용 게시판 대분류 카테고리 조회 */
-	 		SELECT 
-				board_category_code 
-				,user_id_code
-				,board_category_name
-				,board_category_reg_date
-				,board_category_use
-			FROM
-				tb_b_board_category;
-	</select>
 
-	<insert id="addBoard" parameterType="Board" >
-	       INSERT INTO tb_b_board_post
-	      (   board_post_code
-	         , user_id_code
-	         , board_category_code
-	         , board_user_name
-	         , board_post_title
-	         , board_post_content
-	         , board_post_reg_date
-	         , board_post_update_date
-	         , board_post_use
-	      )VALUES (
-	         '자동 생성', 
-	         #{userIdCode}, 
-	         '카테고리 선택', 
-	         #{boardUserName}, 
-	         #{boardPostTitle},
-	         #{boardPostContent}, 
-	         CURDATE(), 
-	         CURDATE(), 
-	      );
-	    </insert>
-	
+
+
 	<select id="getFreeBoardList" resultMap="boardResultMap">
 	/*사용자용 자유게시판 조회*/
 		SELECT

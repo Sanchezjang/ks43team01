@@ -11,12 +11,6 @@ import ks43team01.dto.BoardCategory;
 @Mapper
 public interface BoardMapper {
 
-	// 사용자용 게시판 대분류 카테고리 조회
-	public List<BoardCategory> getBoardCategorySelect();
-
-	// 관리자용 게시판 대분류 카테고리 조회
-	public List<BoardCategory> getBoardCategoryList();
-
 	// 일반 게시글 등록
 	public int addBoard(Board board);
 	
