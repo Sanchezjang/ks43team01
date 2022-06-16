@@ -24,9 +24,7 @@ public class PointService {
 	
 	private static final Logger log = LoggerFactory.getLogger(PointService.class);
 
-	/*
-	 * 포인트 기준 내용 코드 
-	 * */
+	/* 포인트 기준 내용 코드 */
 	public PointStandardDetails getPointStandardDetails() {
 	
 	PointStandardDetails pointStandardDetails = pointMapper.getPointStandardDetails();
@@ -34,10 +32,7 @@ public class PointService {
 	return pointStandardDetails;
 	}
 	
-	/*
-	 * 포인트 기준 코드
-	 * 
-	 * */
+	/* 포인트 기준 코드  */
 	public PointStandard getPointStandard() {
 		
 		PointStandard pointStandard = pointMapper.getPointStandard();
@@ -45,10 +40,7 @@ public class PointService {
 		return pointStandard;
 	}
 	
-	/*
-	 *	포인트 내역 조회 
-	 * 
-	 * */
+	/*	포인트 내역 조회  */
 	 public List<Point> getPointList() {
 		 log.info("test");
 		 List<Point> pointList = pointMapper.getPointList();

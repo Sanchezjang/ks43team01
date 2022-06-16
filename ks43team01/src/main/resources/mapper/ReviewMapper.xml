@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks43team01.mapper.ReviewMapper">
+	<resultMap type="ReviewContentsReg" id="ReviewContentsRegResultMap">
+		    <id 	column="review_code"	 				property="reviewCode"/>
+			<result column="goods_basic_info_code" 			property="goodsBasicInfoCode"/>
+			<result column="user_id_code" 					property="userIdCode"/>
+			<result column="review_score_standard_code" 	property="reviewScoreStandardCode"/>
+			<result column="review_content"				    property="reviewContent"/>
+			<result column="review_recommendations_count" 	property="reviewRecommendationsCount"/>
+			<result column="review_decommendations_count" 	property="reviewDecommendationsCount"/>
+			<result column="review_reg_date" 				property="reviewRegDate"/>
+			<result column="review_reg_buyer_exp" 			property="reviewRegBuyerExp"/>
+			<result column="review_reg_ip" 					property="reviewRegIp"/>
+			
+		<association property="goodsBasicInfo" javaType="GoodsBasicInfo">
+			<id 	column="goods_basic_info_code"	 		property="goodsBasicInfoCode"/>
+			<result column="goods_sub_category_code" 		property="goodsSubCategoryCode"/>
+			<result column="goods_description" 				property="goodsDescription"/>
+			<result column="goods_name" 					property="goodsName"/>
+			<result column="user_id_code" 					property="userIdCode"/>
+			<result column="goods_basic_info_reg_date" 		property="goodsBasicInfoRegDate"/>
+		</association>
+		
+		<association property="reviewByScore" javaType="ReviewByScore">
+			<id 	column="review_score_standard_code"	 	property="reviewScoreStandardCode"/>
+			<result column="review_star_score" 				property="reviewStarScore"/>
+			<result column="review_score_standard_details" 	property="reviewScoreStandardDetails"/>
+		</association>
+		
+		<association property="user" javaType="User">
+			<id column="user_id_code" 						property="userId"/>
+	  		<result column="user_pw" 						property="userPw"/>
+	  		<result column="user_name"						property="userName"/>
+	  		<result column="user_contact" 					property="userContact"/>
+	  		<result column="user_email" 					property="userEmail"/>
+	  		<result column="user_withdraw_status" 			property="userStatus"/>
+	  		<result column="user_activity_area" 			property="userArea"/>
+	  		<result column="user_retention_Points" 			property="userPoint"/>
+	  		<result column="user_rating"					property="userRating"/>
+	  		<result column="user_reg_date" 					property="userRreDate"/>
+	  		<result column="user_update_date"			    property="userUpDate"/>
+	  		<result column="level_num_code" 				property="userLevel"/>
+		</association>
+	</resultMap>
+	
+	
+	<select id="getReviewList" resultType="ReviewContentsReg">
+	
+	SELECT
+	    tr.review_reg_date                       			AS reviewRegDate
+	   ,gg.goods_name										AS goodsName 
+	   ,tr.review_content									AS reviewContents
+	   ,tr.review_recommendations_count						AS reviewRecommendationsCount
+	   ,tr.review_decommendations_count						AS reviewDecommendationsCount
+	FROM 
+		tb_r_review_contents AS tr 
+		INNER join
+		tb_g_goods_basic_info AS gg
+		on
+		tr.goods_basic_info_code = gg.goods_basic_info_code
+		INNER JOIN 
+		tb_u_all_user AS ua
+		ON 
+		tr.user_id_code = ua.user_id_code 
+		INNER JOIN 
+		tb_r_based_on_score_by_review AS rb 
+		ON 
+		tr.review_score_standard_code = rb.review_score_standard_code;
+	</select>
+</mapper>
+	
+	
+	
+	

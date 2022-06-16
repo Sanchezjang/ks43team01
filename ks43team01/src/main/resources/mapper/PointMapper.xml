@@ -11,7 +11,7 @@
 			<result column="point_amount"				    property="pointAmount"/>
 			<result column="user_email" 					property="userEmail"/>
 			<result column="point_history_reg_date" 		property="pointHistoryRegDate"/>
-		<association property="pointDetails" javaType="PointStandardDetails">
+		<association property="pointStandardDetails" javaType="PointStandardDetails">
 			<id 	column="point_standard_details_code"	 	property="pointStandardDetailsCode"/>
 			<result column="point_standard_code" 				property="pointStandardCode"/>
 			<result column="point_standard_details_name" 		property="pointStandardDetailsName"/>
