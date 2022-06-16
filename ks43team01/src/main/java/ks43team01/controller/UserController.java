@@ -4,19 +4,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
-import javax.xml.ws.http.HTTPBinding;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import ks43team01.dto.SellerBusiness;
 import ks43team01.dto.SellerCareer;
 import ks43team01.dto.User;
@@ -83,13 +78,15 @@ public class UserController {
 		userService.addSellerBusiness(sellerBusiness);
 		return "userpage/user/sellerCareer";
 	}
-	@PostMapping("/sellerCareersend")
-	public String addSellerCareer(SellerCareer sellerCareer,HttpSession session) {
+	@PostMapping("/sellerEducation")
+	public String addSellerCareer(SellerCareer sellerCareer,HttpSession session,HttpServletRequest request) {
 		String UID =  (String)session.getAttribute("UID");
 		sellerCareer.setUserIdCode(UID);
+		String downFile = request.getParameter("expertCareerProofMattersAttachments");
+		log.info("파일값받아오는지  :  {}",downFile);
 		log.info("세션아이디 받아오는지  :  {}",UID);
 		userService.addSellerCareer(sellerCareer);
 		log.info("SellerEducation분야입력   :{}",sellerCareer);
-		return "userpage/user/sellerCareer";
+		return "userpage/user/sellerEducation";
 	}
 }
