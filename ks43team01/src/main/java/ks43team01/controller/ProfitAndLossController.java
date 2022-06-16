@@ -95,7 +95,7 @@ public class ProfitAndLossController {
 		
 		profitAndLossService.addSales(sales);
 		
-		return "redirect:/profitAndLoss/salesList";
+		return "redirect:/adminpage/profitAndLoss/salesList";
 	}
 	
 	@GetMapping("/addSales")
@@ -105,7 +105,7 @@ public class ProfitAndLossController {
 		
 		model.addAttribute("salesList", salesList);
 		
-		return "profitAndLoss/addSales";
+		return "adminpage/profitAndLoss/addSales";
 	}
 	
 	//지출 등록
@@ -115,7 +115,7 @@ public class ProfitAndLossController {
 		
 		profitAndLossService.addSpending(spending);
 		
-		return "redirect:/profitAndLoss/spendingList";
+		return "redirect:/adminpage/profitAndLoss/spendingList";
 	}
 	
 	@GetMapping("/addSpending")
@@ -125,7 +125,7 @@ public class ProfitAndLossController {
 		
 		model.addAttribute("spendingList", spendingList);
 		
-		return "profitAndLoss/addSpending";
+		return "adminpage/profitAndLoss/addSpending";
 	}
 	
 	//매출 내역
