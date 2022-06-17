@@ -68,13 +68,19 @@ public class UserService {
 	
 		return result;
 	}
-	//판매자 기술분야, 스킬, 자기소개 입력//
+	//판매자근무경력
 		public int addSellerCareer(SellerCareer sellerCareer) {
 			
 			int result = userMapper.addSellerCareer(sellerCareer);
 			
 			return result;
 	}
+		public int nullSellerCareer(SellerCareer sellerCareer) {
+			
+			int result = userMapper.nullSellerCareer(sellerCareer);
+	
+			return result;
+		}
 	//판매자의 학력증명사항//
 		public int SellerEducation(SellerEducation sellerEducation) {
 		

@@ -42,7 +42,7 @@ public class LoginController {
 	@PostMapping("/login")
 	public String login(@RequestParam(name="userId",required = false)String userId
 						,@RequestParam(name="userPw",required = false)String userPw
-						,HttpSession session,HttpServletRequest request,HttpServletResponse response, UserLog userLog,String loginIp) {
+						,HttpSession session,HttpServletRequest request,UserLog userLog,String loginIp) {
 		User user = userService.getUserInfoById(userId);
 		log.info("user에서 받아온값 :   {}",user);
 
@@ -55,7 +55,6 @@ public class LoginController {
 				userLog.setUserIdCode(userId);
 				log.info("로그기록 남기기!!!!",userLog);
 				userService.addUserLog(userLog);
-				
 				return "redirect:/";
 		}
 	}
