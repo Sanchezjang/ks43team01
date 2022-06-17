@@ -28,7 +28,7 @@ public class BoardController {
 	public BoardController(BoardService boardService) {
 		this.boardService = boardService;
 	}
-	
+
 	/*공지사항 게시글 등록*/
     @PostMapping("/addBoard")
     public String addBoard(Board board, HttpServletRequest request) {
