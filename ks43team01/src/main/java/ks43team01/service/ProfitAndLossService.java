@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ks43team01.dto.Account;
 import ks43team01.dto.Sales;
 import ks43team01.dto.Spending;
 import ks43team01.mapper.ProfitAndLossMapper;
@@ -86,5 +87,15 @@ public class ProfitAndLossService {
 		List<Spending> spendingList = profitAndLossMapper.getSpendingList();
 		
 		return spendingList;
+	}
+	
+	/*
+	 * //손익 계정과목 리스트
+	 * */
+	public List<Account> getAccountList(){
+		
+		List<Account> accountList = profitAndLossMapper.getAccountList();
+		
+		return accountList;
 	}
 }
