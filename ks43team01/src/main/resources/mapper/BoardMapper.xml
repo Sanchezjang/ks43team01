@@ -24,6 +24,7 @@
           <result column="board_category_reg_date" property="boardCategoryRegDate"/>
           <result column="board_category_use"  property="boardCategoryUse"/>
   </resultMap>
+  
 
 	<select id="getBoardCategoryList" resultMap="boardCategoryResultMap">
 	/*게시글 대분류 카테고리 조회*/
@@ -35,7 +36,6 @@
 			,board_category_use
 		FROM
 			tb_b_board_category;
-	
 	</select>
 
 	<insert id="addBoard" parameterType="Board">
@@ -52,9 +52,9 @@
          , board_post_view
          , board_post_use
       )VALUES (
-         'post00001'
+         date_format(NOW(),'post_ur%y%m%d%H%i%s')
         , #{userIdCode} 
-        , 'board01'
+        , #{boardCategoryCode}
         , #{boardUserName} 
         , #{boardPostTitle}
         , #{boardPostContent} 
@@ -103,5 +103,22 @@
 		WHERE
 			board_category_code = 'board01';
 	</select>
+  
+  	<select id="getBoardList" resultMap="boardResultMap">
+	/*관리자용 전체 게시글 조회*/
+		SELECT
+			board_post_code
+			,user_id_code
+			,board_category_code
+			,board_post_title
+			,board_user_name
+			,board_post_content
+			,board_post_reg_date
+			,board_post_update_date
+			,board_post_view
+			,board_post_use
+		FROM
+			tb_b_board_post;
+  </select>
   
   </mapper>
