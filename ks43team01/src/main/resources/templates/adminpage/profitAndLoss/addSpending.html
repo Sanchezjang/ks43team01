@@ -192,27 +192,15 @@
 								</div>
 								<div class="x_content">
 									<br />
-									<form class="form-horizontal form-label-left">
+									<form class="form-horizontal form-label-left" th:action="@{/profitAndLoss/addSpending}" method="post">
 										<div class="form-group row">
 											<label class="control-label col-md-3 col-sm-3 ">계정과목<span class="required">*</span></label>
 											<div class="col-md-9 col-sm-9 ">
-												<select required="required" class="form-control">
+												<select required="required" class="form-control" id="accountSubjectCode">
 													<option value="" disabled selected> :: 계정과목 선택:: </option>
-													<option value="80100">급여</option>
-													<option value="81100">복리후생비</option>
-													<option value="81200">여비교통비</option>
-													<option value="81300">접대비</option>
-													<option value="81400">통신비</option>
-													<option value="81500">수도광열비</option>
-													<option value="81700">세금과공과</option>
-													<option value="81900">지급임차료</option>
-													<option value="82100">보험료</option>
-													<option value="82200">차량유지비</option>
-													<option value="82400">운반비</option>
-													<option value="82600">도서인쇄비</option>
-													<option value="83100">지급수수료</option>
-													<option value="83300">광고선전비 비용</option>
-													<option value="83900">판매촉진비</option>
+													<th:block th:if="${not #lists.isEmpty(accountList)}" th:each="a:${accountList}">
+														<option th:if="${a.profitLossClassification} == '지출'" th:value="${a.accountSubjectCode}">[[${a.accountName}]]</option>
+													</th:block>
 												</select>
 											</div>
 										</div>
@@ -222,18 +210,11 @@
 											</label>
 											<div class="col-md-9 col-sm-9">
 												<input id="spendingDate" class="date-picker form-control" placeholder="연도-월-일" type="text" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
-												<script>
-													function timeFunctionLong(input) {
-														setTimeout(function() {
-															input.type = 'text';
-														}, 60000);
-													}
-												</script>
 											</div>
 										</div>
 										
 										<div class="form-group row">
-											<label class="control-label col-md-3 col-sm-3 ">지출 금액<span class="required">*</span>
+											<label class="control-label col-md-3 col-sm-3 " for="spendingAmount">지출 금액<span class="required">*</span>
 											</label>
 											<div class="col-md-9 col-sm-9 ">
 												<input type="text" name="spendingAmount" id="spendingAmount" required="required" class="form-control col-md-10" /><span style="font-size: 20px; line-height: 40px;"> 원</span>
@@ -241,17 +222,17 @@
 										</div>
 
 										<div class="form-group row">
-											<label class="control-label col-md-3 col-sm-3 ">지출 내역<span class="required">*</span>
+											<label class="control-label col-md-3 col-sm-3 " id="spendingInfo" for="spendingInfo">지출 내역<span class="required">*</span>
 											</label>
 											<div class="col-md-9 col-sm-9 ">
-												<textarea class="form-control" required="required" rows="3"></textarea>
+												<textarea class="form-control" required="required" rows="3" id="spendingInfo" name="spendingInfo"></textarea>
 											</div>
 										</div>
 
 										<div class="ln_solid"></div>
 										<div class="form-group">
 											<div class="col-md-12">
-												<button style="float: right;" type="submit" class="btn btn-success">등록</button>
+												<button style="float: right;" type="submit" class="btn btn-success" id="addSpending">등록</button>
 											</div>
 										</div>
 

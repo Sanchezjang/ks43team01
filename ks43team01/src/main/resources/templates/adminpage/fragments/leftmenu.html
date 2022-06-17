@@ -22,6 +22,7 @@
 				
 				 <li><a><i class="fa fa-table"></i> 손익 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
+                      <li><a th:href="@{/adminpage/profitAndLoss/accountList}">손익 관리 계정과목</a></li>
                       <li><a th:href="@{/adminpage/profitAndLoss/addSales}">매출 등록</a></li>
                       <li><a th:href="@{/adminpage/profitAndLoss/addSpending}">지출 등록</a></li>
                       <li><a th:href="@{/adminpage/profitAndLoss/salesList}">매출 내역</a></li>
@@ -48,7 +49,7 @@
                   <li><a><i class="fa fa-table"></i> 게시판 관리 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a th:href="@{/adminpage/boardAdmin/boardCategoryList}">게시판 대분류 카테고리</a></li>
-                      <li><a href="other_charts.html">Other Charts</a></li>
+                      <li><a th:href="@{/adminpage/boardAdmin/boardList}">전체 게시글 관리</a></li>          
                       <li><a href="other_charts.html">Other Charts</a></li>
                       <li><a href="other_charts.html">Other Charts</a></li>
                     </ul>
