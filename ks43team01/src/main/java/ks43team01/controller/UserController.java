@@ -90,6 +90,7 @@ public class UserController {
 	@PostMapping("/sellerBusiness")////판매자 비지니스 내용 제출폼..//
 	public String addSellerBusiness(SellerBusiness sellerBusiness,HttpSession session) {
 		session.setAttribute("userIdCode",sellerBusiness.getUserIdCode());
+		
 		log.info("셀러비지니스분야입력   :{}",sellerBusiness);
 		log.info("세션아이디 받아오는지  :  {}", userIdCode);
 		userService.addSellerBusiness(sellerBusiness);
