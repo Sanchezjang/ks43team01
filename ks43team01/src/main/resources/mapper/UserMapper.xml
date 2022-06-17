@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper	namespace="ks43team01.mapper.UserMapper">
+  <mapper namespace="ks43team01.mapper.UserMapper">
 
 	  <resultMap type="ks43team01.dto.User" id="userResultMap">
 	  		<id column="user_id_code" property="userId"/>
@@ -54,7 +54,57 @@
   	  			<result column="expert_academic_document" property="expertRegDate"/>
   	  			<result column="expert_update_date" property="expertUpdateDate"/>
   	  	 	</resultMap>
-  
+  	  	 	
+  	  	 	<resultMap type="ks43team01.dto.UserLog" id="UserLogResultMap">
+  	  			<id column="login_date" property="logiNum"/>
+  	  			<result column="login_date" property="loginDate"/>
+  	  			<result column="login_ip" property="loginIp"/>
+  	  			<result column="user_id_code" property="userIdCode"/>
+  	  			<result column="buyer_exp" property="buyerExp"/>
+  	  			<result column="seller_exp" property="sellerExp"/>
+  	  	 	</resultMap>
+  	  	 	
+  	<insert id="addUserLog" parameterType="UserLog">
+  		INSERT into tb_u_user_log
+		( 	login_num
+			,login_date
+			,login_ip
+			,user_id_code
+			,buyer_exp
+			,seller_exp
+		)values(
+			date_format(NOW(),'login_%y%m%d%H%i%s')
+			,CURDATE()
+			,#{loginIp}
+			,#{userIdCode}
+			,5
+			,5
+		);
+  	</insert>
+  	
+  	<insert id="NullSellerEducation" parameterType="ks43team01.dto.SellerEducation">
+  		/*판매적 학력 입력*/  		
+  		INSERT into tb_u_expert_education
+		(	expert_final_education_code 
+			,user_id_code
+			,expert_school_name
+			,expert_major
+			,expert_final_state 
+			,expert_academic_document
+			,expert_reg_date
+			,expert_update_date
+		)values(
+			date_format(NOW(),'ua%y%m%d%H%i%s')
+			,#{userIdCode}
+			,#
+			,#
+			,#
+			,#
+			,CURDATE()
+			,#
+		);
+	</insert>
+  	
   	<insert id="addSellerEducation" parameterType="ks43team01.dto.SellerEducation">
   		/*판매적 학력 입력*/  		
   		INSERT into tb_u_expert_education
@@ -66,8 +116,8 @@
 			,expert_academic_document
 			,expert_reg_date
 			,expert_update_date
-			)values(
-			(select date_format(NOW(),'ur%y%m%d%H%i%s')AS expert_business_code)
+		)values(
+			date_format(NOW(),'ua%y%m%d%H%i%s')
 			,#{userIdCode}
 			,#{expertSchoolName}
 			,#{expertMajor}
@@ -91,8 +141,8 @@
 			,expert_etc
 			,expert_stay_use
 			,expert_career_proof_matters_attachments
-			)values(
-			(select date_format(NOW(),'ur%y%m%d%H%i%s')AS expert_business_code)
+		)values(
+			date_format(NOW(),'uc%y%m%d%H%i%s')
 			,#{userIdCode}
 			,#{expertCompanyName}
 			,#{expertWorkDepartment}
@@ -104,6 +154,34 @@
 			,#{expertCareerProofMattersAttachments}
 		);
 	</insert>
+		
+	<insert id="nullSellerCareer" parameterType="ks43team01.dto.SellerBusiness">
+  		/*판매적 근무사항 입력*/  		
+  		INSERT into tb_u_expert_career
+		(	expert_career_details_code 
+			,user_id_code
+			,expert_company_name
+			,expert_work_department
+			,expert_position 
+			,expert_work_place
+			,expert_work_date
+			,expert_etc
+			,expert_stay_use
+			,expert_career_proof_matters_attachments
+		)values(
+			date_format(NOW(),'uc%y%m%d%H%i%s')
+			,#{userIdCode}
+			,'#'
+			,'#'
+			,'#'
+			,'#'
+			,'#'
+			,'#'
+			,'#'
+			,'#'
+		);
+	</insert>
+
   	<insert id="addUserInsert" parameterType="ks43team01.dto.User">
   		/* 구매자회원가입*/
   		INSERT into tb_u_all_user
@@ -119,7 +197,7 @@
 			,user_reg_date 
 			,user_update_date
 			,level_num_code
-			)values(
+		)values(
 			#{userId}
 			,#{userPw}
 			,#{userName}
@@ -209,8 +287,8 @@
 			,expert_introduction
 			,expert_reg_date
 			,expert_update_date
-			)values(
-			(select date_format(NOW(),'ur%y%m%d%H%i%s')AS expert_business_code)
+		)values(
+			date_format(NOW(),'ur%y%m%d%H%i%s')
 			,#{userIdCode}
 			,#{expertBusinessField}
 			,#{expertDetailedBusiness}

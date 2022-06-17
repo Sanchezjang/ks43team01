@@ -35,6 +35,8 @@ public class UserController {
 
 	//DI//
 	private final UserService userService;
+
+	private Object userIdCode;
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
@@ -48,7 +50,7 @@ public class UserController {
 		
 		return "userpage/user/userjoin";
 	}
-	@PostMapping("/userjoin") //회원가입시겟맵핑 잡아주는거//
+	/*@PostMapping("/userjoin") //회원가입시겟맵핑 잡아주는거//
 	public String addUserInsert(User user,HttpSession session) {
 	
 		userService.addUserInsert(user);
@@ -59,7 +61,7 @@ public class UserController {
 		session.setAttribute("CheckEmail", user.getUserEmail());
 		session.setAttribute("CheckArea", user.getUserArea());
 		return "userpage/user/userjoinCheck";
-	}
+	}*/
 	@GetMapping("/adminpage/user/userList")//admin회원총리스트 가져오기//
 	public String getAdminUserList(Model model) {
 		List<User> userList = userService.getAdminUserList();
@@ -69,7 +71,7 @@ public class UserController {
 		return "/adminpage/user/userList";
 	}
 	
-	@GetMapping("/sellerjoin")//가입내역을 확인하고 판매자회원추가진행로
+	@GetMapping("/sellerjoin")// 판매자회원추가진행로
 	public String userInsertCheck(Model model) {
 		
 		List<goodsTopCategory> expertBusinessField = userService.getTopCategory();
@@ -77,7 +79,7 @@ public class UserController {
 		log.info("탑카테고리들어온값   :{}",expertBusinessField);
 		return "userpage/user/sellerjoin";
 	}
-		@GetMapping("/getCategory")//탑카테고리잡아서 서브 카테고리 출력
+	@GetMapping("/getCategory")//탑카테고리잡아서 서브 카테고리 출력
 	@ResponseBody
 	public List<goodsSubCategory> getSubCategory(@RequestParam(name="expertBusinessField")String expertBusinessField) {
 		List<goodsSubCategory> scategory = userService.getSubCategory(expertBusinessField);
@@ -87,14 +89,26 @@ public class UserController {
 	
 	@PostMapping("/sellerBusiness")////판매자 비지니스 내용 제출폼..//
 	public String addSellerBusiness(SellerBusiness sellerBusiness,HttpSession session) {
-		String UID =  (String)session.getAttribute("UID");
-		sellerBusiness.setUserIdCode(UID);
-		log.info("세션아이디 받아오는지  :  {}",UID);
+		session.setAttribute("userIdCode",sellerBusiness.getUserIdCode());
 		log.info("셀러비지니스분야입력   :{}",sellerBusiness);
+		log.info("세션아이디 받아오는지  :  {}", userIdCode);
 		userService.addSellerBusiness(sellerBusiness);
+		return "userpage/user/sellerBusiness";
+	}
+	@GetMapping("/sellerBusiness")
+	public String addSellerBusiness() {
 		return "userpage/user/sellerCareer";
 	}
-	@PostMapping("/sellerEducation")//판매자 근무상세내용 전달받음(이미지파일도 첨부완)//
+	//판매자 근무이력 null처리
+		@GetMapping("/nullSellerCareer")
+		public String nullSellerCareer(SellerCareer sellerCareer) {
+			
+			userService.nullSellerCareer(sellerCareer);
+			
+			return "userpage/user/sellerEducation";
+		}
+	
+	@PostMapping("/sellerEducation")//판매자 커리어 전달받음(이미지파일도 첨부완)//
 	public String addSellerCareer(SellerCareer sellerCareer,HttpSession session,HttpServletRequest request) {
 		String UID =  (String)session.getAttribute("UID");
 		sellerCareer.setUserIdCode(UID);
@@ -104,7 +118,11 @@ public class UserController {
 		userService.addSellerCareer(sellerCareer);
 		return "userpage/user/sellerEducation";
 	}
-	@PostMapping("/sellerComplete")//판매자 근무상세내용 전달받음(이미지파일도 첨부완)//
+	@GetMapping("/sellerEducation")
+		public String addSellerCareer() {
+			return "userpage/user/sellerEducation";
+	}
+	@PostMapping("/sellerComplete")//판매자 학력사항 전달받음(이미지파일도 첨부완)//
 	public String addSellerEducation(SellerEducation sellerEducation,HttpSession session,HttpServletRequest request) {
 		String UID =  (String)session.getAttribute("UID");
 		sellerEducation.setUserIdCode(UID);
@@ -115,18 +133,28 @@ public class UserController {
 		log.info("sellerEducation분야입력   :{}",sellerEducation);
 		return "userpage/user/login";
 	}
-	@PostMapping("/sellerCareersend")
-	public String addSellerCareer(SellerCareer sellerCareer,HttpSession session) {
-		String UID =  (String)session.getAttribute("UID");
-		sellerCareer.setUserIdCode(UID);
-		log.info("세션아이디 받아오는지  :  {}",UID);
-		userService.addSellerCareer(sellerCareer);
-		log.info("SellerEducation분야입력   :{}",sellerCareer);
-		return "userpage/user/sellerCareer";
-	}
 	@GetMapping("/userinfomation")
 	public String getUserInfomation(){
 		
 		return "userpage/user/userinfomation";
 	}
+	@PostMapping("/idCheck")////아이디 중복체크!!!!!
+	@ResponseBody
+	public boolean CheckId(@RequestParam(name = "userId")String userId) {
+			
+		log.info("아이디 중복체크 : {}", userId);
+
+		boolean isIdCheck = true;
+		
+		User user = userService.getUserInfoById(userId);
+		
+		if(user != null) {
+			isIdCheck = false;
+		}
+		return isIdCheck;
+	}
+	
+	
+		
+	
 }
