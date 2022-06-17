@@ -67,7 +67,7 @@
 			,expert_reg_date
 			,expert_update_date
 			)values(
-			'자동코드생성'
+			(select date_format(NOW(),'ur%y%m%d%H%i%s')AS expert_business_code)
 			,#{userIdCode}
 			,#{expertSchoolName}
 			,#{expertMajor}
@@ -92,7 +92,7 @@
 			,expert_stay_use
 			,expert_career_proof_matters_attachments
 			)values(
-			'자동코드생성'
+			(select date_format(NOW(),'ur%y%m%d%H%i%s')AS expert_business_code)
 			,#{userIdCode}
 			,#{expertCompanyName}
 			,#{expertWorkDepartment}
@@ -104,7 +104,6 @@
 			,#{expertCareerProofMattersAttachments}
 		);
 	</insert>
-
   	<insert id="addUserInsert" parameterType="ks43team01.dto.User">
   		/* 구매자회원가입*/
   		INSERT into tb_u_all_user

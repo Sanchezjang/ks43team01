@@ -14,7 +14,6 @@ import ks43team01.dto.ReviewContentsReg;
 import ks43team01.service.ReviewService;
 
 @Controller
-@RequestMapping("adminpage/reviewAdmin")
 public class ReviewController {
 	
 	private static final Logger log = LoggerFactory.getLogger(ReviewController.class);
@@ -25,6 +24,23 @@ public class ReviewController {
 		this.reviewService = reviewService;
 	}
 	
+	/* 리뷰 수정 */
+	@PostMapping("/modifyReview")
+	public String modifyReview(ReviewContentsReg reviewContentsReg) {
+		
+		reviewService.modifyReview(reviewContentsReg);
+		
+		return "redirect:/adminpage/reviewUser/reviewUserList";
+	}
+	
+	/* 리뷰 삭제  */
+	@PostMapping("/removeReview")
+	public String removeReview(String reviewCode) {
+		
+		reviewService.removeReview(reviewCode);
+		
+		return "redirect:/adminpage/reviewUser/reviewUserList";
+	}
 	
 	/* 리뷰 등록 */
 	@PostMapping("/addReview")
@@ -32,20 +48,18 @@ public class ReviewController {
 		
 		reviewService.addReview(reviewContentsReg);
 		
-		return "redirect:/reviewUser/reviewUserList";
+		return "redirect:/adminpage/reviewUser/reviewUserList";
 	}
 	
-	
-	/* 리뷰 목록 조회 */
+	/* 리뷰 목록 관리자 페이지 조회 */
 	@GetMapping("/reviewAdminList")
 	public String getReviewList(Model model) {
 		
-	List<ReviewContentsReg> reviewAdminList = reviewService.getReviewAdminList();
-	log.info(" 리뷰목록조회:{} ", "test");
-	model.addAttribute("reviewAdminList",reviewAdminList);
-	
-	return "/adminpage/reviewAdmin/reviewAdminList";
+		List<ReviewContentsReg> reviewAdminList = reviewService.getReviewAdminList();
+		log.info(" 리뷰목록조회:{} ", "test");
+		model.addAttribute("reviewAdminList",reviewAdminList);
 		
+		return "/adminpage/reviewAdmin/reviewAdminList";
 	}
 	
 }

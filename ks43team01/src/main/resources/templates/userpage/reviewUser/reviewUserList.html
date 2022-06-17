@@ -1,304 +1,184 @@
-<!-- <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    Meta, title, CSS, favicons, etc.
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	 
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<head th:replace="/userpage/fragments/head.html :: headFragment">
+</head>
+<header th:replace="/userpage/fragments/header.html :: headerFragment"></header>
+<body>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<style>
+html, body, div, a, table, thead, tbody, tr, th, td {
+	margin:0; outline:0; border:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent;
+}
+body { 
+	font-size:0.875em; line-height:1.5; color:#666; -webkit-text-size-adjust:none; min-width:320px;
+	font-family:'NanumGothic','나눔고딕',dotum, "Helvetica Neue", Helvetica, Verdana, Arial, Sans-Serief;
+}
 
-    <title>DataTables | Gentelella</title>
 
-    Bootstrap
-    <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-    <link th:href="@{/admin/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
-    Font Awesome
-    <link th:href="@{/admin/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
-    NProgress
-    <link th:href="@{/admin/vendors/nprogress/nprogress.css}" rel="stylesheet">
-    iCheck
-    <link th:href="@{/admin/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
-    Datatables
+ul{margin:0;}
+a:link, a:visited {text-decoration:none; color: #656565;}
+
+.container {max-width:1024px; margin:30px auto;}
+
+.blog-pagination {
+    margin-top: 0;
     
-    <link th:href="@{/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{/admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
+}    
+.boardForm{
+	padding-top: 50px;
 
-    Custom Theme Style
-    <link th:href="@{/admin/build/css/custom.min.css}" rel="stylesheet">
-  </head>
+}
+.section-top-border{
+	width: 1200px;
+	margin:0 auto;
 
-  <body class="nav-md">
-    <div class="container body">
-      <div class="main_container">
-        <div class="col-md-3 left_col">
-          <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
-            </div>
+}
+.progress-table{
+	background: #f9f9ff;
+	padding: 15px 0px 30px 0px;
+	min-width: 800px;
+	
+}
+	.serial{
+		width: 11.83%;
+        padding-left: 30px;
+	}
+	.writer{
+		width:  28.07%;
+	}
+	.regDate {
+        width: 19.74%;
+    }
+    .title {
+        width: 40.36%;
+        padding-right: 50px;
+    }
+    .pageView{
+    	width: 11.83%;
+    	padding-left: 30px;
+    }
+	.table-head {
+	    	padding: 15px 0;
+        	display: flex;
+  			font-weight: bold;
+            color: $title-color;
+            line-height: 40px;
+            text-transform: uppercase;
+            font-weight: 500;
+            border-bottom: 2px solid #c6d8f7;
+    }
+	.table-row {
+        padding: 15px 0;
+        border-top: 1px solid #edf3fd;
+        display: flex;
+        }
 
-            <div class="clearfix"></div>
+	
 
-            menu profile quick info
-            <div class="profile clearfix">
-              <div class="profile_pic">
-                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
-              </div>
-              <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>John Doe</h2>
-              </div>
-            </div>
-            /menu profile quick info
 
-            <br />
-
-            sidebar menu
-			<div th:replace="adminpage/fragments/leftmenu :: leftmenuFragment"></div>
-            /sidebar menu
-
-            /menu footer buttons
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            /menu footer buttons
-          </div>
-        </div>
-
-        top navigation
-        <div class="top_nav">
-            <div class="nav_menu">
-                <div class="nav toggle">
-                  <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                </div>
-                <nav class="nav navbar-nav">
-                <ul class=" navbar-right">
-                  <li class="nav-item dropdown open" style="padding-left: 15px;">
-                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                      <img src="images/img.jpg" alt="">John Doe
-                    </a>
-                    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item"  href="javascript:;"> Profile</a>
-                        <a class="dropdown-item"  href="javascript:;">
-                          <span class="badge bg-red pull-right">50%</span>
-                          <span>Settings</span>
-                        </a>
-                    <a class="dropdown-item"  href="javascript:;">Help</a>
-                      <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                    </div>
-                  </li>
-  
-                  <li role="presentation" class="nav-item dropdown open">
-                    <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                      <i class="fa fa-envelope-o"></i>
-                      <span class="badge bg-green">6</span>
-                    </a>
-                    <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <div class="text-center">
-                          <a class="dropdown-item">
-                            <strong>See All Alerts</strong>
-                            <i class="fa fa-angle-right"></i>
-                          </a>
+</style>
+        <div class="slider-area">
+            <div class="slider-height2 d-flex align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="hero-cap hero-cap2 text-center">
+                                <h2>Review</h2>
+                            </div>
                         </div>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        /top navigation
-
-
-
-        page content
-        <div class="right_col" role="main">
-          <div class="">
-            <div class="page-title">
-              <div class="title_left">
-                <h3>리뷰</h3>
-              </div>
-
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-secondary" type="button">Go!</button>
-                    </span>
-                  </div>
+                    </div>
                 </div>
-              </div>
             </div>
+        </div>
+        <!-- Hero End -->
+        <!-- About Details Start -->
+				
+				<div class="ReviewForm">
+				<div class="box" style="width:1200px; margin:0 auto;">
+				<table class="section-top-border">
+				
+					<thead class="progress-table">
+						<tr class="table-head">
+							<th class="serial">n0</th>
+							<th class="reviewRegDate">등록일</th>
+							<th class="reviewContent">제목</th>
+							<th class="userIdCode">작성자</th>
+							<th class="reviewStarScore">리뷰별점</th>
+							<th class="reviewRecommedation">리뷰추천횟수</th>
+							<th class="reviewDecommedation">리뷰비추천횟수</th>
+							
+						</tr>
+						
+					<tbody th:if="${not #lists.isEmpty(reviewUserList)}" th:each="r : ${reviewUserList}">
+						
+						
+						
+						<tr class="table-row">
+							<td class="serial">0</td>
+							<td class="reviewContent" th:text="${r.reviewContent}"></td>
+							<td class="reviewRegDate" th:text="${r.reviewRegDate}"></td>
+							<td class="userIdCode"  th:text="${r.userIdCode}"></td>
+							<td class="reviewStarScore"  th:text="${r.reviewStarScore}"></td>
+							<td class="reviewRecommedation" th:text="${r.reviewRecommendationd}"> </td>
+							<td class="reviewDecommedation" th:text="${r.reviewDecommendationd}"> </td>
+						</tr>
+						<tr th:unless="${not #lists.isEmpty(reviewUserList)}">
+							<td colspan="7">조회된 내용이 없습니다.</td>
+						</tr>
+					</tbody>
+					
+				</table>
+					<div style="text-align:right; margin-top:20px;"><a th:href="@{/addReview}" class="genric-btn primary" >글쓰기</a></div>
+					
+				</div>
+					</div>
+					
+             <nav class="blog-pagination justify-content-center d-flex">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a href="#" class="page-link" aria-label="RecentList">
+                                            <i class="ti-angle-double-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a href="#" class="page-link" aria-label="PreviousList">
+                                            <i class="ti-angle-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a href="#" class="page-link">1</a>
+                                    </li>
+                                    <li class="page-item active">
+                                        <a href="#" class="page-link">2</a>
+                                    </li>
+                                    <li class="page-item active">
+                                        <a href="#" class="page-link">3</a>
+                                    </li>
+                                    <li class="page-item active">
+                                        <a href="#" class="page-link">4</a>
+                                    </li>
+                                    <li class="page-item active">
+                                        <a href="#" class="page-link">5</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a href="#" class="page-link" aria-label="NextList">
+                                            <i class="ti-angle-right"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a href="#" class="page-link" aria-label="OldList">
+                                            <i class="ti-angle-double-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
 
-                    <div class="col-md-12 col-sm-12 ">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>리뷰 목록 관리</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          </div>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                      <div class="row">
-                          <div class="col-sm-12">
-                            <div class="card-box table-responsive">
-                    <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action" style="width:100%">
-                      <thead>
-                        <tr>
-                          <th></th>
-                          <th>리뷰 등록 날짜</th>
-                          <th>상품 이름</th>
-                          <th>리뷰 내용</th>
-                          <th>리뷰 별점</th>
-                          <th>리뷰 추천 횟수</th>
-                          <th>리뷰 비추천 횟수</th>
-                          <th>수정</th>
-                          <th>삭제</th>
-                        </tr>
-                      </thead>
-                       <tbody>
-                     <tr th:if="${not #lists.isEmpty(reviewAdminList)}" th:each="r:${reviewAdminList}">
-                     <td>
-                        <input type="checkbox" id="check-all" >
-                     </td>
-                     	<td th:text="${r.reviewRegDate}"></td>
-                        <td th:text="${r.goodsName}"></td>
-		                <td th:text="${r.reviewContent}"></td>
-		                <td th:text="${r.reviewStarScore}"></td>
-		                <td th:text="${r.reviewRecommendationsCount}"></td>
-              			<td th:text="${r.reviewDecommendationsCount}"></td>
-              			<td></td>
-              			<td></td>
-                        
-                     </tr>
-                  </tbody>
-                    </table>
-                  </div>
-                  </div>
-              </div>
-            </div>
-                </div>
-              </div>
+</body>
 
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-        /page content
-
-        footer content
-        <footer>
-          <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        /footer content
-      </div>
-
-    jQuery
-    <script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>
-    Bootstrap
-   <script th:src="@{/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
-    FastClick
-    <script th:src="@{/admin/vendors/fastclick/lib/fastclick.js}"></script>
-    NProgress
-    <script th:src="@{/admin/vendors/nprogress/nprogress.js}"></script>
-    iCheck
-    <script th:src="@{/admin/vendors/iCheck/icheck.min.js}"></script>
-    Datatables
-    <script th:src="@{/admin/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
-    <script th:src="@{/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
-    <script th:src="@{/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
-    <script th:src="@{/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
-    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js}"></script>
-    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
-    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
-    <script th:src="@{/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
-    <script th:src="@{/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
-    <script th:src="@{/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
-    <script th:src="@{/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
-    <script th:src="@{/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
-    <script th:src="@{/admin/vendors/jszip/dist/jszip.min.js}"></script>
-    <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
-    <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
-
-    Custom Theme Scripts
-    <script th:src="@{/admin/build/js/custom.min.js}"></script>
-
-  </body>
-</html> -->
+<footer th:replace="/userpage/fragments/footer.html :: footerFragment"></footer>

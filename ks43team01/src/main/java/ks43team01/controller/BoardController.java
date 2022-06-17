@@ -28,7 +28,6 @@ public class BoardController {
 	public BoardController(BoardService boardService) {
 		this.boardService = boardService;
 	}
-	
 	/* 게시판 대분류 카테고리 조회*/
 	@GetMapping("/adminpage/boardAdmin/boardCategoryList")
 	public String getBoardCategoryList(Model model) {
