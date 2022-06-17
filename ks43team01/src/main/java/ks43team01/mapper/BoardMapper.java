@@ -11,11 +11,6 @@ import ks43team01.dto.BoardCategory;
 @Mapper
 public interface BoardMapper {
 
-	
-	
-	
-	
-	
 	// 일반 게시글 등록
 	public int addBoard(Board board);
 	
