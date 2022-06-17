@@ -30,7 +30,7 @@ public class ReviewController {
 		
 		reviewService.modifyReview(reviewContentsReg);
 		
-		return "redirect:/adminpage/reviewUser/reviewUserList";
+		return "redirect:/userpage/reviewUser/reviewUserList";
 	}
 	
 	/* 리뷰 삭제  */
@@ -39,7 +39,7 @@ public class ReviewController {
 		
 		reviewService.removeReview(reviewCode);
 		
-		return "redirect:/adminpage/reviewUser/reviewUserList";
+		return "redirect:/userpage/reviewUser/reviewUserList";
 	}
 	
 	/* 리뷰 등록 */
@@ -48,12 +48,22 @@ public class ReviewController {
 		
 		reviewService.addReview(reviewContentsReg);
 		
-		return "redirect:/adminpage/reviewUser/reviewUserList";
+		return "redirect:/userpage/reviewUser/reviewUserList";
+	}
+	/* 리뷰 목록 유저 페이지 조회 */
+	@GetMapping("/reviewUserList")
+	public String getReviewUserList(Model model) {
+		
+		List<ReviewContentsReg> reviewUserList = reviewService.getReviewUserList();
+		model.addAttribute("reviewUserList",reviewUserList);
+		
+		return "/userpage/reviewUser/reviewUserList";
+				
 	}
 	
 	/* 리뷰 목록 관리자 페이지 조회 */
 	@GetMapping("/reviewAdminList")
-	public String getReviewList(Model model) {
+	public String getReviewAdminList(Model model) {
 		
 		List<ReviewContentsReg> reviewAdminList = reviewService.getReviewAdminList();
 		log.info(" 리뷰목록조회:{} ", "test");
