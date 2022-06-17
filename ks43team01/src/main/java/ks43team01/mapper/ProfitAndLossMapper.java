@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import ks43team01.dto.Account;
 import ks43team01.dto.Sales;
 import ks43team01.dto.Spending;
 
@@ -29,4 +30,7 @@ public interface ProfitAndLossMapper {
 	
 	//지출 내역 조회
 	public List<Spending> getSpendingList();
+	
+	//손익 계정과목 리스트
+	public List<Account> getAccountList();	
 }
