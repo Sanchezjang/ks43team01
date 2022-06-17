@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import org.slf4j.Logger;
@@ -43,9 +44,10 @@ public class LoginController {
 	@PostMapping("/login")
 	public String login(@RequestParam(name="userId",required = false)String userId
 						,@RequestParam(name="userPw",required = false)String userPw
-						,HttpSession session,HttpServletRequest request) {
+						,HttpSession session,HttpServletRequest request,HttpServletResponse response) {
 		
 		log.info("session에서 받아온값 :   {}",request.getRemoteAddr());
+		log.info("response에서 받아온값 :   {}",request.getSession());
 		User user = userService.getUserInfoById(userId);
 		log.info("user에서 받아온값 :   {}",user);
 
