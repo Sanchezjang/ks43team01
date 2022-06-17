@@ -11,6 +11,7 @@ import ks43team01.dto.SellerBusiness;
 import ks43team01.dto.SellerCareer;
 import ks43team01.dto.SellerEducation;
 import ks43team01.dto.User;
+import ks43team01.dto.UserLog;
 import ks43team01.dto.goodsSubCategory;
 import ks43team01.dto.goodsTopCategory;
 import ks43team01.mapper.UserMapper;
@@ -64,12 +65,14 @@ public class UserService {
 	public int addSellerBusiness(SellerBusiness sellerBusiness) {
 		
 		int result = userMapper.addSellerBusiness(sellerBusiness);
+	
 		return result;
 	}
 	//판매자 기술분야, 스킬, 자기소개 입력//
 		public int addSellerCareer(SellerCareer sellerCareer) {
 			
 			int result = userMapper.addSellerCareer(sellerCareer);
+			
 			return result;
 	}
 	//판매자의 학력증명사항//
@@ -78,5 +81,29 @@ public class UserService {
 			int result = userMapper.addSellerEducation(sellerEducation);
 			
 			return result;
+	}
+		//로그인하는 모든 유저의 로그 테이블 쌓기//
+		public int addUserLog(UserLog userLog) {
+			
+			int result = userMapper.addUserLog(userLog);
+			
+			return result;
 		}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -4,6 +4,78 @@ xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{userpage/layout/userdefault}">
 <!------ Include the above in your HEAD tag ---------->
+	<th:block layout:fragment="customScript">
+		<script>
+			$(function(){
+				function validationCheck(data){				
+					if(typeof data == 'undefined' || data == null || data == ''){
+						return true;
+					}
+					return false;
+				}
+							
+				$(document).on('click', '#idCheck', function(){
+					var $userId = $('#userId').val();
+					if(validationCheck($userId)){
+						alert('회원아이디를 입력해주세요.');
+						$('#userId').focus();
+						return false;
+					}else{
+						console.log(123)
+						
+						var request = $.ajax({
+							url: "/idCheck",
+							method: "post",
+							data: {'userId' : userId},
+							dataType: "json"
+						});
+						
+						request.done(function(isIdCheck){
+							console.log(isIdCheck);
+							if(isIdCheck){
+								alert('사용가능한 아이디 입니다.');
+							}else{
+								alert('중복된 아이디 입니다.');
+								$('#userId').focus();
+							}
+						});
+						
+						request.fail(function(jqXHR, textStatus){
+							alert("Request failed:" + textStatus);
+						}); 
+						
+					}
+				});
+			});	
+			
+		  	
+		    window.addEventListener('load', () => {
+		      const forms = document.getElementsByClassName('validation-form');
+
+		      Array.prototype.filter.call(forms, (form) => {
+		        form.addEventListener('submit', function (event) {
+		          if (form.checkValidity() === false) {
+		            event.preventDefault();
+		            event.stopPropagation();
+		          }
+
+		          form.classList.add('was-validated');
+		        }, false);
+		      });
+		    }, false);
+		  var PwCheck  =$('#PwCheck')
+			PwCheck.focusout(function(){
+				
+				var userPw = $('#userPw').val();
+				var userPwCheck = $('#userPwCheck').val();
+				if(userPw != userPwCheck){
+					alert('비밀번호가 일치하지 않습니다.');
+					return;
+				}else{}
+			});
+		    
+		</script>
+	</th:block>
 <div layout:fragment="content">
   <div class="container">
     <div class="input-form-backgroud row">
@@ -96,30 +168,7 @@ layout:decorate="~{userpage/layout/userdefault}">
     </footer>
   </div>
   <script>
-    window.addEventListener('load', () => {
-      const forms = document.getElementsByClassName('validation-form');
 
-      Array.prototype.filter.call(forms, (form) => {
-        form.addEventListener('submit', function (event) {
-          if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-
-          form.classList.add('was-validated');
-        }, false);
-      });
-    }, false);
-    
-	$('#PwCheck').focusout(function(){
-		
-		var $userPw = $('input[name="userPw"]').val();
-		var $userPwCheck = $('input[name="userPwCheck"]').val();
-		if($userPw != $userPwCheck){
-			alert('비밀번호가 일치하지 않습니다.');
-			return;
-		}else{}
-	});
   </script>
 </div>
 

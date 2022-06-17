@@ -54,7 +54,35 @@
   	  			<result column="expert_academic_document" property="expertRegDate"/>
   	  			<result column="expert_update_date" property="expertUpdateDate"/>
   	  	 	</resultMap>
-  
+  	  	 	
+  	  	 	<resultMap type="ks43team01.dto.UserLog" id="UserLogResultMap">
+  	  			<id column="login_date" property="logiNum"/>
+  	  			<result column="login_date" property="loginDate"/>
+  	  			<result column="login_ip" property="loginIp"/>
+  	  			<result column="user_id_code" property="userIdCode"/>
+  	  			<result column="buyer_exp" property="buyerExp"/>
+  	  			<result column="seller_exp" property="sellerExp"/>
+  	  	 	</resultMap>
+  	  	 	
+  	<insert id="addUserLog" parameterType="UserLog">
+  		INSERT into tb_u_user_log
+		( 	login_num
+			,login_date
+			,login_ip
+			,user_id_code
+			,buyer_exp
+			,seller_exp
+		)values(
+			date_format(NOW(),'login_%y%m%d%H%i%s')
+			,CURDATE()
+			,#{loginIp}
+			,#{userIdCode}
+			,5
+			,5
+		);
+  	</insert>
+  	
+  	
   	<insert id="addSellerEducation" parameterType="ks43team01.dto.SellerEducation">
   		/*판매적 학력 입력*/  		
   		INSERT into tb_u_expert_education
@@ -67,7 +95,7 @@
 			,expert_reg_date
 			,expert_update_date
 			)values(
-			(select date_format(NOW(),'ur%y%m%d%H%i%s')AS expert_business_code)
+			(select date_format(NOW(),'ua%y%m%d%H%i%s')AS expert_final_education_code)
 			,#{userIdCode}
 			,#{expertSchoolName}
 			,#{expertMajor}
@@ -92,7 +120,7 @@
 			,expert_stay_use
 			,expert_career_proof_matters_attachments
 			)values(
-			(select date_format(NOW(),'ur%y%m%d%H%i%s')AS expert_business_code)
+			(select date_format(NOW(),'uc%y%m%d%H%i%s')AS expert_career_details_code)
 			,#{userIdCode}
 			,#{expertCompanyName}
 			,#{expertWorkDepartment}

@@ -4,9 +4,9 @@
 }
 .row
 {
-		justify-content: center;
+	justify-content: center;
 }
-body 
+.body 
 {
     font-size : 15px;
     min-height: 100vh;

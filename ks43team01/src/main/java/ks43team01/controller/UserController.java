@@ -115,7 +115,7 @@ public class UserController {
 		log.info("sellerEducation분야입력   :{}",sellerEducation);
 		return "userpage/user/login";
 	}
-	@PostMapping("/sellerCareersend")
+	@PostMapping("/sellerCareersend")////셀러 학력정보 마지막 입력!!! 전송
 	public String addSellerCareer(SellerCareer sellerCareer,HttpSession session) {
 		String UID =  (String)session.getAttribute("UID");
 		sellerCareer.setUserIdCode(UID);
@@ -129,4 +129,21 @@ public class UserController {
 		
 		return "userpage/user/userinfomation";
 	}
+	@PostMapping("/idCheck")////아이디 중복체크!!!!!
+	@ResponseBody
+	public boolean CheckId(@RequestParam(name = "userId")String userId) {
+			
+			log.info("아이디 중복체크 : {}", userId);
+
+			boolean isIdCheck = true;
+			
+			User user = userService.getUserInfoById(userId);
+			
+			if(user != null) {
+				isIdCheck = false;
+			}
+			return isIdCheck;
+		}
+		
+	
 }

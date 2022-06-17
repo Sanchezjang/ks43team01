@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import ks43team01.controller.login;
 import ks43team01.dto.SellerBusiness;
 import ks43team01.dto.User;
+import ks43team01.dto.UserLog;
 import ks43team01.dto.goodsSubCategory;
 import ks43team01.dto.goodsTopCategory;
 import ks43team01.dto.SellerCareer;
@@ -43,5 +44,9 @@ public interface UserMapper {
 
 	//판매자의 학력증명사항//
 	public int addSellerEducation(SellerEducation sellerEducation);
-		
+	
+	//로그인하는 모든 유저의 로그 테이블 쌓기
+	
+	public int addUserLog(UserLog userLog);
+	
 }
