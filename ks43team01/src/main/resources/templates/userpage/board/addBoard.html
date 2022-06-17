@@ -55,22 +55,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
         </div>
         <!-- Hero End -->
         <!-- About Details Start -->
-
-	 
-<div class="addBoardForm">
-		<div class="single-element-widget mt-30">
-								<div class="default-select" id="default-select">
-									<select id="bigCategory" name="bigCategory">
-										<option th:value="카테고리" selected="selected">- 게시판 카테고리 -</option>
-										<th:block th:if="${not #lists.isEmpty(addBoard)}" th:each="l : ${addBoard}"></th:block>
-										<option th:value="{l.board_category_code}">[[${l.board_category_name]]</option>
-								
-									</select>
-								</div>
-								
-								
-			</div>
-			
+		
 	<div class="row">
 			<div class="col-lg-8">
 				<form class="form-contact contact_form" th:action="@{userpage/board/addBoard}" method="post" id="contactForm" novalidate="novalidate">
@@ -98,6 +83,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 					</div>
 						<div class="clickBtn mt-3" >
 							<button type="submit" class="button button-contactForm boxed-btn">저장</button>
+							<button type="submit" class="button2 button-contactForm boxed-btn">취소</button>
 							<button type="submit" class="button2 button-contactForm boxed-btn">취소</button>
 						</div>
 				</form>
