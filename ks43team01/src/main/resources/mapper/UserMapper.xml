@@ -211,7 +211,7 @@
 			,expert_reg_date
 			,expert_update_date
 			)values(
-			'x수정x1'
+			(select date_format(NOW(),'ur%y%m%d%H%i%s')AS expert_business_code)
 			,#{userIdCode}
 			,#{expertBusinessField}
 			,#{expertDetailedBusiness}
