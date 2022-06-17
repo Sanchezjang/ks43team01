@@ -47,7 +47,7 @@
 	</resultMap>
 	
 	
-	<select id="getReviewList" resultType="Map">
+	<select id="getReviewAdminList" resultType="Map">
 	
 	SELECT
 	    tr.review_reg_date                   	AS  reviewRegDate    			
