@@ -84,7 +84,7 @@
 		);
 	</insert>
 	
-	<insert id="addSpending" parameterType="Spending">
+	<insert id="addSpending" parameterType="ProfitAndLoss">
 		/* 지출 내역 등록 */
 		INSERT INTO tb_gr_group_monthly_spending
 		(
@@ -104,15 +104,15 @@
 			FROM
 				tb_a_account_profit_and_loss_management AS a
 			WHERE
-				a.account_name = '급여')
-			,'80100'
-			,'1'
-			,'1'
-			,'1'
+				a.account_name = #{a.account_name})
+			,#{accountSubjectCode}
+			,'2022'
+			,'6'
+			,#{a.account_name}
 			,#{spendingDate}
 			,#{spendingAmount}
 			,#{spendingInfo}
-			,'id001'
+			,#{userIdCode}
 			,CURDATE()
 		);
 	</insert>
