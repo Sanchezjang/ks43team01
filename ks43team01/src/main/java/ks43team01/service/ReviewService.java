@@ -51,33 +51,24 @@ public class ReviewService {
 			return result;
 		}
 		
-		/* 리뷰 목록 조회 */
+		/* 유저 페이지 회원 리뷰 목록 조회 */
+		public List<ReviewContentsReg> getReviewUserList(){
+			//log.info("리뷰 목록 조회:{}", "test");
+			List<ReviewContentsReg> reviewUserList = reviewMapper.getReviewUserList();
+			
+			return reviewUserList;
+		}
+		
+		/* 관리자 페이지  회원 리뷰 목록 조회 */
 	
 		public List<ReviewContentsReg> getReviewAdminList(){
 			log.info("리뷰 목록 조회:{}","test");
-			List<ReviewContentsReg> reviewList = reviewMapper.getReviewAdminList();
+			List<ReviewContentsReg> reviewAdminList = reviewMapper.getReviewAdminList();
 			
-			return reviewList;
+			return reviewAdminList;
 		}
 		
-		/* 리뷰 별점 기준 코드 */
-		public ReviewByScore getReviewByScore() {
-			
-			ReviewByScore reviewByScore = reviewMapper.getReviewByScore();
-			
-			return reviewByScore;
-			
-		}
 		
-		/* 상품 기본 정보 코드 */
-	
-		public GoodsBasicInfo getGoodsBasicInfo() {
-			
-			GoodsBasicInfo goodsBasicInfo = reviewMapper.getGoodsBasicInfo();
-			
-			return goodsBasicInfo;
-			
-		}
 		
 		
 		

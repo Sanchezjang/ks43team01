@@ -20,12 +20,11 @@ public interface ReviewMapper {
 	/* 리뷰 등록 */
 	public int addReview(ReviewContentsReg reviewContentsReg);
 	
-	/* 리뷰 목록 조회 */
+	/* 회원페이지 회원 리뷰 목록 조회 */
+	public List<ReviewContentsReg> getReviewUserList();
+	
+	/* 관리자페이지 회원 리뷰 목록 조회 */
 	public List<ReviewContentsReg> getReviewAdminList();
 	
-	/* 리뷰 별점 기준 코드 */
-	public ReviewByScore getReviewByScore();
 	
-	/* 상품 기본 정보 코드 */
-	public GoodsBasicInfo getGoodsBasicInfo();
 }
