@@ -104,15 +104,6 @@
 			,#{expertCareerProofMattersAttachments}
 		);
 	</insert>
-<<<<<<< HEAD
-  
-  
-  
-  
-  	
-=======
-
->>>>>>> refs/heads/develop
   	<insert id="addUserInsert" parameterType="ks43team01.dto.User">
   		/* 구매자회원가입*/
   		INSERT into tb_u_all_user
@@ -219,11 +210,7 @@
 			,expert_reg_date
 			,expert_update_date
 			)values(
-<<<<<<< HEAD
-			'x수정x1'
-=======
 			(select date_format(NOW(),'ur%y%m%d%H%i%s')AS expert_business_code)
->>>>>>> refs/heads/develop
 			,#{userIdCode}
 			,#{expertBusinessField}
 			,#{expertDetailedBusiness}
@@ -233,15 +220,5 @@
 			,CURDATE()
 		);
 	</insert>
-<<<<<<< HEAD
-	
-	
-	
-	
-	
-	
-=======
-				
->>>>>>> refs/heads/develop
 
   </mapper>
