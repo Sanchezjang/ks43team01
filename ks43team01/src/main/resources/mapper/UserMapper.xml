@@ -67,7 +67,7 @@
 			,expert_reg_date
 			,expert_update_date
 			)values(
-			'자동코드생성'
+			(select date_format(NOW(),'ur%y%m%d%H%i%s')AS expert_business_code)
 			,#{userIdCode}
 			,#{expertSchoolName}
 			,#{expertMajor}
@@ -92,7 +92,7 @@
 			,expert_stay_use
 			,expert_career_proof_matters_attachments
 			)values(
-			'자동코드생성'
+			(select date_format(NOW(),'ur%y%m%d%H%i%s')AS expert_business_code)
 			,#{userIdCode}
 			,#{expertCompanyName}
 			,#{expertWorkDepartment}
