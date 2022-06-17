@@ -13,13 +13,18 @@ import ks43team01.dto.User;
 public interface ReviewMapper {
 	
 	
-	/* 상품 정보 코드 */
-	public GoodsBasicInfo getGoodsBasicInfo();
 	
-	/* 리뷰 별점 기준 코드 */
-	public ReviewByScore getReviewByScore();
+	
+	
+	/* 리뷰 등록 */
+	public int addReview(ReviewContentsReg reviewContentsReg);
 	
 	/* 리뷰 목록 조회 */
 	public List<ReviewContentsReg> getReviewAdminList();
 	
+	/* 리뷰 별점 기준 코드 */
+	public ReviewByScore getReviewByScore();
+	
+	/* 상품 기본 정보 코드 */
+	public GoodsBasicInfo getGoodsBasicInfo();
 }
