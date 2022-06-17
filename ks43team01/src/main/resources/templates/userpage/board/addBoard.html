@@ -70,7 +70,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 								</div>
 			</div>
 			<div class="BoardRow">
-				<form class="form-contact contact_form" th:action="@{userpage/board/addBoard}" method="post" id="contactForm" novalidate="novalidate">
+				<form class="" th:action="@{/userpage/board/addBoard}" method="post" id="boardForm" novalidate="novalidate">
 					<div class="BoardRow">
 						<div class="col-12">
 							<div class="form-group">
@@ -94,14 +94,84 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 					
 					</div>
 						<div class="clickBtn mt-3" >
-							<button type="submit" class="button button-contactForm boxed-btn">저장</button>
+							<button type="submit" class="button boxed-btn">저장</button>
 							
 						</div>
 				</form>
 			</div>
 		</div>
 			
-
+		<script type="text/javascript">
+		 $('#boardForm').validate({
+	            rules: {
+	                name: {
+	                    required: true,
+	                    minlength: 2
+	                },
+	                subject: {
+	                    required: true,
+	                    minlength: 4
+	                },
+	                number: {
+	                    required: true,
+	                    minlength: 5
+	                },
+	                email: {
+	                    required: true,
+	                    email: true
+	                },
+	                message: {
+	                    required: true,
+	                    minlength: 20
+	                }
+	            },
+	            messages: {
+	                name: {
+	                    required: "come on, you have a name, don't you?",
+	                    minlength: "your name must consist of at least 2 characters"
+	                },
+	                subject: {
+	                    required: "come on, you have a subject, don't you?",
+	                    minlength: "your subject must consist of at least 4 characters"
+	                },
+	                number: {
+	                    required: "come on, you have a number, don't you?",
+	                    minlength: "your Number must consist of at least 5 characters"
+	                },
+	                email: {
+	                    required: "no email, no message"
+	                },
+	                message: {
+	                    required: "본문 내용을 입력하세요.",
+	                    minlength: "thats all? really?"
+	                }
+	            },
+	            submitHandler: function(form) {
+	                $(form).ajaxSubmit({
+	                    type:"POST",
+	                    data: $(form).serialize(),
+	                    url:"contact_process.php",
+	                    success: function() {
+	                        $('#contactForm :input').attr('disabled', 'disabled');
+	                        $('#contactForm').fadeTo( "slow", 1, function() {
+	                            $(this).find(':input').attr('disabled', 'disabled');
+	                            $(this).find('label').css('cursor','default');
+	                            $('#success').fadeIn()
+	                            $('.modal').modal('hide');
+			                	$('#success').modal('show');
+	                        })
+	                    },
+	                    error: function() {
+	                        $('#contactForm').fadeTo( "slow", 1, function() {
+	                            $('#error').fadeIn()
+	                            $('.modal').modal('hide');
+			                	$('#error').modal('show');
+	                        })
+	                    }
+	                })
+	            }
+	        })
+		</script>
 
 </body>
 
