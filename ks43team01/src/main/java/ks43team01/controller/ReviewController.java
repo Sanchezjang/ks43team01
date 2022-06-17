@@ -7,13 +7,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ks43team01.dto.ReviewContentsReg;
 import ks43team01.service.ReviewService;
 
 @Controller
-@RequestMapping("adminpage/review")
+@RequestMapping("adminpage/reviewAdmin")
 public class ReviewController {
 	
 	private static final Logger log = LoggerFactory.getLogger(ReviewController.class);
@@ -25,18 +26,25 @@ public class ReviewController {
 	}
 	
 	
-	
+	/* 리뷰 등록 */
+	@PostMapping("/addReview")
+	public String addReview(ReviewContentsReg reviewContentsReg) {
+		
+		reviewService.addReview(reviewContentsReg);
+		
+		return "redirect:/reviewUser/reviewUserList";
+	}
 	
 	
 	/* 리뷰 목록 조회 */
-	@GetMapping("/reviewList")
+	@GetMapping("/reviewAdminList")
 	public String getReviewList(Model model) {
 		
-	List<ReviewContentsReg> reviewList = reviewService.getReviewList();
+	List<ReviewContentsReg> reviewAdminList = reviewService.getReviewAdminList();
 	log.info(" 리뷰목록조회:{} ", "test");
-	model.addAttribute("reviewList",reviewList);
+	model.addAttribute("reviewAdminList",reviewAdminList);
 	
-	return "/adminpage/review/reviewList";
+	return "/adminpage/reviewAdmin/reviewAdminList";
 		
 	}
 	

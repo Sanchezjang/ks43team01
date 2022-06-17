@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ks43team01.dto.Board;
+import ks43team01.dto.BoardCategory;
 import ks43team01.mapper.BoardMapper;
 
 @Service
@@ -17,6 +18,13 @@ public class BoardService {
 	public BoardService(BoardMapper boardMapper) {
 		this.boardMapper = boardMapper;
 	}
+
+	/*게시판 대분류 카테고리 조회*/
+	public List<BoardCategory> getBoardCategoryList(){
+		List<BoardCategory> boardCategoryList = boardMapper.getBoardCategoryList();
+		return boardCategoryList;
+	}
+	
 
 	/*일반 게시글 등록*/
 	public int addBoard(Board board) {

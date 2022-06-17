@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 import ks43team01.dto.Board;
-
-
+import ks43team01.dto.BoardCategory;
 import ks43team01.service.BoardService;
 
 
@@ -28,6 +27,16 @@ public class BoardController {
 	public BoardController(BoardService boardService) {
 		this.boardService = boardService;
 	}
+	/* 게시판 대분류 카테고리 조회*/
+	@GetMapping("/boardCategoryList")
+	public String getBoardCategoryList(Model model) {
+		List<BoardCategory> boardCategoryList = boardService.getBoardCategoryList();
+		log.info("게시판 대분류 카테고리 목록: {}", boardCategoryList);
+		model.addAttribute("boardCategotyList", boardCategoryList);
+		
+		return "adminpage/boardAdmin/boardCategoryList";
+		
+	}
 
 	/*공지사항 게시글 등록*/
     @PostMapping("/addBoard")
@@ -40,11 +49,8 @@ public class BoardController {
     
     @GetMapping("/addBoard")
     public String addBoard(Model model) {
-       
     	List<Board> noticeBoardList = boardService.getNoticeBoardList();
-    	model.addAttribute("addBoard", noticeBoardList);
-    	log.info("noticeBoardList: {}", noticeBoardList);
-    	
+    	model.addAttribute("noticeBoardList", noticeBoardList);
        return "userpage/board/addBoard";
     }
 	

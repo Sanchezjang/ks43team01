@@ -132,6 +132,7 @@
 			,#{expertCareerProofMattersAttachments}
 		);
 	</insert>
+<<<<<<< HEAD
   	<insert id="addUserInsert" parameterType="ks43team01.dto.User">
   		/* 구매자회원가입*/
   		INSERT into tb_u_all_user
@@ -248,5 +249,4 @@
 			,CURDATE()
 		);
 	</insert>
-
   </mapper>
