@@ -40,10 +40,6 @@ public class BoardController {
     
     @GetMapping("/addBoard")
     public String addBoard(Model model) {
-       
-    	List<Board> noticeBoardList = boardService.getNoticeBoardList();
-    	model.addAttribute("addBoard", noticeBoardList);
-    	log.info("noticeBoardList: {}", noticeBoardList);
     	
        return "userpage/board/addBoard";
     }
