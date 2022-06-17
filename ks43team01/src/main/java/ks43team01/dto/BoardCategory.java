@@ -6,6 +6,7 @@ public class BoardCategory {
 	private String boardCategoryName;
 	private String boardCategoryRegDate;
 	private String boardCategoryUse;
+	
 	public String getBoardCategoryCode() {
 		return boardCategoryCode;
 	}

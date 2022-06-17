@@ -16,8 +16,29 @@
  			<result column="board_post_view"  property="boardPostView"/>
  			<result column="board_post_use"  property="boardPostUse"/>
   </resultMap>
+  
+  <resultMap type="BoardCategory" id="boardCategoryResultMap">
+          <id    column="board_category_code"     property="boardCategoryCode"/>
+          <result column="user_id_code"     property="userIdCode"/>
+          <result column="board_category_name"     property="boardCategoryName"/>
+          <result column="board_category_reg_date" property="boardCategoryRegDate"/>
+          <result column="board_category_use"  property="boardCategoryUse"/>
+  </resultMap>
 
-	<insert id="addBoard" parameterType="Board" >
+	<select id="getBoardCategoryList" resultMap="boardCategoryResultMap">
+	/*게시글 대분류 카테고리 조회*/
+		SELECT
+			board_category_code
+			,user_id_code
+			,board_category_name
+			,board_category_reg_date
+			,board_category_use
+		FROM
+			tb_b_board_category;
+	
+	</select>
+
+	<insert id="addBoard" parameterType="Board">
 	/*게시글 등록*/
        INSERT INTO tb_b_board_post
       (   board_post_code
@@ -28,17 +49,18 @@
          , board_post_content
          , board_post_reg_date
          , board_post_update_date
+         , board_post_view
          , board_post_use
       )VALUES (
-         '자동 생성', 
-         #{userIdCode}, 
-         '카테고리 선택', 
-         #{boardUserName}, 
-         #{boardPostTitle},
-         #{boardPostContent}, 
-         CURDATE(), 
-         CURDATE(), 
-         #{boardPostView}
+         'post00001'
+        , #{userIdCode} 
+        , 'board01'
+        , #{boardUserName} 
+        , #{boardPostTitle}
+        , #{boardPostContent} 
+        , CURDATE() 
+        , CURDATE() 
+        , #{boardPostView}
       );
     </insert>
 

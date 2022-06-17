@@ -14,10 +14,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <style>
 
-.row{
-		width: 1200px;
+.BoardRow{
+	width: 1200px;
 	margin:0 auto;	
-
 }
 
 .addBoardForm {
@@ -43,7 +42,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
  <div class="slider-area">
             <div class="slider-height2 d-flex align-items-center">
                 <div class="container">
-                    <div class="row">
+                    <div class="BoardRow">
                         <div class="col-xl-12">
                             <div class="hero-cap hero-cap2 text-center">
                                 <h2>Board</h2>
@@ -55,18 +54,30 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
         </div>
         <!-- Hero End -->
         <!-- About Details Start -->
-		
-	<div class="row">
-			<div class="col-lg-8">
+
+<div class="addBoardForm">
+		<div class="single-element-widget mt-30">
+								<div class="default-select" id="default-select">
+									<select id="boardCategoryCode" name="boardCategoryCode" required>
+											<th:block th:if="${not #lists.isEmpty(boardCategotyList)}" th:each="l : ${boardCategotyList}" >
+												<option th:value="${l.boardCategoryCode}">[[${l.boardCategoryName}]]</option>
+											</th:block>
+											<th:block th:unless="${not #lists.isEmpty(boardCategotyList)}">
+												<option >등록된 카테고리가 없습니다.</option>
+											</th:block>
+										</select>
+								</div>
+			</div>
+	<div class="BoardRow">
 				<form class="form-contact contact_form" th:action="@{userpage/board/addBoard}" method="post" id="contactForm" novalidate="novalidate">
-					<div class="row">
+					<div class="BoardRow">
 						<div class="col-12">
 							<div class="form-group">
 								<h4>제목</h4>
 								<input class="form-control" name="boardPostTitle" id="boardPostTitle" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '입력하세요.'" placeholder="제목을 입력하세요."  required>
 							</div>
 						</div>
-						<div class="col-sm-6">
+						<div class="col-6">
 							<div class="form-group">
 							<h4>이름</h4>
 								<input class="form-control valid" name="boardUserName" id="boardUserName" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '입력하세요.'" placeholder="이름을 입력하세요."  required>
@@ -83,13 +94,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 					</div>
 						<div class="clickBtn mt-3" >
 							<button type="submit" class="button button-contactForm boxed-btn">저장</button>
-							
-							
+							<button type="submit" class="button2 button-contactForm boxed-btn">취소</button>
 						</div>
 				</form>
-		</div>
 	</div>
-
+</div>
+			
 
 
 </body>
