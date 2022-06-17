@@ -1,14 +1,11 @@
 package ks43team01.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ks43team01.dto.Board;
-import ks43team01.dto.BoardCategory;
 import ks43team01.mapper.BoardMapper;
 
 @Service
@@ -20,7 +17,7 @@ public class BoardService {
 	public BoardService(BoardMapper boardMapper) {
 		this.boardMapper = boardMapper;
 	}
-	
+
 	/*일반 게시글 등록*/
 	public int addBoard(Board board) {
 		int result = boardMapper.addBoard(board);
