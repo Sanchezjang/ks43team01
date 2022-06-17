@@ -117,8 +117,8 @@ public class ProfitAndLossController {
 	
 	//지출 등록
 	@PostMapping("/addSpending")
-	public String addSpending(Spending spending 
-			,HttpServletRequest request) {
+	public String addSpending(Spending spending
+							,HttpServletRequest request) {
 		
 		profitAndLossService.addSpending(spending);
 		
@@ -135,6 +135,7 @@ public class ProfitAndLossController {
 		String str = "";
 		model.addAttribute("accountList", accountList);
 		model.addAttribute("str", str);
+		log.info("지출 내역 : {}", spendingList);
 		
 		return "adminpage/profitAndLoss/addSpending";
 	}
