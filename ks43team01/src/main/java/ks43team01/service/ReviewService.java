@@ -27,9 +27,9 @@ public class ReviewService {
 		
 		/* 리뷰 목록 조회 */
 	
-		public List<ReviewContentsReg> getReviewList(){
+		public List<ReviewContentsReg> getReviewAdminList(){
 			log.info("리뷰 목록 조회:{}","test");
-			List<ReviewContentsReg> reviewList = reviewMapper.getReviewList();
+			List<ReviewContentsReg> reviewList = reviewMapper.getReviewAdminList();
 			
 			return reviewList;
 		}

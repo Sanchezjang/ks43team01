@@ -20,6 +20,6 @@ public interface ReviewMapper {
 	public ReviewByScore getReviewByScore();
 	
 	/* 리뷰 목록 조회 */
-	public List<ReviewContentsReg> getReviewList();
+	public List<ReviewContentsReg> getReviewAdminList();
 	
 }
