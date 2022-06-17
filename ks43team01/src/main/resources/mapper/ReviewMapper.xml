@@ -46,7 +46,6 @@
 		</association>
 	</resultMap>
 	
-	
 	<select id="getReviewAdminList" resultType="Map">
 	
 	SELECT
@@ -71,6 +70,51 @@
 		ON 
 		tr.review_score_standard_code = rb.review_score_standard_code;
 	</select>
+	
+	<select id="getReviewUserList" resultType="Map">
+	
+	SELECT
+	    tr.review_reg_date                   	AS  reviewRegDate    			
+	   ,gg.goods_name							AS	goodsName		
+	   ,tr.review_content						AS  reviewContent
+	   ,rb.review_star_score					AS  reviewStarScore			
+	   ,tr.review_recommendations_count			AS	reviewRecommendationsCount		
+	   ,tr.review_decommendations_count			AS	reviewDecommendationsCount		
+	FROM 
+		tb_r_review_contents AS tr 
+		INNER join
+		tb_g_goods_basic_info AS gg
+		on
+		tr.goods_basic_info_code = gg.goods_basic_info_code
+		INNER JOIN 
+		tb_u_all_user AS ua
+		ON 
+		tr.user_id_code = ua.user_id_code 
+		INNER JOIN 
+		tb_r_based_on_score_by_review AS rb 
+		ON 
+		tr.review_score_standard_code = rb.review_score_standard_code;
+	</select>
+	
+	<delete id="removeReview" parameterType="String">
+		DELETE 
+		FROM 
+			tb_r_review_contents 
+		WHERE
+			review_code = #{reviewCode};
+	</delete>
+	
+	<update id="modifyReview" parameterType="ReviewContentsReg">
+		UPDATE
+			tb_r_review_contents 
+		SET 
+			review_content = #{reviewContent}
+		    review_reg_date = CURDATE()
+		WHERE
+			review_code = #{reviewCode};
+	
+	</update>
+	
 </mapper>
 	
 	

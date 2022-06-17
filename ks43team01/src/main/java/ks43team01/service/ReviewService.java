@@ -22,10 +22,25 @@ public class ReviewService {
 		public ReviewService(ReviewMapper reviewMapper) {
 			this.reviewMapper = reviewMapper;
 		}
-		
-		
-	
 		private static final Logger log = LoggerFactory.getLogger(ReviewService.class);
+		
+		
+		/* 리뷰 수정 */
+		public int modifyReview(ReviewContentsReg reviewContentsReg) {
+			
+			int result = reviewMapper.modifyReview(reviewContentsReg);
+			
+			return result;
+		}
+		
+		/* 리뷰 삭제 */
+		public int removeReview(String reviewCode) {
+			
+			int result = reviewMapper.removeReview(reviewCode);
+			
+			return result;
+		}
+		
 		
 		
 		/* 리뷰 등록 */

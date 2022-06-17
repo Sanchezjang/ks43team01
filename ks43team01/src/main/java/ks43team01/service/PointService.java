@@ -24,23 +24,16 @@ public class PointService {
 	
 	private static final Logger log = LoggerFactory.getLogger(PointService.class);
 
-	/* 포인트 기준 내용 코드 */
-	public PointStandardDetails getPointStandardDetails() {
-	
-	PointStandardDetails pointStandardDetails = pointMapper.getPointStandardDetails();
-	
-	return pointStandardDetails;
+	/* 관리자 페이지 회원 포인트 삭제 */
+	public int removePoint(String pointDetailsCode) {
+		
+		int result = pointMapper.removePoint(pointDetailsCode);
+		
+		return result;
 	}
 	
-	/* 포인트 기준 코드  */
-	public PointStandard getPointStandard() {
-		
-		PointStandard pointStandard = pointMapper.getPointStandard();
-		
-		return pointStandard;
-	}
 	
-	/*	포인트 내역 조회  */
+	/*	관리자 페이지 회원 포인트 조회  */
 	 public List<Point> getPointList() {
 		 log.info("test");
 		 List<Point> pointList = pointMapper.getPointList();
