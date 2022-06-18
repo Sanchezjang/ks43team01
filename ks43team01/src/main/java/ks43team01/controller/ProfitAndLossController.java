@@ -131,10 +131,9 @@ public class ProfitAndLossController {
 		
 		List<Spending> spendingList = profitAndLossService.getSpendingList();
 		List<Account> accountList = profitAndLossService.getAccountList();
+		
 		model.addAttribute("spendingList", spendingList);
-		String str = "";
 		model.addAttribute("accountList", accountList);
-		model.addAttribute("str", str);
 		log.info("지출 내역 : {}", spendingList);
 		
 		return "adminpage/profitAndLoss/addSpending";
