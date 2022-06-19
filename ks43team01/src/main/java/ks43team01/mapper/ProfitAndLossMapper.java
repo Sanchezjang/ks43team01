@@ -31,6 +31,9 @@ public interface ProfitAndLossMapper {
 	//지출 내역 조회
 	public List<Spending> getSpendingList();
 	
+	//계정과목 등록
+	public int addAccount(Account account);
+	
 	//손익 계정과목 리스트
 	public List<Account> getAccountList();	
 }

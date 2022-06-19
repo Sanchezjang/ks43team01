@@ -90,6 +90,16 @@ public class ProfitAndLossService {
 	}
 	
 	/*
+	 * 지출 등록
+	 * */
+	public int addAccount(Account account) {
+		
+		int result = profitAndLossMapper.addAccount(account);
+		
+		return result;
+	}
+	
+	/*
 	 * //손익 계정과목 리스트
 	 * */
 	public List<Account> getAccountList(){

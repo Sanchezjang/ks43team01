@@ -50,8 +50,8 @@ public class ProfitAndLossController {
 	public String getsearchSalesList(@RequestParam(name="searchKey") String searchKey
 									   ,@RequestParam(name="searchValue", required = false) String searchValue
 									   ,Model model) {
-		log.info("searchKey : {}", searchKey);
-		log.info("searchValue : {}", searchValue);
+		//log.info("searchKey : {}", searchKey);
+		//log.info("searchValue : {}", searchValue);
 		if("accountName".equals(searchKey)) {
 			searchKey = "account_name";
 		}else if("salesYear".equals(searchKey)){
@@ -72,8 +72,8 @@ public class ProfitAndLossController {
 	public String getsearchSpendingList(@RequestParam(name="searchKey") String searchKey
 			,@RequestParam(name="searchValue", required = false) String searchValue
 			,Model model) {
-		log.info("searchKey : {}", searchKey);
-		log.info("searchValue : {}", searchValue);
+		//log.info("searchKey : {}", searchKey);
+		//log.info("searchValue : {}", searchValue);
 		if("accountName".equals(searchKey)) {
 			searchKey = "account_name";
 		}else if("spendingYear".equals(searchKey)){
@@ -134,7 +134,7 @@ public class ProfitAndLossController {
 		
 		model.addAttribute("spendingList", spendingList);
 		model.addAttribute("accountList", accountList);
-		log.info("지출 내역 : {}", spendingList);
+		//log.info("지출 내역 : {}", spendingList);
 		
 		return "adminpage/profitAndLoss/addSpending";
 	}
@@ -161,6 +161,28 @@ public class ProfitAndLossController {
 		//log.info("지출 내역 : {}", spendingList);
 		
 		return "adminpage/profitAndLoss/spendingList";
+	}
+	
+	//계정과목 등록
+	@PostMapping("/addAccount")
+	public String addAccount(Account account
+							,HttpServletRequest request) {
+		
+		profitAndLossService.addAccount(account);
+		
+		return "redirect:/adminpage/profitAndLoss/accountList";
+	}
+	
+	//계정과목 등록
+	@GetMapping("/addAccount")
+	public String addAccount(Model model) {
+		
+		List<Account> accountList = profitAndLossService.getAccountList();
+		
+		model.addAttribute("accountList", accountList);
+		//log.info("지출 내역 : {}", spendingList);
+		
+		return "adminpage/profitAndLoss/addAccount";
 	}
 	
 	//손익 계정과목 리스트
