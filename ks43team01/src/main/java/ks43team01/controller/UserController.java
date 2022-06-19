@@ -31,6 +31,8 @@ import ks43team01.service.UserService;
 @Controller
 public class UserController {
 	
+	
+	
 	private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
 	//DI//
@@ -101,8 +103,9 @@ public class UserController {
 	}
 	//판매자 근무이력 null처리
 		@GetMapping("/nullSellerCareer")
-		public String nullSellerCareer(SellerCareer sellerCareer) {
-			
+		public String nullSellerCareer(SellerCareer sellerCareer,HttpSession session) {
+			String UID =  (String)session.getAttribute("UID");
+			sellerCareer.setUserIdCode(UID);
 			userService.nullSellerCareer(sellerCareer);
 			
 			return "userpage/user/sellerEducation";
@@ -121,6 +124,16 @@ public class UserController {
 	@GetMapping("/sellerEducation")
 		public String addSellerCareer() {
 			return "userpage/user/sellerEducation";
+	}
+	@GetMapping("/nullSellerComplete")//학력처리 null처리//
+	public String NullSellerEducation(SellerEducation sellerEducation,HttpSession session) {
+		
+		String UID =  (String)session.getAttribute("UID");
+		sellerEducation.setUserIdCode(UID);
+		userService.NullSellerEducation(sellerEducation);
+		log.info("학력null값   ; {}",sellerEducation);
+		
+		return "userpage/user/login"; 
 	}
 	@PostMapping("/sellerComplete")//판매자 학력사항 전달받음(이미지파일도 첨부완)//
 	public String addSellerEducation(SellerEducation sellerEducation,HttpSession session,HttpServletRequest request) {

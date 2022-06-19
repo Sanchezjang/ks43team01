@@ -51,13 +51,13 @@
 		          <div class="row">
 		            <div class="col-md-6 mb-4">
 		               <label for="userIdCode"></label>
-		               <input type="hidden" class="form-control" id="userIdCode" name="userIdCode" th:value="${session.userIdCode}" readonly>
+		               <input type="hidden" class="form-control" id="userIdCode" name="userIdCode" th:value="${session.UID}" readonly>
 		             </div>
 		             
 		            </div>
 		            <div class="row">
 		            <div class="col-md-6 mb-3">
-		              <label for="expertCompanyName">회사명</label><a th:href="@{/nullSellerCareer}" class="btn btn-primary btn-sm boxButton" th:herf="@{/nullSellerCareer}" >해당없음</a>
+		              <label for="expertCompanyName">회사명</label><a th:href="@{/nullSellerCareer}" class="btn btn-primary btn-sm boxButton">해당없음</a>
 		              <input type="text" id="expertCompanyName" class="form-control" name="expertCompanyName" placeholder="ex ) 재직하신 직장명을 적어주세요!"value=''>
 		            </div>
 		          </div>
