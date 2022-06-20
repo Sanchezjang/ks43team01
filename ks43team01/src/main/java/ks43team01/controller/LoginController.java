@@ -42,7 +42,7 @@ public class LoginController {
 	@PostMapping("/login")
 	public String login(@RequestParam(name="userId",required = false)String userId
 						,@RequestParam(name="userPw",required = false)String userPw
-						,HttpSession session,HttpServletRequest request,UserLog userLog,String loginIp) {
+						,HttpSession session,HttpServletRequest request,UserLog userLog) {
 		User user = userService.getUserInfoById(userId);
 		log.info("user에서 받아온값 :   {}",user);
 

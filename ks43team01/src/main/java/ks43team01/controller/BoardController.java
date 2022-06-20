@@ -57,7 +57,7 @@ public class BoardController {
 	 * @param request
 	 * @return
 	 */
-	
+
 	
 	/*사용자용 자유게시판 목록*/
 	@GetMapping("/freeBoardList")

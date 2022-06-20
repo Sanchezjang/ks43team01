@@ -24,6 +24,7 @@ import ks43team01.dto.SellerBusiness;
 import ks43team01.dto.SellerCareer;
 import ks43team01.dto.SellerEducation;
 import ks43team01.dto.User;
+import ks43team01.dto.UserLog;
 import ks43team01.dto.goodsSubCategory;
 import ks43team01.dto.goodsTopCategory;
 import ks43team01.service.UserService;
@@ -72,6 +73,15 @@ public class UserController {
 		
 		return "/adminpage/user/userList";
 	}
+	@GetMapping("/adminpage/user/userLogDate")//admin로그인총이력//
+	public String getLogDate(Model model) {
+		
+		List<UserLog> userLogDate = userService.getLogDate(); 
+		
+		model.addAttribute("userLogDate", userLogDate);
+		log.info("userLogDate값   : {}" , userLogDate);
+		return "/adminpage/user/userLogDate";
+	}
 	
 	@GetMapping("/sellerjoin")// 판매자회원추가진행로
 	public String userInsertCheck(Model model) {
@@ -92,6 +102,7 @@ public class UserController {
 	@PostMapping("/sellerBusiness")////판매자 비지니스 내용 제출폼..//
 	public String addSellerBusiness(SellerBusiness sellerBusiness,HttpSession session) {
 		session.setAttribute("userIdCode",sellerBusiness.getUserIdCode());
+		
 		log.info("셀러비지니스분야입력   :{}",sellerBusiness);
 		log.info("세션아이디 받아오는지  :  {}", userIdCode);
 		userService.addSellerBusiness(sellerBusiness);

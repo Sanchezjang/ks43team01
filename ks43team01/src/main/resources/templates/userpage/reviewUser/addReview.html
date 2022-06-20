@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html class="no-js" lang="zxx" 
 xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
@@ -14,13 +14,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <style>
 
-.row{
-		width: 1200px;
+.ReviewRow{
+	width: 1200px;
 	margin:0 auto;	
-
 }
 
-.addBoardForm {
+.addReviewForm {
 	width: 1200px;
 	margin:0 auto;	
 	margin-bottom: 100px;
@@ -43,10 +42,10 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
  <div class="slider-area">
             <div class="slider-height2 d-flex align-items-center">
                 <div class="container">
-                    <div class="row">
+                    <div class="ReviewRow">
                         <div class="col-xl-12">
                             <div class="hero-cap hero-cap2 text-center">
-                                <h2>Review</h2>
+                                <h2>Board</h2>
                             </div>
                         </div>
                     </div>
@@ -55,52 +54,47 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
         </div>
         <!-- Hero End -->
         <!-- About Details Start -->
-		
-	<div class="row">
-			<div class="col-lg-8">
-				<form class="form-contact contact_form" th:action="@{userpage/rivewUser/addUser}" method="post" id="contactForm" novalidate="novalidate">
-					<div class="row">
+
+<div class="addReviewForm">
+	
+			
+	<div class="ReviewRow">
+				<form class="form-contact contact_form" th:action="@{userpage/reviewUser/addReview}" method="post" id="contactForm" novalidate="novalidate">
+					<div class="ReviewRow">
 						<div class="col-12">
 							<div class="form-group">
-								<h4>내용</h4>
-								<input class="form-control" name="reviewContent" id="reviewContent" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '입력하세요.'" placeholder="제목을 입력하세요."  required>
+								<h4>제목</h4>
+								<input class="form-control" name="reviewUserTitle" id="reviewUserTitle" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '입력하세요.'" placeholder="제목을 입력하세요."  required>
 							</div>
 						</div>
-						<div class="col-sm-6">
+						<div class="col-6">
+							<div class="form-group">
+							<h4>별점</h4>
+								<input class="form-control valid" name="starScore" id="starScore" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '입력하세요.'"  required>
+							</div>
+						</div>
+						<div class="col-6">
 							<div class="form-group">
 							<h4>이름</h4>
 								<input class="form-control valid" name="userIdCode" id="userIdCode" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '입력하세요.'" placeholder="이름을 입력하세요."  required>
 							</div>
 						</div>
-					
-						<div class="x_panel">
-						<div class="make-star">
-							<form class="mb-3" name="addReviewForm" id="addReviewForm"method="post">
-								<fieldset>
-								 	<input type="hidden" name="reviewScoreCode" th:value="${reviewScoreCode}">
-									<span class="text-bold">별점을 선택해주세요</span> 
-									<input type="radio" name="reviewStar" value="5" id="rate1"><label for="rate1">★</label>
-									
-									<input type="radio" name="reviewStar" value="4" id="rate2"><label for="rate2">★</label>
-									 
-									<input type="radio" name="reviewStar" value="3" id="rate3"><label for="rate3">★</label> 
-									
-									<input type="radio" name="reviewStar" value="2" id="rate4"><label for="rate4">★</label> 
-									
-									<input type="radio" name="reviewStar" value="1" id="rate5"><label for="rate5">★</label>
-								</fieldset>
+						<div class="col-12">
+							<div class="form-group">
+							<h4>본문</h4>
+								<textarea class="form-control w-100" name="reviewContent" id="reviewContent" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = '본문을 입력하세요.'" placeholder="본문을 입력하세요."  required></textarea>
+							</div>
+						</div>
 					
 					</div>
 						<div class="clickBtn mt-3" >
 							<button type="submit" class="button button-contactForm boxed-btn">저장</button>
 							<button type="submit" class="button2 button-contactForm boxed-btn">취소</button>
-							<button type="submit" class="button2 button-contactForm boxed-btn">취소</button>
 						</div>
 				</form>
-		</div>
 	</div>
 </div>
-
+			
 
 
 </body>
@@ -109,4 +103,4 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <footer th:replace="/userpage/fragments/footer.html :: footerFragment"></footer>	
 	
-</html>-->
+</html>

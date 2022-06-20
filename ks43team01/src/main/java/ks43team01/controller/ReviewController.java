@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import ks43team01.dto.ReviewContentsReg;
 import ks43team01.service.ReviewService;
@@ -42,7 +41,7 @@ public class ReviewController {
 		return "redirect:/userpage/reviewUser/reviewUserList";
 	}
 	
-	/* 리뷰 등록 */
+	/* 리뷰 등록 (post)*/
 	@PostMapping("/addReview")
 	public String addReview(ReviewContentsReg reviewContentsReg) {
 		
@@ -50,7 +49,19 @@ public class ReviewController {
 		
 		return "redirect:/userpage/reviewUser/reviewUserList";
 	}
-	/* 리뷰 목록 유저 페이지 조회 */
+	
+	/* 리뷰 등록(get) */
+	@GetMapping("/addReview")
+	public String addReview(Model model) {
+		
+		List<ReviewContentsReg> reviewUserList = reviewService.getReviewUserList();
+		model.addAttribute("reviewUserList", reviewUserList);
+		
+		return "/userpage/reviewUser/addReview";
+	}
+	
+	
+	/* 유저 페이지 회원 리뷰 목록 조회 */
 	@GetMapping("/reviewUserList")
 	public String getReviewUserList(Model model) {
 		
@@ -61,8 +72,8 @@ public class ReviewController {
 				
 	}
 	
-	/* 리뷰 목록 관리자 페이지 조회 */
-	@GetMapping("/reviewAdminList")
+	/* 관리자 페이지 회원 리뷰 목록  조회 */
+	@GetMapping("adminpage/reviewAdmin/reviewAdminList")
 	public String getReviewAdminList(Model model) {
 		
 		List<ReviewContentsReg> reviewAdminList = reviewService.getReviewAdminList();
