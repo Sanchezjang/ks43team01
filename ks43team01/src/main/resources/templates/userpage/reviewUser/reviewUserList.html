@@ -1,96 +1,90 @@
 <!DOCTYPE html>
 <html class="no-js" lang="zxx" 
 xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-	 
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<head th:replace="/userpage/fragments/head.html :: headFragment">
-</head>
-<header th:replace="/userpage/fragments/header.html :: headerFragment"></header>
-<body>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">
 <!------ Include the above in your HEAD tag ---------->
-<style>
-html, body, div, a, table, thead, tbody, tr, th, td {
-	margin:0; outline:0; border:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent;
-}
-body { 
-	font-size:0.875em; line-height:1.5; color:#666; -webkit-text-size-adjust:none; min-width:320px;
-	font-family:'NanumGothic','나눔고딕',dotum, "Helvetica Neue", Helvetica, Verdana, Arial, Sans-Serief;
-}
-
-
-ul{margin:0;}
-a:link, a:visited {text-decoration:none; color: #656565;}
-
-.container {max-width:1024px; margin:30px auto;}
-
-.blog-pagination {
-    margin-top: 0;
-    
-}    
-.ReviewForm{
-	padding-top: 50px;
-
-}
-.section-top-border{
-	width: 1200px;
-	margin:0 auto;
-
-}
-.progress-table{
-	background: #f9f9ff;
-	padding: 15px 0px 30px 0px;
-	min-width: 800px;
-	
-}
-	.serial{
-		width: 11.83%;
-        padding-left: 30px;
+<div layout:fragment="content">
+	<style>
+	html, body, div, a, table, thead, tbody, tr, th, td {
+		margin:0; outline:0; border:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent;
 	}
-	.regDate {
-        width: 19.74%;
-    }
-    .title {
-        width: 25.36%;
-        padding-right: 50px;
-    }
-	.writer{
-		width:  8.07%;
+	body { 
+		font-size:0.875em; line-height:1.5; color:#666; -webkit-text-size-adjust:none; min-width:320px;
+		font-family:'NanumGothic','나눔고딕',dotum, "Helvetica Neue", Helvetica, Verdana, Arial, Sans-Serief;
 	}
-    .starScore{
-    	width: 11.83%;
-    	padding-left: 30px;
-    }
-    .recommendationsCount{
-    	width: 11.83%;
-    	padding-left: 30px;
-    }
-    .decommendationsCount{
-    	width: 11.83%;
-    	padding-left: 30px;
-    }
-	.table-head {
-	    	padding: 15px 0;
-        	display: flex;
-  			font-weight: bold;
-            color: $title-color;
-            line-height: 40px;
-            text-transform: uppercase;
-            font-weight: 500;
-            border-bottom: 2px solid #c6d8f7;
-    }
-	.table-row {
-        padding: 15px 0;
-        border-top: 1px solid #edf3fd;
-        display: flex;
-        }
-
 	
-
-
-</style>
+	
+	ul{margin:0;}
+	a:link, a:visited {text-decoration:none; color: #656565;}
+	
+	.container {max-width:1024px; margin:30px auto;}
+	
+	.blog-pagination {
+	    margin-top: 0;
+	    
+	}    
+	.ReviewForm{
+		padding-top: 50px;
+	
+	}
+	.section-top-border{
+		width: 1200px;
+		margin:0 auto;
+	
+	}
+	.progress-table{
+		background: #f9f9ff;
+		padding: 15px 0px 30px 0px;
+		min-width: 800px;
+		
+	}
+		.serial{
+			width: 11.83%;
+	        padding-left: 30px;
+		}
+		.regDate {
+	        width: 19.74%;
+	    }
+	    .title {
+	        width: 25.36%;
+	        padding-right: 50px;
+	    }
+		.writer{
+			width:  8.07%;
+		}
+	    .starScore{
+	    	width: 11.83%;
+	    	padding-left: 30px;
+	    }
+	    .recommendationsCount{
+	    	width: 11.83%;
+	    	padding-left: 30px;
+	    }
+	    .decommendationsCount{
+	    	width: 11.83%;
+	    	padding-left: 30px;
+	    }
+		.table-head {
+		    	padding: 15px 0;
+	        	display: flex;
+	  			font-weight: bold;
+	            color: $title-color;
+	            line-height: 40px;
+	            text-transform: uppercase;
+	            font-weight: 500;
+	            border-bottom: 2px solid #c6d8f7;
+	    }
+		.table-row {
+	        padding: 15px 0;
+	        border-top: 1px solid #edf3fd;
+	        display: flex;
+	        }
+	
+		
+	
+	
+	</style>
         <div class="slider-area">
             <div class="slider-height2 d-flex align-items-center">
                 <div class="container">
@@ -145,45 +139,42 @@ a:link, a:visited {text-decoration:none; color: #656565;}
 					</div>
 					
              <nav class="blog-pagination justify-content-center d-flex">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a href="#" class="page-link" aria-label="RecentList">
-                                            <i class="ti-angle-double-left"></i>
-                                        </a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link" aria-label="PreviousList">
-                                            <i class="ti-angle-left"></i>
-                                        </a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link">1</a>
-                                    </li>
-                                    <li class="page-item active">
-                                        <a href="#" class="page-link">2</a>
-                                    </li>
-                                    <li class="page-item active">
-                                        <a href="#" class="page-link">3</a>
-                                    </li>
-                                    <li class="page-item active">
-                                        <a href="#" class="page-link">4</a>
-                                    </li>
-                                    <li class="page-item active">
-                                        <a href="#" class="page-link">5</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link" aria-label="NextList">
-                                            <i class="ti-angle-right"></i>
-                                        </a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link" aria-label="OldList">
-                                            <i class="ti-angle-double-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-
-</body>
-
-<footer th:replace="/userpage/fragments/footer.html :: footerFragment"></footer>
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a href="#" class="page-link" aria-label="RecentList">
+                                <i class="ti-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a href="#" class="page-link" aria-label="PreviousList">
+                                <i class="ti-angle-left"></i>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a href="#" class="page-link">1</a>
+                        </li>
+                        <li class="page-item active">
+                            <a href="#" class="page-link">2</a>
+                        </li>
+                        <li class="page-item active">
+                            <a href="#" class="page-link">3</a>
+                        </li>
+                        <li class="page-item active">
+                            <a href="#" class="page-link">4</a>
+                        </li>
+                        <li class="page-item active">
+                            <a href="#" class="page-link">5</a>
+                        </li>
+                        <li class="page-item">
+                            <a href="#" class="page-link" aria-label="NextList">
+                                <i class="ti-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a href="#" class="page-link" aria-label="OldList">
+                                <i class="ti-angle-double-right"></i>
+                            </a>
+                        </li>
+               		</ul>
+               </nav>
+</div>

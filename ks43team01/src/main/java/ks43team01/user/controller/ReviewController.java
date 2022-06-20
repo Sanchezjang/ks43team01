@@ -8,11 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import ks43team01.dto.ReviewContentsReg;
 import ks43team01.service.ReviewService;
 
 @Controller
+@RequestMapping("/userpage/reviewUser")
 public class ReviewController {
 	
 	private static final Logger log = LoggerFactory.getLogger(ReviewController.class);
@@ -72,16 +74,6 @@ public class ReviewController {
 				
 	}
 	
-	/* 관리자 페이지 회원 리뷰 목록  조회 */
-	@GetMapping("adminpage/reviewAdmin/reviewAdminList")
-	public String getReviewAdminList(Model model) {
-		
-		List<ReviewContentsReg> reviewAdminList = reviewService.getReviewAdminList();
-		log.info(" 리뷰목록조회:{} ", "test");
-		model.addAttribute("reviewAdminList",reviewAdminList);
-		
-		return "/adminpage/reviewAdmin/reviewAdminList";
-	}
 	
 }
 
