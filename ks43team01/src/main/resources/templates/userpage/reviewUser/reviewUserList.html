@@ -30,7 +30,7 @@ a:link, a:visited {text-decoration:none; color: #656565;}
     margin-top: 0;
     
 }    
-.boardForm{
+.ReviewForm{
 	padding-top: 50px;
 
 }
@@ -49,17 +49,25 @@ a:link, a:visited {text-decoration:none; color: #656565;}
 		width: 11.83%;
         padding-left: 30px;
 	}
-	.writer{
-		width:  28.07%;
-	}
 	.regDate {
         width: 19.74%;
     }
     .title {
-        width: 40.36%;
+        width: 25.36%;
         padding-right: 50px;
     }
-    .pageView{
+	.writer{
+		width:  8.07%;
+	}
+    .starScore{
+    	width: 11.83%;
+    	padding-left: 30px;
+    }
+    .recommendationsCount{
+    	width: 11.83%;
+    	padding-left: 30px;
+    }
+    .decommendationsCount{
     	width: 11.83%;
     	padding-left: 30px;
     }
@@ -100,30 +108,30 @@ a:link, a:visited {text-decoration:none; color: #656565;}
         <!-- About Details Start -->
 				
 				<div class="ReviewForm">
-				<div class="box" style="width:1200px; margin:0 auto;">
+				<div class="box" style="width:1300px; margin:0 auto;">
 				<table class="section-top-border">
 				
-					<thead>
-						<tr>
-							<th>n0</th>
-							<th>등록일</th>
-							<th>제목</th>
-							<th>작성자</th>
-							<th>리뷰별점</th>
-							<th>리뷰추천횟수</th>
-							<th>리뷰비추천횟수</th>
+					<thead  class="progress-table">
+						<tr class="table-head">
+							<th class="serial">No</th>
+							<th class="regDate">등록일</th>
+							<th class="title">제목</th>
+							<th class="writer">작성자</th>
+							<th class="starScore">리뷰별점</th>
+							<th class="recommendationsCount">리뷰추천횟수</th>
+							<th class="decommendationsCount">리뷰비추천횟수</th>
 							
 						</tr>
 					</thead>
-					<tbody>
-						<tr  th:if="${not #lists.isEmpty(reviewUserList)}" th:each="r : ${reviewUserList}">
-							<td>0</td>
-							<td th:text="${r.reviewContent}"></td>
-							<td th:text="${r.reviewRegDate}"></td>
-							<td th:text="${r.userIdCode}"></td>
-							<td th:text="${r.reviewStarScore}"></td>
-							<td th:text="${r.reviewRecommendationsCount}"> </td>
-							<td th:text="${r.reviewDecommendationsCount}"> </td>
+					<tbody th:if="${not #lists.isEmpty(reviewUserList)}" th:each="r : ${reviewUserList}">
+						<tr  class="table-row">
+				 			<td class="serial">0</td>
+							<td class="regDate" 			 th:text="${r.reviewContent}"></td>
+							<td class="title"    			 th:text="${r.reviewRegDate}"></td>
+							<td class="writer" 			     th:text="${r.userIdCode}"></td>
+							<td class="starScore" 			 th:text="${r.reviewStarScore}"></td>
+							<td class="recommendationsCount" th:text="${r.reviewRecommendationsCount}"> </td>
+							<td class="decommendationsCount" th:text="${r.reviewDecommendationsCount}"> </td>
 						</tr>
 						<tr th:unless="${not #lists.isEmpty(reviewUserList)}">
 							<td colspan="7">조회된 내용이 없습니다.</td>
