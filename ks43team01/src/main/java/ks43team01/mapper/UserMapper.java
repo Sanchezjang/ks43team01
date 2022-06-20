@@ -12,7 +12,6 @@ import ks43team01.dto.UserLevelExp;
 import ks43team01.dto.UserLog;
 import ks43team01.dto.goodsSubCategory;
 import ks43team01.dto.goodsTopCategory;
-import ks43team01.user.controller.login;
 import ks43team01.dto.SellerCareer;
 import ks43team01.dto.SellerEducation;
 
@@ -21,10 +20,12 @@ import ks43team01.dto.SellerEducation;
 @Mapper
 public interface UserMapper {
 	
+	//판매자 정보 입력시에 등급 3에서 2로 업데이트!!!//
+	public int modifyUserLevel(User user);
+	
 	//로그인시에 경험치 누석 구매자회원//
 	public int addUserLevelExp(UserLevelExp userLevelExp);
-	
-	
+		
 	//회원가입//	
 	public int addUserInsert(User user);
 	

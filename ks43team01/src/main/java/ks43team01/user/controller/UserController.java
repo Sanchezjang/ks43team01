@@ -137,17 +137,19 @@ public class UserController {
 			return "userpage/user/sellerEducation";
 	}
 	@GetMapping("/nullSellerComplete")//학력처리 null처리//
-	public String NullSellerEducation(SellerEducation sellerEducation,HttpSession session) {
+	public String NullSellerEducation(SellerEducation sellerEducation,HttpSession session,User user) {
 		
 		String UID =  (String)session.getAttribute("UID");
 		sellerEducation.setUserIdCode(UID);
+		user.setUserIdCode(UID);
 		userService.NullSellerEducation(sellerEducation);
+		userService.modifyUserLevel(user);
 		log.info("학력null값   ; {}",sellerEducation);
 		
 		return "userpage/user/login"; 
 	}
 	@PostMapping("/sellerComplete")//판매자 학력사항 전달받음(이미지파일도 첨부완)//
-	public String addSellerEducation(SellerEducation sellerEducation,HttpSession session,HttpServletRequest request) {
+	public String addSellerEducation(SellerEducation sellerEducation,HttpSession session,HttpServletRequest request,User user) {
 		String UID =  (String)session.getAttribute("UID");
 		sellerEducation.setUserIdCode(UID);
 		String downFile = request.getParameter("expertAcademicDocument");
@@ -155,6 +157,9 @@ public class UserController {
 		log.info("세션아이디 받아오는지  :  {}",UID);
 		userService.SellerEducation(sellerEducation);
 		log.info("sellerEducation분야입력   :{}",sellerEducation);
+		userService.modifyUserLevel(user);
+		log.info("등급바뀌었는지:    {}",user);
+		
 		return "userpage/user/login";
 	}
 	@GetMapping("/userinfomation")
