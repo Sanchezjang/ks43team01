@@ -11,6 +11,7 @@ import ks43team01.dto.SellerBusiness;
 import ks43team01.dto.SellerCareer;
 import ks43team01.dto.SellerEducation;
 import ks43team01.dto.User;
+import ks43team01.dto.UserLevelExp;
 import ks43team01.dto.UserLog;
 import ks43team01.dto.goodsSubCategory;
 import ks43team01.dto.goodsTopCategory;
@@ -27,6 +28,14 @@ public class UserService {
 	public  UserService(UserMapper userMapper) {
 		this.userMapper = userMapper;
 	}
+	/*로그인시에 구매자회원 경험치 누적!!!*/
+	public int addUserLevelExp(UserLevelExp userLevelExp) {
+		
+		int result = userMapper.addUserLevelExp(userLevelExp);
+		
+		return result;
+	}
+	
 	
 	public int addUserInsert(User user) { //회원가입//
 		

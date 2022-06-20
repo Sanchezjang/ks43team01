@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="ks43team01.mapper.UserLevelExpMapper">
+
+	  <resultMap type="ks43team01.dto.UserLevelExp" id="UserLevelExpResultMap">
+	  		<id column="level_up_buyer_standard_details_code" property="levelUpBuyeyStandardDetailsCode"/>
+	  		<result column="level_up_buyer_standard_code" property="levelUpBuyerStandardCode"/>
+	  		<result column="level_up_standard_detail" property="levelUpStandardDetail"/>
+	  		<result column="level_up_exp_accumulate" property="levelUpExpAccumulate"/>
+	  		<result column="level_up_exp_limit" property="levelUpExpLimit"/>
+	  		<result column="user_id_code" property="userIdCode"/>
+	  		<result column="level_up_buyer_standard_reg_date" property="levelUpBuyerStandardRegDate"/>
+  		</resultMap>
+	  		
+	  		
+	  <insert id="addUserLevelExp" parameterType="UserLevelExp">
+		INSERT INTO tb_l_level_buyer_standard_details 
+		(  level_up_buyer_standard_details_code
+			,level_up_buyer_standard_code
+			,level_up_standard_detail
+			,level_up_exp_accumulate
+			,level_up_exp_limit
+			,user_id_code
+			,level_up_buyer_standard_reg_date
+		)
+		values
+		(
+			date_format(NOW(), 'lubsdc_%y%m%d%H%i%s')
+			,'level_up_b1'
+			,'출석체크'
+			,5
+			,1
+			,#{userIdCode}
+			,CURDATE()
+		);
+	  </insert>		
+  
+  </mapper>
+
