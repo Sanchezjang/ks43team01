@@ -62,7 +62,9 @@ public class BoardController {
 		return "userpage/board/qnaBoardList";
 	}
 	
-	
+	/* 문의 게시판 1차 카테고리 조회 */
+
+	 
 	/* 게시판 대분류 카테고리 조회*/
 	@GetMapping("/adminpage/boardAdmin/boardCategoryList")
 	public String getBoardCategoryList(Model model) {
