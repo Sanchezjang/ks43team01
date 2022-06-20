@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import ks43team01.dto.Board;
 import ks43team01.dto.BoardCategory;
+import ks43team01.dto.QnaBoard;
 import ks43team01.service.BoardService;
 
 
@@ -28,6 +29,18 @@ public class BoardController {
 	public BoardController(BoardService boardService) {
 		this.boardService = boardService;
 	}
+	
+	/* 1:1 게시판 게시글 조회*/
+	@GetMapping("/qnaBoardList")
+	public String getQnaBoardList(Model model) {
+		List<QnaBoard> qnaBoardList = boardService.getQnaBoardList();
+		log.info("1:1 게시판 게시글 목록: {}", qnaBoardList);
+		model.addAttribute("qnaBoardList", qnaBoardList);
+		
+		return "userpage/board/qnaBoardList";
+	}
+	
+	
 	/* 게시판 대분류 카테고리 조회*/
 	@GetMapping("/adminpage/boardAdmin/boardCategoryList")
 	public String getBoardCategoryList(Model model) {
@@ -44,28 +57,7 @@ public class BoardController {
 	 * @param request
 	 * @return
 	 */
-	/*게시글 등록*/
-    @PostMapping("/addBoard")
-    public String addBoard(Board board) {
-       boardService.addBoard(board);
-       
-       return "redirect:/adminpage/boardAdmin/boardList";
-    }
 
-    /**
-     * 2개 활용
-     * @param model
-     * @return
-     */
-    @GetMapping("/addBoard")
-    public String addBoard(Model model) {
-    	List<Board> boardList = boardService.getBoardList();
-    	model.addAttribute("boardList", boardList);
-    	List<BoardCategory> boardCategoryList = boardService.getBoardCategoryList();
-		log.info("게시판 대분류 카테고리 목록: {}", boardCategoryList);
-		model.addAttribute("boardCategoryList", boardCategoryList);
-       return "userpage/board/addBoard";
-    }
 	
 	/*사용자용 자유게시판 목록*/
 	@GetMapping("/freeBoardList")
@@ -88,6 +80,29 @@ public class BoardController {
 		return "userpage/board/faqBoardList";
 	}
 	
+	
+	/* 공지사항 게시글 등록*/
+    @PostMapping("/addNoticeBoard")
+    public String addNoticeBoard(Board board ,HttpServletRequest request) {
+       boardService.addNoticeBoard(board);
+       
+       return "redirect:/userpage/board/noticeBoardList";
+    }
+
+    /**
+     * 공지사항 게시글 등록
+     * @param model
+     * @return
+     */
+    @GetMapping("/addNoticeBoard")
+    public String addNoticeBoard(Model model) {
+    	List<Board> noticeBoardList = boardService.getNoticeBoardList();
+    	List<BoardCategory> boardCategoryList = boardService.getBoardCategoryList();
+    	
+    	model.addAttribute("noticeBoardList", noticeBoardList);
+		model.addAttribute("boardCategoryList", boardCategoryList);
+       return "userpage/board/addNoticeBoard";
+    }
 	
 	/*사용자용 공지사항 목록*/
 	@GetMapping("/noticeBoardList")

@@ -25,6 +25,38 @@
           <result column="board_category_use"  property="boardCategoryUse"/>
   </resultMap>
   
+    <resultMap type="QnaBoard" id="boardResultMap">
+ 			<id 	column="board_question_code" 	 property="boardQuestionCode"/>
+ 			<result column="user_id_code" 	 property="userIdCode"/>
+ 			<result column="board_category_code" 	 property="boardCategoryCode"/>
+ 			<result column="board_l_category_code" 	 property="boardLargeCategoryCode"/>
+ 			<result column="board_m_category_code" 	 property="boardMediumCategoryCode"/>
+ 			<result column="board_question_num" 	 property="boardQuestionNum"/>
+ 			<result column="board_question_title"  property="boardQuestionTitle"/>
+ 			<result column="user_name" property="userName"/>
+ 			<result column="board_question_content"  property="boardQuestionContent"/>
+ 			<result column="board_question_reg_date"  property="boardQuestionRegDate"/>
+ 			<result column="user_email"  property="userEmail"/>
+ 			<result column="board_question_answer_method"  property="boardQuestionAnswerMethod"/>
+ 			<result column="board_question_lock"  property="boardQuestionLock"/>
+ 			<result column="board_question_pw"  property="boardQuestionPw"/>
+ 			<result column="board_question_update_date"  property="boardQuestionUpdateDate"/>
+ 			<result column="board_question_page_view"  property="boardQuestionPageView"/>
+ 			<result column="board_question_use"  property="boardQuestionUse"/>
+  </resultMap>
+  
+  <select id="getQnaBoardList" resultMap="boardResultMap">
+	/*사용자용 1:1 문의 게시글 조회*/
+		SELECT
+			board_question_num
+			,board_question_title
+			,user_name
+			,board_question_lock
+			,board_question_reg_date
+			,board_question_page_view
+		FROM
+			tb_b_board_question;
+	</select>
 
 	<select id="getBoardCategoryList" resultMap="boardCategoryResultMap">
 	/*게시글 대분류 카테고리 조회*/
@@ -38,31 +70,6 @@
 			tb_b_board_category;
 	</select>
 
-	<insert id="addBoard" parameterType="Board">
-	/*게시글 등록*/
-       INSERT INTO tb_b_board_post
-      (   board_post_code
-         , user_id_code
-         , board_category_code
-         , board_user_name
-         , board_post_title
-         , board_post_content
-         , board_post_reg_date
-         , board_post_update_date
-         , board_post_view
-         , board_post_use
-      )VALUES (
-         date_format(NOW(),'post_ur%y%m%d%H%i%s')
-        , #{userIdCode} 
-        , #{boardCategoryCode}
-        , #{boardUserName} 
-        , #{boardPostTitle}
-        , #{boardPostContent} 
-        , CURDATE() 
-        , CURDATE() 
-        , #{boardPostView}
-      );
-    </insert>
 	<select id="getFreeBoardList" resultMap="boardResultMap">
 	/*사용자용 자유게시판 조회*/
 		SELECT
@@ -90,6 +97,32 @@
 			board_category_code = 'board02';
 	</select>
 
+	<insert id="addNoticeBoard" parameterType="Board">
+	/*공지사항 게시글 등록*/
+       INSERT INTO tb_b_board_post
+      (   board_post_code
+         , user_id_code
+         , board_category_code
+         , board_post_title
+         , board_user_name
+         , board_post_content
+         , board_post_reg_date
+         , board_post_update_date
+         , board_post_view
+         , board_post_use
+      )VALUES (
+         date_format(NOW(),'post_%y%m%d%H%i%s')
+        , 'id001'
+        , 'board01'
+        , #{boardPostTitle}
+        , #{boardUserName}
+        , #{boardPostContent} 
+        , CURDATE() 
+        , CURDATE() 
+        , #{boardPostView}
+        , #{boardPostUse}
+      );
+    </insert>
 
   	<select id="getNoticeBoardList" resultMap="boardResultMap">
 	/*사용자용 공지사항 조회*/
