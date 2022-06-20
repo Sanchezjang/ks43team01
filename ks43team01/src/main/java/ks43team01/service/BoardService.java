@@ -25,31 +25,36 @@ public class BoardService {
 		return boardCategoryList;
 	}
 	
-
-	/*일반 게시글 등록*/
+	/* 게시글 등록 */
 	public int addBoard(Board board) {
 		int result = boardMapper.addBoard(board);
 		
 		return result;
 	}
 	
-	/* 사용자용 자유게시판 목록 조회*/
+	/* 사용자용 자유게시판 목록 조회 */
 	public List<Board> getFreeBoardList(){
 		List<Board> freeBoardList = boardMapper.getFreeBoardList();
 		return freeBoardList;
 	}
 	
-	/* 사용자용 자주묻는 질문 목록 조회*/
+	/* 사용자용 자주묻는 질문 목록 조회 */
 	public List<Board> getFaqBoardList(){
 		List<Board> faqBoardList = boardMapper.getFaqBoardList();
 		return faqBoardList;
 	}
 	
 	
-	/* 사용자용 공지사항 목록 조회*/
+	/* 사용자용 공지사항 목록 조회 */
 	public List<Board> getNoticeBoardList(){
 		List<Board> noticeBoardList = boardMapper.getNoticeBoardList();
 		return noticeBoardList;
+	}
+	
+	/* 관리자용 전체 게시글 목록 조회 */
+	public List<Board> getBoardList(){
+		List<Board> boardList = boardMapper.getBoardList();
+		return boardList;
 	}
 	
 }

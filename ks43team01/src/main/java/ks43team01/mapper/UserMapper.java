@@ -52,9 +52,13 @@ public interface UserMapper {
 	//판매자의 학력증명사항//
 	public int addSellerEducation(SellerEducation sellerEducation);
 	
+	//판매자의 학력없음을 누를경우//
+	public int NullSellerEducation(SellerEducation sellerEducation);
+	
 	//로그인하는 모든 유저의 로그 테이블 쌓기
 	
 	public int addUserLog(UserLog userLog);
+
 	
 	
 	

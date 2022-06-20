@@ -16,7 +16,6 @@ import ks43team01.service.PointService;
 
 
 @Controller
-@RequestMapping("/adminpage/pointDetails")
 public class PointController {
 	
 	
@@ -27,16 +26,20 @@ public class PointController {
 	public PointController(PointService pointService) {
 		this.pointService = pointService;
 	}
-	/* 포인트 업데이트 로직  */
-	
-	
-	
+	/* 포인트 삭제 */
+	@PostMapping("/pointList")
+	public String removePoint(String pointDetailsCode) {
+		
+		pointService.removePoint(pointDetailsCode);
+		
+		return "adminpage/pointDetails/pointList"; 
+		
+	}
 	
 	
 	/* 포인트 적립 내역 테이블 조회 */
 	@GetMapping("/pointList")
 	public String getPointList(Model model) {
-		
 		
 		log.info("포인트 적립 내역 테이블 조회 : {}" ,"test");
 		List<Point> pointList = pointService.getPointList();

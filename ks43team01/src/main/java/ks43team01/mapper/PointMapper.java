@@ -11,12 +11,13 @@ import ks43team01.dto.PointStandardDetails;
 
 @Mapper
 public interface PointMapper {
-	//회원 포인트 상세내역
+	
+	
+	
+	/* 관리자 페이지 회원 포인트 수정 */
+	public int removePoint(String pointDetailsCode);
+	
+	
+	/* 관리자 페이지 회원 포인트 조회 */
 	public List<Point> getPointList();
-	
-	//포인트 기준코드 
-	public PointStandard getPointStandard();
-	
-	//포인트 내용 기준 코드 
-	public PointStandardDetails getPointStandardDetails();
 }

@@ -64,6 +64,19 @@
   	  			<result column="seller_exp" property="sellerExp"/>
   	  	 	</resultMap>
   	  	 	
+  	  	 	<resultMap type="ks43team01.dto.SellerCareer" id="SellerCareerResultMap">
+  	  			<id column="expert_career_details_code" property="expertCareerDetailsCode"/>
+  	  			<result column="user_id_code" property="userIdCode"/>
+  	  			<result column="expert_company_name" property="expertCompanyName"/>
+  	  			<result column="expert_work_department" property="expertWorkDepartment"/>
+  	  			<result column="expert_position" property="expertPosition"/>
+  	  			<result column="expert_work_place" property="expertWorkPlace"/>
+  	  			<result column="expert_work_date" property="expertWorkDate"/>
+  	  			<result column="expert_etc" property="expertEtc"/>
+  	  			<result column="expert_stay_use" property="expertStayUse"/>
+  	  			<result column="expert_career_proof_matters_attachments" property="expertCareerProofMattersAttachments"/>
+  	  	 	</resultMap>
+  	  	 	
   	<insert id="addUserLog" parameterType="UserLog">
   		INSERT into tb_u_user_log
 		( 	login_num
@@ -83,7 +96,7 @@
   	</insert>
   	
   	<insert id="NullSellerEducation" parameterType="ks43team01.dto.SellerEducation">
-  		/*판매적 학력 입력*/  		
+  		/*판매적 학력이 없을때 작업 입력*/  		
   		INSERT into tb_u_expert_education
 		(	expert_final_education_code 
 			,user_id_code
@@ -96,12 +109,12 @@
 		)values(
 			date_format(NOW(),'ua%y%m%d%H%i%s')
 			,#{userIdCode}
-			,#
-			,#
-			,#
-			,#
+			,'#1'
+			,'#1'
+			,'#1'
+			,'#1'
 			,CURDATE()
-			,#
+			,CURDATE()
 		);
 	</insert>
   	
@@ -155,8 +168,8 @@
 		);
 	</insert>
 		
-	<insert id="nullSellerCareer" parameterType="ks43team01.dto.SellerBusiness">
-  		/*판매적 근무사항 입력*/  		
+	<insert id="nullSellerCareer" parameterType="ks43team01.dto.SellerCareer">
+  		/*판매적 근무사항이 없을때  입력*/  		
   		INSERT into tb_u_expert_career
 		(	expert_career_details_code 
 			,user_id_code
@@ -181,6 +194,7 @@
 			,'#'
 		);
 	</insert>
+
   	<insert id="addUserInsert" parameterType="ks43team01.dto.User">
   		/* 구매자회원가입*/
   		INSERT into tb_u_all_user

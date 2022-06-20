@@ -3,6 +3,7 @@ package ks43team01.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,29 +29,41 @@ public class BoardController {
 		this.boardService = boardService;
 	}
 	/* 게시판 대분류 카테고리 조회*/
-	@GetMapping("/boardCategoryList")
+	@GetMapping("/adminpage/boardAdmin/boardCategoryList")
 	public String getBoardCategoryList(Model model) {
 		List<BoardCategory> boardCategoryList = boardService.getBoardCategoryList();
 		log.info("게시판 대분류 카테고리 목록: {}", boardCategoryList);
-		model.addAttribute("boardCategotyList", boardCategoryList);
+		model.addAttribute("boardCategoryList", boardCategoryList);
 		
 		return "adminpage/boardAdmin/boardCategoryList";
 		
 	}
-
-	/*공지사항 게시글 등록*/
+	/**
+	 * 
+	 * @param board
+	 * @param request
+	 * @return
+	 */
+	/*게시글 등록*/
     @PostMapping("/addBoard")
-    public String addBoard(Board board, HttpServletRequest request) {
-    	
+    public String addBoard(Board board) {
        boardService.addBoard(board);
        
-       return "redirect:/userpage/board/noticeBoardList";
+       return "redirect:/adminpage/boardAdmin/boardList";
     }
-    
+
+    /**
+     * 2개 활용
+     * @param model
+     * @return
+     */
     @GetMapping("/addBoard")
     public String addBoard(Model model) {
-    	List<Board> noticeBoardList = boardService.getNoticeBoardList();
-    	model.addAttribute("noticeBoardList", noticeBoardList);
+    	List<Board> boardList = boardService.getBoardList();
+    	model.addAttribute("boardList", boardList);
+    	List<BoardCategory> boardCategoryList = boardService.getBoardCategoryList();
+		log.info("게시판 대분류 카테고리 목록: {}", boardCategoryList);
+		model.addAttribute("boardCategoryList", boardCategoryList);
        return "userpage/board/addBoard";
     }
 	
@@ -85,5 +98,16 @@ public class BoardController {
 		
 		return "userpage/board/noticeBoardList";
 	}
+	
+	/*관리자용 게시글 목록*/
+	@GetMapping("/adminpage/boardAdmin/boardList")
+	public String getBoardList(Model model) {
+		List<Board> boardList = boardService.getBoardList();
+		log.info("전체 게시글 목록: {}", boardList);
+		model.addAttribute("boardList", boardList);
+		
+		return "adminpage/boardAdmin/boardList";
+	}
+	
 	
 }

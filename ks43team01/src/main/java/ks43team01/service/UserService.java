@@ -75,6 +75,7 @@ public class UserService {
 			
 			return result;
 	}
+		//경력없을시 null처리로
 		public int nullSellerCareer(SellerCareer sellerCareer) {
 			
 			int result = userMapper.nullSellerCareer(sellerCareer);
@@ -88,6 +89,14 @@ public class UserService {
 			
 			return result;
 	}
+	//학력없을시에 nul처리///
+		public int NullSellerEducation(SellerEducation sellerEducation) {
+			
+			int result = userMapper.NullSellerEducation(sellerEducation);
+			
+			return result; 
+		}
+		
 		//로그인하는 모든 유저의 로그 테이블 쌓기//
 		public int addUserLog(UserLog userLog) {
 			

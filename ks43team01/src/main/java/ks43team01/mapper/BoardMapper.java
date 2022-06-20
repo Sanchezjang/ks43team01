@@ -10,7 +10,7 @@ import ks43team01.dto.BoardCategory;
 
 @Mapper
 public interface BoardMapper {
-	// 게시판 대분류 카테고리 조회
+	// 게시판 대분류 카테고리 조회 테스트
 	public List<BoardCategory> getBoardCategoryList();
 	
 	// 일반 게시글 등록
@@ -24,4 +24,7 @@ public interface BoardMapper {
 	
 	//1. 사용자용 공지사항 목록 조회
 	public List<Board> getNoticeBoardList();
+	
+	//0. 관리자용 전체 게시글 목록 조회
+	public List<Board> getBoardList();
 }

@@ -3,6 +3,41 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks43team01.mapper.ProfitAndLossMapper">
+
+	<resultMap type="ProfitAndLoss" id="ProfitAndLossResultMap">
+		<id 	column="account_subject_code"		property="accountSubjectCode"/>
+		<result column="account_name" 				property="accountName"/>
+		<result column="profit_loss_classification"	property="profitLossClassification"/>
+		<result column="account_use" 				property="accountUse"/>
+		<result column="account_amend" 				property="accountAmend"/>
+		<result column="account_reg_date" 			property="accountRegDate"/>
+		<result column="user_id_code" 				property="userIdCode"/>
+		<result column="account_year" 				property="accountYear"/>
+			<association property="spending" javaType="Spending">
+				<id 	column="spending_group_code"	property="spendingGroupCode"/>
+				<result column="account_subject_code" 	property="accountSubjectCode"/>
+				<result column="spending_year" 			property="spendingYear"/>
+				<result column="spending_month" 		property="spendingMonth"/>
+				<result column="account_name" 			property="accountName"/>
+				<result column="spending_date" 			property="spendingDate"/>
+				<result column="spending_amount" 		property="spendingAmount"/>
+				<result column="spending_info" 			property="spendingInfo"/>
+				<result column="user_id_code" 			property="userIdCode"/>
+				<result column="spending_reg_date"		property="spendingRegDate"/>
+			</association>
+			<association property="sales" javaType="Sales">
+				<id 	column="sales_group_code"		property="salesGroupCode"/>
+				<result column="account_subject_code" 	property="accountSubjectCode"/>
+				<result column="sales_year" 			property="salesYear"/>
+				<result column="sales_month" 			property="salesMonth"/>
+				<result column="account_name" 			property="accountName"/>
+				<result column="sales_date" 			property="salesDate"/>
+				<result column="sales_amount" 			property="salesAmount"/>
+				<result column="sales_info" 			property="salesInfo"/>
+				<result column="user_id_code" 			property="userIdCode"/>
+				<result column="sales_reg_date"			property="salesRegDate"/>
+			</association>
+	</resultMap>
 	
 	<resultMap type="Spending" id="SpendingResultMap">
 		<id 	column="spending_group_code"	property="spendingGroupCode"/>
@@ -30,7 +65,6 @@
 		<result column="sales_reg_date"			property="salesRegDate"/>
 	</resultMap>
 
-	
 	<insert id="addSales" parameterType="Sales">
 		INSERT INTO tb_gr_group_monthly_spending
 		(
@@ -50,26 +84,46 @@
 		);
 	</insert>
 	
-	<insert id="addSpending" parameterType="Spending">
+	<insert id="addSpending" parameterType="ProfitAndLoss">
+		/* 지출 내역 등록 */
 		INSERT INTO tb_gr_group_monthly_spending
 		(
-			 account_name 		AS accountName
-			,spending_year 		AS spendingYear
-			,spending_month 	AS spendingMonth
-			,spending_date 		AS spendingDate
-			,spending_amount 	AS spendingAmount
-			,spending_info		AS spendingInfo
+			 spending_group_code
+			,account_subject_code
+			,spending_year
+			,spending_month
+			,account_name
+			,spending_date
+			,spending_amount	
+			,spending_info
+			,user_id_code
+			,spending_reg_date
 		) VALUES (
-			 #{accountName}
-			,#{spendingYear}
-			,#{spendingMonth}
+			(SELECT 
+				CONCAT(date_format(NOW(),'%Y%m%d%H%i%s'),'_',a.account_subject_code)
+			FROM
+				tb_a_account_profit_and_loss_management AS a
+			WHERE
+				a.account_name = #{a.account_name})
+			,#{accountSubjectCode}
+			,'2022'
+			,'6'
+			,#{a.account_name}
 			,#{spendingDate}
 			,#{spendingAmount}
 			,#{spendingInfo}
+			,#{userIdCode}
+			,CURDATE()
 		);
 	</insert>
 	
+	<insert id="addAccount" parameterType="ProfitAndLoss">
+		/* 계정과목 등록 */
+
+	</insert>
+	
 	<select id="getSpendingList" resultType="Spending">
+		/* 지출 내역 리스트 조회 */
 		SELECT
 			spending_group_code AS spendingGroupCode,
 			account_name 		AS accountName,
@@ -83,6 +137,7 @@
 	</select>
 	
 	<select id="getSalesList" resultType="Sales">
+		/* 매출 내역 리스트 조회 */
 		SELECT
 			gr.sales_group_code AS salesGroupCode,
 			gr.account_name 	AS accountName,
@@ -93,6 +148,21 @@
 			gr.sales_reg_date	AS salesRegDate
 		FROM
 			tb_gr_group_monthly_sales AS gr;
+	</select>
+	
+	<select id="getAccountList" resultType="Account">
+		/* 손익 계정과목 리스트 조회 */
+		SELECT
+			a.account_subject_code AS accountSubjectCode,
+			a.account_name AS accountName,
+			a.profit_loss_classification AS profitLossClassification,
+			a.account_use AS accountUse,
+			a.account_amend AS accountAmend,
+			a.account_reg_date AS accountRegDate,
+			a.user_id_code AS userIdCode,
+			a.account_year AS accountYear
+		FROM
+			tb_a_account_profit_and_loss_management AS a;
 	</select>
 
 </mapper> 
