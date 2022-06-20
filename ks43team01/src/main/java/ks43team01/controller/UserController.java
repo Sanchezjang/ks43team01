@@ -74,10 +74,12 @@ public class UserController {
 		return "/adminpage/user/userList";
 	}
 	@GetMapping("/adminpage/user/userLogDate")//admin로그인총이력//
-	public String getLogDate() {
+	public String getLogDate(Model model) {
 		
 		List<UserLog> userLogDate = userService.getLogDate(); 
 		
+		model.addAttribute("userLogDate", userLogDate);
+		log.info("userLogDate값   : {}" , userLogDate);
 		return "/adminpage/user/userLogDate";
 	}
 	
