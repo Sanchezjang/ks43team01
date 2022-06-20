@@ -40,6 +40,13 @@ public class UserService {
 		log.info("회원리스트 잘들어왓는지 확인  :   {}", userList);
 		return userList;
 	}
+	///admin로그인이력 테이블 출력
+	public List<UserLog> getLogDate() {
+		
+		List<UserLog> userLogDate= userMapper.getLogDate();
+		
+		return userLogDate;
+	}
 	
 	//비지니스 선택 탑카테고리 만들기
 	public List<goodsTopCategory> getTopCategory() {

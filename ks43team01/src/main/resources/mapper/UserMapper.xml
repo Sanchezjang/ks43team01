@@ -77,6 +77,19 @@
   	  			<result column="expert_career_proof_matters_attachments" property="expertCareerProofMattersAttachments"/>
   	  	 	</resultMap>
   	  	 	
+  	  	 	
+  	<select id="getLogDate" resultType="ks43team01.dto.UserLog">
+  		SELECT
+			 u.login_num
+			,u.login_date
+			,u.login_ip
+			,u.user_id_code
+			,u.buyer_exp
+			,u.seller_exp
+		FROM
+			tb_u_user_log AS u
+  	</select> 	 	
+  	  	 	
   	<insert id="addUserLog" parameterType="UserLog">
   		INSERT into tb_u_user_log
 		( 	login_num
