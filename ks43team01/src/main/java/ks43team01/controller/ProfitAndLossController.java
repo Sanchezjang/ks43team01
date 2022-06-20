@@ -89,12 +89,27 @@ public class ProfitAndLossController {
 		return "profitAndLoss/spendingList";
 	}
 	
+	//매출 내역
+	@GetMapping("/salesList")
+	public String getSalesList(Model model) {
+		
+		List<Sales> salesList = profitAndLossService.getSalesList();
+		//log.info("매출 내역 : {}", salesList);
+		model.addAttribute("salesList", salesList);
+		
+		return "adminpage/profitAndLoss/salesList";
+	}
+	
 	//매출 등록
 	@PostMapping("/addSales")
-	public String addSales(Sales sales 
-								,HttpServletRequest request) {
+	public String addSales(HttpSession session
+			,Sales sales
+			,HttpServletRequest request) {
 		
-		profitAndLossService.addSales(sales);
+		log.info("지출 등록 처리 sales : {}", sales);
+		String sessionId = (String) session.getAttribute("UID");
+		
+		profitAndLossService.addSales(sessionId, sales);
 		
 		return "redirect:/adminpage/profitAndLoss/salesList";
 	}
@@ -107,20 +122,22 @@ public class ProfitAndLossController {
 		List<Account> accountList = profitAndLossService.getAccountList();
 		
 		model.addAttribute("salesList", salesList);
-		String str = "";
 		model.addAttribute("accountList", accountList);
-		model.addAttribute("str", str);
+		//log.info("지출 등록 내역 : {}", salesList);
 		
 		return "adminpage/profitAndLoss/addSales";
-		
 	}
 	
 	//지출 등록
 	@PostMapping("/addSpending")
-	public String addSpending(Spending spending
+	public String addSpending(HttpSession session
+							,Spending spending
 							,HttpServletRequest request) {
 		
-		profitAndLossService.addSpending(spending);
+		log.info("지출 등록 처리 spending : {}", spending);
+		String sessionId = (String) session.getAttribute("UID");
+		
+		profitAndLossService.addSpending(sessionId, spending);
 		
 		return "redirect:/adminpage/profitAndLoss/spendingList";
 	}
@@ -134,20 +151,9 @@ public class ProfitAndLossController {
 		
 		model.addAttribute("spendingList", spendingList);
 		model.addAttribute("accountList", accountList);
-		//log.info("지출 내역 : {}", spendingList);
+		//log.info("지출 등록 내역 : {}", spendingList);
 		
 		return "adminpage/profitAndLoss/addSpending";
-	}
-	
-	//매출 내역
-	@GetMapping("/salesList")
-	public String getSalesList(Model model) {
-		
-		List<Sales> salesList = profitAndLossService.getSalesList();
-		//log.info("매출 내역 : {}", salesList);
-		model.addAttribute("salesList", salesList);
-		
-		return "adminpage/profitAndLoss/salesList";
 	}
 	
 	//지출 내역
@@ -163,24 +169,28 @@ public class ProfitAndLossController {
 		return "adminpage/profitAndLoss/spendingList";
 	}
 	
-	//계정과목 등록
+	//손익 계정과목 등록
 	@PostMapping("/addAccount")
-	public String addAccount(Account account
+	public String addAccount(HttpSession session
+							,Account account
 							,HttpServletRequest request) {
 		
-		profitAndLossService.addAccount(account);
+		log.info("지출 등록 처리 account : {}", account);
+		String sessionId = (String) session.getAttribute("UID");
+		
+		profitAndLossService.addAccount(sessionId, account);
 		
 		return "redirect:/adminpage/profitAndLoss/accountList";
 	}
 	
-	//계정과목 등록
+	//손익 계정과목 등록
 	@GetMapping("/addAccount")
 	public String addAccount(Model model) {
 		
 		List<Account> accountList = profitAndLossService.getAccountList();
 		
 		model.addAttribute("accountList", accountList);
-		//log.info("지출 내역 : {}", spendingList);
+		//log.info("지출 등록 내역 : {}", spendingList);
 		
 		return "adminpage/profitAndLoss/addAccount";
 	}

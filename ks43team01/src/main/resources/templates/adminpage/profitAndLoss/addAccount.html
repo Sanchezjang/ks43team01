@@ -63,7 +63,7 @@
 									</div>
 									<div class="x_content">
 										<br />
-										<form class="form-horizontal form-label-left" th:action="@{/profitAndLoss/addAccount}" method="post">
+										<form class="form-horizontal form-label-left" th:action="@{/adminpage/profitAndLoss/addAccount}" method="post">
 											<div class="form-group row">
 												<label class="control-label col-md-3 col-sm-3 " for="accountSubjectCode">손익관리계정과목코드<span class="required">*</span>
 												</label>
@@ -79,7 +79,7 @@
 												</div>
 											</div>
 											<div class="form-group row">
-												<label class="control-label col-md-3 col-sm-3 " for="accountName">매출 / 지출 구분<span class="required">*</span>
+												<label class="control-label col-md-3 col-sm-3 " for="profitLossClassification">매출 / 지출 구분<span class="required">*</span>
 												</label>
 												<div class="col-md-9 col-sm-9">
 													매출 <input type="radio" name="profitLossClassification" id="profitLossClassification" value="매출">
@@ -87,7 +87,7 @@
 												</div>
 											</div>
 											<div class="form-group row">
-												<label class="control-label col-md-3 col-sm-3 " for="accountName">계정과목사용여부<span class="required">*</span>
+												<label class="control-label col-md-3 col-sm-3 " for="accountUse">계정과목사용여부<span class="required">*</span>
 												</label>
 												<div class="col-md-9 col-sm-9">
 													Y <input type="radio" name="accountUse" id="accountUse" value="Y">
@@ -95,7 +95,7 @@
 												</div>
 											</div>
 											<div class="form-group row">
-												<label class="control-label col-md-3 col-sm-3 " for="accountName">계정과목수정가능여부<span class="required">*</span>
+												<label class="control-label col-md-3 col-sm-3 " for="accountAmend">계정과목수정가능여부<span class="required">*</span>
 												</label>
 												<div class="col-md-9 col-sm-9">
 													Y <input type="radio" name="accountAmend" id="accountAmend" value="Y">
@@ -103,10 +103,10 @@
 												</div>
 											</div>
 											<div class="form-group row">
-												<label class="control-label col-md-3 col-sm-3">반영일자<span class="required">*</span>
+												<label class="control-label col-md-3 col-sm-3" for="accountYear">반영일자<span class="required">*</span>
 												</label>
 												<div class="col-md-9 col-sm-9">
-													<input id="accountYear" class="date-picker form-control" placeholder="연도-월-일" type="text" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+													<input id="accountYear" name="accountYear" class="date-picker form-control" placeholder="연도-월-일" type="text" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
 												</div>
 											</div>
 											<div class="ln_solid"></div>
