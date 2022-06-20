@@ -48,22 +48,9 @@ layout:decorate="~{userpage/layout/userdefault}">
         <!-- About Details Start -->
 
 		<div class="addBoardForm">
-			<div class="single-element-widget mt-30">
-								<div class="default-select" id="default-select">
-									<select id="boardCategoryList" name="boardCategoryList">
-											<option value="">- 게시판 카테고리 -</option>
-											<th:block th:if="${not #lists.isEmpty(boardCategoryList)}" th:each="l : ${boardCategoryList}">
-												<option th:value="${l.boardCategoryCode}">[[${l.boardCategoryName}]]</option>
-											</th:block>
-											<th:block th:unless="${not #lists.isEmpty(boardCategoryList)}">
-												<option value="">등록된 카테고리가 없습니다.</option>
-											</th:block>
-									</select>
-								</div>
-			</div>
+				<form class="" th:action="@{/userpage/board/addNoticeBoard}" method="post">
 			<div class="BoardRow">
-				<form class="" th:action="@{/userpage/board/addNoticeBoard}" method="post" id="boardForm" novalidate="novalidate">
-					<div class="BoardRow">
+				
 						<div class="col-12">
 							<div class="form-group">
 								<h4>제목</h4>
@@ -83,15 +70,13 @@ layout:decorate="~{userpage/layout/userdefault}">
 								<textarea class="form-control w-100" name="boardPostContent" id="boardPostContent" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = '본문을 입력하세요.'" placeholder="본문을 입력하세요."  required></textarea>
 							</div>
 						</div>
-					
-					</div>
 						<div class="clickBtn mt-3" >
 							<button type="submit" class="success boxed-btn">저장</button>
 							<a th:href="@{/userpage/board/noticeBoardList}"><button type="button" class="cancel boxed-btn">취소</button></a>
 						</div>
+					</div>
 				</form>
 			</div>
 		</div>
 			
-	
-</div>
+
