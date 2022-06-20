@@ -4,15 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks43team01.mapper.ProfitAndLossMapper">
 
-	<resultMap type="ProfitAndLoss" id="ProfitAndLossResultMap">
-		<id 	column="account_subject_code"		property="accountSubjectCode"/>
-		<result column="account_name" 				property="accountName"/>
-		<result column="profit_loss_classification"	property="profitLossClassification"/>
-		<result column="account_use" 				property="accountUse"/>
-		<result column="account_amend" 				property="accountAmend"/>
-		<result column="account_reg_date" 			property="accountRegDate"/>
-		<result column="user_id_code" 				property="userIdCode"/>
-		<result column="account_year" 				property="accountYear"/>
+	<resultMap type="ProfitAndLoss" id="ProfitAndLossResultMap" >
 			<association property="spending" javaType="Spending">
 				<id 	column="spending_group_code"	property="spendingGroupCode"/>
 				<result column="account_subject_code" 	property="accountSubjectCode"/>
@@ -37,52 +29,17 @@
 				<result column="user_id_code" 			property="userIdCode"/>
 				<result column="sales_reg_date"			property="salesRegDate"/>
 			</association>
+			<association property="account" javaType="account">
+				<id 	column="account_subject_code"		property="accountSubjectCode"/>
+				<result column="account_name" 				property="accountName"/>
+				<result column="profit_loss_classification"	property="profitLossClassification"/>
+				<result column="account_use" 				property="accountUse"/>
+				<result column="account_amend" 				property="accountAmend"/>
+				<result column="account_reg_date" 			property="accountRegDate"/>
+				<result column="user_id_code" 				property="userIdCode"/>
+				<result column="account_year" 				property="accountYear"/>
+			</association>
 	</resultMap>
-	
-	<resultMap type="Spending" id="SpendingResultMap">
-		<id 	column="spending_group_code"	property="spendingGroupCode"/>
-		<result column="account_subject_code" 	property="accountSubjectCode"/>
-		<result column="spending_year" 			property="spendingYear"/>
-		<result column="spending_month" 		property="spendingMonth"/>
-		<result column="account_name" 			property="accountName"/>
-		<result column="spending_date" 			property="spendingDate"/>
-		<result column="spending_amount" 		property="spendingAmount"/>
-		<result column="spending_info" 			property="spendingInfo"/>
-		<result column="user_id_code" 			property="userIdCode"/>
-		<result column="spending_reg_date"		property="spendingRegDate"/>
-	</resultMap>
-	
-	<resultMap type="Sales" id="SalesResultMap">
-		<id 	column="sales_group_code"		property="salesGroupCode"/>
-		<result column="account_subject_code" 	property="accountSubjectCode"/>
-		<result column="sales_year" 			property="salesYear"/>
-		<result column="sales_month" 			property="salesMonth"/>
-		<result column="account_name" 			property="accountName"/>
-		<result column="sales_date" 			property="salesDate"/>
-		<result column="sales_amount" 			property="salesAmount"/>
-		<result column="sales_info" 			property="salesInfo"/>
-		<result column="user_id_code" 			property="userIdCode"/>
-		<result column="sales_reg_date"			property="salesRegDate"/>
-	</resultMap>
-
-	<insert id="addSales" parameterType="Sales">
-		INSERT INTO tb_gr_group_monthly_spending
-		(
-			 account_name 	AS accountName
-			,sales_year 	AS salesYear
-			,sales_month 	AS salesMonth
-			,sales_date 	AS salesDate
-			,sales_amount 	AS salesAmount
-			,sales_info		AS salesInfo
-		) VALUES (
-			 #{accountName}
-			,#{salesYear}
-			,#{salesMonth}
-			,#{salesDate}
-			,#{salesAmount}
-			,#{salesInfo}
-		);
-	</insert>
 	
 	<insert id="addSpending" parameterType="ProfitAndLoss">
 		/* 지출 내역 등록 */
@@ -94,21 +51,30 @@
 			,spending_month
 			,account_name
 			,spending_date
-			,spending_amount	
+			,spending_amount
 			,spending_info
 			,user_id_code
 			,spending_reg_date
 		) VALUES (
-			(SELECT 
+			(
+			SELECT 
 				CONCAT(date_format(NOW(),'%Y%m%d%H%i%s'),'_',a.account_subject_code)
 			FROM
 				tb_a_account_profit_and_loss_management AS a
 			WHERE
-				a.account_name = #{a.account_name})
-			,#{accountSubjectCode}
-			,'2022'
-			,'6'
-			,#{a.account_name}
+				a.account_name = #{accountName}
+			)
+			,(
+			SELECT
+				a.account_subject_code
+			FROM
+				tb_a_account_profit_and_loss_management AS a
+			WHERE
+				a.account_name = #{accountName}
+			)
+			,YEAR(#{spendingDate})
+			,MONTH(#{spendingDate})
+			,#{accountName}
 			,#{spendingDate}
 			,#{spendingAmount}
 			,#{spendingInfo}
@@ -116,10 +82,71 @@
 			,CURDATE()
 		);
 	</insert>
+
+	<insert id="addSales" parameterType="ProfitAndLoss">
+		/* 매출 내역 등록 */
+		INSERT INTO tb_gr_group_monthly_sales
+		(
+			 sales_group_code
+			,account_subject_code
+			,sales_year
+			,sales_month
+			,account_name
+			,sales_date
+			,sales_amount
+			,sales_info
+			,user_id_code
+			,sales_reg_date
+		) VALUES (
+			(
+			SELECT 
+				CONCAT(date_format(NOW(),'%Y%m%d%H%i%s'),'_',a.account_subject_code)
+			FROM
+				tb_a_account_profit_and_loss_management AS a
+			WHERE
+				a.account_name = #{accountName}
+			)
+			,(
+			SELECT
+				a.account_subject_code
+			FROM
+				tb_a_account_profit_and_loss_management AS a
+			WHERE
+				a.account_name = #{accountName}
+			)
+			,YEAR(#{salesDate})
+			,MONTH(#{salesDate})
+			,#{accountName}
+			,#{salesDate}
+			,#{salesAmount}
+			,#{salesInfo}
+			,#{userIdCode}
+			,CURDATE()
+		);
+	</insert>
 	
 	<insert id="addAccount" parameterType="ProfitAndLoss">
 		/* 계정과목 등록 */
-
+		INSERT INTO tb_a_account_profit_and_loss_management
+		(
+			 account_subject_code
+			,account_name
+			,profit_loss_classification
+			,account_use
+			,account_amend
+			,account_reg_date
+			,user_id_code
+			,account_year
+		) VALUES (
+			 #{accountSubjectCode}
+			,#{accountName}
+			,#{profitLossClassification}
+			,#{accountUse}
+			,#{accountAmend}
+			,CURDATE()
+			,#{userIdCode}
+			,#{accountYear}
+		);
 	</insert>
 	
 	<select id="getSpendingList" resultType="Spending">

@@ -51,18 +51,21 @@ public class ProfitAndLossService {
 	/*
 	 * 매출 등록
 	 * */
-	public int addSales(Sales sales) {
+	public int addSales(String sessionId, Sales sales) {
+		
+		sales.setUserIdCode(sessionId);
 		
 		int result = profitAndLossMapper.addSales(sales);
 		
 		return result;
-		
 	}
 	
 	/*
 	 * 지출 등록
 	 * */
-	public int addSpending(Spending spending) {
+	public int addSpending(String sessionId, Spending spending) {
+		
+		spending.setUserIdCode(sessionId);
 		
 		int result = profitAndLossMapper.addSpending(spending);
 		
@@ -90,9 +93,11 @@ public class ProfitAndLossService {
 	}
 	
 	/*
-	 * 지출 등록
+	 * 손익 계정과목 등록
 	 * */
-	public int addAccount(Account account) {
+	public int addAccount(String sessionId, Account account) {
+		
+		account.setUserIdCode(sessionId);
 		
 		int result = profitAndLossMapper.addAccount(account);
 		
@@ -100,7 +105,7 @@ public class ProfitAndLossService {
 	}
 	
 	/*
-	 * //손익 계정과목 리스트
+	 * 손익 계정과목 리스트
 	 * */
 	public List<Account> getAccountList(){
 		

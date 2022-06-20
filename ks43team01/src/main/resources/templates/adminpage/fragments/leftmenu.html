@@ -44,15 +44,21 @@
                     </ul>
                   </li>
 				
-				<!-- 손익 -->
+				<!-- 매출/지출 -->
 				
-				 <li><a><i class="fa fa-table"></i> 손익 <span class="fa fa-chevron-down"></span></a>
+				 <li><a><i class="fa fa-table"></i> 매출/지출 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a th:href="@{/adminpage/profitAndLoss/accountList}">손익 관리 계정과목</a></li>
                       <li><a th:href="@{/adminpage/profitAndLoss/addSales}">매출 등록</a></li>
                       <li><a th:href="@{/adminpage/profitAndLoss/addSpending}">지출 등록</a></li>
-                      <li><a th:href="@{/adminpage/profitAndLoss/salesList}">매출 내역</a></li>
-                      <li><a th:href="@{/adminpage/profitAndLoss/spendingList}">지출 내역</a></li>
+                      <li><a th:href="@{/adminpage/profitAndLoss/salesList}">매출 내역 리스트</a></li>
+                      <li><a th:href="@{/adminpage/profitAndLoss/spendingList}">지출 내역 리스트</a></li>
+                    </ul>
+                  </li>
+                  
+				 <li><a><i class="fa fa-table"></i> 손익관리 계정과목 <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a th:href="@{/adminpage/profitAndLoss/addAccount}">계정과목 등록</a></li>
+                      <li><a th:href="@{/adminpage/profitAndLoss/accountList}">계정과목 리스트</a></li>
                     </ul>
                   </li>
 
@@ -82,17 +88,6 @@
 			<h3>분류2</h3>
 			<ul class="nav side-menu">
 			
-				<!-- 손익 -->
-			
-				 <li><a><i class="fa fa-table"></i> 손익 <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a th:href="@{/adminpage/profitAndLoss/accountList}">손익 관리 계정과목</a></li>
-                      <li><a th:href="@{/adminpage/profitAndLoss/addSales}">매출 등록</a></li>
-                      <li><a th:href="@{/adminpage/profitAndLoss/addSpending}">지출 등록</a></li>
-                      <li><a th:href="@{/adminpage/profitAndLoss/salesList}">매출 내역</a></li>
-                      <li><a th:href="@{/adminpage/profitAndLoss/spendingList}">지출 내역</a></li>
-                    </ul>
-                  </li>
 			
 			</ul>
 		</div>
