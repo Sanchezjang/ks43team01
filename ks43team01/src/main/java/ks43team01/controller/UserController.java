@@ -24,6 +24,7 @@ import ks43team01.dto.SellerBusiness;
 import ks43team01.dto.SellerCareer;
 import ks43team01.dto.SellerEducation;
 import ks43team01.dto.User;
+import ks43team01.dto.UserLog;
 import ks43team01.dto.goodsSubCategory;
 import ks43team01.dto.goodsTopCategory;
 import ks43team01.service.UserService;
@@ -71,6 +72,13 @@ public class UserController {
 		model.addAttribute("userList", userList);
 		
 		return "/adminpage/user/userList";
+	}
+	@GetMapping("/adminpage/user/userLogDate")//admin로그인총이력//
+	public String getLogDate() {
+		
+		List<UserLog> userLogDate = userService.getLogDate(); 
+		
+		return "/adminpage/user/userLogDate";
 	}
 	
 	@GetMapping("/sellerjoin")// 판매자회원추가진행로

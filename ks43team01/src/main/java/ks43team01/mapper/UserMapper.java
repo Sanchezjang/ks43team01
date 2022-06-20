@@ -26,6 +26,9 @@ public interface UserMapper {
 	
 	//admin회원총리스트 가져오기//
 	public List<User> getAdminUserList(); 
+	
+	//admin로그인이력 가져오기//
+	public List<UserLog> getLogDate();
 
 	//판매자 비지니스 탑카테고리//
 	public List<goodsTopCategory> getTopCategory();
@@ -56,7 +59,6 @@ public interface UserMapper {
 	public int NullSellerEducation(SellerEducation sellerEducation);
 	
 	//로그인하는 모든 유저의 로그 테이블 쌓기
-	
 	public int addUserLog(UserLog userLog);
 
 	
