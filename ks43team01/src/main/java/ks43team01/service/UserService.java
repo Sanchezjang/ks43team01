@@ -28,6 +28,14 @@ public class UserService {
 	public  UserService(UserMapper userMapper) {
 		this.userMapper = userMapper;
 	}
+	/*판매자 정보 입력시에 등급 3에서 2로 업데이트!!!*/
+	public int modifyUserLevel(User user) {
+		
+		int result = userMapper.modifyUserLevel(user);
+		
+		return result;
+	}
+	
 	/*로그인시에 구매자회원 경험치 누적!!!*/
 	public int addUserLevelExp(UserLevelExp userLevelExp) {
 		

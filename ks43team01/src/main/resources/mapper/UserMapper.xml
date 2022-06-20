@@ -5,7 +5,7 @@
   <mapper namespace="ks43team01.mapper.UserMapper">
 
 	  <resultMap type="ks43team01.dto.User" id="userResultMap">
-	  		<id column="user_id_code" property="userId"/>
+	  		<id column="user_id_code" property="userIdCode"/>
 	  		<result column="user_pw" property="userPw"/>
 	  		<result column="user_name" property="userName"/>
 	  		<result column="user_contact" property="userContact"/>
@@ -87,6 +87,17 @@
 	  		<result column="level_up_buyer_standard_reg_date" property="levelUpBuyerStandardRegDate"/>
 		</resultMap>
   	  	 	
+  	  <update id="modifyUserLevel" parameterType="User">
+  		/*판매자 정보 입력시에 등급 3에서 2로 업데이트!!!*/
+  		UPDATE
+			tb_u_all_user AS u
+		SET
+			u.level_num_code = REPLACE(u.level_num_code,'3','2')
+			,u.user_update_date = CURDATE()
+		WHERE
+			u.user_id_code = #{userIdCode};
+  	  </update>
+  	  
   	  <insert id="addUserLevelExp" parameterType="UserLevelExp">
 		/*로그인시에 구매자회원 경험치 누적!!!*/
 		INSERT INTO tb_l_level_buyer_standard_details 
@@ -266,6 +277,8 @@
 			,'N'
 			,#{userArea}
 			,5000
+			,0
+			,0
 			,'뉴비'
 			,CURDATE()
 			,CURDATE()
