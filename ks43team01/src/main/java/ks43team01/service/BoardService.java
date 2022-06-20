@@ -19,8 +19,14 @@ public class BoardService {
 	public BoardService(BoardMapper boardMapper) {
 		this.boardMapper = boardMapper;
 	}
+	/* 5-2. 1:1 게시글 등록 */
+	public int addQnaBoard(QnaBoard qnaBoard) {
+		int result = boardMapper.addQnaBoard(qnaBoard);
+		
+		return result;
+	}
 	
-	/* 1:1 게시판 게시글 조회*/
+	/* 5. 1:1 게시판 게시글 조회*/
 	public List<QnaBoard> getQnaBoardList(){
 		List<QnaBoard> qnaBoardList = boardMapper.getQnaBoardList();
 		return qnaBoardList;

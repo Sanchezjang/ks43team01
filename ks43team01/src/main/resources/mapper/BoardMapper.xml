@@ -4,58 +4,56 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="ks43team01.mapper.BoardMapper">
-  <resultMap type="Board" id="boardResultMap">
- 			<id 	column="board_post_code" 	 property="boardPostCode"/>
- 			<result column="user_id_code" 	 property="userIdCode"/>
- 			<result column="board_category_code" 	 property="boardCategoryCode"/>
- 			<result column="board_post_title"  property="boardPostTitle"/>
- 			<result column="board_user_name" property="boardUserName"/>
- 			<result column="board_post_content"  property="boardPostContent"/>
- 			<result column="board_post_reg_date"  property="boardPostRegDate"/>
- 			<result column="board_post_update_date"  property="boardPostUpdateDate"/>
- 			<result column="board_post_view"  property="boardPostView"/>
- 			<result column="board_post_use"  property="boardPostUse"/>
-  </resultMap>
+	<resultMap type="Board" id="boardResultMap">
+		<id 	column="board_post_code" 	 			property="boardPostCode"/>
+		<result column="user_id_code" 	 				property="userIdCode"/>
+		<result column="board_category_code" 			property="boardCategoryCode"/>
+		<result column="board_post_title"  				property="boardPostTitle"/>
+		<result column="board_user_name"				property="boardUserName"/>
+		<result column="board_post_content"				property="boardPostContent"/>
+		<result column="board_post_reg_date"			property="boardPostRegDate"/>
+		<result column="board_post_update_date"			property="boardPostUpdateDate"/>
+		<result column="board_post_view"				property="boardPostView"/>
+		<result column="board_post_use"					property="boardPostUse"/>
+ 	</resultMap>
   
-  <resultMap type="BoardCategory" id="boardCategoryResultMap">
-          <id    column="board_category_code"     property="boardCategoryCode"/>
-          <result column="user_id_code"     property="userIdCode"/>
-          <result column="board_category_name"     property="boardCategoryName"/>
-          <result column="board_category_reg_date" property="boardCategoryRegDate"/>
-          <result column="board_category_use"  property="boardCategoryUse"/>
-  </resultMap>
-  
+	<resultMap type="BoardCategory" id="boardCategoryResultMap">
+		<id    column="board_category_code"    			property="boardCategoryCode"/>
+		<result column="user_id_code"     				property="userIdCode"/>
+		<result column="board_category_name"    		property="boardCategoryName"/>
+		<result column="board_category_reg_date"		property="boardCategoryRegDate"/>
+		<result column="board_category_use"  			property="boardCategoryUse"/>
+	</resultMap>
 
-  
-      <resultMap type="QnaBoard" id="qnaBoardResultMap">
-          <id    column="board_question_code"     property="boardQuestionCode"/>
-          <result column="user_id_code"     property="userIdCode"/>
-          <result column="board_category_code"     property="boardCategoryCode"/>
-          <result column="board_l_category_code"     property="boardLargeCategoryCode"/>
-          <result column="board_m_category_code"     property="boardMediumCategoryCode"/>
-          <result column="board_question_num"     property="boardQuestionNum"/>
-          <result column="board_question_title"  property="boardQuestionTitle"/>
-          <result column="user_name" property="userName"/>
-          <result column="board_question_content"  property="boardQuestionContent"/>
-          <result column="board_question_reg_date"  property="boardQuestionRegDate"/>
-          <result column="user_email"  property="userEmail"/>
-          <result column="board_question_answer_method"  property="boardQuestionAnswerMethod"/>
-          <result column="board_question_lock"  property="boardQuestionLock"/>
-          <result column="board_question_pw"  property="boardQuestionPw"/>
-          <result column="board_question_update_date"  property="boardQuestionUpdateDate"/>
-          <result column="board_question_page_view"  property="boardQuestionPageView"/>
-          <result column="board_question_use"  property="boardQuestionUse"/>
+	<resultMap type="QnaBoard" id="qnaBoardResultMap">
+		<id    column="board_question_code"    			property="boardQuestionCode"/>
+		<result column="user_id_code"     				property="userIdCode"/>
+		<result column="board_category_code"     		property="boardCategoryCode"/>
+		<result column="board_l_category_code"			property="boardLargeCategoryCode"/>
+		<result column="board_m_category_code"			property="boardMediumCategoryCode"/>
+		<result column="board_question_num"				property="boardQuestionNum"/>
+		<result column="board_question_title"			property="boardQuestionTitle"/>
+		<result column="user_name"						property="userName"/>
+		<result column="board_question_content"			property="boardQuestionContent"/>
+		<result column="board_question_reg_date"		property="boardQuestionRegDate"/>
+		<result column="user_email"						property="userEmail"/>
+        <result column="board_question_answer_method"	property="boardQuestionAnswerMethod"/>
+		<result column="board_question_lock"			property="boardQuestionLock"/>
+		<result column="board_question_pw"				property="boardQuestionPw"/>
+		<result column="board_question_update_date"		property="boardQuestionUpdateDate"/>
+		<result column="board_question_page_view"		property="boardQuestionPageView"/>
+		<result column="board_question_use"				property="boardQuestionUse"/>
   </resultMap>
   
-  <select id="getQnaBoardList" resultMap="boardResultMap">
+  <select id="getQnaBoardList" resultMap="qnaBoardResultMap">
    /*사용자용 1:1 문의 게시글 조회*/
       SELECT
          board_question_num
-         ,board_question_title
-         ,user_name
-         ,board_question_lock
-         ,board_question_reg_date
-         ,board_question_page_view
+         , board_question_title
+         , user_name
+         , board_question_lock
+         , board_question_reg_date
+         , board_question_page_view
       FROM
          tb_b_board_question;
    </select>
@@ -64,10 +62,10 @@
 	/*게시글 대분류 카테고리 조회*/
 		SELECT
 			board_category_code
-			,user_id_code
-			,board_category_name
-			,board_category_reg_date
-			,board_category_use
+			, user_id_code
+			, board_category_name
+			, board_category_reg_date
+			, board_category_use
 		FROM
 			tb_b_board_category;
 	</select>
@@ -90,9 +88,9 @@
 	/*사용자용 자주묻는 질문 조회*/
 		SELECT
 			board_post_title
-			,board_user_name
-			,board_post_reg_date
-			,board_post_view
+			, board_user_name
+			, board_post_reg_date
+			, board_post_view
 		FROM
 			tb_b_board_post
 		WHERE
@@ -114,7 +112,7 @@
          , board_post_use
       )VALUES (
          date_format(NOW(),'post_%y%m%d%H%i%s')
-        , 'id001'
+		, 'id001'
         , 'board01'
         , #{boardPostTitle}
         , #{boardUserName}
@@ -122,7 +120,7 @@
         , CURDATE() 
         , CURDATE() 
         , #{boardPostView}
-        , #{boardPostUse}
+        , 'Y'
       );
     </insert>
 
@@ -130,9 +128,9 @@
 	/*사용자용 공지사항 조회*/
 		SELECT
 			board_post_title
-			,board_user_name
-			,board_post_reg_date
-			,board_post_view
+			, board_user_name
+			, board_post_reg_date
+			, board_post_view
 		FROM
 			tb_b_board_post
 		WHERE
@@ -143,15 +141,15 @@
 	/*관리자용 전체 게시글 조회*/
 		SELECT
 			board_post_code
-			,user_id_code
-			,board_category_code
-			,board_post_title
-			,board_user_name
-			,board_post_content
-			,board_post_reg_date
-			,board_post_update_date
-			,board_post_view
-			,board_post_use
+			, user_id_code
+			, board_category_code
+			, board_post_title
+			, board_user_name
+			, board_post_content
+			, board_post_reg_date
+			, board_post_update_date
+			, board_post_view
+			, board_post_use
 		FROM
 			tb_b_board_post;
   </select>
