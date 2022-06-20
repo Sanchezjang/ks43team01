@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html class="no-js" lang="zxx" 
 xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-	 
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<head th:replace="/userpage/fragments/head.html :: headFragment">
-</head>
-<header th:replace="/userpage/fragments/header.html :: headerFragment"></header>
-<body>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">	
+
 <!------ Include the above in your HEAD tag ---------->
+<div layout:fragment="content">
 <style>
 html, body, div, a, table, thead, tbody, tr, th, td {
 	margin:0; outline:0; border:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent;
@@ -175,9 +170,4 @@ a:link, a:visited {text-decoration:none; color: #656565;}
 				
 
                             </nav>
-
-
-
-</body>
-
-<footer th:replace="/userpage/fragments/footer.html :: footerFragment"></footer>
+</div>

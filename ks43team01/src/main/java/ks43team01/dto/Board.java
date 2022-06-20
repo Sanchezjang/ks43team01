@@ -9,9 +9,8 @@ public class Board {
 	private String boardPostContent;
 	private String boardPostRegDate;
 	private String boardPostUpdateDate;
-	private String boardPostView;
+	private int boardPostView;
 	private String boardPostUse;
-	
 	public String getBoardPostCode() {
 		return boardPostCode;
 	}
@@ -60,11 +59,17 @@ public class Board {
 	public void setBoardPostUpdateDate(String boardPostUpdateDate) {
 		this.boardPostUpdateDate = boardPostUpdateDate;
 	}
-	public String getBoardPostView() {
+	public int getBoardPostView() {
 		return boardPostView;
 	}
-	public void setBoardPostView(String boardPostView) {
+	public void setBoardPostView(int boardPostView) {
 		this.boardPostView = boardPostView;
+	}
+	public String getBoardPostUse() {
+		return boardPostUse;
+	}
+	public void setBoardPostUse(String boardPostUse) {
+		this.boardPostUse = boardPostUse;
 	}
 	@Override
 	public String toString() {
@@ -92,4 +97,5 @@ public class Board {
 		builder.append("]");
 		return builder.toString();
 	}
+	
 }
