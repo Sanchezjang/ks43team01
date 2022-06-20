@@ -1,4 +1,4 @@
-package ks43team01.controller;
+package ks43team01.admin.controller;
 
 import java.util.List;
 
@@ -22,16 +22,16 @@ import ks43team01.service.ProfitAndLossService;
 
 @Controller
 @RequestMapping("/adminpage/profitAndLoss")
-public class ProfitAndLossController {
+public class AdminProfitAndLossController {
 	
-	private static final Logger log = LoggerFactory.getLogger(ProfitAndLossController.class);
+	private static final Logger log = LoggerFactory.getLogger(AdminProfitAndLossController.class);
 
 	
 	//DI (의존성 주입)
 	// 3. 생성자 메서드 주입방식
 	private final ProfitAndLossService profitAndLossService;
 	
-	public ProfitAndLossController(ProfitAndLossService profitAndLossService) {
+	public AdminProfitAndLossController(ProfitAndLossService profitAndLossService) {
 		this.profitAndLossService = profitAndLossService;
 	}
 

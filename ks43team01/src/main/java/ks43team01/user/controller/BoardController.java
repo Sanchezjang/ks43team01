@@ -1,4 +1,4 @@
-package ks43team01.controller;
+package ks43team01.user.controller;
 
 import java.util.List;
 
