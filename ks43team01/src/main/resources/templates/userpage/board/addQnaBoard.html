@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">	 
+
+<!------ Include the above in your HEAD tag ---------->
+<div layout:fragment="content">
+	<style>
+	.BoardRow{
+		width: 1200px;
+		margin:0 auto;	
+	}
+	
+	.addBoardForm {
+		width: 1200px;
+		margin:0 auto;	
+		margin-bottom: 100px;
+		margin-top:100px;
+	}
+	
+	.single-element-widget{
+		margin-bottom: 30px;
+	}
+	
+	.clickBtn{
+		width: 1200px;
+		text-align:center;
+	}
+	</style>
+
+	<div class="slider-area">
+		<div class="slider-height2 d-flex align-items-center">
+			<div class="container">
+				<div class="BoardRow">
+					<div class="col-xl-12">
+						<div class="hero-cap hero-cap2 text-center">
+							<h2>Q&A</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Hero End -->
+	<!-- About Details Start -->
+
+	<div class="addBoardForm">
+		<div class="BoardRow">
+			<form class="" th:action="@{/userpage/board/addQnaBoard}" method="post">
+				<div class="col-12">
+					<div class="form-group">
+					<h4>제목</h4>
+						<input class="form-control" name="boardPostTitle" id="boardPostTitle" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '입력하세요.'" placeholder="제목을 입력하세요."  required>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="form-group">
+					<h4>이름</h4>
+						<input class="form-control valid" name="boardUserName" id="boardUserName" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '입력하세요.'" placeholder="이름을 입력하세요."  required>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="form-group">
+					<h4>본문</h4>
+						<textarea class="form-control w-100" name="boardPostContent" id="boardPostContent" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = '본문을 입력하세요.'" placeholder="본문을 입력하세요."  required></textarea>
+					</div>
+				</div> 
+				<div class="col-sm-6">
+					<div class="form-group">
+					<h4>이메일</h4>
+						<input class="form-control valid" name="email" id="email" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder="Email">
+					</div>
+				</div>
+				<div class="switch-wrap d-flex justify-content-between">
+					<p>공개글</p>
+						<div class="confirm-radio">
+							<input type="checkbox" id="confirm-radio" checked>
+								<label for="confirm-radio"></label>
+						</div>
+				</div>
+				<div class="col-12">
+					<h4>첨부파일</h4>
+					<div class="custom-file">
+						<input type="file" class="custom-file-input" id="customFile">
+						<label class="custom-file-label" for="customFile">파일 선택</label>
+					</div>
+				</div>
+				<div class="clickBtn mt-3" >
+					<button type="submit" class="success boxed-btn">저장</button>
+						<a th:href="@{/userpage/board/qnaBoardList}"><button type="button" class="cancel boxed-btn">취소</button></a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+

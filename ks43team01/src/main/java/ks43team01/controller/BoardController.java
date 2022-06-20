@@ -29,6 +29,28 @@ public class BoardController {
 	public BoardController(BoardService boardService) {
 		this.boardService = boardService;
 	}
+	/* 1:1 문의 등록*/
+    @PostMapping("/addQnaBoard")
+    public String addQnaBoard(QnaBoard qnaBoard ,HttpServletRequest request) {
+       boardService.addQnaBoard(qnaBoard);
+       
+       return "redirect:/userpage/board/qnaBoardList";
+    }
+
+    /**
+     * 공지사항 게시글 등록
+     * @param model
+     * @return
+     */
+    @GetMapping("/addQnaBoard")
+    public String addQnaBoard(Model model) {
+    	List<QnaBoard> qnaBoardList = boardService.getQnaBoardList();
+    	
+    	model.addAttribute("qnaBoardList", qnaBoardList);
+		
+       return "userpage/board/addQnaBoard";
+    }
+	
 	
 	/* 1:1 게시판 게시글 조회*/
 	@GetMapping("/qnaBoardList")
@@ -97,10 +119,9 @@ public class BoardController {
     @GetMapping("/addNoticeBoard")
     public String addNoticeBoard(Model model) {
     	List<Board> noticeBoardList = boardService.getNoticeBoardList();
-    	List<BoardCategory> boardCategoryList = boardService.getBoardCategoryList();
     	
     	model.addAttribute("noticeBoardList", noticeBoardList);
-		model.addAttribute("boardCategoryList", boardCategoryList);
+		
        return "userpage/board/addNoticeBoard";
     }
 	
