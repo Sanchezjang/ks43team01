@@ -44,7 +44,30 @@ layout:decorate="~{userpage/layout/userdefault}">
 	</div>
 	<!-- Hero End -->
 	<!-- About Details Start -->
-
+         <div class="single-element-widget mt-30">
+                        <div class="default-select" id="default-select">
+                           <select id="boardCategoryList" name="boardCategoryList">
+                                 <option value="">- 문의 1차 카테고리 -</option>
+                                 <th:block th:if="${not #lists.isEmpty(boardCategoryList)}" th:each="l : ${boardCategoryList}">
+                                    <option th:value="${l.boardCategoryCode}">[[${l.boardCategoryName}]]</option>
+                                 </th:block>
+                                 <th:block th:unless="${not #lists.isEmpty(boardCategoryList)}">
+                                    <option value="">등록된 카테고리가 없습니다.</option>
+                                 </th:block>
+                           </select>
+                     
+                           <select id="boardCategoryList" name="boardCategoryList">
+                                 <option value="">- 문의 2차 카테고리 -</option>
+                                 <th:block th:if="${not #lists.isEmpty(boardCategoryList)}" th:each="l : ${boardCategoryList}">
+                                    <option th:value="${l.boardCategoryCode}">[[${l.boardCategoryName}]]</option>
+                                 </th:block>
+                                 <th:block th:unless="${not #lists.isEmpty(boardCategoryList)}">
+                                    <option value="">등록된 카테고리가 없습니다.</option>
+                                 </th:block>
+                           </select>
+                        </div>
+                  
+         </div>
 	<div class="addBoardForm">
 		<div class="BoardRow">
 			<form class="" th:action="@{/userpage/board/addQnaBoard}" method="post">
@@ -66,24 +89,53 @@ layout:decorate="~{userpage/layout/userdefault}">
 						<textarea class="form-control w-100" name="boardPostContent" id="boardPostContent" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = '본문을 입력하세요.'" placeholder="본문을 입력하세요."  required></textarea>
 					</div>
 				</div> 
+					<div class="col-12">
+					<h4>첨부파일</h4>
+					<div class="custom-file">
+						<input type="file" class="custom-file-input" id="customFile">
+						<label class="custom-file-label" for="customFile">파일 선택</label>
+					</div>
+				</div>
+				<h4>답변방법</h4>
+				<div>
+				<div class="switch-wrap d-flex justify-content-between">
+					 <p>댓글</p>
+						<div class="confirm-radio">
+							 <input type="checkbox" id="confirm-radio" checked>
+								<label for="confirm-radio"></label>
+						</div>
+					 <p>이메일</p>
+						<div class="confirm-radio">
+							 <input type="checkbox" id="confirm-radio" checked>
+								<label for="confirm-radio"></label>
+						</div>
+				</div>
+				</div>
 				<div class="col-sm-6">
 					<div class="form-group">
 					<h4>이메일</h4>
 						<input class="form-control valid" name="email" id="email" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder="Email">
 					</div>
 				</div>
+				<h4>공개여부</h4>
+				<div>
 				<div class="switch-wrap d-flex justify-content-between">
-					<p>공개글</p>
+					 <p>공개글</p>
 						<div class="confirm-radio">
-							<input type="checkbox" id="confirm-radio" checked>
+							 <input type="checkbox" id="confirm-radio" checked>
+								<label for="confirm-radio"></label>
+						</div>
+					 <p>비밀글</p>
+						<div class="confirm-radio">
+							 <input type="checkbox" id="confirm-radio" checked>
 								<label for="confirm-radio"></label>
 						</div>
 				</div>
-				<div class="col-12">
-					<h4>첨부파일</h4>
-					<div class="custom-file">
-						<input type="file" class="custom-file-input" id="customFile">
-						<label class="custom-file-label" for="customFile">파일 선택</label>
+				</div>
+				<div class="col-6">
+					<div class="form-group">
+					<h4>비밀글 번호</h4>
+						<input class="form-control valid" name="boardUserPw" id="boardUserName" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '입력하세요.'" placeholder="이름을 입력하세요."  required>
 					</div>
 				</div>
 				<div class="clickBtn mt-3" >
