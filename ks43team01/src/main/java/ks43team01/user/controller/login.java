@@ -1,4 +1,4 @@
-package ks43team01.controller;
+package ks43team01.user.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
