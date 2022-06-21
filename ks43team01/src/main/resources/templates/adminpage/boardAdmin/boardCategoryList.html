@@ -221,8 +221,11 @@
 											<th>게시판 분류 카테고리 코드</th>
 											<th>카테고리 등록자 id</th>
 											<th>게시판 대분류 카테고리명</th>
-											<th>게시판 대분류 카테고리 등록일자</th>
+											<th>게시판 대분류 카테고리 등록일</th>
+											<th>게시판 대분류 카테고리 수정일</th>
 											<th>게시판 대분류 카테고리 사용여부</th>
+											<th>수정</th>
+											<th>삭제</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -231,10 +234,13 @@
 											<td th:text="${l.userIdCode}"></td>
 											<td th:text="${l.boardCategoryName}"></td>
 											<td th:text="${l.boardCategoryRegDate}"></td>
+											<td th:text="${l.boardCategoryUpdateDate}"></td>
 											<td th:text="${l.boardCategoryUse}"></td>
+											<td><button type="button" class="btn btn-primary" style="font-size: 10px">수정</button></td>
+											<td><button type="button" class="btn btn-danger" style="font-size: 10px">삭제</button></td>
 										</tr>
 										<tr th:unless="${not #lists.isEmpty(boardCategoryList)}" >
-											<td colspan="5">조회된 내용이 없습니다.</td>
+											<td colspan="6">조회된 내용이 없습니다.</td>
 										</tr>
 						                  </tbody>
 			                    </table>

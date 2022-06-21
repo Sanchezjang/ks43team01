@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ks43team01.dto.Board;
 import ks43team01.dto.BoardCategory;
+import ks43team01.dto.BoardLargeCategory;
+import ks43team01.dto.BoardMediumCategory;
 import ks43team01.dto.QnaBoard;
 import ks43team01.mapper.BoardMapper;
 
@@ -19,8 +21,29 @@ public class BoardService {
 	public BoardService(BoardMapper boardMapper) {
 		this.boardMapper = boardMapper;
 	}
+	
+	
+	/*게시판 대분류 카테고리 조회*/
+	public List<BoardMediumCategory> getBoardMediumCategoryList(){
+		List<BoardMediumCategory> boardMediumCategoryList = boardMapper.getBoardMediumCategoryList();
+		return boardMediumCategoryList;
+	}
+	
+	/*게시판 대분류 카테고리 조회*/
+	public List<BoardLargeCategory> getBoardLargeCategoryList(){
+		List<BoardLargeCategory> boardLargeCategoryList = boardMapper.getBoardLargeCategoryList();
+		return boardLargeCategoryList;
+	}	
+
+	/*게시판 대분류 카테고리 조회*/
+	public List<BoardCategory> getBoardCategoryList(){
+		List<BoardCategory> boardCategoryList = boardMapper.getBoardCategoryList();
+		return boardCategoryList;
+	}
+	
 	/* 5-2. 1:1 게시글 등록 */
-	public int addQnaBoard(QnaBoard qnaBoard) {
+	public int addQnaBoard(String sessionId, QnaBoard qnaBoard) {
+		qnaBoard.setUserIdCode(sessionId);
 		int result = boardMapper.addQnaBoard(qnaBoard);
 		
 		return result;
@@ -32,14 +55,9 @@ public class BoardService {
 		return qnaBoardList;
 	}
 	
-
-	/*게시판 대분류 카테고리 조회*/
-	public List<BoardCategory> getBoardCategoryList(){
-		List<BoardCategory> boardCategoryList = boardMapper.getBoardCategoryList();
-		return boardCategoryList;
-	}
 	/* 4-2. 자유게시판 게시글 등록 */
-	public int addFreeBoard(Board board) {
+	public int addFreeBoard(String sessionId, Board board) {
+		board.setUserIdCode(sessionId);
 		int result = boardMapper.addFreeBoard(board);
 		
 		return result;
@@ -51,8 +69,9 @@ public class BoardService {
 		return freeBoardList;
 	}
 	
-	/* 3-2. 공지사항 게시글 등록 */
-	public int addFaqBoard(Board board) {
+	/* 3-2. 자주묻는 질문 게시글 등록 */
+	public int addFaqBoard(String sessionId, Board board) {
+		board.setUserIdCode(sessionId);
 		int result = boardMapper.addFaqBoard(board);
 		
 		return result;
@@ -65,7 +84,8 @@ public class BoardService {
 	}
 	
 	/* 2-2. 공지사항 게시글 등록 */
-	public int addNoticeBoard(Board board) {
+	public int addNoticeBoard(String sessionId, Board board) {
+		board.setUserIdCode(sessionId);
 		int result = boardMapper.addNoticeBoard(board);
 		
 		return result;

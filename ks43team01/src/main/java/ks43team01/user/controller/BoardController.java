@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 import ks43team01.dto.Board;
-import ks43team01.dto.BoardCategory;
 import ks43team01.dto.QnaBoard;
 import ks43team01.service.BoardService;
 
@@ -29,19 +28,18 @@ public class BoardController {
 	public BoardController(BoardService boardService) {
 		this.boardService = boardService;
 	}
-	/* 1:1 문의 등록*/
-    @PostMapping("/addQnaBoard")
-    public String addQnaBoard(QnaBoard qnaBoard ,HttpServletRequest request) {
-       boardService.addQnaBoard(qnaBoard);
+	
+	/* 4-2. 1:1 문의 게시판 게시글 등록 (post) */
+	@PostMapping("/addQnaBoard")
+	public String addQnaBoard(QnaBoard qnaBoard
+							, HttpSession session
+							, HttpServletRequest request) {
+		String sessionId = (String) session.getAttribute("UID");
+		boardService.addQnaBoard(sessionId, qnaBoard);
        
-       return "redirect:/userpage/board/qnaBoardList";
+		return "redirect:/userpage/board/qnaBoardList";
     }
-
-    /**
-     * 공지사항 게시글 등록
-     * @param model
-     * @return
-     */
+	/* 4-2. 1:1 문의 게시판 게시글 등록 (get) */
     @GetMapping("/addQnaBoard")
     public String addQnaBoard(Model model) {
     	List<QnaBoard> qnaBoardList = boardService.getQnaBoardList();
@@ -52,7 +50,7 @@ public class BoardController {
     }
 	
 	
-	/* 1:1 게시판 게시글 조회*/
+	/* 4. 1:1 게시판 게시글 조회 */
 	@GetMapping("/qnaBoardList")
 	public String getQnaBoardList(Model model) {
 		List<QnaBoard> qnaBoardList = boardService.getQnaBoardList();
@@ -61,29 +59,28 @@ public class BoardController {
 		
 		return "userpage/board/qnaBoardList";
 	}
-	
-	/* 문의 게시판 1차 카테고리 조회 */
 
-	 
-	/* 게시판 대분류 카테고리 조회*/
-	@GetMapping("/adminpage/boardAdmin/boardCategoryList")
-	public String getBoardCategoryList(Model model) {
-		List<BoardCategory> boardCategoryList = boardService.getBoardCategoryList();
-		log.info("게시판 대분류 카테고리 목록: {}", boardCategoryList);
-		model.addAttribute("boardCategoryList", boardCategoryList);
-		
-		return "adminpage/boardAdmin/boardCategoryList";
-		
-	}
-	/**
-	 * 
-	 * @param board
-	 * @param request
-	 * @return
-	 */
+	/* 3-2. 자유게시판 게시글 등록 (post) */
+	@PostMapping("/addFreeBoard")
+	public String addFreeBoard(Board board 
+							, HttpSession session
+							, HttpServletRequest request) {
+		String sessionId = (String) session.getAttribute("UID");
+		boardService.addFreeBoard(sessionId, board);
+       
+		return "redirect:/freeBoardList";
+    }
 
+    /* 3-2. 자유게시판 게시글 등록 (get) */
+	@GetMapping("/addFreeBoard")
+	public String addFreeBoard(Model model) {
+		List<Board> freeBoardList = boardService.getFreeBoardList();
+		model.addAttribute("freeBoardList", freeBoardList);
+		
+		return "userpage/board/addFreeBoard";
+    }
 	
-	/*사용자용 자유게시판 목록*/
+	/* 3. 사용자용 자유게시판 목록 조회*/
 	@GetMapping("/freeBoardList")
 	public String getFreeBoardList(Model model) {
 		List<Board> freeBoardList = boardService.getFreeBoardList();
@@ -92,9 +89,28 @@ public class BoardController {
 		
 		return "userpage/board/freeBoardList";
 	}
-
 	
-	/*사용자용 자주묻는 질문 목록*/
+	/* 2-2. 자주묻는 질문 게시글 등록 (post) */
+	@PostMapping("/addFaqBoard")
+	public String addFaqBoard(Board board
+							, HttpSession session
+    						, HttpServletRequest request) {
+		String sessionId = (String) session.getAttribute("UID");
+		boardService.addFaqBoard(sessionId, board);
+       
+		return "redirect:/faqBoardList";
+    }
+    
+    /* 2-2. 자주묻는 질문 등록 (get) */
+	@GetMapping("/addFaqBoard")
+	public String addFaqBoard(Model model) {
+		List<Board> faqBoardList = boardService.getFaqBoardList();
+		model.addAttribute("faqBoardList", faqBoardList);
+
+		return "userpage/board/addFaqBoard";
+    }
+    
+	/* 2. 사용자용 자주묻는 질문 목록 */
 	@GetMapping("/faqBoardList")
 	public String getFaqBoardList(Model model) {
 		List<Board> faqBoardList = boardService.getFaqBoardList();
@@ -104,30 +120,27 @@ public class BoardController {
 		return "userpage/board/faqBoardList";
 	}
 	
-	
-	/* 공지사항 게시글 등록*/
-    @PostMapping("/addNoticeBoard")
-    public String addNoticeBoard(Board board ,HttpServletRequest request) {
-       boardService.addNoticeBoard(board);
+	/* 1-2. 공지사항 게시글 등록 (post) */
+	@PostMapping("/addNoticeBoard")
+	public String addNoticeBoard(Board board
+								, HttpSession session
+								, HttpServletRequest request) {
+		String sessionId = (String) session.getAttribute("UID");
+		boardService.addNoticeBoard(sessionId, board);
        
-       return "redirect:/userpage/board/noticeBoardList";
+		return "redirect:/noticeBoardList";
     }
-
-    /**
-     * 공지사항 게시글 등록
-     * @param model
-     * @return
-     */
-    @GetMapping("/addNoticeBoard")
-    public String addNoticeBoard(Model model) {
-    	List<Board> noticeBoardList = boardService.getNoticeBoardList();
-    	
-    	model.addAttribute("noticeBoardList", noticeBoardList);
+    
+    /* 1-2. 공지사항 등록 (get) */
+	@GetMapping("/addNoticeBoard")
+	public String addNoticeBoard(Model model) {
+		List<Board> noticeBoardList = boardService.getNoticeBoardList();
+		model.addAttribute("noticeBoardList", noticeBoardList);
 		
-       return "userpage/board/addNoticeBoard";
+		return "userpage/board/addNoticeBoard";
     }
 	
-	/*사용자용 공지사항 목록*/
+	/* 1.사용자용 공지사항 목록 조회 */
 	@GetMapping("/noticeBoardList")
 	public String getNoticeBoardList(Model model) {
 		List<Board> noticeBoardList = boardService.getNoticeBoardList();
@@ -136,16 +149,4 @@ public class BoardController {
 		
 		return "userpage/board/noticeBoardList";
 	}
-	
-	/*관리자용 게시글 목록*/
-	@GetMapping("/adminpage/boardAdmin/boardList")
-	public String getBoardList(Model model) {
-		List<Board> boardList = boardService.getBoardList();
-		log.info("전체 게시글 목록: {}", boardList);
-		model.addAttribute("boardList", boardList);
-		
-		return "adminpage/boardAdmin/boardList";
-	}
-	
-	
 }
