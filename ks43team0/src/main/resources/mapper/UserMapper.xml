@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="ks43team01.mapper.UserMapper">
+
+	  <resultMap type="ks43team01.dto.User" id="userResultMap">
+	  		<id column="user_id_code" property="userIdCode"/>
+	  		<result column="user_pw" property="userPw"/>
+	  		<result column="user_name" property="userName"/>
+	  		<result column="user_contact" property="userContact"/>
+	  		<result column="user_email" property="userEmail"/>
+	  		<result column="user_withdraw_status" property="userStatus"/>
+	  		<result column="user_activity_area" property="userArea"/>
+	  		<result column="user_retention_Points" property="userPoint"/>
+	  		<result column="user_rating_buyer" property="userRatingBuyer"/>
+	  		<result column="user_rating_seller" property="userRatingSeller"/>
+	  		<result column="user_rating" property="userRating"/>
+	  		<result column="user_reg_date" property="userRreDate"/>
+	  		<result column="user_update_date" property="userUpDate"/>
+	  		<result column="level_num_code" property="userLevel"/>
+  		</resultMap>
+	  		<resultMap type="ks43team01.dto.goodsTopCategory" id="goodsTopCategoryResultMap">
+	  			<id column="goods_top_category_name" property="goodsTopCategoryName"/>
+	  			<result column="goods_top_category_code" property="goodsTopCategoryCode"/>
+	  			<result column="user_id_code " property="userIdCode"/>
+	  			<result column="goods_top_category_reg_date" property="goodsTopCategoryRegDate"/>
+	  		</resultMap>
+	  		
+	  		<resultMap type="ks43team01.dto.goodsSubCategory" id="goodsSubCategoryResultMap">
+	  			<id column="goods_sub_category_code" property="goodsSubCategoryCode"/>
+	  			<result column="goods_sub_category_name" property="goodsSubCategoryName"/>
+	  			<result column="goods_sub_category_reg_date " property="goodsSubCategoryRegDate"/>
+	  			<result column="goods_top_category_code" property="goodsTopCategoryCode"/>
+	  			<result column="goods_top_category_name" property="goodsTopCategoryName"/>
+	  		</resultMap>
+	  		
+	  		<resultMap type="ks43team01.dto.SellerBusiness" id="SellerBusinessResultMap">
+	  			<id column="expert_business_code" property="expertBusinessCode"/>
+	  			<result column="user_id_code" property="userIdCode"/>
+	  			<result column="expert_business_field " property="expertBusinessField"/>
+	  			<result column="expert_detailed_business" property="expertDetailedBusiness"/>
+	  			<result column="expert_retention_technology" property="expertRetentionTechnology"/>
+	  			<result column="expert_introduction" property="expertIntroduction"/>
+	  			<result column="expert_reg_date" property="expertRegDate"/>
+	  			<result column="expert_update_date" property="expertUpdateDate"/>
+	  		</resultMap>		
+
+	  		<resultMap type="ks43team01.dto.SellerEducation" id="SellerEducationResultMap">
+  	  			<id column="expert_business_code" property="expertFinalEducationCode"/>
+  	  			<result column="expert_final_education_code" property="userIdCode"/>
+  	  			<result column="user_id_code" property="expertSchoolName"/>
+  	  			<result column="expert_school_name" property="expertMajor"/>
+  	  			<result column="expert_major" property="expertFinalState"/>
+  	  			<result column="expert_final_state" property="expertAcademicDocument"/>
+  	  			<result column="expert_academic_document" property="expertRegDate"/>
+  	  			<result column="expert_update_date" property="expertUpdateDate"/>
+  	  	 	</resultMap>
+  	  	 	
+  	  	 	<resultMap type="ks43team01.dto.UserLog" id="UserLogResultMap">
+  	  			<id column="login_date" property="loginNum"/>
+  	  			<result column="login_date" property="loginDate"/>
+  	  			<result column="login_ip" property="loginIp"/>
+  	  			<result column="user_id_code" property="userIdCode"/>
+  	  			<result column="buyer_exp" property="buyerExp"/>
+  	  			<result column="seller_exp" property="sellerExp"/>
+  	  	 	</resultMap>
+  	  	 	
+  	  	 	<resultMap type="ks43team01.dto.SellerCareer" id="SellerCareerResultMap">
+  	  			<id column="expert_career_details_code" property="expertCareerDetailsCode"/>
+  	  			<result column="user_id_code" property="userIdCode"/>
+  	  			<result column="expert_company_name" property="expertCompanyName"/>
+  	  			<result column="expert_work_department" property="expertWorkDepartment"/>
+  	  			<result column="expert_position" property="expertPosition"/>
+  	  			<result column="expert_work_place" property="expertWorkPlace"/>
+  	  			<result column="expert_work_date" property="expertWorkDate"/>
+  	  			<result column="expert_etc" property="expertEtc"/>
+  	  			<result column="expert_stay_use" property="expertStayUse"/>
+  	  			<result column="expert_career_proof_matters_attachments" property="expertCareerProofMattersAttachments"/>
+  	  	 	</resultMap>
+  	  	 	
+ 	    <resultMap type="ks43team01.dto.UserLevelExp" id="UserLevelExpResultMap">
+	  		<id column="level_up_buyer_standard_details_code" property="levelUpBuyeyStandardDetailsCode"/>
+	  		<result column="level_up_buyer_standard_code" property="levelUpBuyerStandardCode"/>
+	  		<result column="level_up_standard_detail" property="levelUpStandardDetail"/>
+	  		<result column="level_up_exp_accumulate" property="levelUpExpAccumulate"/>
+	  		<result column="level_up_exp_limit" property="levelUpExpLimit"/>
+	  		<result column="user_id_code" property="userIdCode"/>
+	  		<result column="level_up_buyer_standard_reg_date" property="levelUpBuyerStandardRegDate"/>
+		</resultMap>
+  	  
+  	  <update id="modifyBusiness" parameterType="SellerBusiness">
+  		/*판매자 비지니스수정처리*/  		
+  		UPDATE
+  			tb_u_expert_business_filed
+		SET
+			 expert_business_field = #{expertBusinessField}
+			,expert_detailed_business = #{expertDetailedBusiness}
+			,expert_retention_technology = #{expertRetentionTechnology}
+			,expert_introduction = #{expertIntroduction}
+			,expert_update_date = CURDATE()
+		WHERE
+			user_id_code = #{userIdCode};
+		
+	</update>
+  	  
+  	  <update id="modifyUser" parameterType="User">
+  	  	/*유저정보 수정*/
+  	  	UPDATE
+	 		tb_u_all_user AS u
+		SET	
+			u.user_name = #{userName}
+			,u.user_contact =#{userContact}
+			,u.user_email =#{userEmail} 
+			,u.user_activity_area =#{userArea}
+		WHERE
+			u.user_id_code =#{userIdCode};
+  	  </update>
+  	  	 	
+  	  <update id="modifyUserLevel" parameterType="User">
+  		/*판매자 정보 입력시에 등급 3에서 2로 업데이트!!!*/
+  		UPDATE
+			tb_u_all_user AS u
+		SET
+			u.level_num_code = REPLACE(u.level_num_code,'3','2')
+			,u.user_update_date = CURDATE()
+		WHERE
+			u.user_id_code = #{userIdCode};
+  	  </update>
+  	  
+  	  <insert id="addUserLevelExp" parameterType="UserLevelExp">
+		/*로그인시에 구매자회원 경험치 누적!!!*/
+		INSERT INTO tb_l_level_buyer_standard_details 
+		(  level_up_buyer_standard_details_code
+			,level_up_buyer_standard_code
+			,level_up_standard_detail
+			,level_up_exp_accumulate
+			,level_up_exp_limit
+			,user_id_code
+			,level_up_buyer_standard_reg_date
+		)
+		values
+		(
+			date_format(NOW(), 'lubsdc_%y%m%d%H%i%s')
+			,'level_up_b1'
+			,'출석체크'
+			,5
+			,1
+			,#{userIdCode}
+			,CURDATE()
+		);
+	  </insert>	  	 	
+  	  	 	
+  	<select id="getLogDate" resultMap="UserLogResultMap">
+  		/*로그인이력테이블가져오기*/
+  		SELECT
+			 u.login_num
+			,u.login_date
+			,u.login_ip
+			,u.user_id_code
+			,u.buyer_exp
+			,u.seller_exp
+		FROM
+			tb_u_user_log AS u
+  	</select> 	 	
+  	  	 	
+  	<insert id="addUserLog" parameterType="UserLog">
+  		/*로그인시 이력남기는 쿼리*/
+  		INSERT into tb_u_user_log
+		( 	login_num
+			,login_date
+			,login_ip
+			,user_id_code
+			,buyer_exp
+			,seller_exp
+		)values(
+			date_format(NOW(),'login_%y%m%d`%H%i%s')
+			,CURDATE()
+			,#{loginIp}
+			,#{userIdCode}
+			,5
+			,5
+		);
+  	</insert>
+  	
+  	<insert id="NullSellerEducation" parameterType="ks43team01.dto.SellerEducation">
+  		/*판매적 학력이 없을때 작업 입력*/  		
+  		INSERT into tb_u_expert_education
+		(	expert_final_education_code 
+			,user_id_code
+			,expert_school_name
+			,expert_major
+			,expert_final_state 
+			,expert_academic_document
+			,expert_reg_date
+			,expert_update_date
+		)values(
+			date_format(NOW(),'ua%y%m%d%H%i%s')
+			,#{userIdCode}
+			,'#1'
+			,'#1'
+			,'#1'
+			,'#1'
+			,CURDATE()
+			,CURDATE()
+		);
+	</insert>
+  	
+  	<insert id="addSellerEducation" parameterType="ks43team01.dto.SellerEducation">
+  		/*판매적 학력 입력*/  		
+  		INSERT into tb_u_expert_education
+		(	expert_final_education_code 
+			,user_id_code
+			,expert_school_name
+			,expert_major
+			,expert_final_state 
+			,expert_academic_document
+			,expert_reg_date
+			,expert_update_date
+		)values(
+			date_format(NOW(),'ua%y%m%d%H%i%s')
+			,#{userIdCode}
+			,#{expertSchoolName}
+			,#{expertMajor}
+			,#{expertFinalState}
+			,#{expertAcademicDocument}
+			,CURDATE()
+			,CURDATE()
+		);
+	</insert>
+	
+	<insert id="addSellerCareer" parameterType="ks43team01.dto.SellerBusiness">
+  		/*판매적 근무사항 입력*/  		
+  		INSERT into tb_u_expert_career
+		(	expert_career_details_code 
+			,user_id_code
+			,expert_company_name
+			,expert_work_department
+			,expert_position 
+			,expert_work_place
+			,expert_work_date
+			,expert_etc
+			,expert_stay_use
+			,expert_career_proof_matters_attachments
+		)values(
+			date_format(NOW(),'uc%y%m%d%H%i%s')
+			,#{userIdCode}
+			,#{expertCompanyName}
+			,#{expertWorkDepartment}
+			,#{expertPosition}
+			,#{expertWorkPlace}
+			,#{expertWorkDate}
+			,#{expertEtc}
+			,#{expertStayUse}
+			,#{expertCareerProofMattersAttachments}
+		);
+	</insert>
+		
+	<insert id="nullSellerCareer" parameterType="ks43team01.dto.SellerCareer">
+  		/*판매적 근무사항이 없을때  입력*/  		
+  		INSERT into tb_u_expert_career
+		(	expert_career_details_code 
+			,user_id_code
+			,expert_company_name
+			,expert_work_department
+			,expert_position 
+			,expert_work_place
+			,expert_work_date
+			,expert_etc
+			,expert_stay_use
+			,expert_career_proof_matters_attachments
+		)values(
+			date_format(NOW(),'uc%y%m%d%H%i%s')
+			,#{userIdCode}
+			,'#'
+			,'#'
+			,'#'
+			,'#'
+			,'#'
+			,'#'
+			,'#'
+			,'#'
+		);
+	</insert>
+
+  	<insert id="addUserInsert" parameterType="ks43team01.dto.User">
+  		/* 구매자회원가입*/
+  		INSERT into tb_u_all_user
+		(	user_id_code 
+			,user_pw 
+			,user_name
+			,user_contact 
+			,user_email 
+			,user_withdraw_status 
+			,user_activity_area 
+			,user_retention_Points 
+			,user_rating_buyer
+			,user_rating_seller
+			,user_rating 
+			,user_reg_date 
+			,user_update_date
+			,level_num_code
+		)values(
+			#{userIdCode}
+			,#{userPw}
+			,#{userName}
+			,#{userContact}
+			,#{userEmail}
+			,'N'
+			,#{userArea}
+			,5000
+			,0
+			,0
+			,'뉴비'
+			,CURDATE()
+			,CURDATE()
+			,'3'
+		);
+  	</insert>
+  	
+  	<select id="getAdminUserList" resultType="User">
+  		/*회원모두보여주기*/
+  		SELECT
+			user_id_code as userId
+			,user_pw as userPw
+			,user_name as userName
+			,user_contact as userContact
+			,user_email as userEmail
+			,user_withdraw_status as userStatus
+			,user_activity_area as userArea
+			,user_retention_Points as userPoint
+			,user_rating as userRating
+			,user_reg_date as userRreDate
+			,user_update_date as userUpDate
+			,level_num_code as userLevel
+		from
+			tb_u_all_user
+  	</select>
+    
+    <select id="getTopCategory" resultType="ks43team01.dto.goodsTopCategory">
+		
+			/*판매가 비지니스 탑카테고리*/
+		SELECT 
+			g.goods_top_category_name as goodsTopCategoryName
+			,g.goods_top_category_code as goodsTopCategoryCode
+			,g.user_id_code as userIdocde
+			,g.goods_top_category_reg_date as goodsTopCategoryRegDate
+		FROM 
+			tb_g_goods_top_category as g
+    
+    </select>
+    
+    <select id="getSubCategory" parameterType="String" resultMap="goodsSubCategoryResultMap">
+    	select 
+			g.goods_sub_category_code 
+			,g.goods_sub_category_name 
+			,g.goods_sub_category_reg_date 
+			,g.goods_top_category_code 
+			,g.goods_top_category_name 
+		from 
+			tb_g_goods_sub_category as g
+		where
+			g.goods_top_category_code = #{topCategory};
+    </select>
+    
+    <select id="getUserInfoById" parameterType="String" resultMap="userResultMap">
+	  		/*로그인을 위한 정보조회*/
+	  	SELECT 
+			u.user_id_code
+			,u.user_pw 
+			,u.user_name 
+			,u.user_contact 
+			,u.user_email 
+			,u.user_activity_area 
+			,u.user_retention_Points 
+			,u.user_rating 
+			,u.level_num_code 
+		FROM 
+			tb_u_all_user as u
+		WHERE 
+			u.user_id_code = #{userId};
+  	</select>	
+  	
+  	<insert id="addSellerBusiness" parameterType="ks43team01.dto.SellerBusiness">
+  		/*판매적 비지니스 입력*/  		
+  		INSERT into tb_u_expert_business_filed
+		(	expert_business_code 
+			,user_id_code
+			,expert_business_field
+			,expert_detailed_business
+			,expert_retention_technology 
+			,expert_introduction
+			,expert_reg_date
+			,expert_update_date
+		)values(
+			date_format(NOW(),'ur%y%m%d%H%i%s')
+			,#{userIdCode}
+			,#{expertBusinessField}
+			,#{expertDetailedBusiness}
+			,#{expertRetentionTechnology}
+			,#{expertIntroduction}
+			,CURDATE()
+			,CURDATE()
+		);
+	</insert>
+  </mapper>

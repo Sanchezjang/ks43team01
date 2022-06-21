@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="ks43team01.mapper.GoodsMapper">
+	<!-- 16번테이블 : 등록상품 tb_g_goods_reg 테이블 -->
+	<resultMap type="Goods" id="goodsResultMap">
+		<id 	column="goods_code" 	 						property="goodsCode"/>
+		<result column="goods_basic_info_code" 	 				property="goodsBasicInfoCode"/>
+		<result column="goods_price_setting_code" 				property="goodsPriceSettingCode"/>
+		<result column="goods_image_code"  						property="goodsImageCode"/>
+		<result column="goods_requests_code"					property="goodsRequestsCode"/>
+		<result column="user_id_code"							property="userIdCode"/>
+		<result column="goods_reg_date"							property="goodsRegDate"/>
+ 	</resultMap>
+ 	<!-- 15번테이블 : 상품기본정보 tb_g_goods_basic_info 테이블 -->
+	<resultMap type="Goods" id="goodsBasicInfoResultMap">
+		<id 	column="goods_basic_info_code" 	 				property="goodsBasicInfoCode"/>
+		<result column="goods_sub_category_code" 	 			property="goodsSubCategoryCode"/>
+		<result column="goods_name" 							property="goodsName"/>
+		<result column="goods_description"  					property="goodsDescription"/>
+		<result column="user_id_code"							property="userIdCode"/>
+		<result column="goods_basic_info_reg_date"				property="goodsBasicInfoRegDate"/>
+  
+	</resultMap>
+  
+  	<select id="getGoodsList" resultMap="goodsResultMap">
+	/*상품등록정보조회*/
+		SELECT
+			gr.goods_code,
+			gr.goods_basic_info_code,
+			gr.goods_price_setting_code,
+			gr.goods_image_code,
+			gr.goods_requests_code,
+			gr.user_id_code,
+			gr.goods_reg_date
+		FROM
+			tb_g_goods_reg AS gr;
+  </select>
+  
+  	<select id="getGoodsBasicInfo" resultMap="goodsBasicInfoResultMap">
+	/*상품기본정보*/
+		SELECT
+			gbi.goods_basic_info_code,
+			gbi.goods_sub_category_code,
+			gbi.goods_description,
+			gbi.goods_name,
+			gbi.user_id_code,
+			gbi.goods_basic_info_reg_date
+		FROM
+			tb_g_goods_basic_info AS gbi;
+		
+  </select>
+  
+  <select id="getDesignBoardList" resultMap="goodsBasicInfoResultMap">
+	/*디자인카테고리 상품 리스트*/
+		SELECT
+			gbi.user_id_code,
+			gbi.goods_name,
+			gbi.goods_basic_info_reg_date
+		FROM
+			tb_g_goods_basic_info AS gbi;
+	</select>
+  
+  </mapper>
