@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks43team01.dto.Account;
 import ks43team01.dto.Sales;
 import ks43team01.dto.Spending;
+import ks43team01.mapper.ProfitAndLossMapper;
 import ks43team01.service.ProfitAndLossService;
 
 @Controller
@@ -45,49 +47,44 @@ public class AdminProfitAndLossController {
 	 * @return Controller (String) "redirect:/" == response.sendRedirect("/")
 	 * */
 
-	//매출 검색
-	@PostMapping("/salesList")
-	public String getsearchSalesList(@RequestParam(name="searchKey") String searchKey
-									   ,@RequestParam(name="searchValue", required = false) String searchValue
-									   ,Model model) {
-		//log.info("searchKey : {}", searchKey);
-		//log.info("searchValue : {}", searchValue);
-		if("accountName".equals(searchKey)) {
-			searchKey = "account_name";
-		}else if("salesYear".equals(searchKey)){
-			searchKey = "sales_year";
-		}else if("salesMonth".equals(searchKey)){
-			searchKey = "sales_month";
-		}
-		
-		List<Sales> searchSalesList = profitAndLossService.getSearchSalesList(searchKey, searchValue);
-		
-		if(searchSalesList != null) model.addAttribute("salesList", searchSalesList);
-		
-		return "profitAndLoss/salesList";
-	}
-	
-	//지출 검색
-	@PostMapping("/spendingList")
-	public String getsearchSpendingList(@RequestParam(name="searchKey") String searchKey
-			,@RequestParam(name="searchValue", required = false) String searchValue
-			,Model model) {
-		//log.info("searchKey : {}", searchKey);
-		//log.info("searchValue : {}", searchValue);
-		if("accountName".equals(searchKey)) {
-			searchKey = "account_name";
-		}else if("spendingYear".equals(searchKey)){
-			searchKey = "spending_year";
-		}else if("spendingMonth".equals(searchKey)){
-			searchKey = "spending_month";
-		}
-		
-		List<Spending> searchSpendingList = profitAndLossService.getSearchSpendingList(searchKey, searchValue);
-		
-		if(searchSpendingList != null) model.addAttribute("spendingList", searchSpendingList);
-		
-		return "profitAndLoss/spendingList";
-	}
+	/*
+	 * //매출 검색
+	 * 
+	 * @PostMapping("/salesList") public String
+	 * getsearchSalesList(@RequestParam(name="searchKey") String searchKey
+	 * ,@RequestParam(name="searchValue", required = false) String searchValue
+	 * ,Model model) { //log.info("searchKey : {}", searchKey);
+	 * //log.info("searchValue : {}", searchValue);
+	 * if("accountName".equals(searchKey)) { searchKey = "account_name"; }else
+	 * if("salesYear".equals(searchKey)){ searchKey = "sales_year"; }else
+	 * if("salesMonth".equals(searchKey)){ searchKey = "sales_month"; }
+	 * 
+	 * List<Sales> searchSalesList =
+	 * profitAndLossService.getSearchSalesList(searchKey, searchValue);
+	 * 
+	 * if(searchSalesList != null) model.addAttribute("salesList", searchSalesList);
+	 * 
+	 * return "profitAndLoss/salesList"; }
+	 * 
+	 * //지출 검색
+	 * 
+	 * @PostMapping("/spendingList") public String
+	 * getsearchSpendingList(@RequestParam(name="searchKey") String searchKey
+	 * ,@RequestParam(name="searchValue", required = false) String searchValue
+	 * ,Model model) { //log.info("searchKey : {}", searchKey);
+	 * //log.info("searchValue : {}", searchValue);
+	 * if("accountName".equals(searchKey)) { searchKey = "account_name"; }else
+	 * if("spendingYear".equals(searchKey)){ searchKey = "spending_year"; }else
+	 * if("spendingMonth".equals(searchKey)){ searchKey = "spending_month"; }
+	 * 
+	 * List<Spending> searchSpendingList =
+	 * profitAndLossService.getSearchSpendingList(searchKey, searchValue);
+	 * 
+	 * if(searchSpendingList != null) model.addAttribute("spendingList",
+	 * searchSpendingList);
+	 * 
+	 * return "profitAndLoss/spendingList"; }
+	 */
 	
 	//매출 내역
 	@GetMapping("/salesList")
@@ -127,6 +124,15 @@ public class AdminProfitAndLossController {
 		
 		return "adminpage/profitAndLoss/addSales";
 	}
+	
+	//지출 내역 삭제
+	@GetMapping("/removeSpending")
+	public String removeSpending(Spending spending) {
+		
+		profitAndLossService.removeSpending(spending);
+		return "adminpage/profitAndLoss/removeSpending";
+	}
+
 	
 	//지출 등록
 	@PostMapping("/addSpending")

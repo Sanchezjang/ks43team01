@@ -38,15 +38,14 @@ public class ProfitAndLossService {
 		this.profitAndLossMapper = profitAndLossMapper;
 	}
 	
-	public List<Spending> getSearchSpendingList(String searchKey, String searchValue){
-		List<Spending> searchSpendingList = profitAndLossMapper.getSearchSpendingList(searchKey, searchValue);
-		return searchSpendingList;
-	}
-	
-	public List<Sales> getSearchSalesList(String searchKey, String searchValue){
-		List<Sales> searchSalesList = profitAndLossMapper.getSearchSalesList(searchKey, searchValue);
-		return searchSalesList;
-	}
+	/*
+	 * 지출 내역 삭제
+	 * */
+	public int removeSpending(Spending spending) {
+	      
+		int result = profitAndLossMapper.removeSpending(spending);
+		return result;
+	}	
 	
 	/*
 	 * 매출 등록

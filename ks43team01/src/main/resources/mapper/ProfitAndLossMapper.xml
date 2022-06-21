@@ -41,6 +41,14 @@
 			</association>
 	</resultMap>
 	
+	<delete id="removeSpending" parameterType="Spending">
+		DELETE
+		FROM
+			tb_gr_group_monthly_spending
+		WHERE
+			spending_group_code = #{spendingGroupCode};
+	</delete>	
+	
 	<insert id="addSpending" parameterType="ProfitAndLoss">
 		/* 지출 내역 등록 */
 		INSERT INTO tb_gr_group_monthly_spending
