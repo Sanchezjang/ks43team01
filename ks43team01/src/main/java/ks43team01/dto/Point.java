@@ -12,6 +12,10 @@ public class Point {
 	
 	private PointStandardDetails pointStandardDetails;
 	private PointStandard pointStandard;
+	private PointSaveByGrade PointSaveByGrade;
+	private User user;
+	
+	
 	
 	@Override
 	public String toString() {
@@ -19,7 +23,7 @@ public class Point {
 				+ ", pointStandardDetailsCode=" + pointStandardDetailsCode + ", pointAmount=" + pointAmount
 				+ ", userEmail=" + userEmail + ", pointHistoryRegDate=" + pointHistoryRegDate + ", pointDetailsCode="
 				+ pointDetailsCode + ", pointStandardDetails=" + pointStandardDetails + ", pointStandard="
-				+ pointStandard + "]";
+				+ pointStandard + ", PointSaveByGrade=" + PointSaveByGrade + ", user=" + user + "]";
 	}
 	public String getUserIdCode() {
 		return userIdCode;
@@ -75,7 +79,19 @@ public class Point {
 	public void setPointStandard(PointStandard pointStandard) {
 		this.pointStandard = pointStandard;
 	}
+	public PointSaveByGrade getPointSaveByGrade() {
+		return PointSaveByGrade;
+	}
+	public void setPointSaveByGrade(PointSaveByGrade pointSaveByGrade) {
+		PointSaveByGrade = pointSaveByGrade;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	
-
+	
 	
 }

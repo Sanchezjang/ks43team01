@@ -80,7 +80,32 @@ layout:decorate="~{userpage/layout/userdefault}">
 	        padding: 15px 0;
 	        border-top: 1px solid #edf3fd;
 	        display: flex;
-	        }
+	    }
+	    .rating {
+	    display: inline-block;
+	    direction: rtl;
+	    border:none;
+		}
+		.rating {
+		    text-align: right;
+		}
+		.rating input[type=radio]{
+		    display: none;
+		}
+		.rating label{
+		    font-size: 1.5em;
+		    color: transparent;
+		    text-shadow: 0 0 0 #b1b1b1;
+		    margin: -2px;
+		}
+		.rating .yellowstar{
+		    font-size: 1.5em;
+		    color: transparent;
+		    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+		    margin: -2px;
+		    float: left;
+		}
+	    
 	</style>
         <div class="slider-area">
             <div class="slider-height2 d-flex align-items-center">
@@ -105,8 +130,8 @@ layout:decorate="~{userpage/layout/userdefault}">
 					<thead  class="progress-table">
 						<tr class="table-head">
 							<th class="serial">No</th>
-							<th class="regDate">등록일</th>
-							<th class="title">제목</th>
+							<th class="regDate">내용</th>
+							<th class="title">등록일</th>
 							<th class="writer">작성자</th>
 							<th class="starScore">리뷰별점</th>
 							<th class="recommendationsCount">리뷰추천횟수</th>
@@ -116,11 +141,28 @@ layout:decorate="~{userpage/layout/userdefault}">
 					</thead>
 					<tbody th:if="${not #lists.isEmpty(reviewUserList)}" th:each="r : ${reviewUserList}">
 						<tr  class="table-row">
-				 			<td class="serial">0</td>
+				 			<td class="serial" 				 th:text="${r.reviewCode}">0</td>
 							<td class="regDate" 			 th:text="${r.reviewContent}"></td>
 							<td class="title"    			 th:text="${r.reviewRegDate}"></td>
 							<td class="writer" 			     th:text="${r.userIdCode}"></td>
-							<td class="starScore" 			 th:text="${r.reviewStarScore}"></td>
+							<td class="starScore" 			 th:text="${r.reviewStarScore}">
+								<div class="rating" id="viewScore" data-rate="3" style="position: absolute;  left: 45%;  transform: translateX(-50%); transform: translateY(-35px); ">
+									<label class="yellowstar" for="rate1" th:if="${r.reviewStarScore} == 1">★</label>
+									<input type="radio" name="reviewStarScore" value="5" id="rate1"><label for="rate1" th:if="${r.reviewStarScore} == 1">★★★★</label>
+									
+									<label class="yellowstar" for="rate2" th:if="${r.reviewStarScore} == 2">★★</label>		
+									<input type="radio" name="reviewStarScore" value="4" id="rate2"><label for="rate2" th:if="${r.reviewStarScore} == 2">★★★</label>
+									
+									<label class="yellowstar" for="rate3" th:if="${r.reviewStarScore} == 3">★★★</label> 
+									<input type="radio" name="reviewStarScore" value="3" id="rate3"><label for="rate3" th:if="${r.reviewStarScore} == 3">★★</label> 
+									
+									<label class="yellowstar" for="rate4" th:if="${r.reviewStarScore} == 4">★★★★</label>
+									<input type="radio" name="reviewStarScore" value="2" id="rate4"><label for="rate4" th:if="${r.reviewStarScore} == 4">★</label> 
+									
+									<label class="yellowstar" for="rate5" th:if="${r.reviewStarScore} == 5">★★★★★</label>
+									<input type="radio" name="reviewStarScore" value="1" id="rate5"><label for="rate5" th:if="${r.reviewStarScore} == 5"></label>
+								</div>
+							</td>
 							<td class="recommendationsCount" th:text="${r.reviewRecommendationsCount}"> </td>
 							<td class="decommendationsCount" th:text="${r.reviewDecommendationsCount}"> </td>
 						</tr>
@@ -128,7 +170,8 @@ layout:decorate="~{userpage/layout/userdefault}">
 							<td colspan="7">조회된 내용이 없습니다.</td>
 						</tr>
 					</tbody>
-					
+				
+				
 				</table>
 					<div style="text-align:right; margin-top:20px;"><a th:href="@{/userpage/reviewUser/addReview}" class="genric-btn primary" >글쓰기</a></div>
 					

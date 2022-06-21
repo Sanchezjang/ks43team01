@@ -14,6 +14,7 @@
 			<result column="review_reg_date" 				property="reviewRegDate"/>
 			<result column="review_reg_buyer_exp" 			property="reviewRegBuyerExp"/>
 			<result column="review_reg_ip" 					property="reviewRegIp"/>
+			<result column="review_star_score" 				property="reviewStarScore"/>
 			
 		<association property="goodsBasicInfo" javaType="GoodsBasicInfo">
 			<id 	column="goods_basic_info_code"	 		property="goodsBasicInfoCode"/>
@@ -72,11 +73,11 @@
 	
 	<select id="getReviewUserList" resultType="Map">
 		SELECT
-		    tr.review_reg_date                   	AS  reviewRegDate    			
-		   ,gg.goods_name							AS	goodsName		
+			tr.review_code 							AS  reviewCode
+		   ,tr.review_reg_date                   	AS  reviewRegDate    			
 		   ,tr.review_content						AS  reviewContent
 		   ,ua.user_id_code							AS  userIdCode
-		   ,rb.review_star_score					AS  reviewStarScore			
+		   ,tr.review_star_score					AS  reviewStarScore			
 		   ,tr.review_recommendations_count			AS	reviewRecommendationsCount		
 		   ,tr.review_decommendations_count			AS	reviewDecommendationsCount
 		FROM 
@@ -92,7 +93,9 @@
 			INNER JOIN 
 			tb_r_based_on_score_by_review AS rb 
 			ON 
-			tr.review_score_standard_code = rb.review_score_standard_code;
+			tr.review_score_standard_code = rb.review_score_standard_code
+			ORDER BY 
+			tr.review_code DESC;
 	</select>
 	
 	<delete id="removeReview" parameterType="String">
@@ -126,18 +129,23 @@
 			 ,review_reg_date
 			 ,review_reg_buyer_exp
 	 		 ,review_reg_ip
+	 		 ,review_star_score
 			 )
 			 VALUES (
-			  'review001'
+			  (SELECT
+					CONCAT('No', LPAD(MAX(CAST(SUBSTRING(rr.review_code,3) AS UNSIGNED))+1,2,0))
+				FROM
+				   tb_r_review_contents AS rr)
 			 ,'goods_basic_info_01'
 			 ,#{userIdCode}
 			 ,'rssc01'
 			 ,#{reviewContent}
-			 ,#{reviewRecommendationsCount}
-			 ,#{reviewDecommendationsCount}
-			 , CURDATE()
-			 ,#{reviewRegBuyerExp}
+			 ,0
+			 ,0
+			 , NOW()
+			 ,50
 			 ,#{reviewRegIp}
+			 ,#{reviewStarScore}
 			 );
 	</insert>
 </mapper>

@@ -2,6 +2,9 @@ package ks43team01.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -44,7 +47,7 @@ public class ReviewService {
 		
 		
 		/* 리뷰 등록 */
-		public int addReview(ReviewContentsReg reviewContentsReg) {
+		public int addReview( ReviewContentsReg reviewContentsReg) {
 			
 			int result = reviewMapper.addReview(reviewContentsReg);
 			
