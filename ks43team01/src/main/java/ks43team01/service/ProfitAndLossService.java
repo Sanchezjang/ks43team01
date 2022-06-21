@@ -39,11 +39,20 @@ public class ProfitAndLossService {
 	}
 	
 	/*
+	 * 매출 내역 삭제
+	 * */
+	public int removeSales(String salesGroupCode) {
+	      
+		int result = profitAndLossMapper.removeSales(salesGroupCode);
+		return result;
+	}
+	
+	/*
 	 * 지출 내역 삭제
 	 * */
-	public int removeSpending(Spending spending) {
-	      
-		int result = profitAndLossMapper.removeSpending(spending);
+	public int removeSpending(String spendingGroupCode) {
+		
+		int result = profitAndLossMapper.removeSpending(spendingGroupCode);
 		return result;
 	}	
 	
