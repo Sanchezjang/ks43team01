@@ -6,6 +6,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 <!------ Include the above in your HEAD tag ---------->
 <div layout:fragment="content">
 	<style>
+	
 	html, body, div, a, table, thead, tbody, tr, th, td {
 		margin:0; outline:0; border:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent;
 	}
@@ -80,10 +81,6 @@ layout:decorate="~{userpage/layout/userdefault}">
 	        border-top: 1px solid #edf3fd;
 	        display: flex;
 	        }
-	
-		
-	
-	
 	</style>
         <div class="slider-area">
             <div class="slider-height2 d-flex align-items-center">
@@ -133,7 +130,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 					</tbody>
 					
 				</table>
-					<div style="text-align:right; margin-top:20px;"><a th:href="@{/addReview}" class="genric-btn primary" >글쓰기</a></div>
+					<div style="text-align:right; margin-top:20px;"><a th:href="@{/userpage/reviewUser/addReview}" class="genric-btn primary" >글쓰기</a></div>
 					
 				</div>
 					</div>
