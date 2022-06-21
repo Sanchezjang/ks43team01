@@ -28,19 +28,43 @@ public class BoardService {
 		return boardPostFileList;
 	}
 	
-	/*문의 게시판 2차 카테고리 조회*/
+	/* 8-2. 문의 게시판 2차 카테고리 등록*/
+	public int addBoardMediumCategory(String sessionId, BoardMediumCategory boardMediumCategory) {
+		boardMediumCategory.setUserIdCode(sessionId);
+		int result = boardMapper.addBoardMediumCategory(boardMediumCategory);
+		
+		return result;
+	}
+	
+	
+	/* 8. 문의 게시판 2차 카테고리 조회*/
 	public List<BoardMediumCategory> getBoardMediumCategoryList(){
 		List<BoardMediumCategory> boardMediumCategoryList = boardMapper.getBoardMediumCategoryList();
 		return boardMediumCategoryList;
 	}
 	
-	/*문의 게시판 1차 카테고리 조회*/
+	/* 7-2. 문의 게시판 1차 카테고리 등록*/
+	public int addBoardLargeCategory(String sessionId, BoardLargeCategory boardLargeCategory) {
+		boardLargeCategory.setUserIdCode(sessionId);
+		int result = boardMapper.addBoardLargeCategory(boardLargeCategory);
+		
+		return result;
+	}
+	
+	/* 7. 문의 게시판 1차 카테고리 조회*/
 	public List<BoardLargeCategory> getBoardLargeCategoryList(){
 		List<BoardLargeCategory> boardLargeCategoryList = boardMapper.getBoardLargeCategoryList();
 		return boardLargeCategoryList;
 	}	
-
-	/*게시판 대분류 카테고리 조회*/
+	
+	/* 6-2. 게시판 대분류 카테고리 등록*/
+	public int addBoardCategory(String sessionId, BoardCategory boardCategory) {
+		boardCategory.setUserIdCode(sessionId);
+		int result = boardMapper.addBoardCategory(boardCategory);
+		
+		return result;
+	}
+	/* 6. 게시판 대분류 카테고리 조회*/
 	public List<BoardCategory> getBoardCategoryList(){
 		List<BoardCategory> boardCategoryList = boardMapper.getBoardCategoryList();
 		return boardCategoryList;

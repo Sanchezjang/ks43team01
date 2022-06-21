@@ -18,13 +18,19 @@ public interface BoardMapper {
 	//게시글 첨부파일 목록 조회
 	public List<BoardPostFile> getBoardPostFileList();
 	
-	//문의 게시판 2차 카테고리 조회
+	//8-2. 문의 게시판 2차 카테고리 등록
+	public int addBoardMediumCategory(BoardMediumCategory boardMediumCategory);
+	//8. 문의 게시판 2차 카테고리 조회
 	public List<BoardMediumCategory> getBoardMediumCategoryList();
 	
-	//문의 게시판 1차 카테고리 조회 
+	//7-2. 문의 게시판 1차 카테고리 등록
+	public int addBoardLargeCategory(BoardLargeCategory boardLargeCategory);
+	//7. 문의 게시판 1차 카테고리 조회 
 	public List<BoardLargeCategory> getBoardLargeCategoryList();
 	
-	// 게시판 대분류 카테고리 조회
+	//6-2. 게시판 대분류 카테고리 등록
+	public int addBoardCategory(BoardCategory boardCategory);
+	//6. 게시판 대분류 카테고리 조회
 	public List<BoardCategory> getBoardCategoryList();
 	
 	//5-2. 1:1 게시글 등록
