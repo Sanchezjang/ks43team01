@@ -4,85 +4,153 @@ xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{userpage/layout/userdefault}">
 <!------ Include the above in your HEAD tag ---------->
-<div layout:fragment="content">
-	<div class="container">
-		<div class="input-form-backgroud row">
-			<div class="input-form col-md-12 mx-auto">
-				<h4 class="mb-3" id="main">내프로필</h4>
-					<ul class="nav nav-pills">
-  <li role="presentation" class="active"><a href="#">Home</a></li>
-  <li role="presentation"><a href="#">Profile</a></li>
-  <li role="presentation"><a href="#">Messages</a></li>
-</ul>
-					
-					<form class="validation-form" novalidate id="addUserForm" th:action="@{userjoin}" method="post">
-          				<div class="row">
-           	 				<div class="col-md-6 mb-4">	
-              					 <label for="userId">아이디</label>
-             					 <input type="text" class="form-control" id="userId" name="userId" placeholder="" value="" required>
-            				</div>
-           				</div>
-             			<div class="row">
-            				<div class="col-md-6 mb-3">
-              					<label for="userName">이름</label>
-              					<input type="text" class="form-control" name="userName" placeholder="" value="" required>
-            				</div>
-       					</div>
-          				<div class="row">
-            				<div class="col-md-6 mb-3">
-              					<label for="name">비밀번호</label>
-              					<input type="password" class="form-control" name="userPw" placeholder="" value="" required>
-           					</div>
-            			</div>
-             			<div class="row">
-            				<div class="col-md-6 mb-3">
-              					<label for="nickname">비밀번호확인</label>
-              					<input type="password" class="form-control" id="PwCheck" name="userPwCheck" placeholder="" value="" required>
-            				</div>
-         				</div>
-
-          <div class="row">
-            <div class="col-md-6 mb-3">
-	            <label for="phone">휴대폰번호</label>
-	            <input type="text" class="form-control" id="phone" name="userContact" placeholder="ex) 010-1234-1234" required>
-            </div>
-          </div>
-          
-          <div class="row">
-           <div class="col-md-6 mb-3">
-            <label for="email">이메일</label>
-            <input type="email" class="form-control" name="userEmail" placeholder="you@example.com" required>
-          </div>
-          </div>
-          <div class="row">
-           <div class="col-md-6 mb-3">
-            <label for="address">활동(관심)지역</label>
-            <input type="text" class="form-control" id="address" name="userArea" placeholder="서울특별시 강남구" required>
-            <div class="invalid-feedback">
-              활동(관심)지역을 입력해주세요.
-            </div>
-          </div>
-          </div>
-          <hr class="mb-4">
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="aggrement" required>
-            <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
-          </div>
-          
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="aggrement" >
-            <label class="custom-control-label" for="aggrement">이용약관에 동의합니다.</label>
-          </div>
-          <div class="mb-4"></div>
-          <button class="btn btn-primary btn-lg btn-block" type="submit">가입 완료</button>
-        </form>
-      </div>
-    </div>
-    <footer class="my-3 text-center text-small">
-      <p class="mb-1">&copy; 2022 </p>
-    </footer>
-  </div>
-</div>
-
-
+	<div layout:fragment="content">
+		<div class="container">
+			<div class="input-form-backgroud row">
+				<div class="input-form col-md-12 mx-12">
+					<div class="row">
+						<div class="col-3">
+							<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+								<a class="nav-link active taps" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">회원정보</a>
+							    <a class="nav-link taps" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">기술분야</a>
+							    <a class="nav-link taps" id="v-pills-profile-tab1" data-toggle="pill" href="#v-pills-profile1" role="tab" aria-controls="v-pills-profile" aria-selected="false">근무사항</a>
+							    <a class="nav-link taps" id="v-pills-profile-tab2" data-toggle="pill" href="#v-pills-profile2" role="tab" aria-controls="v-pills-profile" aria-selected="false">학력사항</a>
+							    <a class="nav-link taps" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">구매내역</a>
+							    <a class="nav-link taps" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">판매내역</a>
+    						</div>
+  						</div>
+  						<div class="col-9">
+    						<div class="tab-content" id="v-pills-tabContent">
+      							<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+		    						<form id="modifyUser" method="post" th:action="@{modifyUser}">
+			    						<th:block  th:if="${not #lists.isEmpty(userList)}" th:each="u : ${userList}">
+			    						<div class="form-group">	
+			    							<label for="exampleFormControlInput1 ">회원아이디</label>
+			    							<input type="text" class="form-control  col-6" id="userIdCode" name="userIdCode" readonly th:value="${u.userIdCode}">
+										</div>
+										<div class="form-group">    
+										    <label for="exampleFormControlInput1">닉네임</label>
+										    <input type="text" class="form-control  col-6" id="userName" name="userName" th:value="${u.userName}">
+								  		</div>
+								      	<div class="form-group">
+										    <label for="exampleFormControlInput1">전화번호</label>
+										    <input type="text" class="form-control col-6" id="userContact" name="userContact" th:value="${u.userContact}">
+								  		</div>
+								      	<div class="form-group">
+										    <label for="exampleFormControlInput1">이메일</label>
+										    <input type="email" class="form-control col-6" id="userEmail" name="userEmail" th:value="${u.userEmail}">
+								  		</div>
+								        <div class="form-group">
+										    <label for="exampleFormControlInput1">활동지역</label>
+										    <input type="text" class="form-control col-6" id="userArea" name="userArea" th:value="${u.userArea}">
+								  		</div>
+								        <div class="form-group">
+										    <label for="exampleFormControlInput1">사용가능포인트</label>
+										    <input type="text" class="form-control col-6" id="userPoint" name="userPoint" th:value="${u.userPoint}" readonly>
+								  		</div>
+	        							<div class="form-group">
+			    							<label for="exampleFormControlInput1">등급</label>
+			    							<input type="text" class="form-control col-6" id="userRating" name="userRating" th:value="${u.userRating}" readonly>
+										</div>
+	        							<div class="form-group">
+			    							<label for="exampleFormControlInput1">권한</label>
+			    							<input type="text" class="form-control col-6" id="userLevel" name="userLevel" th:value="${u.userLevel}" readonly>
+										</div>
+										</th:block>
+									<button class="btn btn-lg btn-primary btn-block col-6" type="submit">수정</button>
+									</form>
+								</div>
+								<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+									<form id="modifyBusiness" method="post">
+										<div class="form-group">	
+			    							<label for="exampleFormControlInput1 ">비지니스 분야</label>
+			    							<input type="text" class="form-control  col-6" id="expertBusinessField">
+										</div>
+										<div class="form-group">    
+										    <label for="exampleFormControlInput1">상세분야</label>
+										    <input type="text" class="form-control  col-6" id="expertDetailedBusiness">
+								  		</div>
+								      	<div class="form-group">
+										    <label for="exampleFormControlInput1">보유기술</label>
+										    <input type="text" class="form-control col-6" id="expertRetentionTechnology">
+								  		</div>
+								      	<div class="form-group">
+										    <label for="exampleFormControlInput1">자기소개</label>
+										    <input type="email" class="form-control col-6" id="expertIntroduction">
+								  		</div>
+							  		</form>
+									<button class="btn btn-lg btn-primary btn-block col-6" type="submit">수정</button>
+						  		</div>
+								<div class="tab-pane fade" id="v-pills-profile1" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+									<form id="modifyCompany" method="post">
+										<div class="form-group">	
+			    							<label for="exampleFormControlInput1 ">회사명</label>
+			    							<input type="text" class="form-control  col-6" id="expertCompanyName" name="expertCompanyName">
+										</div>
+										<div class="form-group">    
+										    <label for="exampleFormControlInput1">직위</label>
+										    <input type="text" class="form-control  col-6" id="expertPosition" name="expertPosition">
+								  		</div>
+										<div class="form-group">    
+										    <label for="exampleFormControlInput1">근무부서</label>
+										    <input type="text" class="form-control  col-6" id="expertWorkDepartment" name="expertWorkDepartment">
+								  		</div>
+								      	<div class="form-group">
+										    <label for="exampleFormControlInput1">근무지</label>
+										    <input type="text" class="form-control col-6" id="expertWorkPlace" name="expertWorkPlace">
+								  		</div>
+								      	<div class="form-group">
+										    <label for="exampleFormControlInput1">근무기간</label>
+										    <input type="text" class="form-control col-6" id="expertWorkDate" name="expertWorkDate">
+								  		</div>
+								      	<div class="form-group">
+										    <label for="exampleFormControlInput1">기타기록사항</label>
+										    <input type="text" class="form-control col-6" id="expertEtc" name="expertEtc">
+								  		</div>
+								      	<div class="form-group">
+										    <label for="exampleFormControlInput1">근무지상주가능여부</label>
+										    <input type="text" class="form-control col-6" id="expertStayUse" name="expertStayUse">
+								  		</div>
+								      	<div class="form-group">
+										    <label for="exampleFormControlInput1">경력증명사항첨부서류</label>
+										    <input type="file" class="form-control col-7" id="expertCareerProofMattersAttachments">
+								  		</div>
+								  	</form>
+									<button class="btn btn-lg btn-primary btn-block col-6" type="submit">수정</button>
+								</div>
+								<div class="tab-pane fade" id="v-pills-profile2" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+									<form id="modifySchool" method="post">
+										<div class="form-group">	
+			    							<label for="exampleFormControlInput1 ">학교명</label>
+			    							<input type="text" class="form-control  col-6" id="expertSchoolName" name="expertSchoolName">
+										</div>
+										<div class="form-group">    
+										    <label for="exampleFormControlInput1">전공</label>
+										    <input type="text" class="form-control  col-6" id="expertMajor" name="expertSchoolName">
+								  		</div>
+								      	<div class="form-group">
+										    <label for="exampleFormControlInput1">학력최종상황</label>
+										    <input type="text" class="form-control col-6" id="expertFinalState" name="expertSchoolName">
+								  		</div>
+								      	<div class="form-group">
+										    <label for="exampleFormControlInput1">학력증명사항첨부서류</label>
+										    <input type="file" class="form-control col-7" id="expertAcademicDocument" name="expertSchoolName">
+								  		</div>
+						  			</form>
+									<button class="btn btn-lg btn-primary btn-block col-6" type="submit">수정</button>
+								</div>
+								<div class="tab-pane fade" id="v-pills-profile2" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+								</div>
+								<div class="tab-pane fade" id="v-pills-profile2" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+								</div>
+							</div>
+						</div>
+					</div>
+					<footer class="my-3 text-center text-small">
+						<p class="mb-1">&copy; 2022 </p>
+					</footer>
+				</div>
+			</div>
+		</div>
+	</div>
 
