@@ -48,13 +48,14 @@ public class ProfitAndLossService {
 	}
 	
 	/*
-	 * 지출 내역 삭제
+	 * 매출내역조회
 	 * */
-	public int removeSpending(String spendingGroupCode) {
+	public List<Sales> getSalesList(){
 		
-		int result = profitAndLossMapper.removeSpending(spendingGroupCode);
-		return result;
-	}	
+		List<Sales> salesList = profitAndLossMapper.getSalesList();
+		
+		return salesList;
+	}
 	
 	/*
 	 * 매출 등록
@@ -66,6 +67,25 @@ public class ProfitAndLossService {
 		int result = profitAndLossMapper.addSales(sales);
 		
 		return result;
+	}
+	
+	/*
+	 * 지출 내역 삭제
+	 * */
+	public int removeSpending(String spendingGroupCode) {
+		
+		int result = profitAndLossMapper.removeSpending(spendingGroupCode);
+		return result;
+	}	
+	
+	/*
+	 * 지출내역조회
+	 * */
+	public List<Spending> getSpendingList(){
+		
+		List<Spending> spendingList = profitAndLossMapper.getSpendingList();
+		
+		return spendingList;
 	}
 	
 	/*
@@ -81,23 +101,22 @@ public class ProfitAndLossService {
 	}
 	
 	/*
-	 * 매출내역조회
+	 * 계정과목 삭제
 	 * */
-	public List<Sales> getSalesList(){
+	public int removeAccount(String accountSubjectCode) {
 		
-		List<Sales> salesList = profitAndLossMapper.getSalesList();
-		
-		return salesList;
-	}
+		int result = profitAndLossMapper.removeAccount(accountSubjectCode);
+		return result;
+	}	
 	
 	/*
-	 * 지출내역조회
+	 * 손익 계정과목 리스트
 	 * */
-	public List<Spending> getSpendingList(){
+	public List<Account> getAccountList(){
 		
-		List<Spending> spendingList = profitAndLossMapper.getSpendingList();
+		List<Account> accountList = profitAndLossMapper.getAccountList();
 		
-		return spendingList;
+		return accountList;
 	}
 	
 	/*
@@ -110,15 +129,5 @@ public class ProfitAndLossService {
 		int result = profitAndLossMapper.addAccount(account);
 		
 		return result;
-	}
-	
-	/*
-	 * 손익 계정과목 리스트
-	 * */
-	public List<Account> getAccountList(){
-		
-		List<Account> accountList = profitAndLossMapper.getAccountList();
-		
-		return accountList;
 	}
 }

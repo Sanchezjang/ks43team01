@@ -86,54 +86,6 @@ public class AdminProfitAndLossController {
 	 * return "profitAndLoss/spendingList"; }
 	 */
 	
-	//매출 내역
-	@GetMapping("/salesList")
-	public String getSalesList(Model model) {
-		
-		List<Sales> salesList = profitAndLossService.getSalesList();
-		//log.info("매출 내역 : {}", salesList);
-		model.addAttribute("salesList", salesList);
-		
-		return "adminpage/profitAndLoss/salesList";
-	}
-	
-	//매출 내역 삭제
-	@GetMapping("/removeSales")
-	public String removeSales(String salesGroupCode) {
-		
-		log.info("삭제 sales : {}" , salesGroupCode);
-		profitAndLossService.removeSales(salesGroupCode);
-		return "adminpage/profitAndLoss/removeSales";
-	}
-	
-	//매출 등록
-	@PostMapping("/addSales")
-	public String addSales(HttpSession session
-			,Sales sales
-			,HttpServletRequest request) {
-		
-		log.info("지출 등록 처리 sales : {}", sales);
-		String sessionId = (String) session.getAttribute("UID");
-		
-		profitAndLossService.addSales(sessionId, sales);
-		
-		return "redirect:/adminpage/profitAndLoss/salesList";
-	}
-	
-	//매출 등록
-	@GetMapping("/addSales")
-	public String addSales(Model model) {
-		
-		List<Sales> salesList = profitAndLossService.getSalesList();
-		List<Account> accountList = profitAndLossService.getAccountList();
-		
-		model.addAttribute("salesList", salesList);
-		model.addAttribute("accountList", accountList);
-		//log.info("지출 등록 내역 : {}", salesList);
-		
-		return "adminpage/profitAndLoss/addSales";
-	}
-	
 	//지출 내역 삭제
 	@GetMapping("/removeSpending")
 	public String removeSpending(String spendingGroupCode) {
@@ -142,13 +94,25 @@ public class AdminProfitAndLossController {
 		profitAndLossService.removeSpending(spendingGroupCode);
 		return "adminpage/profitAndLoss/removeSpending";
 	}
-
+	
+	//지출 내역
+	@GetMapping("/spendingList")
+	public String getSpendingList(Model model) {
+		
+		List<Spending> spendingList = profitAndLossService.getSpendingList();
+		String str = "";
+		model.addAttribute("spendingList", spendingList);
+		model.addAttribute("str", str);
+		//log.info("지출 내역 : {}", spendingList);
+		
+		return "adminpage/profitAndLoss/spendingList";
+	}
 	
 	//지출 등록
 	@PostMapping("/addSpending")
 	public String addSpending(HttpSession session
-							,Spending spending
-							,HttpServletRequest request) {
+			,Spending spending
+			,HttpServletRequest request) {
 		
 		log.info("지출 등록 처리 spending : {}", spending);
 		String sessionId = (String) session.getAttribute("UID");
@@ -172,26 +136,83 @@ public class AdminProfitAndLossController {
 		return "adminpage/profitAndLoss/addSpending";
 	}
 	
-	//지출 내역
-	@GetMapping("/spendingList")
-	public String getSpendingList(Model model) {
+	//매출 내역 삭제
+	@GetMapping("/removeSales")
+	public String removeSales(String salesGroupCode) {
 		
-		List<Spending> spendingList = profitAndLossService.getSpendingList();
+		log.info("삭제 sales : {}" , salesGroupCode);
+		profitAndLossService.removeSales(salesGroupCode);
+		return "adminpage/profitAndLoss/removeSales";
+	}
+	
+	//매출 내역
+	@GetMapping("/salesList")
+	public String getSalesList(Model model) {
+		
+		List<Sales> salesList = profitAndLossService.getSalesList();
+		//log.info("매출 내역 : {}", salesList);
+		model.addAttribute("salesList", salesList);
+		
+		return "adminpage/profitAndLoss/salesList";
+	}
+	
+	//매출 등록
+	@PostMapping("/addSales")
+	public String addSales(HttpSession session
+			,Sales sales
+			,HttpServletRequest request) {
+		
+		//log.info("매출 등록 처리 sales : {}", sales);
+		String sessionId = (String) session.getAttribute("UID");
+		
+		profitAndLossService.addSales(sessionId, sales);
+		
+		return "redirect:/adminpage/profitAndLoss/salesList";
+	}
+	
+	//매출 등록
+	@GetMapping("/addSales")
+	public String addSales(Model model) {
+		
+		List<Sales> salesList = profitAndLossService.getSalesList();
+		List<Account> accountList = profitAndLossService.getAccountList();
+		
+		model.addAttribute("salesList", salesList);
+		model.addAttribute("accountList", accountList);
+		//log.info("지출 등록 내역 : {}", salesList);
+		
+		return "adminpage/profitAndLoss/addSales";
+	}
+	
+	//계정과목 삭제
+	@GetMapping("/removeAccount")
+	public String removeAccount(String accountSubjectCode) {
+		
+		log.info("삭제 account : {}" , accountSubjectCode);
+		profitAndLossService.removeAccount(accountSubjectCode);
+		return "adminpage/profitAndLoss/removeAccount";
+	}
+	
+	//손익 계정과목 리스트
+	@GetMapping("/accountList")
+	public String getAccountList(Model model) {
+		
+		List<Account> accountList = profitAndLossService.getAccountList();
 		String str = "";
-		model.addAttribute("spendingList", spendingList);
+		model.addAttribute("accountList", accountList);
 		model.addAttribute("str", str);
-		//log.info("지출 내역 : {}", spendingList);
+		//log.info("손익 계정 과목 리스트 : {}", accountList);
 		
-		return "adminpage/profitAndLoss/spendingList";
+		return "adminpage/profitAndLoss/accountList";
 	}
 	
 	//손익 계정과목 등록
 	@PostMapping("/addAccount")
 	public String addAccount(HttpSession session
-							,Account account
-							,HttpServletRequest request) {
+			,Account account
+			,HttpServletRequest request) {
 		
-		log.info("지출 등록 처리 account : {}", account);
+		//log.info("계정과목 등록 처리 account : {}", account);
 		String sessionId = (String) session.getAttribute("UID");
 		
 		profitAndLossService.addAccount(sessionId, account);
@@ -209,19 +230,6 @@ public class AdminProfitAndLossController {
 		//log.info("지출 등록 내역 : {}", spendingList);
 		
 		return "adminpage/profitAndLoss/addAccount";
-	}
-	
-	//손익 계정과목 리스트
-	@GetMapping("/accountList")
-	public String getAccountList(Model model) {
-		
-		List<Account> accountList = profitAndLossService.getAccountList();
-		String str = "";
-		model.addAttribute("accountList", accountList);
-		model.addAttribute("str", str);
-		//log.info("손익 계정 과목 리스트 : {}", accountList);
-		
-		return "adminpage/profitAndLoss/accountList";
 	}
 	
 }
