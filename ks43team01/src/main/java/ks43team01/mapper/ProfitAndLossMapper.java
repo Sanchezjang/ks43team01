@@ -10,27 +10,35 @@ import ks43team01.dto.Spending;
 
 @Mapper
 public interface ProfitAndLossMapper {
-	//매출 내역 삭제
-	public int removeSales(String salesGroupCode);
-	
+	//@지출
 	//지출 내역 삭제
 	public int removeSpending(String spendingGroupCode);
-	
-	//지출 등록
-	public int addSpending(Spending spending);
-	
-	//매출 등록
-	public int addSales(Sales sales);
 	
 	//지출 내역 조회
 	public List<Spending> getSpendingList();
 	
+	//지출 등록
+	public int addSpending(Spending spending);
+
+	
+	//@매출
+	//매출 내역 삭제
+	public int removeSales(String salesGroupCode);
+	
 	//매출 내역 조회
 	public List<Sales> getSalesList();
+
+	//매출 등록
+	public int addSales(Sales sales);
 	
-	//계정과목 등록
-	public int addAccount(Account account);
+	
+	//@계정과목
+	//계정과목 삭제
+	public int removeAccount(String accountSubjectCode);
 	
 	//손익 계정과목 리스트
 	public List<Account> getAccountList();	
+	
+	//계정과목 등록
+	public int addAccount(Account account);
 }

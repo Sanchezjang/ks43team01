@@ -30,6 +30,8 @@
 
     <!-- Custom Theme Style -->
     <link th:href="@{/admin/build/css/custom.min.css}" rel="stylesheet">
+    
+    <script type="text/javascript" th:src="@{/Doc/js/jquery-3.6.0.min.js}"></script>
   </head>
 
   <body class="nav-md">
@@ -47,6 +49,7 @@
         <!-- page content -->
         <div class="right_col" role="main">
                 <h3>손익관리 계정과목</h3>
+                <h6><a style="float: right; background-color: teal; border-radius: 5px; padding: 5px; margin: 10px; color: white;" th:href="@{/adminpage/profitAndLoss/addAccount}">계정과목 등록</a></h6>
          
 		    <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
@@ -94,7 +97,7 @@
 							<td th:text="${a.userIdCode}"></td>
 							<td th:text="${a.accountYear}"></td>
 							<td><button type="button" class="btn btn-primary" style="font-size: 10px">수정</button></td>
-							<td><button type="button" class="btn btn-danger" style="font-size: 10px">삭제</button></td>
+							<td><button type="button" class="btn btn-danger removeAccountModalBtn" data-toggle="modal" data-target="#removeAccountModal" style="font-size: 10px" th:value="${a.accountSubjectCode}">삭제</button></td>
 							</tr>
 						</tbody>
                     </table>
@@ -110,6 +113,38 @@
               </div>
             </div>
         <!-- /page content -->
+        
+ 	    	<!-- Modal -->
+	         <div class="modal fade" id="removeAccountModal" tabindex="-1" role="dialog">
+	               <div class="modal-dialog" role="document">
+	                   <div class="modal-content">
+	                     <div class="modal-header">
+	                        <h5 class="modal-title">계정과목 삭제</h5>
+	                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                           <span aria-hidden="true">&times;</span>
+	                        </button>
+	                     </div>
+	                     <div class="modal-body">
+	                        	정말 계정과목을 삭제하시겠습니까?
+	                     </div>
+	                     <div class="modal-footer">
+                           <form action="/adminpage/profitAndLoss/removeAccount" method="get">
+								<input type="hidden" name="accountSubjectCode" id="removeAccountSubjectCode">
+	                       		<button type="button" class="btn btn-primary" data-dismiss="modal">취소</button>
+								<button type="submit" class="btn btn-danger">삭제</button>
+                           </form>
+	                     </div>
+	                  </div>
+	               </div>
+	         </div>
+              <!-- Modal -->
+              
+              <script type="text/javascript">
+            	var $removeAccountSubjectCode = $('#removeAccountSubjectCode');
+            	$('.removeAccountModalBtn').on('click', function() {
+            	  $removeAccountSubjectCode.val($(this).val());            	  
+            	})
+           	 </script>
 
 		<!-- footer content -->
 		<div th:replace="adminpage/fragments/footer :: footerFragment"></div>

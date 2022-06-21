@@ -29,7 +29,7 @@
 				<result column="user_id_code" 			property="userIdCode"/>
 				<result column="sales_reg_date"			property="salesRegDate"/>
 			</association>
-			<association property="account" javaType="account">
+			<association property="account" javaType="Account">
 				<id 	column="account_subject_code"		property="accountSubjectCode"/>
 				<result column="account_name" 				property="accountName"/>
 				<result column="profit_loss_classification"	property="profitLossClassification"/>
@@ -40,15 +40,6 @@
 				<result column="account_year" 				property="accountYear"/>
 			</association>
 	</resultMap>
-	
-	<delete id="removeSales" parameterType="Sales">
-		/* 매출 내역 삭제 */
-		DELETE
-		FROM 
-			tb_gr_group_monthly_sales
-		WHERE
-			sales_group_code = #{salesGroupCode};
-	</delete>
 		
 	<delete id="removeSpending" parameterType="Spending">
 		/* 지출 내역 삭제 */
@@ -58,6 +49,20 @@
 		WHERE
 			spending_group_code = #{spendingGroupCode};
 	</delete>	
+	
+	<select id="getSpendingList" resultType="Spending">
+		/* 지출 내역 리스트 조회 */
+		SELECT
+			spending_group_code AS spendingGroupCode,
+			account_name 		AS accountName,
+			spending_date 		AS spendingDate,
+			spending_amount 	AS spendingAmount,
+			spending_info 		AS spendingInfo,
+			user_id_code 		AS userIdCode,
+			spending_reg_date	AS spendingRegDate
+		FROM
+			tb_gr_group_monthly_spending;
+	</select>
 	
 	<insert id="addSpending" parameterType="ProfitAndLoss">
 		/* 지출 내역 등록 */
@@ -100,6 +105,29 @@
 			,CURDATE()
 		);
 	</insert>
+	
+	<delete id="removeSales" parameterType="Sales">
+		/* 매출 내역 삭제 */
+		DELETE
+		FROM 
+			tb_gr_group_monthly_sales
+		WHERE
+			sales_group_code = #{salesGroupCode};
+	</delete>
+	
+	<select id="getSalesList" resultType="Sales">
+		/* 매출 내역 리스트 조회 */
+		SELECT
+			gr.sales_group_code AS salesGroupCode,
+			gr.account_name 	AS accountName,
+			gr.sales_date 		AS salesDate,
+			gr.sales_amount 	AS salesAmount,
+			gr.sales_info 		AS salesInfo,
+			gr.user_id_code 	AS userIdCode,
+			gr.sales_reg_date	AS salesRegDate
+		FROM
+			tb_gr_group_monthly_sales AS gr;
+	</select>
 
 	<insert id="addSales" parameterType="ProfitAndLoss">
 		/* 매출 내역 등록 */
@@ -142,6 +170,30 @@
 			,CURDATE()
 		);
 	</insert>
+		
+	<delete id="removeAccount" parameterType="Account">
+		/* 계정과목 삭제 */
+		DELETE
+		FROM
+			tb_a_account_profit_and_loss_management
+		WHERE
+			account_subject_code = #{accountSubjectCode};
+	</delete>	
+	
+	<select id="getAccountList" resultType="Account">
+		/* 손익 계정과목 리스트 조회 */
+		SELECT
+			a.account_subject_code AS accountSubjectCode,
+			a.account_name AS accountName,
+			a.profit_loss_classification AS profitLossClassification,
+			a.account_use AS accountUse,
+			a.account_amend AS accountAmend,
+			a.account_reg_date AS accountRegDate,
+			a.user_id_code AS userIdCode,
+			a.account_year AS accountYear
+		FROM
+			tb_a_account_profit_and_loss_management AS a;
+	</select>
 	
 	<insert id="addAccount" parameterType="ProfitAndLoss">
 		/* 계정과목 등록 */
@@ -166,48 +218,5 @@
 			,#{accountYear}
 		);
 	</insert>
-	
-	<select id="getSpendingList" resultType="Spending">
-		/* 지출 내역 리스트 조회 */
-		SELECT
-			spending_group_code AS spendingGroupCode,
-			account_name 		AS accountName,
-			spending_date 		AS spendingDate,
-			spending_amount 	AS spendingAmount,
-			spending_info 		AS spendingInfo,
-			user_id_code 		AS userIdCode,
-			spending_reg_date	AS spendingRegDate
-		FROM
-			tb_gr_group_monthly_spending;
-	</select>
-	
-	<select id="getSalesList" resultType="Sales">
-		/* 매출 내역 리스트 조회 */
-		SELECT
-			gr.sales_group_code AS salesGroupCode,
-			gr.account_name 	AS accountName,
-			gr.sales_date 		AS salesDate,
-			gr.sales_amount 	AS salesAmount,
-			gr.sales_info 		AS salesInfo,
-			gr.user_id_code 	AS userIdCode,
-			gr.sales_reg_date	AS salesRegDate
-		FROM
-			tb_gr_group_monthly_sales AS gr;
-	</select>
-	
-	<select id="getAccountList" resultType="Account">
-		/* 손익 계정과목 리스트 조회 */
-		SELECT
-			a.account_subject_code AS accountSubjectCode,
-			a.account_name AS accountName,
-			a.profit_loss_classification AS profitLossClassification,
-			a.account_use AS accountUse,
-			a.account_amend AS accountAmend,
-			a.account_reg_date AS accountRegDate,
-			a.user_id_code AS userIdCode,
-			a.account_year AS accountYear
-		FROM
-			tb_a_account_profit_and_loss_management AS a;
-	</select>
 
 </mapper> 
