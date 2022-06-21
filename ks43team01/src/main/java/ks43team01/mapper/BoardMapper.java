@@ -7,19 +7,27 @@ import org.apache.ibatis.annotations.Mapper;
 
 import ks43team01.dto.Board;
 import ks43team01.dto.BoardCategory;
+import ks43team01.dto.BoardLargeCategory;
+import ks43team01.dto.BoardMediumCategory;
 import ks43team01.dto.QnaBoard;
 
 @Mapper
 public interface BoardMapper {
 	
+	//문의 게시판 2차 카테고리 조회
+	public List<BoardMediumCategory> getBoardMediumCategoryList();
+	
+	//문의 게시판 1차 카테고리 조회 
+	public List<BoardLargeCategory> getBoardLargeCategoryList();
+	
+	// 게시판 대분류 카테고리 조회
+	public List<BoardCategory> getBoardCategoryList();
 	
 	//5-2. 1:1 게시글 등록
 	public int addQnaBoard(QnaBoard qnaBoard);
 	// 5. 1:1 게시글 목록 조회
 	public List<QnaBoard> getQnaBoardList();
 	
-	// 게시판 대분류 카테고리 조회 테스트
-	public List<BoardCategory> getBoardCategoryList();
 	
 	// 4-2. 자유게시판 등록
 	public int addFreeBoard(Board board);

@@ -5,6 +5,7 @@ public class BoardCategory {
 	private String userIdCode;
 	private String boardCategoryName;
 	private String boardCategoryRegDate;
+	private String boardCategoryUpdateDate;
 	private String boardCategoryUse;
 	
 	public String getBoardCategoryCode() {
@@ -31,6 +32,13 @@ public class BoardCategory {
 	public void setBoardCategoryRegDate(String boardCategoryRegDate) {
 		this.boardCategoryRegDate = boardCategoryRegDate;
 	}
+	
+	public String getBoardCategoryUpdateDate() {
+		return boardCategoryUpdateDate;
+	}
+	public void setBoardCategoryUpdateDate(String boardCategoryUpdateDate) {
+		this.boardCategoryUpdateDate = boardCategoryUpdateDate;
+	}
 	public String getBoardCategoryUse() {
 		return boardCategoryUse;
 	}
@@ -48,11 +56,12 @@ public class BoardCategory {
 		builder.append(boardCategoryName);
 		builder.append(", boardCategoryRegDate=");
 		builder.append(boardCategoryRegDate);
+		builder.append(", boardCategoryUpdateDate=");
+		builder.append(boardCategoryUpdateDate);
 		builder.append(", boardCategoryUse=");
 		builder.append(boardCategoryUse);
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
+
 }

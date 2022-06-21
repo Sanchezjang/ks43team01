@@ -37,7 +37,7 @@ layout:decorate="~{userpage/layout/userdefault}">
                     <div class="BoardRow">
                         <div class="col-xl-12">
                             <div class="hero-cap hero-cap2 text-center">
-                                <h2>Notice</h2>
+                                <h2>Free bulletin board</h2>
                             </div>
                         </div>
                     </div>
@@ -48,21 +48,8 @@ layout:decorate="~{userpage/layout/userdefault}">
         <!-- About Details Start -->
 
 		<div class="addBoardForm">
-			<div class="single-element-widget mt-30">
-								<div class="default-select" id="default-select">
-									<select id="boardCategoryList" name="boardCategoryList">
-											<option value="">- 게시판 카테고리 -</option>
-											<th:block th:if="${not #lists.isEmpty(boardCategoryList)}" th:each="l : ${boardCategoryList}">
-												<option th:value="${l.boardCategoryCode}">[[${l.boardCategoryName}]]</option>
-											</th:block>
-											<th:block th:unless="${not #lists.isEmpty(boardCategoryList)}">
-												<option value="">등록된 카테고리가 없습니다.</option>
-											</th:block>
-									</select>
-								</div>
-			</div>
 			<div class="BoardRow">
-				<form class="" th:action="@{/userpage/board/addBoard}" method="post" id="boardForm" novalidate="novalidate">
+				<form class="" th:action="@{addFreeBoard}" method="post">
 					<div class="BoardRow">
 						<div class="col-12">
 							<div class="form-group">
@@ -87,7 +74,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 					</div>
 						<div class="clickBtn mt-3" >
 							<button type="submit" class="button boxed-btn">저장</button>
-							<a th:href="@{/userpage/board/noticeBoardList}"><button type="button" class="cansel boxed-btn">취소</button></a>
+							<a th:href="@{/userpage/board/freeBoardList}"><button type="button" class="cansel boxed-btn">취소</button></a>
 						</div>
 		
 
