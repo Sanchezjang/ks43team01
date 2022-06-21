@@ -28,6 +28,11 @@ public class UserService {
 	public  UserService(UserMapper userMapper) {
 		this.userMapper = userMapper;
 	}
+	/*판매자 비지니스수정처리*/
+	public int modifyBusiness(SellerBusiness sellerBusiness) {
+		int result = userMapper.modifyBusiness(sellerBusiness);
+		return result; 
+	}
 	///회원정보수정 고통회원 부분!!!//
 	public int modifyUser(User user) {
 		

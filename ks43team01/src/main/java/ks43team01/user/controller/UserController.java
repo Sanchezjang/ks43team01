@@ -55,24 +55,27 @@ public class UserController {
 		
 		return "redirect:/userinfomation";
 	}
+	/*판매자 비지니스수정처리*/ 
+	@PostMapping("/modifyBusiness")
+	public String modifyBusiness(SellerBusiness sellerBusiness) {
+		userService.modifyBusiness(sellerBusiness);
+		log.info("셀러 수정 : {}",sellerBusiness);
+		return "redirect:/userinfomation";
+	}
 		
 	@GetMapping("/userjoin") //회원가입시겟맵핑 잡아주는거//
 	public String addUserInsert() {
 		
 		return "userpage/user/userjoin";
 	}
-	/*@PostMapping("/userjoin") //회원가입시겟맵핑 잡아주는거//
+	@PostMapping("/userjoin") //회원가입시겟맵핑 잡아주는거//
 	public String addUserInsert(User user,HttpSession session) {
 	
 		userService.addUserInsert(user);
 		log.info("받아온멤버",user);
-		session.setAttribute("UID", user.getUserId());//세션에 있는 정보를 입력한정보가 맞는지 확인//
-		session.setAttribute("CheckName", user.getUserName());
-		session.setAttribute("CheckPhone", user.getUserContact());
-		session.setAttribute("CheckEmail", user.getUserEmail());
-		session.setAttribute("CheckArea", user.getUserArea());
-		return "userpage/user/userjoinCheck";
-	}*/
+		session.setAttribute("UID", user.getUserIdCode());//세션에 있는 정보를 입력한정보가 맞는지 확인//
+		return "userpage/user/login";
+	}
 	@GetMapping("/adminpage/user/userList")//admin회원총리스트 가져오기//
 	public String getAdminUserList(Model model) {
 		List<User> userList = userService.getAdminUserList();
@@ -125,7 +128,6 @@ public class UserController {
 			String UID =  (String)session.getAttribute("UID");
 			sellerCareer.setUserIdCode(UID);
 			userService.nullSellerCareer(sellerCareer);
-			
 			return "userpage/user/sellerEducation";
 		}
 	
@@ -170,8 +172,11 @@ public class UserController {
 		return "userpage/user/login";
 	}
 	@GetMapping("/userinfomation")
-	public String getUserInfomation(HttpSession session,Model model,User user){
+	public String getUserInfomation(HttpSession session,Model model,User user,goodsTopCategory goodsTopCategory){
 	
+		List<goodsTopCategory> expertBusinessField = userService.getTopCategory();
+		model.addAttribute("topcategory",expertBusinessField);//탑카테고리 받아옴
+		log.info("탑카테고리 받아온값   :   {}",expertBusinessField);
 		String UID = (String) session.getAttribute("UID");
 		User userList =	userService.getUserInfoById(UID);
 		model.addAttribute("userList", userList);

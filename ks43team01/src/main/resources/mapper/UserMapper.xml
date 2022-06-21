@@ -13,6 +13,8 @@
 	  		<result column="user_withdraw_status" property="userStatus"/>
 	  		<result column="user_activity_area" property="userArea"/>
 	  		<result column="user_retention_Points" property="userPoint"/>
+	  		<result column="user_rating_buyer" property="userRatingBuyer"/>
+	  		<result column="user_rating_seller" property="userRatingSeller"/>
 	  		<result column="user_rating" property="userRating"/>
 	  		<result column="user_reg_date" property="userRreDate"/>
 	  		<result column="user_update_date" property="userUpDate"/>
@@ -87,7 +89,23 @@
 	  		<result column="level_up_buyer_standard_reg_date" property="levelUpBuyerStandardRegDate"/>
 		</resultMap>
   	  
+  	  <update id="modifyBusiness" parameterType="SellerBusiness">
+  		/*판매자 비지니스수정처리*/  		
+  		UPDATE
+  			tb_u_expert_business_filed
+		SET
+			 expert_business_field = #{expertBusinessField}
+			,expert_detailed_business = #{expertDetailedBusiness}
+			,expert_retention_technology = #{expertRetentionTechnology}
+			,expert_introduction = #{expertIntroduction}
+			,expert_update_date = CURDATE()
+		WHERE
+			user_id_code = #{userIdCode};
+		
+	</update>
+  	  
   	  <update id="modifyUser" parameterType="User">
+  	  	/*유저정보 수정*/
   	  	UPDATE
 	 		tb_u_all_user AS u
 		SET	
@@ -276,12 +294,14 @@
 			,user_withdraw_status 
 			,user_activity_area 
 			,user_retention_Points 
+			,user_rating_buyer
+			,user_rating_seller
 			,user_rating 
 			,user_reg_date 
 			,user_update_date
 			,level_num_code
 		)values(
-			#{userId}
+			#{userIdCode}
 			,#{userPw}
 			,#{userName}
 			,#{userContact}

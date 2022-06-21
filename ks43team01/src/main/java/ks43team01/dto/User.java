@@ -10,6 +10,8 @@ public class User {
 	private String userStatus;///업데이트이용?	
 	private String userArea;
 	private String userPoint;///포인트총액???	
+	private String userRatingBuyer;
+	private String userRatingSeller;
 	private String userRating;//회원등급자동생성
 	private String userRreDate;
 	private String userUpDate;
@@ -35,6 +37,10 @@ public class User {
 		builder.append(userArea);
 		builder.append(", userPoint=");
 		builder.append(userPoint);
+		builder.append(", userRatingBuyer=");
+		builder.append(userRatingBuyer);
+		builder.append(", userRatingSeller=");
+		builder.append(userRatingSeller);
 		builder.append(", userRating=");
 		builder.append(userRating);
 		builder.append(", userRreDate=");
@@ -94,6 +100,18 @@ public class User {
 	public void setUserPoint(String userPoint) {
 		this.userPoint = userPoint;
 	}
+	public String getUserRatingBuyer() {
+		return userRatingBuyer;
+	}
+	public void setUserRatingBuyer(String userRatingBuyer) {
+		this.userRatingBuyer = userRatingBuyer;
+	}
+	public String getUserRatingSeller() {
+		return userRatingSeller;
+	}
+	public void setUserRatingSeller(String userRatingSeller) {
+		this.userRatingSeller = userRatingSeller;
+	}
 	public String getUserRating() {
 		return userRating;
 	}
@@ -119,6 +137,8 @@ public class User {
 		this.userLevel = userLevel;
 	}
 	
+	
+
 	
 	
 }
