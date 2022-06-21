@@ -15,14 +15,14 @@ import ks43team01.service.PointService;
 
 
 @Controller
-public class PointController {
+public class UserPointController {
 	
 	
-	private static final Logger log = LoggerFactory.getLogger(PointController.class);
+	private static final Logger log = LoggerFactory.getLogger(UserPointController.class);
 
 	private final PointService pointService;
 	
-	public PointController(PointService pointService) {
+	public UserPointController(PointService pointService) {
 		this.pointService = pointService;
 	}
 	/* 포인트 삭제 */
@@ -32,7 +32,8 @@ public class PointController {
 		pointService.removePoint(pointDetailsCode);
 		
 		return "adminpage/pointDetails/pointList"; 
-		
+	
+	
 	}
 	
 	

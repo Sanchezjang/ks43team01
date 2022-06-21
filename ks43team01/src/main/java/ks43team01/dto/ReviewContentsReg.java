@@ -11,10 +11,12 @@ public class ReviewContentsReg {
 	private String reviewRegDate;
 	private int reviewRegBuyerExp;
 	private String reviewRegIp;
+	private String reviewStarScore;
 	
 	private GoodsBasicInfo goodsBasicInfo;
 	private ReviewByScore scoreByReview; 
 	private User user;
+	private PointSaveByReview pointSaveByReview;
 	
 	
 	
@@ -24,8 +26,9 @@ public class ReviewContentsReg {
 				+ ", userIdCode=" + userIdCode + ", reviewScoreStandardCode=" + reviewScoreStandardCode
 				+ ", reviewContent=" + reviewContent + ", reviewRecommendationsCount=" + reviewRecommendationsCount
 				+ ", reviewDecommendationsCount=" + reviewDecommendationsCount + ", reviewRegDate=" + reviewRegDate
-				+ ", reviewRegBuyerExp=" + reviewRegBuyerExp + ", reviewRegIp=" + reviewRegIp + ", goodsBasicInfo="
-				+ goodsBasicInfo + ", scoreByReview=" + scoreByReview + ", user=" + user + "]";
+				+ ", reviewRegBuyerExp=" + reviewRegBuyerExp + ", reviewRegIp=" + reviewRegIp + ", reviewStarScore="
+				+ reviewStarScore + ", goodsBasicInfo=" + goodsBasicInfo + ", scoreByReview=" + scoreByReview
+				+ ", user=" + user + ", pointSaveByReview=" + pointSaveByReview + "]";
 	}
 	public String getReviewCode() {
 		return reviewCode;
@@ -87,6 +90,12 @@ public class ReviewContentsReg {
 	public void setReviewRegIp(String reviewRegIp) {
 		this.reviewRegIp = reviewRegIp;
 	}
+	public String getReviewStarScore() {
+		return reviewStarScore;
+	}
+	public void setReviewStarScore(String reviewStarScore) {
+		this.reviewStarScore = reviewStarScore;
+	}
 	public GoodsBasicInfo getGoodsBasicInfo() {
 		return goodsBasicInfo;
 	}
@@ -105,5 +114,13 @@ public class ReviewContentsReg {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	public PointSaveByReview getPointSaveByReview() {
+		return pointSaveByReview;
+	}
+	public void setPointSaveByReview(PointSaveByReview pointSaveByReview) {
+		this.pointSaveByReview = pointSaveByReview;
+	}
+	
+	
 	
 }

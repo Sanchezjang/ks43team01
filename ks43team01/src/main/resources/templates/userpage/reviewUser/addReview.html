@@ -86,17 +86,16 @@ layout:decorate="~{userpage/layout/userdefault}">
 									</div>
 									<div style="text-align: center;">
 										<fieldset>
-										 	<input type="hidden" name="reviewStarScore" th:value="${reviewStarScore}">
 											<span class="text-bold">별점을 선택해주세요</span> 
-											<input type="radio" name="reviewStar" value="5" id="rate1"><label for="rate1">★</label>
+											<input type="radio" name="reviewStarScore" value="5" id="rate1"><label for="rate1">★</label>
 											
-											<input type="radio" name="reviewStar" value="4" id="rate2"><label for="rate2">★</label>
+											<input type="radio" name="reviewStarScore" value="4" id="rate2"><label for="rate2">★</label>
 											 
-											<input type="radio" name="reviewStar" value="3" id="rate3"><label for="rate3">★</label> 
+											<input type="radio" name="reviewStarScore" value="3" id="rate3"><label for="rate3">★</label> 
 											
-											<input type="radio" name="reviewStar" value="2" id="rate4"><label for="rate4">★</label> 
+											<input type="radio" name="reviewStarScore" value="2" id="rate4"><label for="rate4">★</label> 
 											
-											<input type="radio" name="reviewStar" value="1" id="rate5"><label for="rate5">★</label>
+											<input type="radio" name="reviewStarScore" value="1" id="rate5"><label for="rate5">★</label>
 										</fieldset>
 									</div>
 								</div>
@@ -120,7 +119,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 						</div>
 					</div>
 					<div class="clickBtn mt-3" >
-						<a th:href="@{/reviewUserList}" type="submit" class="save boxed-btn">저장</a>
+						<button type="submit" class="save boxed-btn">저장</button>>
 						<a th:href="@{/reviewUserList}"><button type="button" class="cancel boxed-btn">취소</button></a>
 					</div>
 					</form>
