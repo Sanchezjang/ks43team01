@@ -4,6 +4,40 @@ xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{userpage/layout/userdefault}">
 <!------ Include the above in your HEAD tag ---------->
+	<th:block layout:fragment="customScript">
+ 		<script>
+ 			$(function(){
+ 				$(document).on('change', '#expertBusinessField', function(){
+ 				var $topCategory =$("#expertBusinessField").val()
+ 					console.log($topCategory)
+ 					var request = $.ajax({
+ 						  url: "/getCategory",
+ 						  method: "GET",
+ 						  data: { 'expertBusinessField' : $topCategory},
+ 						  dataType: "json"
+ 						});
+ 						 						 
+ 						request.done(function( data ) {
+ 							
+ 							var html = '', $subCategory = $('#expertDetailedBusiness');
+ 							if(data.length == 0){
+ 								html += '<option value="">: : : : 2차카테고리 : : : :</option>';
+ 							}else{ 								
+	 							for(var i=0; i < data.length; i++){
+	 								html += '<option value="'+data[i].goodsSubCategoryCode+'"> ' + data[i].goodsSubCategoryName + ' </option>';
+	 							}
+ 							}
+ 							$subCategory.html(html);
+ 							$subCategory.niceSelect('update');
+ 						});
+ 						 
+ 						request.fail(function( jqXHR, textStatus ) {
+ 						  alert( "Request failed: " + textStatus );
+ 						});
+ 				});
+ 			});
+ 		</script>
+	</th:block>	
 	<div layout:fragment="content">
 		<div class="container">
 			<div class="input-form-backgroud row">
@@ -25,35 +59,35 @@ layout:decorate="~{userpage/layout/userdefault}">
 		    						<form id="modifyUser" method="post" th:action="@{modifyUser}">
 			    						<th:block  th:if="${not #lists.isEmpty(userList)}" th:each="u : ${userList}">
 			    						<div class="form-group">	
-			    							<label for="exampleFormControlInput1 ">회원아이디</label>
+			    							<label for="userIdCode ">회원아이디</label>
 			    							<input type="text" class="form-control  col-6" id="userIdCode" name="userIdCode" readonly th:value="${u.userIdCode}">
 										</div>
 										<div class="form-group">    
-										    <label for="exampleFormControlInput1">닉네임</label>
+										    <label for="userName">닉네임</label>
 										    <input type="text" class="form-control  col-6" id="userName" name="userName" th:value="${u.userName}">
 								  		</div>
 								      	<div class="form-group">
-										    <label for="exampleFormControlInput1">전화번호</label>
+										    <label for="userContact">전화번호</label>
 										    <input type="text" class="form-control col-6" id="userContact" name="userContact" th:value="${u.userContact}">
 								  		</div>
 								      	<div class="form-group">
-										    <label for="exampleFormControlInput1">이메일</label>
+										    <label for="userEmail">이메일</label>
 										    <input type="email" class="form-control col-6" id="userEmail" name="userEmail" th:value="${u.userEmail}">
 								  		</div>
 								        <div class="form-group">
-										    <label for="exampleFormControlInput1">활동지역</label>
+										    <label for="userArea">활동지역</label>
 										    <input type="text" class="form-control col-6" id="userArea" name="userArea" th:value="${u.userArea}">
 								  		</div>
 								        <div class="form-group">
-										    <label for="exampleFormControlInput1">사용가능포인트</label>
+										    <label for="userPoint">사용가능포인트</label>
 										    <input type="text" class="form-control col-6" id="userPoint" name="userPoint" th:value="${u.userPoint}" readonly>
 								  		</div>
 	        							<div class="form-group">
-			    							<label for="exampleFormControlInput1">등급</label>
+			    							<label for="userRating">등급</label>
 			    							<input type="text" class="form-control col-6" id="userRating" name="userRating" th:value="${u.userRating}" readonly>
 										</div>
 	        							<div class="form-group">
-			    							<label for="exampleFormControlInput1">권한</label>
+			    							<label for="userLevel">권한</label>
 			    							<input type="text" class="form-control col-6" id="userLevel" name="userLevel" th:value="${u.userLevel}" readonly>
 										</div>
 										</th:block>
@@ -61,58 +95,68 @@ layout:decorate="~{userpage/layout/userdefault}">
 									</form>
 								</div>
 								<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-									<form id="modifyBusiness" method="post">
+									<form id="modifyBusiness" method="post" th:action="@{modifyBusiness}">
 										<div class="form-group">	
-			    							<label for="exampleFormControlInput1 ">비지니스 분야</label>
-			    							<input type="text" class="form-control  col-6" id="expertBusinessField">
+			    							<label for="expertBusinessField" class="col-12">비지니스 분야</label>
+			    							<select id="expertBusinessField" name="expertBusinessField" class="wide col-6">
+				              	 				<option value="">: : : : : 1차카테고리 : : : : </option>
+		              	 						<th:block th:if="${not #lists.isEmpty(topcategory)}" th:each="g : ${topcategory}">
+	              	 							<option th:value="${g.goodsTopCategoryCode}">[[${g.goodsTopCategoryName}]]</option>
+			              	 					</th:block>
+		              	 						<th:block th:unless="${not #lists.isEmpty(topcategory)}">
+		              	 						<option value="">등록된 카테고리가 없습니다</option>
+				              	 				</th:block>
+		              						</select>
 										</div>
 										<div class="form-group">    
-										    <label for="exampleFormControlInput1">상세분야</label>
-										    <input type="text" class="form-control  col-6" id="expertDetailedBusiness">
+										    <label for="expertDetailedBusiness" class="col-12">상세분야</label>
+										    <select id="expertDetailedBusiness" name="expertDetailedBusiness" class="wide col-6" >
+	              	 							<option value="">: : : : 2차카테고리 : : : : </option>
+		              						</select>
 								  		</div>
 								      	<div class="form-group">
-										    <label for="exampleFormControlInput1">보유기술</label>
+										    <label for="expertRetentionTechnology" class="col-12">보유기술</label>
 										    <input type="text" class="form-control col-6" id="expertRetentionTechnology">
 								  		</div>
 								      	<div class="form-group">
-										    <label for="exampleFormControlInput1">자기소개</label>
-										    <input type="email" class="form-control col-6" id="expertIntroduction">
+										    <label for="expertIntroduction" class="col-12">자기소개</label>
+										    <input type="text" class="form-control col-6" id="expertIntroduction">
 								  		</div>
-							  		</form>
 									<button class="btn btn-lg btn-primary btn-block col-6" type="submit">수정</button>
+							  		</form>
 						  		</div>
 								<div class="tab-pane fade" id="v-pills-profile1" role="tabpanel" aria-labelledby="v-pills-messages-tab">
 									<form id="modifyCompany" method="post">
 										<div class="form-group">	
-			    							<label for="exampleFormControlInput1 ">회사명</label>
+			    							<label for="expertCompanyName ">회사명</label>
 			    							<input type="text" class="form-control  col-6" id="expertCompanyName" name="expertCompanyName">
 										</div>
 										<div class="form-group">    
-										    <label for="exampleFormControlInput1">직위</label>
+										    <label for="expertPosition">직위</label>
 										    <input type="text" class="form-control  col-6" id="expertPosition" name="expertPosition">
 								  		</div>
 										<div class="form-group">    
-										    <label for="exampleFormControlInput1">근무부서</label>
+										    <label for="expertWorkDepartment">근무부서</label>
 										    <input type="text" class="form-control  col-6" id="expertWorkDepartment" name="expertWorkDepartment">
 								  		</div>
 								      	<div class="form-group">
-										    <label for="exampleFormControlInput1">근무지</label>
+										    <label for="expertWorkPlace">근무지</label>
 										    <input type="text" class="form-control col-6" id="expertWorkPlace" name="expertWorkPlace">
 								  		</div>
 								      	<div class="form-group">
-										    <label for="exampleFormControlInput1">근무기간</label>
+										    <label for="expertWorkDate">근무기간</label>
 										    <input type="text" class="form-control col-6" id="expertWorkDate" name="expertWorkDate">
 								  		</div>
 								      	<div class="form-group">
-										    <label for="exampleFormControlInput1">기타기록사항</label>
+										    <label for="expertEtc">기타기록사항</label>
 										    <input type="text" class="form-control col-6" id="expertEtc" name="expertEtc">
 								  		</div>
 								      	<div class="form-group">
-										    <label for="exampleFormControlInput1">근무지상주가능여부</label>
+										    <label for="expertStayUse">근무지상주가능여부</label>
 										    <input type="text" class="form-control col-6" id="expertStayUse" name="expertStayUse">
 								  		</div>
 								      	<div class="form-group">
-										    <label for="exampleFormControlInput1">경력증명사항첨부서류</label>
+										    <label for="expertCareerProofMattersAttachments">경력증명사항첨부서류</label>
 										    <input type="file" class="form-control col-7" id="expertCareerProofMattersAttachments">
 								  		</div>
 								  	</form>

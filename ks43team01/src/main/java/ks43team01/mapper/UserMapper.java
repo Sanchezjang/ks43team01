@@ -19,7 +19,8 @@ import ks43team01.dto.SellerEducation;
 
 @Mapper
 public interface UserMapper {
-	
+	///판매자 비지니스수정처리///
+	public int modifyBusiness(SellerBusiness sellerBusiness);
 	///회원정보수정 고통회원 부분!!!//
 	public int modifyUser(User user); 
 	
