@@ -5,6 +5,7 @@ public class BoardLargeCategory {
 	private String userIdCode;
 	private String boardLargeCategoryName;
 	private String boardLargeCategoryRegDate;
+	private String boardLargeCategoryUpdateDate;
 	private String boardLargeCategoryUse;
 	
 	public String getBoardLargeCategoryCode() {
@@ -31,6 +32,12 @@ public class BoardLargeCategory {
 	public void setBoardLargeCategoryRegDate(String boardLargeCategoryRegDate) {
 		this.boardLargeCategoryRegDate = boardLargeCategoryRegDate;
 	}
+	public String getBoardLargeCategoryUpdateDate() {
+		return boardLargeCategoryUpdateDate;
+	}
+	public void setBoardLargeCategoryUpdateDate(String boardLargeCategoryUpdateDate) {
+		this.boardLargeCategoryUpdateDate = boardLargeCategoryUpdateDate;
+	}
 	public String getBoardLargeCategoryUse() {
 		return boardLargeCategoryUse;
 	}
@@ -48,6 +55,8 @@ public class BoardLargeCategory {
 		builder.append(boardLargeCategoryName);
 		builder.append(", boardLargeCategoryRegDate=");
 		builder.append(boardLargeCategoryRegDate);
+		builder.append(", boardLargeCategoryUpdateDate=");
+		builder.append(boardLargeCategoryUpdateDate);
 		builder.append(", boardLargeCategoryUse=");
 		builder.append(boardLargeCategoryUse);
 		builder.append("]");

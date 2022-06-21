@@ -31,6 +31,7 @@
 		<result column="user_id_code"     				property="userIdCode"/>
 		<result column="board_l_category_name"    		property="boardLargeCategoryName"/>
 		<result column="board_l_category_reg_date"		property="boardLargeCategoryRegDate"/>
+		<result column="board_l_category_update_date"	property="boardLargeCategoryUpdateDate"/>
 		<result column="board_l_category_use"  			property="boardLargeCategoryUse"/>
 	</resultMap>
 	
@@ -40,6 +41,7 @@
 		<result column="board_l_category_code"     		property="boardLargeCategoryCode"/>
 		<result column="board_m_category_name"    		property="boardMediumCategoryName"/>
 		<result column="board_m_category_reg_date"		property="boardMediumCategoryRegDate"/>
+		<result column="board_m_category_update_date"	property="boardMediumCategoryUpdateDate"/>
 		<result column="board_m_category_use"  			property="boardMediumCategoryUse"/>
 	</resultMap>
 
@@ -63,7 +65,33 @@
 		<result column="board_question_use"				property="boardQuestionUse"/>
   </resultMap>
   
-	<select id="berBoardMediumCategoryList" resultMap="boardMediumCategoryResultMap">
+	<resultMap type="BoardPostFile" id="BoardPostFileResultMap">
+		<id    column="board_post_file_code"    		property="boardPostFileCode"/>
+		<result column="user_id_code"     				property="userIdCode"/>
+		<result column="board_post_code"     			property="boardPostCode"/>
+		<result column="board_post_file_name"    		property="boardPostFileName"/>
+		<result column="board_post_file_extension"		property="boardPostFileExtension"/>
+		<result column="board_post_file_size"    		property="boardPostFileSize"/>
+		<result column="board_post_file_reg_date"		property="boardPostFileRegDate"/>
+		<result column="board_post_file_use"  			property="boardPostFileUse"/>
+	</resultMap>
+  
+  <select id="getBoardPostFileList" resultMap="BoardPostFileResultMap">
+  /* 게시글 첨부파일 목록 조회 */
+	SELECT
+		board_post_file_code
+		, user_id_code
+		, board_post_code
+		, board_post_file_name
+		, board_post_file_extension
+		, board_post_file_size
+		, board_post_file_reg_date
+		, board_post_file_use
+	FROM	
+		tb_b_board_post_file;
+  </select>
+
+	<select id="getBoardMediumCategoryList" resultMap="boardMediumCategoryResultMap">
 	/* 문의 게시판 2차 카테고리 조회 */
 		SELECT
 			board_m_category_code
@@ -71,18 +99,20 @@
 			,board_l_category_code
 			,board_m_category_name
 			,board_m_category_reg_date
+			,board_m_category_update_date
 			,board_m_category_use
 		FROM
 			tb_b_board_m_category;
   	</select>
 	
-	<select id="berBoardLargeCategoryList" resultMap="boardLargeCategoryResultMap">
+	<select id="getBoardLargeCategoryList" resultMap="boardLargeCategoryResultMap">
 	/* 문의 게시판 1차 카테고리 조회 */
 		SELECT
 			board_l_category_code
 			,user_id_code
 			,board_l_category_name
 			,board_l_category_reg_date
+			,board_l_category_update_date
 			,board_l_category_use
 		FROM
 			tb_b_board_l_category;

@@ -180,7 +180,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>문의 1차 카테고리 목록</h3>
+                <h3>게시글 첨부파일 목록</h3>
               </div>
 
               <div class="title_right">
@@ -198,7 +198,7 @@
             <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>문의 1차 카테고리 목록 관리</h2>
+                    <h2>게시글 첨부파일 목록 관리</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -218,29 +218,31 @@
 			                    <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action" style="width:100%">
 			                      <thead>
 										<tr>
-											<th>문의 게시판 1차 카테고리 코드</th>
-											<th>문의 게시판 1차 카테고리 등록자 코드</th>
-											<th>문의 게시판 1차 카테고리 분류명</th>
-											<th>문의 게시판 1차 카테고리 등록일</th>
-											<th>문의 게시판 1차 카테고리 수정일</th>
-											<th>문의 게시판 1차 카테고리 사용여부</th>
-											<th>수정</th>
+											<th>게시글 첨부파일 코드</th>
+											<th>게시글 첨부파일 등록자 코드</th>
+											<th>게시판 게시글 코드</th>
+											<th>게시글 첨부파일명</th>
+											<th>게시글 첨부파일 확장자</th>
+											<th>게시글 첨부파일 용량</th>
+											<th>게시글 첨부파일 등록일</th>
+											<th>게시글 첨부파일 사용여부</th>
 											<th>삭제</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:if="${not #lists.isEmpty(boardLargeCategoryList)}" th:each="l : ${boardLargeCategoryList}">
-											<td th:text="${l.boardLargeCategoryCode}"></td>
+										<tr th:if="${not #lists.isEmpty(boardPostFileList)}" th:each="l : ${boardPostFileList}">
+											<td th:text="${l.boardPostFileCode}"></td>
 											<td th:text="${l.userIdCode}"></td>
-											<td th:text="${l.boardLargeCategoryName}"></td>
-											<td th:text="${l.boardLargeCategoryRegDate}"></td>
-											<td th:text="${l.boardLargeCategoryUpdateDate}"></td>
-											<td th:text="${l.boardLargeCategoryUse}"></td>
-											<td><button type="button" class="btn btn-primary" style="font-size: 10px">수정</button></td>
+											<td th:text="${l.boardPostCode}"></td>
+											<td th:text="${l.boardPostFileName}"></td>
+											<td th:text="${l.boardPostFileExtension}"></td>
+											<td th:text="${l.boardPostFileSize}"></td>
+											<td th:text="${l.boardPostFileRegDate}"></td>
+											<td th:text="${l.boardPostFileUse}"></td>
 											<td><button type="button" class="btn btn-danger" style="font-size: 10px">삭제</button></td>
 										</tr>
-										<tr th:unless="${not #lists.isEmpty(boardLargeCategoryList)}" >
-											<td colspan="6">조회된 내용이 없습니다.</td>
+										<tr th:unless="${not #lists.isEmpty(boardPostFileList)}" >
+											<td colspan="8">조회된 내용이 없습니다.</td>
 										</tr>
 						                  </tbody>
 			                    </table>
