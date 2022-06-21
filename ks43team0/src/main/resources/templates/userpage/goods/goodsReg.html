@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	 
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<head th:replace="/userpage/fragments/head.html :: headFragment">
+</head>
+
+<header th:replace="/userpage/fragments/header.html :: headerFragment"></header>
+<body>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<!-- 상품 등록01 : 상품이름 , 상품 설명, 판매자 아이디 ,  -->
+<style>
+	.form-group {
+	margin-top: 30px;
+	}
+	.dropdown-box {
+	 display: flex;
+	 
+	}
+	#dropdownMenu1 {
+	margin-left: 5px;
+	}
+</style>
+<!-- content -->  
+<br><br><br><br><br><br><br><br><br><br>
+<div class="container">
+<h1>상품 기본 정보</h1><br>
+<form>
+	
+  <div class="form-group">
+  
+    <label for="exampleInputEmail1">상품이름</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="10글자 이내로 작성해주세요">
+  </div>
+  <div class="dropdown-box">
+ <div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+    상위 카테고리
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">디자인</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">IT/프로그래밍</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">영상/사진/음향</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">마케팅</a></li>
+  </ul>
+</div>
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+    하위 카테고리
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" th:if="false" role="menu" aria-labelledby="dropdownMenu1">
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">로고/브랜딩</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">상세/이벤트 페이지</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">PPT/인포그래픽</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">웹/모바일 디자인</a></li>
+  </ul>
+</div>
+</div>
+
+  <div class="form-group">
+  	
+    상품서비스설명<textarea class="form-control" rows="10" placeholder="300글자 이내로 작성해주세요" ></textarea>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputFile" th:text="${goodsCode}">상품 이미지 업로드 </label>
+    
+    <input type="file" id="exampleInputFile">
+    
+  </div>
+  <div class="topCategory">
+   
+  </div>
+  
+  <a th:href="@{/goodsList}">전체카테고리</a>
+  
+  <!-- 버튼 경로 수정 -->
+  <button type="button"	onclick = "location.href = '/userpage/goodsReg02.html'"class="btn btn-sm-default">다음</button>
+</form>
+
+
+  	
+</div>
+
+<br><br><br><br><br><br><br><br><br><br><br>
+</body>
+
+<footer th:replace="/userpage/fragments/footer.html :: footerFragment"></footer>
