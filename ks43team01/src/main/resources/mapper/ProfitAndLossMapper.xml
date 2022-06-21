@@ -41,7 +41,17 @@
 			</association>
 	</resultMap>
 	
+	<delete id="removeSales" parameterType="Sales">
+		/* 매출 내역 삭제 */
+		DELETE
+		FROM 
+			tb_gr_group_monthly_sales
+		WHERE
+			sales_group_code = #{salesGroupCode};
+	</delete>
+		
 	<delete id="removeSpending" parameterType="Spending">
+		/* 지출 내역 삭제 */
 		DELETE
 		FROM
 			tb_gr_group_monthly_spending

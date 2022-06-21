@@ -95,7 +95,7 @@
 											</td>							
 											<td th:text="${s.userIdCode}"></td>
 											<td th:text="${s.salesRegDate}"></td>
-											<td><button type="button" class="btn btn-danger" style="font-size: 10px">삭제</button></td>
+											<td><button type="button" class="btn btn-danger removeSalesModalBtn" data-toggle="modal" data-target="#removeSalesModal" style="font-size: 10px" th:value="${s.salesGroupCode}">삭제</button></td>
 										</tr>
 									</tbody>
 				                    </table>
@@ -108,8 +108,40 @@
             </div>
 	   	    <!-- /page content -->
    	    
+   	    					<!-- Modal -->
+		         <div class="modal fade" id="removeSalesModal" tabindex="-1" role="dialog">
+		               <div class="modal-dialog" role="document">
+		                   <div class="modal-content">
+		                     <div class="modal-header">
+		                        <h5 class="modal-title">매출내역 삭제</h5>
+		                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                           <span aria-hidden="true">&times;</span>
+		                        </button>
+		                     </div>
+		                     <div class="modal-body">
+		                        	매출내역을 정말 삭제하시겠습니까?
+		                     </div>
+		                     <div class="modal-footer">
+	                           <form action="/adminpage/profitAndLoss/removeSales" method="get">
+									<input type="hidden" name="salesGroupCode" id="removeSalesGroupCode">
+		                       		<button type="button" class="btn btn-primary" data-dismiss="modal">취소</button>
+									<button type="submit" class="btn btn-danger">삭제</button>
+	                           </form>
+		                     </div>
+		                  </div>
+		               </div>
+		         </div>
+		         
+                <!-- Modal -->
+   	    	
              </div>
            </div>
+            <script type="text/javascript">
+            	var $removeSalesGroupCode = $('#removeSalesGroupCode');
+            	$('.removeSalesModalBtn').on('click', function() {
+            	  $removeSalesGroupCode.val($(this).val());            	  
+            	})
+            </script>
 	
 			<!-- footer content -->
 			<div th:replace="adminpage/fragments/footer :: footerFragment"></div>

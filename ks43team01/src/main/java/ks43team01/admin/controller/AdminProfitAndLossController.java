@@ -97,6 +97,15 @@ public class AdminProfitAndLossController {
 		return "adminpage/profitAndLoss/salesList";
 	}
 	
+	//매출 내역 삭제
+	@GetMapping("/removeSales")
+	public String removeSales(String salesGroupCode) {
+		
+		log.info("삭제 sales : {}" , salesGroupCode);
+		profitAndLossService.removeSales(salesGroupCode);
+		return "adminpage/profitAndLoss/removeSales";
+	}
+	
 	//매출 등록
 	@PostMapping("/addSales")
 	public String addSales(HttpSession session
@@ -127,9 +136,10 @@ public class AdminProfitAndLossController {
 	
 	//지출 내역 삭제
 	@GetMapping("/removeSpending")
-	public String removeSpending(Spending spending) {
+	public String removeSpending(String spendingGroupCode) {
 		
-		profitAndLossService.removeSpending(spending);
+		log.info("삭제 spending : {}" , spendingGroupCode);
+		profitAndLossService.removeSpending(spendingGroupCode);
 		return "adminpage/profitAndLoss/removeSpending";
 	}
 

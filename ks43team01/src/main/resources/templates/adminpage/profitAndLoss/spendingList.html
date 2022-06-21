@@ -118,7 +118,7 @@
 							</td>
 								<td th:text="${s.userIdCode}"></td>
 								<td th:text="${s.spendingRegDate}"></td>
-								<td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#removeModal" style="font-size: 10px">삭제</button></td>
+								<td><button type="button" class="btn btn-danger removeSpendingModalBtn" data-toggle="modal" data-target="#removeSpendingModal" style="font-size: 10px" th:value="${s.spendingGroupCode}">삭제</button></td>
 								<!-- <td><button type="button" class="btn btn-danger" style="font-size: 10px">삭제</button></td> -->
 							</tr>
 						</tbody>
@@ -133,11 +133,11 @@
        	 	  <!-- /page content -->
        	 	  
 				<!-- Modal -->
-		         <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" th:if="${not #lists.isEmpty(spendingList)}" th:each="s : ${spendingList}">>
+		         <div class="modal fade" id="removeSpendingModal" tabindex="-1" role="dialog">
 		               <div class="modal-dialog" role="document">
 		                   <div class="modal-content">
 		                     <div class="modal-header">
-		                        <h5 class="modal-title" id="exampleModalLabel">지출내역 삭제</h5>
+		                        <h5 class="modal-title">지출내역 삭제</h5>
 		                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		                           <span aria-hidden="true">&times;</span>
 		                        </button>
@@ -146,17 +146,26 @@
 		                        	지출내역을 정말 삭제하시겠습니까?
 		                     </div>
 		                     <div class="modal-footer">
-		                        <div class="form-group">
-		                           <button type="button" class="btn btn-primary" data-dismiss="modal">취소</button>
-		                           <a th:href="@{/adminpage/profitAndLoss/removeSpending}"><button type="button" class="btn btn-danger" id="removeBtn">삭제</button></a>
-		                        </div>
+	                           <form action="/adminpage/profitAndLoss/removeSpending" method="get">
+									<input type="hidden" name="spendingGroupCode" id="removeSpendingGroupCode">
+		                       		<button type="button" class="btn btn-primary" data-dismiss="modal">취소</button>
+									<button type="submit" class="btn btn-danger">삭제</button>
+	                           </form>
 		                     </div>
 		                  </div>
 		               </div>
 		         </div>
+		         
                 <!-- Modal -->
               </div>
             </div>
+            
+            <script type="text/javascript">
+            	var $removeSpendingGroupCode = $('#removeSpendingGroupCode');
+            	$('.removeSpendingModalBtn').on('click', function() {
+            	  $removeSpendingGroupCode.val($(this).val());            	  
+            	})
+            </script>
 
 			<!-- footer content -->
 			<div th:replace="adminpage/fragments/footer :: footerFragment"></div>
