@@ -47,7 +47,15 @@ public class UserController {
 	public String userMain() {
 		return "userpage/main_user";
 	}
-	
+	///회원정보수정 고통회원 부분!!!//
+	@PostMapping("/modifyUser")
+	public String modifyUser(HttpSession session, User user) {
+		
+		userService.modifyUser(user);
+		
+		return "redirect:/userinfomation";
+	}
+		
 	@GetMapping("/userjoin") //회원가입시겟맵핑 잡아주는거//
 	public String addUserInsert() {
 		
@@ -68,9 +76,8 @@ public class UserController {
 	@GetMapping("/adminpage/user/userList")//admin회원총리스트 가져오기//
 	public String getAdminUserList(Model model) {
 		List<User> userList = userService.getAdminUserList();
-		log.info("회원리스트 잘들어왓는지 확인  :   {}", userList); 
 		model.addAttribute("userList", userList);
-		
+		log.info("회원리스트 잘들어왓는지 확인  :   {}", userList); 
 		return "/adminpage/user/userList";
 	}
 	@GetMapping("/adminpage/user/userLogDate")//admin로그인총이력//
@@ -163,8 +170,12 @@ public class UserController {
 		return "userpage/user/login";
 	}
 	@GetMapping("/userinfomation")
-	public String getUserInfomation(){
-		
+	public String getUserInfomation(HttpSession session,Model model,User user){
+	
+		String UID = (String) session.getAttribute("UID");
+		User userList =	userService.getUserInfoById(UID);
+		model.addAttribute("userList", userList);
+		log.info("user값 ::::::: {}", userList);
 		return "userpage/user/userinfomation";
 	}
 	@PostMapping("/idCheck")////아이디 중복체크!!!!!

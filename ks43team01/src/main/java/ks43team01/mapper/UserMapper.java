@@ -20,6 +20,9 @@ import ks43team01.dto.SellerEducation;
 @Mapper
 public interface UserMapper {
 	
+	///회원정보수정 고통회원 부분!!!//
+	public int modifyUser(User user); 
+	
 	//판매자 정보 입력시에 등급 3에서 2로 업데이트!!!//
 	public int modifyUserLevel(User user);
 	

@@ -86,6 +86,18 @@
 	  		<result column="user_id_code" property="userIdCode"/>
 	  		<result column="level_up_buyer_standard_reg_date" property="levelUpBuyerStandardRegDate"/>
 		</resultMap>
+  	  
+  	  <update id="modifyUser" parameterType="User">
+  	  	UPDATE
+	 		tb_u_all_user AS u
+		SET	
+			u.user_name = #{userName}
+			,u.user_contact =#{userContact}
+			,u.user_email =#{userEmail} 
+			,u.user_activity_area =#{userArea}
+		WHERE
+			u.user_id_code =#{userIdCode};
+  	  </update>
   	  	 	
   	  <update id="modifyUserLevel" parameterType="User">
   		/*판매자 정보 입력시에 등급 3에서 2로 업데이트!!!*/

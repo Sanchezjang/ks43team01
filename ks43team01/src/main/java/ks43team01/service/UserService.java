@@ -28,6 +28,14 @@ public class UserService {
 	public  UserService(UserMapper userMapper) {
 		this.userMapper = userMapper;
 	}
+	///회원정보수정 고통회원 부분!!!//
+	public int modifyUser(User user) {
+		
+	   int result = userMapper.modifyUser(user);
+		
+		return result;
+	}
+	
 	/*판매자 정보 입력시에 등급 3에서 2로 업데이트!!!*/
 	public int modifyUserLevel(User user) {
 		
@@ -83,6 +91,16 @@ public class UserService {
 		
 		User user = userMapper.getUserInfoById(userId);
 		
+		if(user != null) {
+			String userLevel = user.getUserLevel();
+			if("1".equals(userLevel)) {
+				user.setUserLevel("관리자");
+			}else if("2".equals(userLevel)) {
+				user.setUserLevel("판매회원");
+			}else if("3".equals(userLevel)) {
+				user.setUserLevel("일반회원");
+			}
+		}
 		return user;
 	}
 	//판매자 기술분야, 스킬, 자기소개 입력//
