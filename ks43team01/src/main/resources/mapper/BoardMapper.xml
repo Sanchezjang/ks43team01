@@ -23,9 +23,9 @@
 		<result column="board_category_name"    		property="boardCategoryName"/>
 		<result column="board_category_reg_date"		property="boardCategoryRegDate"/>
 		<result column="board_category_update_date"		property="boardCategoryUpdateDate"/>
-		<result column="board_category_use"  			property="boardCategoryUse"/>
+		<result column="board_category_use"  			property="boardCategoryUse"/>	
 	</resultMap>
-	
+
 	<resultMap type="BoardLargeCategory" id="boardLargeCategoryResultMap">
 		<id    column="board_l_category_code"    		property="boardLargeCategoryCode"/>
 		<result column="user_id_code"     				property="userIdCode"/>
@@ -76,20 +76,40 @@
 		<result column="board_post_file_use"  			property="boardPostFileUse"/>
 	</resultMap>
   
-  <select id="getBoardPostFileList" resultMap="BoardPostFileResultMap">
-  /* 게시글 첨부파일 목록 조회 */
-	SELECT
-		board_post_file_code
-		, user_id_code
-		, board_post_code
-		, board_post_file_name
-		, board_post_file_extension
-		, board_post_file_size
-		, board_post_file_reg_date
-		, board_post_file_use
-	FROM	
-		tb_b_board_post_file;
-  </select>
+	<select id="getBoardPostFileList" resultMap="BoardPostFileResultMap">
+	/* 게시글 첨부파일 목록 조회 */
+		SELECT
+			board_post_file_code
+			, user_id_code
+			, board_post_code
+			, board_post_file_name
+			, board_post_file_extension
+			, board_post_file_size
+			, board_post_file_reg_date
+			, board_post_file_use
+		FROM	
+			tb_b_board_post_file;
+	</select>
+	
+	<insert id="addBoardMediumCategory" parameterType="BoardMediumCategory">
+		/* 문의 게시판 2차 카테고리 등록*/
+	        INSERT INTO tb_b_board_m_category
+	      (   board_m_category_code
+	         , user_id_code
+	         , board_l_category_code
+	         , board_m_category_name
+	         , board_m_category_reg_date
+	         , board_m_category_update_date
+	         , board_m_category_use
+	      )VALUES (
+	        #{boardMediumCategoryCode}
+	        , #{userIdCode}
+	        , #{boardLargeCategoryName}
+	        , CURDATE() 
+	        , CURDATE() 
+	        , 'Y'
+	      );
+    </insert>
 
 	<select id="getBoardMediumCategoryList" resultMap="boardMediumCategoryResultMap">
 	/* 문의 게시판 2차 카테고리 조회 */
@@ -104,7 +124,26 @@
 		FROM
 			tb_b_board_m_category;
   	</select>
-	
+  	
+  	<insert id="addBoardLargeCategory" parameterType="BoardLargeCategory">
+		/* 문의 게시판 1차 카테고리 등록*/
+	        INSERT INTO tb_b_board_l_category
+	      (   board_l_category_code
+	         , user_id_code
+	         , board_l_category_name
+	         , board_l_category_reg_date
+	         , board_l_category_update_date
+	         , board_l_category_use
+	      )VALUES (
+	        #{boardLargeCategoryCode}
+	        , #{userIdCode}
+	        , #{boardLargeCategoryName}
+	        , CURDATE() 
+	        , CURDATE() 
+	        , 'Y'
+	      );
+    </insert>
+    
 	<select id="getBoardLargeCategoryList" resultMap="boardLargeCategoryResultMap">
 	/* 문의 게시판 1차 카테고리 조회 */
 		SELECT
@@ -117,6 +156,25 @@
 		FROM
 			tb_b_board_l_category;
   	</select>
+ 	
+  	<insert id="addBoardCategory" parameterType="BoardCategory">
+	/*게시글 대분류 카테고리 등록*/
+        INSERT INTO tb_b_board_category
+      (   board_category_code
+         , user_id_code
+         , board_category_name
+         , board_category_reg_date
+         , board_category_update_date
+         , board_category_use
+      )VALUES (
+        #{boardCategoryCode}
+        , #{userIdCode}
+        , #{boardCategoryName}
+        , CURDATE() 
+        , CURDATE() 
+        , 'Y'
+      );
+    </insert>
   	
 	<select id="getBoardCategoryList" resultMap="boardCategoryResultMap">
 	/*게시글 대분류 카테고리 조회*/
@@ -144,8 +202,7 @@
 			tb_b_board_question;
 	</select>
 
-
-<insert id="addFreeBoard" parameterType="Board">
+	<insert id="addFreeBoard" parameterType="Board">
 	/* 자유게시판 게시글 등록*/
         INSERT INTO tb_b_board_post
       (   board_post_code
