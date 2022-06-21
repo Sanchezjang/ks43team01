@@ -13,6 +13,7 @@ import ks43team01.dto.Board;
 import ks43team01.dto.BoardCategory;
 import ks43team01.dto.BoardLargeCategory;
 import ks43team01.dto.BoardMediumCategory;
+import ks43team01.dto.BoardPostFile;
 import ks43team01.service.BoardService;
 import ks43team01.user.controller.BoardController;
 
@@ -25,6 +26,16 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 	
 	public AdminBoardCategoryController(BoardService boardService) {
 		this.boardService = boardService;
+	}
+	
+	/* 게시글 첨부파일 목록 조회 */
+	@GetMapping("/adminpage/boardAdmin/boardPostFileList")
+	public String getBoardPostFileList(Model model) {
+		List<BoardPostFile> boardPostFileList = boardService.getBoardPostFileList();
+		log.info("게시글 첨부파일 목록: {}", boardPostFileList);
+		model.addAttribute("boardPostFileList", boardPostFileList);
+		
+		return "adminpage/boardAdmin/boardPostFileList";
 	}
 	
 	/* 문의 게시판 2차 카테고리 조회 */

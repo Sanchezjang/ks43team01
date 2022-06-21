@@ -9,6 +9,7 @@ import ks43team01.dto.Board;
 import ks43team01.dto.BoardCategory;
 import ks43team01.dto.BoardLargeCategory;
 import ks43team01.dto.BoardMediumCategory;
+import ks43team01.dto.BoardPostFile;
 import ks43team01.dto.QnaBoard;
 import ks43team01.mapper.BoardMapper;
 
@@ -21,15 +22,19 @@ public class BoardService {
 	public BoardService(BoardMapper boardMapper) {
 		this.boardMapper = boardMapper;
 	}
+	/*게시글 첨부파일 목록 조회*/
+	public List<BoardPostFile> getBoardPostFileList(){
+		List<BoardPostFile> boardPostFileList = boardMapper.getBoardPostFileList();
+		return boardPostFileList;
+	}
 	
-	
-	/*게시판 대분류 카테고리 조회*/
+	/*문의 게시판 2차 카테고리 조회*/
 	public List<BoardMediumCategory> getBoardMediumCategoryList(){
 		List<BoardMediumCategory> boardMediumCategoryList = boardMapper.getBoardMediumCategoryList();
 		return boardMediumCategoryList;
 	}
 	
-	/*게시판 대분류 카테고리 조회*/
+	/*문의 게시판 1차 카테고리 조회*/
 	public List<BoardLargeCategory> getBoardLargeCategoryList(){
 		List<BoardLargeCategory> boardLargeCategoryList = boardMapper.getBoardLargeCategoryList();
 		return boardLargeCategoryList;
