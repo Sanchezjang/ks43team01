@@ -107,7 +107,14 @@ public class ProfitAndLossService {
 		
 		int result = profitAndLossMapper.removeAccount(accountSubjectCode);
 		return result;
-	}	
+	}
+	
+	/*
+	 * 계정과목 수정
+	 * */
+	public int modifyAccount(Account account) {
+		return profitAndLossMapper.modifyAccount(account);
+	}
 	
 	/*
 	 * 손익 계정과목 리스트

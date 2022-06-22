@@ -96,7 +96,7 @@
 							<td th:text="${a.accountRegDate}"></td>
 							<td th:text="${a.userIdCode}"></td>
 							<td th:text="${a.accountYear}"></td>
-							<td><button type="button" class="btn btn-primary" style="font-size: 10px">수정</button></td>
+							<td><a type="button" class="btn btn-primary" style="font-size: 10px" th:href="@{/adminpage/profitAndLoss/modifyAccount}">수정</a></td>
 							<td><button type="button" class="btn btn-danger removeAccountModalBtn" data-toggle="modal" data-target="#removeAccountModal" style="font-size: 10px" th:value="${a.accountSubjectCode}">삭제</button></td>
 							</tr>
 						</tbody>
@@ -140,7 +140,7 @@
               <!-- Modal -->
               
               <script type="text/javascript">
-            	var $removeAccountSubjectCode = $('#removeAccountSubjectCode');
+				var $removeAccountSubjectCode = $('#removeAccountSubjectCode');
             	$('.removeAccountModalBtn').on('click', function() {
             	  $removeAccountSubjectCode.val($(this).val());            	  
             	})

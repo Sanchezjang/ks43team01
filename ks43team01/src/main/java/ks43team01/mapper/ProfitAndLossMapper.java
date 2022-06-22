@@ -36,6 +36,9 @@ public interface ProfitAndLossMapper {
 	//계정과목 삭제
 	public int removeAccount(String accountSubjectCode);
 	
+	//계정과목 수정
+	public int modifyAccount(Account account);
+	
 	//손익 계정과목 리스트
 	public List<Account> getAccountList();	
 	

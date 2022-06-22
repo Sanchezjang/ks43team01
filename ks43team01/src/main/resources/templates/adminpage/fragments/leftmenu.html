@@ -35,6 +35,7 @@
 						<li><a th:href="@{/adminpage/user/userLogDate}">회원로그인이력테이블</a></li>
 					</ul>
 				</li>
+				
 				<!-- 주문 내역 관리 -->
                   <li><a><i class="fa fa-table"></i> #주문 내역 관리(이원진) <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">       
@@ -45,6 +46,15 @@
                       <li><a href="#">#현재상태 갱신 등록</a></li>
                     </ul>
                   </li>
+                 
+                 <!-- 결제 -->
+
+				<li><a><i class="fa fa-table"></i> !결제(장상혁) <span class="fa fa-chevron-down"></span></a>
+					<ul class="nav child_menu">
+						<li><a th:href="@{/adminpage/payment/paymentList}">#결제내역 리스트</a></li>
+					</ul>
+				</li>
+                
 				<!-- 포인트 -->
 				
 			 	<li><a><i class="fa fa-table"></i> !포인트(경량훈) <span class="fa fa-chevron-down"></span></a>

@@ -193,6 +193,30 @@ public class AdminProfitAndLossController {
 		return "adminpage/profitAndLoss/removeAccount";
 	}
 	
+	//손익 계정과목 수정
+	@PostMapping("/modifyAccount")
+	public String modifyAccount(Account account
+							   ,HttpSession session
+							   ,HttpServletRequest request) {
+		
+		String sessionId = (String) session.getAttribute("UID");
+		
+		profitAndLossService.modifyAccount(account);
+		
+		return "redirect:/adminpage/profitAndLoss/accountList";
+	}	
+	
+	//손익 계정과목 수정
+	@GetMapping("/modifyAccount")
+	public String modifyAccount(Model model) {
+		
+		List<Account> accountList = profitAndLossService.getAccountList();
+		
+		model.addAttribute("accountList", accountList);
+		
+		return "adminpage/profitAndLoss/modifyAccount";
+	}
+	
 	//손익 계정과목 리스트
 	@GetMapping("/accountList")
 	public String getAccountList(Model model) {
@@ -209,8 +233,8 @@ public class AdminProfitAndLossController {
 	//손익 계정과목 등록
 	@PostMapping("/addAccount")
 	public String addAccount(HttpSession session
-			,Account account
-			,HttpServletRequest request) {
+							,Account account
+							,HttpServletRequest request) {
 		
 		//log.info("계정과목 등록 처리 account : {}", account);
 		String sessionId = (String) session.getAttribute("UID");
