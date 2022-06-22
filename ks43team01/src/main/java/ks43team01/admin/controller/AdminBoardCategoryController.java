@@ -58,8 +58,10 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 	/* 3-2.문의게시판 2차 카테고리 등록 (get) */
 	@GetMapping("/addBoardMediumCategory")
 	public String addBoardMediumCategory(Model model) {
+		List<BoardLargeCategory> boardLargeCategoryList = boardService.getBoardLargeCategoryList();
 		List<BoardMediumCategory> boardMediumCategoryList = boardService.getBoardMediumCategoryList();
 		
+		model.addAttribute("boardLargeCategoryList", boardLargeCategoryList);
 		model.addAttribute("boardMediumCategoryList", boardMediumCategoryList);
 		return "adminpage/boardAdmin/addBoardMediumCategory";
 	}

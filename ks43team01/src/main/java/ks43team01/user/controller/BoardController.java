@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 import ks43team01.dto.Board;
+import ks43team01.dto.BoardLargeCategory;
+import ks43team01.dto.BoardMediumCategory;
 import ks43team01.dto.QnaBoard;
 import ks43team01.service.BoardService;
 
@@ -42,8 +44,12 @@ public class BoardController {
 	/* 4-2. 1:1 문의 게시판 게시글 등록 (get) */
     @GetMapping("/addQnaBoard")
     public String addQnaBoard(Model model) {
-    	List<QnaBoard> qnaBoardList = boardService.getQnaBoardList();
-    	
+    	List<BoardLargeCategory> boardLargeCategoryList = boardService.getBoardLargeCategoryList();
+		List<BoardMediumCategory> boardMediumCategoryList = boardService.getBoardMediumCategoryList();
+		List<QnaBoard> qnaBoardList = boardService.getQnaBoardList();
+		
+		model.addAttribute("boardLargeCategoryList", boardLargeCategoryList);
+		model.addAttribute("boardMediumCategoryList", boardMediumCategoryList);
     	model.addAttribute("qnaBoardList", qnaBoardList);
 		
        return "userpage/board/addQnaBoard";
