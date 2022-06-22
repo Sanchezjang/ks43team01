@@ -11,6 +11,19 @@
 		<result column="order_status_standard_registration_date"	property="orderStatusStandardRegDate"/>
  	</resultMap>
  	
+  	<resultMap type="Order" id="orderResultMap">
+ 		<id 	column="order_code" 	 							property="orderCode"/>
+		<result column="order_status_code" 							property="orderStatusCode"/>
+		<result column="user_id_code" 	 							property="userIdCode"/>
+		<result column="goods_code"									property="goodsCode"/>
+		<result column="order_receive_addr"							property="orderReceiveAddr"/>
+		<result column="order_receive_contact"						property="orderReceiveContact"/>
+		<result column="order_sendname"								property="orderSendName"/>
+		<result column="order_sendphone"							property="orderSendPhone"/>
+		<result column="order_date"									property="orderDate"/>
+ 	</resultMap>
+ 	
+ 	
  <select id="getOrderStatusStandardList" resultMap="orderStatusStandardResultMap">
 	/* 주문 현황 기준 조회 */
 		SELECT
