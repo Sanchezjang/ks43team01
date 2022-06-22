@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">
+<!------ Include the above in your HEAD tag ---------->
+ <div layout:fragment="content">
+ 
+	<style>
+		#addReviewForm fieldset{
+		    display: inline-block;
+		    direction: rtl;
+		    border:0;
+		}
+		#addReviewForm fieldset legend{
+		    text-align: right;
+		}
+		#addReviewForm input[type=radio]{
+		    display: none;
+		}
+		#addReviewForm label{
+		    font-size: 3em;
+		    color: transparent;
+		    text-shadow: 0 0 0 #d7d7d7;
+		}
+		#addReviewForm label:hover{
+		    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+		}
+		#addReviewForm label:hover ~ label{
+		    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+		}
+		#addReviewForm input[type=radio]:checked ~ label{
+		    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+		}
+	
+		.ReviewRow{
+			width: 1200px;
+			margin:0 auto;	
+		}
+		
+		.addReviewForm {
+			width: 1200px;
+			margin:0 auto;	
+			margin-bottom: 100px;
+			margin-top:100px;
+		}
+		
+		.single-element-widget{
+			margin-bottom: 30px;
+		}
+		
+		.clickBtn{
+			width: 1200px;
+			text-align:center;
+		}
+		.text-bold{
+			font-size: 15px;
+		}
+	</style>
+	
+	 		<div class="slider-area">
+	            <div class="slider-height2 d-flex align-items-center">
+	                <div class="container">
+	                    <div class="ReviewRow">
+	                        <div class="col-xl-12">
+	                            <div class="hero-cap hero-cap2 text-center">
+	                                <h2>Board</h2>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	         </div>
+	        <!-- Hero End -->
+	        <!-- About Details Start -->
+	
+			<div class="addReviewForm">
+				<div class="ReviewRow">
+					<form class="form-contact contact_form" th:action="@{/userpage/reviewUser/addReview}" method="post" id="addReviewForm" novalidate="novalidate">
+						<div class="x_panel">
+							<div class="make-star">
+									<div class="col-6">
+										<div class="form-group">
+											<h4>별점</h4>
+										</div>
+									</div>
+									<div style="text-align: center;">
+										<fieldset>
+											<span class="text-bold">별점을 선택해주세요</span> 
+											<input type="radio" name="reviewStarScore" value="5" id="rate1"><label for="rate1">★</label>
+											
+											<input type="radio" name="reviewStarScore" value="4" id="rate2"><label for="rate2">★</label>
+											 
+											<input type="radio" name="reviewStarScore" value="3" id="rate3"><label for="rate3">★</label> 
+											
+											<input type="radio" name="reviewStarScore" value="2" id="rate4"><label for="rate4">★</label> 
+											
+											<input type="radio" name="reviewStarScore" value="1" id="rate5"><label for="rate5">★</label>
+										</fieldset>
+									</div>
+								</div>
+							</div>
+					<div class="col-12">
+						<div class="form-group">
+							<h4>제목</h4>
+							<input class="form-control" name="reviewUserTitle" id="reviewUserTitle" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '입력하세요.'" placeholder="제목을 입력하세요."  required>
+						</div>
+					</div>
+					<div class="col-6">
+						<div class="form-group">
+						<h4>이름</h4>
+							<input class="form-control valid" name="userIdCode" id="userIdCode" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '입력하세요.'" placeholder="이름을 입력하세요."  required>
+						</div>
+					</div>
+					<div class="col-12">
+						<div class="form-group">
+						<h4>본문</h4>
+							<textarea class="form-control w-100" name="reviewContent" id="reviewContent" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = '본문을 입력하세요.'" placeholder="본문을 입력하세요."  required></textarea>
+						</div>
+					</div>
+					<div class="clickBtn mt-3" >
+						<button type="submit" class="save boxed-btn">저장</button>>
+						<a th:href="@{/reviewUserList}"><button type="button" class="cancel boxed-btn">취소</button></a>
+					</div>
+					</form>
+				</div>
+			</div>
+		
+		
+</div>
