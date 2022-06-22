@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="ks43team01.mapper.OrderMapper">
+ 	<resultMap type="OrderStatusStandard" id="orderStatusStandardResultMap">
+ 		<id 	column="order_status_standard_code" 	 			property="orderStatusStandardCode"/>
+		<result column="order_status_standard_details" 				property="orderStatusStandardDatail"/>
+		<result column="user_id_code" 	 							property="userIdCode"/>
+		<result column="order_status_standard_registration_date"	property="orderStatusStandardRegDate"/>
+ 	</resultMap>
+ 	
+ <select id="getOrderStatusStandardList" resultMap="orderStatusStandardResultMap">
+	/* 주문 현황 기준 조회 */
+		SELECT
+			order_status_standard_code
+			,order_status_standard_details
+			,user_id_code
+			,order_status_standard_registration_date
+		FROM
+			tb_o_order_status_standard;
+	
+	</select>
+ </mapper>
+ 
