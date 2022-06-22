@@ -27,6 +27,19 @@ layout:decorate="~{userpage/layout/userdefault}">
 		width: 1200px;
 		text-align:center;
 	}
+	
+	.default-select{
+		margin-bottom: 20px;
+	}
+	.categorySelect{
+		margin-bottom: 20px;
+	}
+	
+	.questionCategory{
+		margin-bottom: 50px;
+	}
+	
+	
 	</style>
 
 	<div class="slider-area">
@@ -44,32 +57,39 @@ layout:decorate="~{userpage/layout/userdefault}">
 	</div>
 	<!-- Hero End -->
 	<!-- About Details Start -->
-         <div class="single-element-widget mt-30">
-                        <div class="default-select" id="default-select">
-                           <select id="boardCategoryList" name="boardCategoryList">
-                                 <option value="">- 문의 1차 카테고리 -</option>
-                                 <th:block th:if="${not #lists.isEmpty(boardCategoryList)}" th:each="l : ${boardCategoryList}">
-                                    <option th:value="${l.boardCategoryCode}">[[${l.boardCategoryName}]]</option>
-                                 </th:block>
-                                 <th:block th:unless="${not #lists.isEmpty(boardCategoryList)}">
-                                    <option value="">등록된 카테고리가 없습니다.</option>
-                                 </th:block>
-                           </select>
-                     
-                           <select id="boardCategoryList" name="boardCategoryList">
-                                 <option value="">- 문의 2차 카테고리 -</option>
-                                 <th:block th:if="${not #lists.isEmpty(boardCategoryList)}" th:each="l : ${boardCategoryList}">
-                                    <option th:value="${l.boardCategoryCode}">[[${l.boardCategoryName}]]</option>
-                                 </th:block>
-                                 <th:block th:unless="${not #lists.isEmpty(boardCategoryList)}">
-                                    <option value="">등록된 카테고리가 없습니다.</option>
-                                 </th:block>
-                           </select>
-                        </div>
-                  
-         </div>
 	<div class="addBoardForm">
+     
+         	<div class="questionCategory">
+         	<div class="categorySelect">
+         	<select class="form-control" name="boardLargeCategoryList">
+         	<option value="">- 문의 1차 카테고리 -</option>
+                                 <th:block th:if="${not #lists.isEmpty(boardLargeCategoryList)}" th:each="l : ${boardLargeCategoryList}">
+                                    <option th:value="${l.boardLargeCategoryCode}">[[${l.boardLargeCategoryName}]]</option>
+                                 </th:block>
+                                 <th:block th:unless="${not #lists.isEmpty(boardLargeCategoryList)}">
+                                    <option value="">등록된 카테고리가 없습니다.</option>
+                                 </th:block>
+         	</select>
+         	</div>
+         	<div>
+         	
+         	<select class="form-control" name="boardMediumCategoryList">
+                                 <option value="">- 문의 2차 카테고리 -</option>
+                                 <th:block th:if="${not #lists.isEmpty(boardMediumCategoryList)}" th:each="l : ${boardMediumCategoryList}">
+                                    <option th:value="${l.boardMediumCategoryCode}">[[${l.boardMediumCategoryName}]]</option>
+                                 </th:block>
+                                 <th:block th:unless="${not #lists.isEmpty(boardMediumCategoryList)}">
+                                    <option value="">등록된 카테고리가 없습니다.</option>
+                                 </th:block>
+                  </select>     
+         	</div>       
+         </div>
+	
 		<div class="BoardRow">
+		
+		
+		
+		
 			<form class="" th:action="@{addQnaBoard}" method="post">
 				<div class="col-12">
 					<div class="form-group">
@@ -98,18 +118,12 @@ layout:decorate="~{userpage/layout/userdefault}">
 				</div>
 				<h4>답변방법</h4>
 				<div>
-				<div class="switch-wrap d-flex justify-content-between">
-					 <p>댓글</p>
-						<div class="confirm-radio">
-							 <input type="checkbox" id="confirm-radio" checked>
-								<label for="confirm-radio"></label>
-						</div>
-					 <p>이메일</p>
-						<div class="confirm-radio">
-							 <input type="checkbox" id="confirm-radio" checked>
-								<label for="confirm-radio"></label>
-						</div>
-				</div>
+				<label class="radio-inline">
+				  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 댓글
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 이메일
+				</label>
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group">
