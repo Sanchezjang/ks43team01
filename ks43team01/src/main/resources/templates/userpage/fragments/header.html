@@ -48,6 +48,7 @@
 	                               	<li th:unless="${session.UID == null}"><a th:href="@{/userinfomation}"><i class="ti-user"></i>내정보</a></li>
 	                                <li th:unless="${session.UID != null}"><a th:href="@{/login}"><i class="ti-user"></i>로그인</a></li>
 	                                <li th:unless="${session.UID != null}"><a th:href="@{/userjoin}"><i class="ti-lock"></i>회원가입</a></li>
+	                                <li><a th:href="@{/orderCart}"><i class="ti-bag"></i>#장바구니</a></li>
 								</ul>
 							</div>
 						</div>

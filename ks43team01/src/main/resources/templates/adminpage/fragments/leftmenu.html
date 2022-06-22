@@ -29,16 +29,25 @@
 			
 				<!-- 회원관리 -->
 			
-				<li><a><i class="fa fa-home"></i> 회원관리 <span class="fa fa-chevron-down"></span></a>
+				<li><a><i class="fa fa-home"></i> 회원관리(장한진) <span class="fa fa-chevron-down"></span></a>
 					<ul class="nav child_menu">
 						<li><a th:href="@{/adminpage/user/userList}">회원총가입리스트</a></li>
 						<li><a th:href="@{/adminpage/user/userLogDate}">회원로그인이력테이블</a></li>
 					</ul>
 				</li>
-				
+				<!-- 주문 내역 관리 -->
+                  <li><a><i class="fa fa-table"></i> #주문 내역 관리(이원진) <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">       
+                      <li><a th:href="@{/adminpage/boardAdmin/orderList}">#주문내역 리스트</a></li>        
+                      <li><a th:href="@{/adminpage/boardAdmin/orderStatusStandardList}">#주문현황 기준 리스트</a></li>          
+                      <li><a th:href="@{/adminpage/boardAdmin/addorderStatusStandard}">#주문현황 기준 등록</a></li>          
+                      <li><a th:href="@{/adminpage/boardAdmin/orderStatusList}">#현재상태 갱신 리스트</a></li>          
+                      <li><a href="#">#현재상태 갱신 등록</a></li>
+                    </ul>
+                  </li>
 				<!-- 포인트 -->
 				
-			 	<li><a><i class="fa fa-table"></i> !포인트 <span class="fa fa-chevron-down"></span></a>
+			 	<li><a><i class="fa fa-table"></i> !포인트(경량훈) <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a th:href="@{/adminpage/pointDetails/pointList}">!포인트 내역 관리</a></li>
                     </ul>
@@ -46,7 +55,7 @@
 				
 				<!-- 매출/지출 -->
 				
-				 <li><a><i class="fa fa-table"></i> !매출/지출 <span class="fa fa-chevron-down"></span></a>
+				 <li><a><i class="fa fa-table"></i> !매출/지출(장상혁) <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a th:href="@{/adminpage/profitAndLoss/addSales}">매출 등록</a></li>
                       <li><a th:href="@{/adminpage/profitAndLoss/addSpending}">지출 등록</a></li>
@@ -55,7 +64,7 @@
                     </ul>
                   </li>
                   
-				 <li><a><i class="fa fa-table"></i> !손익관리 계정과목 <span class="fa fa-chevron-down"></span></a>
+				 <li><a><i class="fa fa-table"></i> !손익관리 계정과목(장상혁) <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a th:href="@{/adminpage/profitAndLoss/addAccount}">계정과목 등록</a></li>
                       <li><a th:href="@{/adminpage/profitAndLoss/accountList}">!계정과목 리스트</a></li>
@@ -64,14 +73,14 @@
 
 				  <!-- 리뷰관리 -->
                   
-                  <li><a><i class="fa fa-table"></i> !리뷰관리 <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-table"></i> !리뷰관리(경량훈) <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a th:href="@{/adminpage/reviewAdmin/reviewAdminList}">!리뷰 목록 관리</a></li>
                     </ul>
                   </li>
                   
                   <!-- 게시판 카테고리 관리 -->
-                  <li><a><i class="fa fa-table"></i> !게시판 카테고리 관리 <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-table"></i> !게시판 카테고리 관리(이원진) <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a th:href="@{/adminpage/boardAdmin/boardCategoryList}">!게시판 대분류 카테고리 리스트</a></li>
                       <li><a th:href="@{/adminpage/boardAdmin/addBoardCategory}">!게시판 대분류 카테고리 등록</a></li>
@@ -83,7 +92,7 @@
                   </li>
                   
                   <!-- 게시글 관리 -->
-                  <li><a><i class="fa fa-table"></i> !게시글 관리 <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-table"></i> !게시글 관리(이원진) <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">       
                       <li><a th:href="@{/adminpage/boardAdmin/boardList}">!전체 게시글 관리</a></li>        
                       <li><a th:href="@{/adminpage/boardAdmin/boardPostFileList}">!게시글 첨부파일 관리</a></li>          
