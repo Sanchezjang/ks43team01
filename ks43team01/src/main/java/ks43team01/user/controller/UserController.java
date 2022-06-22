@@ -76,23 +76,6 @@ public class UserController {
 		session.setAttribute("UID", user.getUserIdCode());//세션에 있는 정보를 입력한정보가 맞는지 확인//
 		return "userpage/user/login";
 	}
-	@GetMapping("/adminpage/user/userList")//admin회원총리스트 가져오기//
-	public String getAdminUserList(Model model) {
-		List<User> userList = userService.getAdminUserList();
-		model.addAttribute("userList", userList);
-		log.info("회원리스트 잘들어왓는지 확인  :   {}", userList); 
-		return "/adminpage/user/userList";
-	}
-	@GetMapping("/adminpage/user/userLogDate")//admin로그인총이력//
-	public String getLogDate(Model model) {
-		
-		List<UserLog> userLogDate = userService.getLogDate(); 
-		
-		model.addAttribute("userLogDate", userLogDate);
-		log.info("userLogDate값   : {}" , userLogDate);
-		return "/adminpage/user/userLogDate";
-	}
-	
 	@GetMapping("/sellerjoin")// 판매자회원추가진행로
 	public String userInsertCheck(Model model) {
 		
@@ -171,7 +154,7 @@ public class UserController {
 		
 		return "userpage/user/login";
 	}
-	@GetMapping("/userinfomation")
+	@GetMapping("/userinfomation")//회원정보수정//
 	public String getUserInfomation(HttpSession session,Model model,User user,goodsTopCategory goodsTopCategory){
 	
 		List<goodsTopCategory> expertBusinessField = userService.getTopCategory();
