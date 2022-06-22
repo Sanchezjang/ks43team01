@@ -178,7 +178,11 @@
 			tb_a_account_profit_and_loss_management
 		WHERE
 			account_subject_code = #{accountSubjectCode};
-	</delete>	
+	</delete>
+	
+	<update id="modifyAccount">
+		/*손익 계정과목 수정*/
+	</update>
 	
 	<select id="getAccountList" resultType="Account">
 		/* 손익 계정과목 리스트 조회 */
