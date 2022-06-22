@@ -54,6 +54,14 @@ public class ReviewService {
 			return result;
 		}
 		
+		/* 유저페이지 회원 리뷰 조회 */
+		public ReviewContentsReg getReviewByCode(String reviewCode) {
+			
+			return reviewMapper.getReviewByCode(reviewCode);
+			
+		}
+		
+		
 		/* 유저 페이지 회원 리뷰 목록 조회 */
 		public List<ReviewContentsReg> getReviewUserList(){
 			//log.info("리뷰 목록 조회:{}", "test");

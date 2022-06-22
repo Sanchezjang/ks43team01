@@ -20,7 +20,10 @@ public interface ReviewMapper {
 	/* 리뷰 등록 */
 	public int addReview(ReviewContentsReg reviewContentsReg);
 	
-	/* 회원페이지 회원 리뷰 목록 조회 */
+	/* 유저페이지 회원 리뷰 조회 */
+	public ReviewContentsReg getReviewByCode(String reviewCode);
+	
+	/* 유저페이지 회원 리뷰 목록 조회 */
 	public List<ReviewContentsReg> getReviewUserList();
 	
 	/* 관리자페이지 회원 리뷰 목록 조회 */

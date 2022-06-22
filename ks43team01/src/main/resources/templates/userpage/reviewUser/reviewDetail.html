@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">
+<!------ Include the above in your HEAD tag ---------->
+<div layout:fragment="content">
+		<style>
+.card .card-footer {
+	margin: 0px;
+	padding: 7px;
+}
+
+.btn.btn-primary {
+	background-color: #f3f5f700;
+	border-color: #f3f5f700;
+	color: #212529;
+}
+
+.btn.btn-primary:hover {
+	background-color: #f3f5f700;
+	border-color: #f3f5f700;
+}
+
+.replyContent {
+	font-size: 20px;
+	margin: 10px;
+}
+</style>
+        <div class="slider-area">
+            <div class="slider-height2 d-flex align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="hero-cap hero-cap2 text-center">
+                                <h2>Review</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Hero End -->
+        <!-- About Details Start -->
+				
+				
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-body">
+					<div>
+						<a type="button" style="padding: 10px; padding-left: 0px;"
+							onclick="history.back(-1)">돌아가기</a> <a type="button"
+							class="btn addReview" data-toggle="modal"
+							data-target=".bd-example-modal-lg" style="float: right;">답글
+							작성하기</a>
+					</div>
+					<input type="hidden" th:value="${ReviewContentsReg.reviewCode}">
+					<div class="replyForm" style="display: flex;">
+						<p class="replyContent">작성자</p>
+						<p class="replyContent" th:text="${ReviewContentsReg.User.userIdCode}"
+							style="padding-left: 87px;"></p>
+					</div>
+					<div class="card-footer" style="padding: 0px;"></div>
+						<p class="replyContent">작성일</p>
+						<p class="replyContent" th:text="${ReviewContentsReg.reviewRegDate}"></p>
+					</div>
+					<div class="card-footer" style="padding: 0px;"></div>
+					<div>
+						<p style="font-size: 18px; margin: 40px"
+							th:text="${bReviewContentsReg.reviewContent}"></p>
+					</div>
+					<div class="review-bottom"
+						style="display: flex; justify-content: flex-end; padding: 0px">
+						<button class="btn" id="swal-delete-board"
+							th:unless="${session.UID != ReviewContentsReg.userIdCode}"
+							th:data-boardCd="${ReviewContentsReg.reviewCode}">삭제</button>
+					</div>
+					<div class="card-footer"></div>
+
+					<!-- 리뷰작성 모달 창 실행 -->
+					<form id="addRePlyForm" th:action="@{/userpage/reviewUser/reviewDetail}"
+						method="post">
+						<div class="modal fade bd-example-modal-lg" tabindex="-1"
+							role="dialog" aria-labelledby="myLargeModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content" style="margin: 0 auto;">
+									<div class="modal-header"
+										style="display: inline-block; text-align: center;">
+										<h5 class="modal-title" id="exampleModalLabel">답글등록</h5>
+									</div>
+									<div class="modal-body">
+										<input type="hidden" class="form-control" name="reviewCode"
+											th:value="${ReviewContentsReg.reviewCode}" readonly="readonly"> <input
+											type="hidden" class="form-control" name="userIdCode"
+											th:value="${session.SID}">
+										<textarea class="form-control"
+											id="exampleFormControlTextarea1" rows="3"
+											name="boardReplyContent"></textarea>
+
+										<div class="modal-footer">
+											<a type="button" data-dismiss="modal">등록취소</a> <a
+												type="button" id="addRePlyBtn">등록하기</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+					<!-- 리뷰작성 모달창 끝 -->
+					
+             <nav class="blog-pagination justify-content-center d-flex">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a href="#" class="page-link" aria-label="RecentList">
+                                <i class="ti-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a href="#" class="page-link" aria-label="PreviousList">
+                                <i class="ti-angle-left"></i>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a href="#" class="page-link">1</a>
+                        </li>
+                        <li class="page-item active">
+                            <a href="#" class="page-link">2</a>
+                        </li>
+                        <li class="page-item active">
+                            <a href="#" class="page-link">3</a>
+                        </li>
+                        <li class="page-item active">
+                            <a href="#" class="page-link">4</a>
+                        </li>
+                        <li class="page-item active">
+                            <a href="#" class="page-link">5</a>
+                        </li>
+                        <li class="page-item">
+                            <a href="#" class="page-link" aria-label="NextList">
+                                <i class="ti-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a href="#" class="page-link" aria-label="OldList">
+                                <i class="ti-angle-double-right"></i>
+                            </a>
+                        </li>
+               		</ul>
+               </nav>
+              </div>
+           </div>
+        </div>
+   	</div>
+</div>
