@@ -47,6 +47,21 @@ public class UserReviewController {
 		return "redirect:/userpage/reviewUser/reviewUserList";
 	}
 	
+	/* 유저화면 리뷰 상세 페이지 */
+	@GetMapping("/reviewDetail")
+	public String reviewDetail(@RequestParam(value = "reviewCode")String reviewCode
+							  ,Model model) {
+		
+		ReviewContentsReg reviewContentsReg = reviewService.getReviewByCode(reviewCode);
+		
+		
+		model.addAttribute(reviewContentsReg);
+		return "userpage/reviewUser/reviewDetail" ;
+		
+	}
+	
+	
+	
 	/* 리뷰 등록 (post)*/
 	@PostMapping("/addReview")
 	public String addReview(ReviewContentsReg reviewContentsReg
@@ -70,6 +85,8 @@ public class UserReviewController {
 		return "redirect:/userpage/reviewUser/reviewUserList";
 	}
 	
+	
+	
 	/* 리뷰 등록(get) */
 	@GetMapping("/addReview")
 	public String addReview(Model model
@@ -92,6 +109,8 @@ public class UserReviewController {
 		return "/userpage/reviewUser/reviewUserList";
 				
 	}
+	
+	
 	
 	
 }

@@ -50,7 +50,6 @@
 	<select id="getReviewAdminList" resultType="Map">
 		SELECT
 		    tr.review_reg_date                   	AS  reviewRegDate    			
-		   ,gg.goods_name							AS	goodsName		
 		   ,tr.review_content						AS  reviewContent
 		   ,rb.review_star_score					AS  reviewStarScore			
 		   ,tr.review_recommendations_count			AS	reviewRecommendationsCount		
@@ -68,7 +67,9 @@
 			INNER JOIN 
 			tb_r_based_on_score_by_review AS rb 
 			ON 
-			tr.review_score_standard_code = rb.review_score_standard_code;
+			tr.review_score_standard_code = rb.review_score_standard_code
+			ORDER by
+			tr.review_reg_date DESC;
 	</select>
 	
 	<select id="getReviewUserList" resultType="Map">
@@ -98,6 +99,21 @@
 			tr.review_code DESC;
 	</select>
 	
+	<select id="getReviewByCode" parameterType="String" resultType="ks43team01.dto.ReviewContentsReg">
+		SELECT
+			rr.review_reg_date
+		   ,rr.review_content
+		   ,rr.review_recommendations_count
+		   ,rr.review_decommendations_count
+		   ,rr.review_star_score 
+		FROM 
+			tb_r_review_contents AS rr 
+		WHERE
+			rr.review_code = #{reviewCode};
+	
+	
+	</select>
+		
 	<delete id="removeReview" parameterType="String">
 		DELETE 
 		FROM 
@@ -133,7 +149,7 @@
 			 )
 			 VALUES (
 			  (SELECT
-					CONCAT('No', LPAD(MAX(CAST(SUBSTRING(rr.review_code,3) AS UNSIGNED))+1,2,0))
+					CONCAT(LPAD(MAX(CAST(SUBSTRING(rr.review_code,1) AS UNSIGNED))+1,2,0))
 				FROM
 				   tb_r_review_contents AS rr)
 			 ,'goods_basic_info_01'
@@ -142,7 +158,7 @@
 			 ,#{reviewContent}
 			 ,0
 			 ,0
-			 , NOW()
+			 ,CURDATE()
 			 ,50
 			 ,#{reviewRegIp}
 			 ,#{reviewStarScore}
