@@ -222,6 +222,7 @@
 											<th>상품주문현황기준내용</th>
 											<th>관리자회원코드</th>
 											<th>상품주문현황기준코드 등록일자</th>	
+											<th>삭제</th>	
 										</tr>
 									</thead>
 									<tbody>
@@ -232,8 +233,8 @@
 											<td th:text="${l.orderStatusStandardRegDate}"></td>
 											<td><button type="button" class="btn btn-danger" style="font-size: 10px">삭제</button></td>
 										</tr>
-										<tr th:unless="${not #lists.isEmpty(boardPostFileList)}" >
-											<td colspan="8">조회된 내용이 없습니다.</td>
+										<tr th:unless="${not #lists.isEmpty(orderStatusStandardList)}" >
+											<td colspan="4">조회된 내용이 없습니다.</td>
 										</tr>
 						            </tbody>
 			                    </table>
