@@ -1,6 +1,6 @@
 package ks43team01.dto;
 
-public class Order {
+public class OrderCurrentStatus {
 	
 	private String orderCode;
 	private String orderStatusCode;

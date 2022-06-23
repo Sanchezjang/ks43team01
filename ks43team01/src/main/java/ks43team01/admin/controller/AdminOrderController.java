@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ks43team01.dto.BoardCategory;
+import ks43team01.dto.OrderCurrentStatus;
 import ks43team01.dto.OrderStatusStandard;
 import ks43team01.service.BoardService;
 import ks43team01.service.OrderService;
@@ -31,8 +32,37 @@ public class AdminOrderController {
 	public AdminOrderController(OrderService orderService) {
 		this.orderService = orderService;
 	}
+	/* 현재 주문 상태 조회 */
+	@GetMapping("/orderCurrentStatusList")
+	public String getOrderCurrentStatusList(Model model) {
+		List<OrderCurrentStatus> orderCurrentStatusList = orderService.getOrderCurrnetStatusList();
+		log.info("현재 주문 상태 목록: {}", orderCurrentStatusList);
+		model.addAttribute("orderCurrentStatusList", orderCurrentStatusList);
+		
+		return "adminpage/orderAdmin/orderCurrentStatusList";
+	}
+	/* 상품 주문 현황 기준 등록 (post) */
+	@PostMapping("/addOrderStatusStandard")
+	public String addOrderStatusStandard(HttpSession session
+										, OrderStatusStandard orderStatusStandard
+										, HttpServletRequest request) {
+		String sessionId = (String) session.getAttribute("UID");
+		orderService.addOrderStatusStandard(sessionId, orderStatusStandard);
+		
+		return "redirect:/adminpage/orderAdmin/addOrderStatusStandard";
+	}
+	
+	/* 상품 주문 현황 기준 등록 (get) */
+	@GetMapping("/addOrderStatusStandard")
+	public String addOrderStatusStandard(Model model) {
+		List<OrderStatusStandard> orderStatusStandardList = orderService.getOrderStatusStandardList();
+		
+		model.addAttribute("orderStatusStandardList", orderStatusStandardList);
+		return "adminpage/orderAdmin/addOrderStatusStandard";
+	}
 	
 	
+	/* 상품 주문 현황 기준 조회 */
 	@GetMapping("/orderStatusStandardList")
 	public String getOrderStatusStandardList(Model model) {
 		List<OrderStatusStandard> orderStatusStandardList = orderService.getOrderStatusStandardList();

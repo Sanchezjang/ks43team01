@@ -216,19 +216,38 @@
                           <div class="col-sm-12">
                             <div class="card-box table-responsive">
 			                    <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action" style="width:100%">
-			                      <thead>
-										<tr>
-											<th>상품 주문 코드</th>
-											<th>상품 가격</th>
-											<th></th>
-											<th>주문 상태</th>
-											<th>주문일</th>
-											
-										</tr>
-									</thead>
-									<tbody>
-									
-						                  </tbody>
+					                   <thead>
+		                              <tr>
+		                                 <th>주문 상품 현재 상태 갱신코드</th>
+		                                 <th>상품주문현황코드</th>
+		                                 <th>구매자회원코드</th>
+		                                 <th>등록상품코드</th>
+		                                 <th>받는주소</th>
+		                                 <th>받는사람연락처</th>
+		                                 <th>보내는사람이름</th>
+		                                 <th>보낸사람연락처</th>
+		                                 <th>주문일자</th>
+		                                 <th>삭제</th>   
+		                              </tr>
+		                           </thead>
+		                              
+		                           <tbody>
+		                                 <tr th:if="${not #lists.isEmpty(orderCurrentStatusList)}" th:each="l : ${orderCurrentStatusList}">
+		                                    <td th:text="${l.orderCode}"></td>
+		                                    <td th:text="${l.orderStatusCode}"></td>
+		                                    <td th:text="${l.userIdCode}"></td>
+		                                    <td th:text="${l.goodsCode}"></td>
+		                                    <td th:text="${l.orderReceiveAddr}"></td>
+		                                    <td th:text="${l.orderReceiveContact}"></td>
+		                                    <td th:text="${l.orderSendName}"></td>
+		                                    <td th:text="${l.orderSendPhone}"></td>
+		                                    <td th:text="${l.orderDate}"></td>
+		                                    <td><button type="button" class="btn btn-danger" style="font-size: 10px">삭제</button></td>
+		                                 </tr>
+		                                 <tr th:unless="${not #lists.isEmpty(orderCurrentStatusList)}" >
+		                                    <td colspan="9">조회된 내용이 없습니다.</td>
+		                                 </tr>
+		                               </tbody>
 			                    </table>
                  			</div>
                   		</div>
