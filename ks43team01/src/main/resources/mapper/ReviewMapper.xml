@@ -47,7 +47,9 @@
 		</association>
 	</resultMap>
 	
+	
 	<select id="getReviewAdminList" resultType="Map">
+	/* 관리자페이지 회원 리뷰 목록 */
 		SELECT
 		    tr.review_reg_date                   	AS  reviewRegDate    			
 		   ,tr.review_content						AS  reviewContent
@@ -73,6 +75,7 @@
 	</select>
 	
 	<select id="getReviewUserList" resultType="Map">
+	/* 유저페이지 회원 리뷰 목록*/
 		SELECT
 			tr.review_code 							AS  reviewCode
 		   ,tr.review_reg_date                   	AS  reviewRegDate    			
@@ -100,6 +103,7 @@
 	</select>
 	
 	<select id="getReviewByCode" parameterType="String" resultMap="ReviewContentsRegResultMap">
+	/* 리뷰 상세페이지 조회 */
 		SELECT
 		    rr.review_code							
 		   ,rr.review_reg_date						
@@ -113,8 +117,31 @@
 		WHERE
 			rr.review_code = #{reviewCode};
 	</select>
+	
+	<update id="userSavePoint" parameterType="String">
+	/* 리뷰 등록시 유저테이블  총 포인트 적립*/
+		UPDATE
+			tb_u_all_user AS ua
+		SET
+			ua.user_retention_Points = ua.user_retention_Points + 100  
+		WHERE
+			ua.user_id_code = #{userIdCode};
 		
+	</update>
+	
+	<update id="reviewSavePoint" parameterType="String">
+	/* 리뷰 등록시 포인트적립내역테이블 포인트 적립 */
+		UPDATE
+			tb_pt_point_accumulation_details AS pa
+		SET
+			pa.point_amount = pa.point_amount + 100 
+		WHERE
+			pa.user_id_code = #{userIdCode};
+		
+	</update>
+
 	<delete id="removeReview" parameterType="String">
+	/* 리뷰 삭제 */
 		DELETE 
 		FROM 
 			tb_r_review_contents 
@@ -123,6 +150,7 @@
 	</delete>
 	
 	<update id="modifyReview" parameterType="ReviewContentsReg">
+	/* 리뷰 수정 */
 		UPDATE
 			tb_r_review_contents 
 		SET 

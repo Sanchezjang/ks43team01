@@ -43,7 +43,23 @@ public class ReviewService {
 			
 			return result;
 		}
+		/* 리뷰 등록시 회원 테이블에 포인트 적립*/
+		public int userSavePoint(String userIdCode) {
+			
+			int result = reviewMapper.userSavePoint(userIdCode);
+			
+			return result;
+		}
 		
+		
+		
+		/* 리뷰 등록 시 포인트 내역에 포인트 적립*/
+		public int reviewSavePoint(String userIdCode) {
+			
+			int result = reviewMapper.reviewSavePoint(userIdCode);
+			
+			return result;
+		}
 		
 		
 		/* 리뷰 등록 */

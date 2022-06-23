@@ -17,6 +17,12 @@ public interface ReviewMapper {
 	/* 리뷰 삭제 */
 	public int removeReview(String reviewCode);
 	
+	/* 리뷰 등록시 회원 테이블에 포인트 적립*/
+	public int userSavePoint(String userIdCode);
+	
+	/* 리뷰 등록 시 포인트 내역에 포인트 적립*/
+	public int reviewSavePoint(String userIdCode); 
+	
 	/* 리뷰 등록 */
 	public int addReview(ReviewContentsReg reviewContentsReg);
 	

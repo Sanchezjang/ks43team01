@@ -41,10 +41,10 @@ public class UserReviewController {
 	/* 리뷰 삭제  */
 	@PostMapping("/removeReview")
 	public String removeReview(String reviewCode) {
-		
+		log.info("나가는 값:{}" ,"test");
 		reviewService.removeReview(reviewCode);
 		
-		return "redirect:/userpage/reviewUser/reviewUserList";
+		return "/userpage/reviewUser/reviewUserList";
 	}	
 	
 	/* 유저화면 리뷰 상세 페이지 */
@@ -54,20 +54,18 @@ public class UserReviewController {
 		ReviewContentsReg reviewContentsReg = reviewService.getReviewByCode(reviewCode);
 		log.info("reviewContentsReg :{}", reviewContentsReg);
 		model.addAttribute("reviewContentsReg", reviewContentsReg);
-		return "userpage/reviewUser/reviewDetail" ;
+		return "/userpage/reviewUser/reviewDetail" ;
 		
 	}
 	
 	
-	
-	/* 리뷰 등록 (post)*/
+	/* 리뷰 등록-포인트 적립 (post),*/
 	@PostMapping("/addReview")
 	public String addReview(ReviewContentsReg reviewContentsReg
 						   ,HttpServletRequest request
-						   ,HttpSession session
-						   ) {
+						   ,HttpSession session) {
 		
-		String ip = request.getRemoteAddr();
+		String ip = (String)request.getRemoteAddr();
 		String userIdCode =(String) session.getAttribute("UID");
 		String goodsBasicInfoCode = (String)session.getAttribute("GoodsBasicInfoCode");
 		reviewContentsReg.setReviewRegIp(ip);
@@ -78,6 +76,8 @@ public class UserReviewController {
 		log.info("상품기본정보 값 가져오는지 : {}", goodsBasicInfoCode);
 		log.info("들어오는 값 :{} ", reviewContentsReg);
 		reviewService.addReview(reviewContentsReg);
+		reviewService.reviewSavePoint(userIdCode);
+		reviewService.userSavePoint(userIdCode);
 		
 		
 		return "redirect:/userpage/reviewUser/reviewUserList";
