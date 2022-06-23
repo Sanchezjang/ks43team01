@@ -79,7 +79,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 				<div class="card-body">
 					<div>
 						<a type="button" style="padding: 10px; padding-left: 0px;"
-							onclick="history.back(-1)">돌아가기</a> 
+							onclick="history.back(-1)">돌아가기</a>
 					</div>
 					<input type="hidden" th:value="${reviewContentsReg.reviewCode}">
 					<div class="replyForm" style="display: flex;">
@@ -108,52 +108,20 @@ layout:decorate="~{userpage/layout/userdefault}">
 					</div>
 					<div class="review-bottom"
 						style="display: flex; justify-content: flex-end; padding: 0px">
-						<button class="btn" id="swal-delete-board"
-							th:unless="${session.UID != userIdCode}"
-							th:data-boardCd="${reviewContentsReg.reviewCode}">삭제</button>
+						<form th:action="@{/userpage/reviewUser/removeReview}" method="post" >
+							<button  th:value="${reviewContentsReg.reviewCode}" class="btn" id="swal-delete-review"
+								th:if="${session.UID == reviewContentsReg.userIdCode}">삭제</button>
+						</form>
 					</div>
 					<div class="card-footer"></div>
-
-					<!-- <script type="text/javascript">
-					$(function(){
-						$(document).on('click','#swal-delete-board',function(){
-							var boardCd = $(this).attr('data-boardCd');
-						      const swalWithBootstrapButtons = swal.mixin({
-						          confirmButtonClass: 'btn btn-success',
-						          cancelButtonClass: 'btn btn-danger',
-						          buttonsStyling: false,
-						        });
-
-						        swalWithBootstrapButtons({
-						          title: '정말 삭제 하시겠습니까?',
-						          text: "삭제 클릭시 해당 정보는 복구 할 수 없습니다.",
-						          type: 'warning',
-						          showCancelButton: true,
-						          confirmButtonText: '네',
-						          cancelButtonText: '아니오',
-						          reverseButtons: false
-						        }).then((result) => {
-						          if (result.value) {
-						            swalWithBootstrapButtons(
-						              '삭제완료',
-						              '1:1문의 게시글이 삭제되었습니다.',
-						              'success'
-						            )
-						            location.href = '/board/boardRemove?boardCode=' + boardCd;
-						          } else if (
-						            // Read more about handling dismissals
-						            result.dismiss === swal.DismissReason.cancel
-						          ) {
-						            swalWithBootstrapButtons(
-						              '취소',
-						              'error'
-						            )
-						          }
-						        });	
-						});
-						
-					});
-					</script> -->
+				
+					<script type="text/javascript">
+						var $swalDeleteReview = $('#swal-delete-review');
+		            	$('.btn').on('click', function() {
+		            	  $swalDeleteReview.val($(this).val());            	  
+		            	})
+					</script>
+					
             
               </div>
            </div>
