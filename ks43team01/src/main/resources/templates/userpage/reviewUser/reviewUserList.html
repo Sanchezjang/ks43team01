@@ -142,7 +142,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 					<tbody th:if="${not #lists.isEmpty(reviewUserList)}" th:each="r : ${reviewUserList}">
 						<tr  class="table-row">
 				 			<td class="serial" 				 th:text="${r.reviewCode}">0</td>
-							<td class="contents"><a th:href="@{/userpage/reviewUser/reviewDetail(reviewCode=${r.reviewCode})}" th:text="${r.reviewContent}" style="color: #212529;"></a></td>
+							<td class="contents"><a th:href="@{/userpage/reviewUser/reviewDetail(reviewCode=${r.reviewCode})}" th:value="${r.reviewCode}" th:text="${r.reviewContent}" style="color: #212529;"></a></td>
 							<td class="regDate"    			 th:text="${r.reviewRegDate}"></td>
 							<td class="writer" 			     th:text="${r.userIdCode}"></td>
 							<td class="starScore">

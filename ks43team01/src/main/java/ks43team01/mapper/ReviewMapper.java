@@ -30,4 +30,6 @@ public interface ReviewMapper {
 	public List<ReviewContentsReg> getReviewAdminList();
 	
 	
+	
+	
 }
