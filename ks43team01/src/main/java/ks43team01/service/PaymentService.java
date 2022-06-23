@@ -1,7 +1,6 @@
 package ks43team01.service;
 
 import java.util.List;
-//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +11,7 @@ import ks43team01.mapper.PaymentMapper;
 @Transactional
 public class PaymentService {
 	
-	// 3. 생성자 메서드 주입방식 
+	// 생성자 메서드 주입방식 
 	private final PaymentMapper paymentMapper;
 	
 	public PaymentService(PaymentMapper paymentMapper) {
@@ -29,16 +28,6 @@ public class PaymentService {
 	}
 	
 	/*
-	 * 결제 상세내역
-	 * */
-	//public List<Payment> getPaymentInfo(){
-  
-	//List<Payment> paymentInfo = paymentMapper.getPaymentInfo();
-  
-	//return paymentInfo; }
-	 
-	
-	/*
 	 * 결제내역 리스트
 	 * */
 	public List<Payment> getPaymentList(){
@@ -46,6 +35,18 @@ public class PaymentService {
 		List<Payment> paymentList = paymentMapper.getPaymentList();
 		
 		return paymentList;
+	}
+	
+	/*
+	 * 결제하기
+	 * */
+	public int goodsPayment(String sessionId, Payment payment) {
+		
+		payment.setUserIdCode(sessionId);
+		
+		int result = paymentMapper.goodsPayment(payment);
+		
+		return result;
 	}
 	
 }

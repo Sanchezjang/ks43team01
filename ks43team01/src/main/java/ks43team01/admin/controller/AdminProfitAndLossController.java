@@ -12,14 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks43team01.dto.Account;
 import ks43team01.dto.Sales;
 import ks43team01.dto.Spending;
-import ks43team01.mapper.ProfitAndLossMapper;
 import ks43team01.service.ProfitAndLossService;
 
 @Controller

@@ -75,6 +75,7 @@ public class ProfitAndLossService {
 	public int removeSpending(String spendingGroupCode) {
 		
 		int result = profitAndLossMapper.removeSpending(spendingGroupCode);
+		
 		return result;
 	}	
 	
