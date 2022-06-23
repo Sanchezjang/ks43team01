@@ -6,6 +6,11 @@ layout:decorate="~{userpage/layout/userdefault}">
 <!------ Include the above in your HEAD tag ---------->
 <div layout:fragment="content">
 		<style>
+.card-body{
+	padding: 7.25rem;
+	padding-bottom: 10px;
+}
+
 .card .card-footer {
 	margin: 0px;
 	padding: 7px;
@@ -26,6 +31,30 @@ layout:decorate="~{userpage/layout/userdefault}">
 	font-size: 20px;
 	margin: 10px;
 }
+.rating {
+    display: inline-block;
+    direction: rtl;
+    border:none;
+	}
+	.rating {
+	    text-align: right;
+	}
+	.rating input[type=radio]{
+	    display: none;
+	}
+	.rating label{
+	    font-size: 1.5em;
+	    color: transparent;
+	    text-shadow: 0 0 0 #b1b1b1;
+	    margin: -2px;
+	}
+	.rating .yellowstar{
+	    font-size: 1.5em;
+	    color: transparent;
+	    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+	    margin: -2px;
+	    float: left;
+	}
 </style>
         <div class="slider-area">
             <div class="slider-height2 d-flex align-items-center">
@@ -50,107 +79,86 @@ layout:decorate="~{userpage/layout/userdefault}">
 				<div class="card-body">
 					<div>
 						<a type="button" style="padding: 10px; padding-left: 0px;"
-							onclick="history.back(-1)">돌아가기</a> <a type="button"
-							class="btn addReview" data-toggle="modal"
-							data-target=".bd-example-modal-lg" style="float: right;">답글
-							작성하기</a>
+							onclick="history.back(-1)">돌아가기</a> 
 					</div>
-					<input type="hidden" th:value="${ReviewContentsReg.reviewCode}">
+					<input type="hidden" th:value="${reviewContentsReg.reviewCode}">
 					<div class="replyForm" style="display: flex;">
-						<p class="replyContent">작성자</p>
-						<p class="replyContent" th:text="${ReviewContentsReg.User.userIdCode}"
+						<div class="rating" id="viewScore" data-rate="3">
+								<p class="replyContent" style="padding-right: 30px;" >별점</p>
+									<input type="radio" name="reviewStarScore" value="5" id="rate1"><label class="yellowstar" for="rate1" th:if="${reviewContentsReg.reviewStarScore} == 1">★</label>
+									<input type="radio" name="reviewStarScore" value="4" id="rate2"><label class="yellowstar" for="rate2" th:if="${reviewContentsReg.reviewStarScore} == 2">★★</label>
+									<input type="radio" name="reviewStarScore" value="3" id="rate3"><label class="yellowstar" for="rate3" th:if="${reviewContentsReg.reviewStarScore} == 3">★★★</label>
+									<input type="radio" name="reviewStarScore" value="2" id="rate4"><label class="yellowstar" for="rate4" th:if="${reviewContentsReg.reviewStarScore} == 4">★★★★</label>
+									<input type="radio" name="reviewStarScore" value="1" id="rate5"><label class="yellowstar" for="rate5" th:if="${reviewContentsReg.reviewStarScore} == 5">★★★★★</label>
+						</div>
+					</div>
+					<div class="replyForm" style="display: flex;">
+						<p class="replyContent">작성일</p>
+						<p class="replyContent" th:text="${reviewContentsReg.reviewRegDate}"
 							style="padding-left: 87px;"></p>
 					</div>
 					<div class="card-footer" style="padding: 0px;"></div>
-						<p class="replyContent">작성일</p>
-						<p class="replyContent" th:text="${ReviewContentsReg.reviewRegDate}"></p>
+						<p class="replyContent">작성자</p>
+						<p class="replyContent" th:text="${reviewContentsReg.userIdCode}"></p>
 					</div>
 					<div class="card-footer" style="padding: 0px;"></div>
 					<div>
-						<p style="font-size: 18px; margin: 40px"
-							th:text="${bReviewContentsReg.reviewContent}"></p>
+						<p style="font-size: 15px; margin: 100px"
+							th:text="${reviewContentsReg.reviewContent}"></p>
 					</div>
 					<div class="review-bottom"
 						style="display: flex; justify-content: flex-end; padding: 0px">
 						<button class="btn" id="swal-delete-board"
-							th:unless="${session.UID != ReviewContentsReg.userIdCode}"
-							th:data-boardCd="${ReviewContentsReg.reviewCode}">삭제</button>
+							th:unless="${session.UID != userIdCode}"
+							th:data-boardCd="${reviewContentsReg.reviewCode}">삭제</button>
 					</div>
 					<div class="card-footer"></div>
 
-					<!-- 리뷰작성 모달 창 실행 -->
-					<form id="addRePlyForm" th:action="@{/userpage/reviewUser/reviewDetail}"
-						method="post">
-						<div class="modal fade bd-example-modal-lg" tabindex="-1"
-							role="dialog" aria-labelledby="myLargeModalLabel"
-							aria-hidden="true">
-							<div class="modal-dialog modal-lg">
-								<div class="modal-content" style="margin: 0 auto;">
-									<div class="modal-header"
-										style="display: inline-block; text-align: center;">
-										<h5 class="modal-title" id="exampleModalLabel">답글등록</h5>
-									</div>
-									<div class="modal-body">
-										<input type="hidden" class="form-control" name="reviewCode"
-											th:value="${ReviewContentsReg.reviewCode}" readonly="readonly"> <input
-											type="hidden" class="form-control" name="userIdCode"
-											th:value="${session.SID}">
-										<textarea class="form-control"
-											id="exampleFormControlTextarea1" rows="3"
-											name="boardReplyContent"></textarea>
+					<!-- <script type="text/javascript">
+					$(function(){
+						$(document).on('click','#swal-delete-board',function(){
+							var boardCd = $(this).attr('data-boardCd');
+						      const swalWithBootstrapButtons = swal.mixin({
+						          confirmButtonClass: 'btn btn-success',
+						          cancelButtonClass: 'btn btn-danger',
+						          buttonsStyling: false,
+						        });
 
-										<div class="modal-footer">
-											<a type="button" data-dismiss="modal">등록취소</a> <a
-												type="button" id="addRePlyBtn">등록하기</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</form>
-					<!-- 리뷰작성 모달창 끝 -->
-					
-             <nav class="blog-pagination justify-content-center d-flex">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a href="#" class="page-link" aria-label="RecentList">
-                                <i class="ti-angle-double-left"></i>
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a href="#" class="page-link" aria-label="PreviousList">
-                                <i class="ti-angle-left"></i>
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a href="#" class="page-link">1</a>
-                        </li>
-                        <li class="page-item active">
-                            <a href="#" class="page-link">2</a>
-                        </li>
-                        <li class="page-item active">
-                            <a href="#" class="page-link">3</a>
-                        </li>
-                        <li class="page-item active">
-                            <a href="#" class="page-link">4</a>
-                        </li>
-                        <li class="page-item active">
-                            <a href="#" class="page-link">5</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="#" class="page-link" aria-label="NextList">
-                                <i class="ti-angle-right"></i>
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a href="#" class="page-link" aria-label="OldList">
-                                <i class="ti-angle-double-right"></i>
-                            </a>
-                        </li>
-               		</ul>
-               </nav>
+						        swalWithBootstrapButtons({
+						          title: '정말 삭제 하시겠습니까?',
+						          text: "삭제 클릭시 해당 정보는 복구 할 수 없습니다.",
+						          type: 'warning',
+						          showCancelButton: true,
+						          confirmButtonText: '네',
+						          cancelButtonText: '아니오',
+						          reverseButtons: false
+						        }).then((result) => {
+						          if (result.value) {
+						            swalWithBootstrapButtons(
+						              '삭제완료',
+						              '1:1문의 게시글이 삭제되었습니다.',
+						              'success'
+						            )
+						            location.href = '/board/boardRemove?boardCode=' + boardCd;
+						          } else if (
+						            // Read more about handling dismissals
+						            result.dismiss === swal.DismissReason.cancel
+						          ) {
+						            swalWithBootstrapButtons(
+						              '취소',
+						              'error'
+						            )
+						          }
+						        });	
+						});
+						
+					});
+					</script> -->
+            
               </div>
            </div>
         </div>
    	</div>
-</div>
+
+</html>
+

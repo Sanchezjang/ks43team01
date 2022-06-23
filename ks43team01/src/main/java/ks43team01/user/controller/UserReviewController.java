@@ -45,17 +45,15 @@ public class UserReviewController {
 		reviewService.removeReview(reviewCode);
 		
 		return "redirect:/userpage/reviewUser/reviewUserList";
-	}
+	}	
 	
 	/* 유저화면 리뷰 상세 페이지 */
 	@GetMapping("/reviewDetail")
-	public String reviewDetail(@RequestParam(value = "reviewCode")String reviewCode
-							  ,Model model) {
+	public String reviewDetail(@RequestParam(value = "reviewCode")String reviewCode, Model model) {
 		
 		ReviewContentsReg reviewContentsReg = reviewService.getReviewByCode(reviewCode);
-		
-		
-		model.addAttribute(reviewContentsReg);
+		log.info("reviewContentsReg :{}", reviewContentsReg);
+		model.addAttribute("reviewContentsReg", reviewContentsReg);
 		return "userpage/reviewUser/reviewDetail" ;
 		
 	}

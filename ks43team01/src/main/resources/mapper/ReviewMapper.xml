@@ -25,14 +25,14 @@
 			<result column="goods_basic_info_reg_date" 		property="goodsBasicInfoRegDate"/>
 		</association>
 		
-		<association property="reviewByScore" javaType="ReviewByScore">
+		<association property="scoreByReview" javaType="ReviewByScore">
 			<id 	column="review_score_standard_code"	 	property="reviewScoreStandardCode"/>
 			<result column="review_star_score" 				property="reviewStarScore"/>
 			<result column="review_score_standard_details" 	property="reviewScoreStandardDetails"/>
 		</association>
 		
 		<association property="user" javaType="User">
-			<id column="user_id_code" 						property="userId"/>
+			<id column="user_id_code" 						property="userIdCode"/>
 	  		<result column="user_pw" 						property="userPw"/>
 	  		<result column="user_name"						property="userName"/>
 	  		<result column="user_contact" 					property="userContact"/>
@@ -99,19 +99,19 @@
 			tr.review_code DESC;
 	</select>
 	
-	<select id="getReviewByCode" parameterType="String" resultType="ks43team01.dto.ReviewContentsReg">
+	<select id="getReviewByCode" parameterType="String" resultMap="ReviewContentsRegResultMap">
 		SELECT
-			rr.review_reg_date
-		   ,rr.review_content
-		   ,rr.review_recommendations_count
-		   ,rr.review_decommendations_count
-		   ,rr.review_star_score 
+		    rr.review_code							
+		   ,rr.review_reg_date						
+		   ,rr.user_id_code						
+		   ,rr.review_content						
+		   ,rr.review_recommendations_count			
+		   ,rr.review_decommendations_count			
+		   ,rr.review_star_score 					
 		FROM 
 			tb_r_review_contents AS rr 
 		WHERE
 			rr.review_code = #{reviewCode};
-	
-	
 	</select>
 		
 	<delete id="removeReview" parameterType="String">

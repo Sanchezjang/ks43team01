@@ -56,8 +56,8 @@ public class ReviewService {
 		
 		/* 유저페이지 회원 리뷰 조회 */
 		public ReviewContentsReg getReviewByCode(String reviewCode) {
-			
-			return reviewMapper.getReviewByCode(reviewCode);
+			System.out.println("___________getReviewByCode_________");
+			return  reviewMapper.getReviewByCode(reviewCode);
 			
 		}
 		
