@@ -10,7 +10,10 @@ import ks43team01.dto.Payment;
 public interface PaymentMapper {
 
 	//결제 상세내역
-	public List<Payment> getPaymentInfo();
+	public Payment getPaymentInfoCode(String paymentCode);
+	
+	//결제 상세내역
+	//public List<Payment> getPaymentInfo();
 	
 	//결제내역 리스트
 	public List<Payment> getPaymentList();
