@@ -9,7 +9,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	
-		<title>결제내역</title>
+		<title>결제</title>
 	
 		<!-- Bootstrap -->
 		<link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -69,32 +69,23 @@
 				                      <thead>
 				                        <tr>
 				                          <th></th>
-				                          <th>매출그룹코드</th>
-				                          <th>계정과목명</th>
-				                          <th>매출 날짜</th>
-				                          <th>매출 금액</th>
-				                          <th>매출 내역</th>
-				                          <th>매출 등록자</th>
-				                          <th>매출 등록일시</th>
+				                          <th>상품결제코드</th>
+				                          <th>상품주문코드</th>
+				                          <th>결제일자</th>
+				                          <th>구매자ID</th>
+				                          <th hidden="spendingDelete"></th>
 				                        </tr>
 				                      </thead>
 									<tbody>
-										<tr th:if="${not #lists.isEmpty(salesList)}" th:each="s:${salesList}">
+										<tr th:if="${not #lists.isEmpty(paymentList)}" th:each="p:${paymentList}">
 											<td>
 												<input type="checkbox" id="check-all" >
 											</td>
-											<td th:text="${s.salesGroupCode}"></td>
-											<td th:text="${s.accountName}"></td>
-											<td th:text="${s.salesDate}"></td>
-											<td th:text="${s.salesAmount}"></td>
-											<td>
-													<details>
-												    <summary style="color: #A21313; display: block;">내역 보기</summary>
-												    <p style="background-color: #E3C9C9;">[[${s.salesInfo}]]</p>
-												</details>
-											</td>							
-											<td th:text="${s.userIdCode}"></td>
-											<td th:text="${s.salesRegDate}"></td>
+											<td th:text="${p.paymentCode}"></td>
+											<td th:text="${p.orderCode}"></td>
+											<td th:text="${p.paymentByCashTime}"></td>
+											<td th:text="${p.userIdCode}"></td>
+											<td><a type="button" class="btn btn-primary" style="font-size: 10px" th:value="${p.paymentCode}" th:href="@{/adminpage/payment/paymentInfo}">상세내역 보기</a></td>
 										</tr>
 									</tbody>
 				                    </table>
@@ -104,6 +95,8 @@
 	            	</div>
                 </div>
               </div>
+            </div>
+            </div>
             </div>
 	   	    <!-- /page content -->
    	    
