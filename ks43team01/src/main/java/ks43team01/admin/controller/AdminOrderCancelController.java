@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class AdminOrderCancelController {
 	
-	@GetMapping("/adminpage/order/orderCancel")
+	@GetMapping("/orderCancel")
 	public String getOrderCancelList() {
-		return "/adminpage/order/orderCancel";
+		return "/adminpage/orderCancel/orderCancel";
 	}
-	@GetMapping("/adminpage/order/orderRefund")
+	@GetMapping("/adminpage/orderCancel/orderRefund")
 	public String getOrderRefund() {
-		return "/adminpage/order/orderRefund";
+		return "/adminpage/orderCancel/orderRefund";
 	}
 	
 }
