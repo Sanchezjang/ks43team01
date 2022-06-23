@@ -6,11 +6,11 @@
 	<!-- 사용자정의 contents -->
 	<th:block layout:fragment="customContents">
 		<div class="right_col" role="main">
-			<h3>회원총리스트</h3>
+			<h3>구입취소내역</h3>
 				<div class="col-md-12 col-sm-12 ">
 					<div class="x_panel">
 						<div class="x_title">
-							<h2>회원총리스트</h2>
+							<h2>구입취소내역</h2>
 							<ul class="nav navbar-right panel_toolbox">
 								<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 								</li>
@@ -27,22 +27,13 @@
                       					<thead>
                         					<tr>
                           					  <th></th>
-					                          <th>회원아이디</th>
-					                          <th>비밀번호</th>
-					                          <th>이름</th>
-					                          <th>휴대폰번호</th>
-					                          <th>이메일</th>
-					                          <th>탈퇴여부</th>
-					                          <th>활동지역</th>
-					                          <th>포인트총액</th>
-					                          <th>구매자경험치</th>
-					                          <th>판매자경험치</th>
-					                          <th>등급</th>
-					                          <th>가입날짜</th>
-					                          <th>업데이트날짜</th>
-					                          <th>회원레벨</th>
-					                          <th>수정</th>
-					                          <th>삭제</th>
+					                          <th>주문취소코드</th>
+					                          <th>상품명</th>
+					                          <th>주문신청사유</th>
+					                          <th>접수일자</th>
+					                          <th>취소처리일자</th>
+					                          <th>승인일자</th>
+					                          <th>승인확인</th>
                         					</tr>
                       					</thead>
                        					<tbody>
@@ -54,19 +45,11 @@
 						              			<td th:text="${l.userEmail}"></td>
 						              			<td th:text="${l.userStatus}"></td>
 						              			<td th:text="${l.userArea}"></td>
-						              			<td th:text="${l.userPoint}"></td>
-						              			<td th:text="${l.userRatingBuyer}"></td>
-						              			<td th:text="${l.userRatingSeller}"></td>
-						              			<td th:text="${l.userRating}"></td>
-						              			<td th:text="${l.userRreDate}"></td>
-						              			<td th:text="${l.userUpDate}"></td>
-						              			<td th:text="${l.userLevel}"></td>
-						              			<td><button type="button" class="btn btn-primary" style="font-size: 10px">환불!!</button></td>
-												<td><button type="button" class="btn btn-danger" style="font-size: 10px">삭제</button></td>
+						              			<td><button type="button" class="btn btn-primary" style="font-size: 10px">승인</button></td>
+												<td><button type="button" class="btn btn-danger" style="font-size: 10px">미승인</button></td>
                      						</tr>
                   						</tbody>
                     				</table>
-                    				
                   				</div>
                  	 		</div>
            				</div>

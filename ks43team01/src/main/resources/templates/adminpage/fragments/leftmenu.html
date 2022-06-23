@@ -29,13 +29,40 @@
 			
 				<!-- 회원관리 -->
 			
-				<li><a><i class="fa fa-home"></i> 회원관리(장한진) <span class="fa fa-chevron-down"></span></a>
+				<li><a><i class="fa fa-home"></i>!회원관리(장한진) <span class="fa fa-chevron-down"></span></a>
 					<ul class="nav child_menu">
 						<li><a th:href="@{/adminpage/user/userList}">회원총가입리스트</a></li>
 						<li><a th:href="@{/adminpage/user/userLogDate}">회원로그인이력테이블</a></li>
+						<li><a th:href="@{/adminpage/user/userAgreeDetails}">!동의약관생성테이블</a></li>
+						<li><a th:href="@{/adminpage/user/userAgreeCheck}">!동의내역테이블</a></li>
+						<li><a th:href="@{/adminpage/user/sellerDetails}">!판매자사항테이블</a></li>
 					</ul>
 				</li>
-				
+				<li><a><i class="fa fa-home"></i>!상품등록(장한진) <span class="fa fa-chevron-down"></span></a>
+					<ul class="nav child_menu">
+						<li><a th:href="@{/adminpage/goods/userList}">등록상품총목록</a></li>
+						<li><a th:href="@{/adminpage/user/userLogDate}">회원로그인이력테이블</a></li>
+						<li><a th:href="@{/adminpage/user/userAgreeDetails}">!동의약관생성테이블</a></li>
+						<li><a th:href="@{/adminpage/user/userAgreeCheck}">!동의내역테이블</a></li>
+						<li><a th:href="@{/adminpage/user/sellerDetails}">!판매자사항테이블</a></li>
+					</ul>
+				</li>
+				<!-- 환불및취소관리 -->
+			
+				<li><a><i class="fa fa-table"></i>!환불및취소관리(장한진)<span class="fa fa-chevron-down"></span></a>
+					<ul class="nav child_menu">
+						<li><a th:href="@{/adminpage/order/orderCancel}">!환불신청내역</a></li>
+						<li><a th:href="@{/adminpage/order/orderRefund}">!취소내역</a></li>
+					</ul>
+				</li>
+				<!--판매자포트폴리오관리-->
+			
+				<li><a><i class="fa fa-table"></i>#판매자포트폴리오관리(장한진)<span class="fa fa-chevron-down"></span></a>
+					<ul class="nav child_menu">
+						<li><a th:href="@{/adminpage/order/orderCancel}">#포트폴리오 동의내역</a></li>
+						<li><a th:href="@{/adminpage/order/orderRefund}">#회원별 포트폴리오내역</a></li>
+					</ul>
+				</li>
 				<!-- 주문 내역 관리 -->
                   <li><a><i class="fa fa-table"></i> #주문 내역 관리(이원진) <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">       
