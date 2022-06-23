@@ -20,7 +20,10 @@
 			<result column="user_id_code"								property="userIdCode"/>
 			<result column="order_status_standard_registration_date"	property="orderStatusStandardRegDate"/>
 		</association>
+		
 	</resultMap>
+	
+	<insert id="addOrderCurrentStatus"></insert>
     
     <insert id="addOrderStatusStandard" parameterType="orderStatusStandard">
     	INSERT INTO tb_o_order_status_standard
@@ -37,18 +40,18 @@
     
     </insert>
 
- 	<select id="getOrderCurrnetStatusList" resultMap="orderCurrentStatusResultMap">
+ 	<select id="getOrderCurrentStatusList" resultType="OrderCurrentStatus">
  	/* 현재 주문 상태 조회 */
 	 SELECT 
-		order_code
-		,order_status_code
-		,user_id_code
-		,goods_code
-		,order_receive_addr
-		,order_receive_contact
-		,order_sendname
-		,order_sendphone
-		,order_date
+		order_code 				AS orderCode
+		,order_status_code 		AS orderStatusCode
+		,user_id_code 			AS userIdCode
+		,goods_code 			AS goodsCode
+		,order_receive_addr 	AS orderReceiveAddr
+		,order_receive_contact 	AS orderReceiveContact
+		,order_sendname 		AS orderSendName
+		,order_sendphone 		AS orderSendPhone
+		,order_date 			AS orderDate
 	FROM
 		tb_o_order_current_status;
  	</select>

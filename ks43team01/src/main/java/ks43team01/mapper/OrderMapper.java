@@ -12,7 +12,7 @@ import ks43team01.dto.OrderStatusStandard;
 public interface OrderMapper {
 	
 	//현재 주문 상태 등록
-	public int addOrderCurentStatus(OrderCurrentStatus orderCurrentStatus);
+	public int addOrderCurrentStatus(OrderCurrentStatus orderCurrentStatus);
 	
 	//현재 주문 상태 조회
 	public List<OrderCurrentStatus> getOrderCurrentStatusList();
