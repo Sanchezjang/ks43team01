@@ -5,12 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ks43team01.dto.Account;
 import ks43team01.dto.Payment;
-import ks43team01.dto.Sales;
-import ks43team01.dto.Spending;
 import ks43team01.mapper.PaymentMapper;
-import ks43team01.mapper.ProfitAndLossMapper;
 
 @Service
 @Transactional
@@ -24,7 +20,18 @@ public class PaymentService {
 	}
 	
 	/*
-	 * 손익 계정과목 리스트
+	 * 결제 상세내역
+	 * */
+	
+	public List<Payment> getPaymentInfo(){
+  
+	List<Payment> paymentInfo = paymentMapper.getPaymentInfo();
+  
+	return paymentInfo; }
+	 
+	
+	/*
+	 * 결제내역 리스트
 	 * */
 	public List<Payment> getPaymentList(){
 		
