@@ -11,11 +11,11 @@ public interface PaymentMapper {
 
 	//결제 상세내역
 	public Payment getPaymentInfoCode(String paymentCode);
-	
-	//결제 상세내역
-	//public List<Payment> getPaymentInfo();
-	
+
 	//결제내역 리스트
 	public List<Payment> getPaymentList();
+	
+	//결제화면에서 결제
+	public int goodsPayment(Payment payment);
 	
 }
