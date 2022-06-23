@@ -35,7 +35,7 @@ public class AdminOrderController {
 	/* 현재 주문 상태 조회 */
 	@GetMapping("/orderCurrentStatusList")
 	public String getOrderCurrentStatusList(Model model) {
-		List<OrderCurrentStatus> orderCurrentStatusList = orderService.getOrderCurrnetStatusList();
+		List<OrderCurrentStatus> orderCurrentStatusList = orderService.getOrderCurrentStatusList();
 		log.info("현재 주문 상태 목록: {}", orderCurrentStatusList);
 		model.addAttribute("orderCurrentStatusList", orderCurrentStatusList);
 		
@@ -49,7 +49,7 @@ public class AdminOrderController {
 		String sessionId = (String) session.getAttribute("UID");
 		orderService.addOrderStatusStandard(sessionId, orderStatusStandard);
 		
-		return "redirect:/adminpage/orderAdmin/addOrderStatusStandard";
+		return "redirect:/adminpage/orderAdmin/orderStatusStandardList";
 	}
 	
 	/* 상품 주문 현황 기준 등록 (get) */

@@ -68,7 +68,7 @@ public class OrderCurrentStatus {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Order [orderCode=");
+		builder.append("OrderCurrentStatus [orderCode=");
 		builder.append(orderCode);
 		builder.append(", orderStatusCode=");
 		builder.append(orderStatusCode);
@@ -89,6 +89,7 @@ public class OrderCurrentStatus {
 		builder.append("]");
 		return builder.toString();
 	}
+
 	
 	
 }

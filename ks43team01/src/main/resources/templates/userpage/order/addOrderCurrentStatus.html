@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">	 
+
+<!------ Include the above in your HEAD tag ---------->
+<div layout:fragment="content">
+	<style>
+	html, body, div, a, table, thead, tbody, tr, th, td {
+		margin:0; outline:0; border:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent;
+	}
+	
+	body { 
+		font-size:0.875em; line-height:1.5; color:#666; -webkit-text-size-adjust:none; min-width:320px;
+		font-family:'NanumGothic','나눔고딕',dotum, "Helvetica Neue", Helvetica, Verdana, Arial, Sans-Serief;
+	}
+	
+	.section-top-border{
+	    width: 1200px;
+    	height: 150px;
+	}
+	
+	.x_panel{
+	width: 1200px;
+    margin: 0 auto;
+    padding-top: 80px;
+    padding-bottom: 80px;
+		
+	}
+	.orderer{
+	
+	}
+	.col-6{
+		padding-bottom: 20px;
+	}
+	.pay{
+		padding-left: 10px;	
+	}
+	.flat{
+	
+	}
+	.genric-btn{
+	
+	}
+	
+	.pointCheck{
+	
+	}
+	
+	.check{
+	    width: 300px;
+	}
+	
+	.table-head{
+	
+	}
+	
+	th{
+		height: 50px;
+		font-size: 20px;
+	}
+	td{
+		font-size: 15px;
+	}
+	
+	</style>
+	<div class="x_panel">
+		<div class="x_title">
+		<h2>주문/결제</h2>
+			<ul class="nav navbar-right panel_toolbox">
+				<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<a class="dropdown-item" href="#">Settings 1</a>
+							<a class="dropdown-item" href="#">Settings 2</a>
+						</div>
+				</li>
+				<li><a class="close-link"><i class="fa fa-close"></i></a></li>
+			</ul>
+			<div class="clearfix"></div>
+		</div>
+		<div class="x_content">
+			<table class="section-top-border">
+				<thead>
+					<tr class="table-head">
+						<th>항목</th>
+						<th>판매자</th>
+						<th>가격</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr class="table-row">
+						<td>이미지, 상품 이름</td>
+						<td>자바</td>
+						<td>50000</td>
+					</tr>
+				
+				</tbody>
+			
+			
+			</table>
+		<hr/>
+		
+
+		<!-- start form for validation -->
+		<form id="demo-form" data-parsley-validate>
+			<div class="orderer">
+				<div class="col-6">
+					<label for="fullname">주문자</label>
+						<input type="text" id="fullname" class="form-control" name="fullname" required />
+				</div>
+				<div class="col-6">
+					<label for="phone">주문자 연락처</label>
+						<input type="tel" id="tel" class="form-control" name="tel" required />
+				</div>
+			</div>
+			
+			<hr/>
+			
+			<div class="recipient">
+				<div class="col-6">
+					<label for="fullname">수령인</label>
+						<input type="text" id="fullname" class="form-control" name="fullname" required />
+				</div>
+				<div class="col-6">
+					<label for="phone">수령인 연락처</label>
+						<input type="tel" id="tel" class="form-control" name="tel" required />
+				</div>
+				<div class="col-6">
+					<label for="phone">배송지</label>
+						<input type="text" id="postnumber" class="form-control" name="postnumber" placeholder="우편번호"  readonly="readonly" />
+				</div>
+					<div class="col-6">
+						<input type="text" id="deliveryAddr" class="form-control" name="deliveryAddr" placeholder="주소"  readonly="readonly" />
+				</div>
+				<div class="col-lg-3">
+                       <button type="button" class="genric-btn primary circle" id="postNum" onclick="searchPostNum()">우편번호</button>
+                 </div>
+				<div class="col-6">
+					<label for="deliveryAddrDetail"></label>
+						<input type="text" id="deliveryAddrDetail" class="form-control" name="deliveryAddrDetail" placeholder="상세주소" required />
+				</div>   
+				<div class="shpping">
+				<div class="col-12">
+					<select id="heard" class="form-control" required>
+						<option value="">배송메세지를 선택해주세요.</option>
+						<option value="">문 앞에 두고 가주세요.</option>
+						<option value="">부재시 경비실에 맡겨주세요.</option>
+						<option value="">배송 전 미리 연락주세요.</option>
+						<option value="">요청 사항을 직접 입력합니다.</option>
+					</select>
+					</div>
+			</div>
+			</div>
+			
+			<hr/>
+			
+			<div class="discount">
+				<label>포인트 및 할인</label>
+				<div class="col-3">
+					<input type="number" id="point" class="form-control" name="point"/>
+				</div>
+				<div class="check">
+					<input type="checkbox" class="pointCheck"> 전액 사용
+				</div>
+					
+			</div>
+			
+			<hr/>
+			
+			<div class="pay">
+				<label>결제 수단</label>
+					<p><input type="radio" class="flat" name="payment" id="genderM" value="" checked="" required /> 실시간 계좌이체 </p>
+					<p><input type="radio" class="flat" name="payment" id="genderF" value="F" /> 무통장입금 </p>
+					<p><input type="radio" class="flat" name="payment" id="genderF" value="F" /> 휴대폰 결제 </p>
+			</div>
+			
+					
+			<div class="totalOrder">
+				<a href="#" class="genric-btn primary">결제하기</a>
+			</div>
+			</form>
+		
+		<!-- end form for validations -->
+	</div>
+</div>
+</div>
+
+	
+                          

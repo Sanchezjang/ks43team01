@@ -18,8 +18,17 @@ public class OrderService {
 	public OrderService(OrderMapper orderMapper) {
 			this.orderMapper = orderMapper;
 	}
+	
+	/* 현재 주문 상태 등록 */
+	public int addOrderCurrentStatus(String sessionId, OrderCurrentStatus orderCurrentStatus) {
+		orderCurrentStatus.setUserIdCode(sessionId);
+		int result = orderMapper.addOrderCurrentStatus(orderCurrentStatus);
+		
+		return result;
+	}
+	
 	/* 현재 주문 상태 조회 */
-	public List<OrderCurrentStatus> getOrderCurrnetStatusList(){
+	public List<OrderCurrentStatus> getOrderCurrentStatusList(){
 		List<OrderCurrentStatus> orderCurrentStatusList = orderMapper.getOrderCurrentStatusList();
 		return orderCurrentStatusList;
 	}
