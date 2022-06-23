@@ -1,3 +1,15 @@
+.font1{
+	font-size: 10px;
+}
+.refund{
+	text-align: center;
+	font-weight: bold;
+}
+.refund1{
+	margin-bottom: 15px;
+	border-bottom: 1px solid grey;
+}
+
 #mainfont
 {
 	color : black;
