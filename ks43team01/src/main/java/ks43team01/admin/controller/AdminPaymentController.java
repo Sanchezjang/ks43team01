@@ -8,8 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ks43team01.dto.Payment;
+import ks43team01.dto.ReviewContentsReg;
 import ks43team01.service.PaymentService;
 
 @Controller
@@ -29,17 +31,27 @@ public class AdminPaymentController {
 	
 	//결제 상세내역
 	@GetMapping("/paymentInfo")
-	public String getPaymentInfo(Model model) {
+	public String paymentInfo(@RequestParam(value = "paymentCode")String paymentCode, Model model) {
 		
-		List<Payment> paymentInfo = paymentService.getPaymentInfo();
-		
-		String str = "";
-		log.info("결제 상세내역 : {}", paymentInfo);
-		model.addAttribute("paymentInfo", paymentInfo);
-		model.addAttribute("str", str);
-		
+		Payment payment = paymentService.getPaymentInfoCode(paymentCode);
+		log.info("payment :{}", payment);
+		model.addAttribute("payment", payment);
 		return "adminpage/payment/paymentInfo";
+		
 	}
+	
+	//결제 상세내역
+	/*
+	 * @GetMapping("/paymentInfo") public String getPaymentInfo(Model model) {
+	 * 
+	 * List<Payment> paymentInfo = paymentService.getPaymentInfo();
+	 * 
+	 * String str = ""; log.info("결제 상세내역 : {}", paymentInfo);
+	 * model.addAttribute("paymentInfo", paymentInfo); model.addAttribute("str",
+	 * str);
+	 * 
+	 * return "adminpage/payment/paymentInfo"; }
+	 */
 	
 	//결제 내역 리스트
 	@GetMapping("/paymentList")

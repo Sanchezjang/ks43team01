@@ -22,20 +22,20 @@
 		<result column="payment_by_cash_time"				property="paymentByCashTime"/>
 	</resultMap>
 	
-	<select id="getPaymentInfo" resultType="Payment">
+	<select id="getPaymentInfoCode" parameterType="String" resultMap="PaymentResultMap">
 		/* 결제내역 리스트 */
 		SELECT
-			pp.payment_by_cash_time AS paymentByCashTime,
-			pp.user_id_code AS userIdCode,
-			pp.payment_agency_type AS paymentAgencyType,
-			pp.payment_agency AS paymentAgency,
-			pp.payment_input_account_card_number AS paymentInputAccountCardNumber,
-			pp.payment_point AS paymentPoint,
-			pp.payment_realtime AS paymentRealtime,
-			pp.payment_virtual AS paymentVirtual,
-			pp.payment_code AS paymentCode,
-			pp.order_code AS orderCode,
-			pp.goods_code AS goodsCode
+			pp.payment_by_cash_time,
+			pp.user_id_code,
+			pp.payment_agency_type,
+			pp.payment_agency,
+			pp.payment_input_account_card_number,
+			pp.payment_point,
+			pp.payment_realtime,
+			pp.payment_virtual,
+			pp.payment_code,
+			pp.order_code,
+			pp.goods_code
 		FROM
 			tb_p_payment_goods AS pp
 		WHERE

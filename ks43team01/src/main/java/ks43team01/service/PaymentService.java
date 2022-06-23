@@ -22,12 +22,20 @@ public class PaymentService {
 	/*
 	 * 결제 상세내역
 	 * */
+	public Payment getPaymentInfoCode(String paymentCode) {
+		
+		return  paymentMapper.getPaymentInfoCode(paymentCode);
 	
-	public List<Payment> getPaymentInfo(){
+	}
+	
+	/*
+	 * 결제 상세내역
+	 * */
+	//public List<Payment> getPaymentInfo(){
   
-	List<Payment> paymentInfo = paymentMapper.getPaymentInfo();
+	//List<Payment> paymentInfo = paymentMapper.getPaymentInfo();
   
-	return paymentInfo; }
+	//return paymentInfo; }
 	 
 	
 	/*
