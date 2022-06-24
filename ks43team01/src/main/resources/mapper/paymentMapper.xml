@@ -53,7 +53,7 @@
 			tb_p_payment_goods AS pp;
 	</select>
 	
-		<insert id="goodsPayment" parameterType="Payment">
+	<insert id="goodsPayment" parameterType="Payment">
 		/* 결제하기 */
 	</insert>
 	
