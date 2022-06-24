@@ -12,10 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ks43team01.dto.BoardCategory;
 import ks43team01.dto.OrderCurrentStatus;
 import ks43team01.dto.OrderStatusStandard;
+import ks43team01.dto.Payment;
 import ks43team01.service.BoardService;
 import ks43team01.service.OrderService;
 import ks43team01.user.controller.BoardController;
@@ -32,6 +34,17 @@ public class AdminOrderController {
 	public AdminOrderController(OrderService orderService) {
 		this.orderService = orderService;
 	}
+	//현재 주문 상태 조회 상세내역
+		@GetMapping("/orderCurrentStatusInfo")
+		public String orderCurrentStatusInfo(@RequestParam(value = "orderCode")String orderCode, Model model) {
+			
+			OrderCurrentStatus orderCurrentStatus = orderService.getOrderCurrentStatusInfoCode(orderCode);
+			log.info("orderCurrentStatus :{}", orderCurrentStatus);
+			model.addAttribute("orderCurrentStatus", orderCurrentStatus);
+			return "adminpage/orderAdmin/orderCurrentStatusInfo";
+			
+		}
+	
 	/* 현재 주문 상태 조회 */
 	@GetMapping("/orderCurrentStatusList")
 	public String getOrderCurrentStatusList(Model model) {

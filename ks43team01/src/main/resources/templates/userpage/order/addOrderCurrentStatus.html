@@ -28,33 +28,15 @@ layout:decorate="~{userpage/layout/userdefault}">
     padding-bottom: 80px;
 		
 	}
-	.orderer{
-	
-	}
+
 	.col-6{
 		padding-bottom: 20px;
 	}
-	.pay{
-		padding-left: 10px;	
-	}
-	.flat{
-	
-	}
-	.genric-btn{
-	
-	}
-	
-	.pointCheck{
-	
-	}
-	
+
 	.check{
 	    width: 300px;
 	}
-	
-	.table-head{
-	
-	}
+
 	
 	th{
 		height: 50px;
@@ -64,23 +46,57 @@ layout:decorate="~{userpage/layout/userdefault}">
 		font-size: 15px;
 	}
 	
+	.col-lg-6{
+		text-align: right;
+	}
+
+	.pointCheckBox{
+		padding-top : 10px;
+	    text-align: right;
+	}
+	.title{
+		font-size: 20px;
+		padding-bottom: 10px;
+	}
+	hr{
+		width: 600px;
+	}
+	
+	.totalOrder {
+    width: 400px;
+    position: relative;
+}
+
+	.total{
+		border: 1px solid #BDBDBD;
+	    margin: 10px;
+	    padding: 30px;
+	    width: 500px;
+	    height: 300px;
+	}
+	
+	h3{
+		padding-bottom: 10px;
+	}
+	
+	.totalCount{
+		float: right;
+	}	
+	.title{
+		padding-right: 20px;
+	}
+	
+	.totalOrderDetails{
+		float: right;
+	}
+	
+	p{
+	text-align: center;
+	}
+
 	</style>
 	<div class="x_panel">
-		<div class="x_title">
 		<h2>주문/결제</h2>
-			<ul class="nav navbar-right panel_toolbox">
-				<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<a class="dropdown-item" href="#">Settings 1</a>
-							<a class="dropdown-item" href="#">Settings 2</a>
-						</div>
-				</li>
-				<li><a class="close-link"><i class="fa fa-close"></i></a></li>
-			</ul>
-			<div class="clearfix"></div>
-		</div>
 		<div class="x_content">
 			<table class="section-top-border">
 				<thead>
@@ -102,12 +118,29 @@ layout:decorate="~{userpage/layout/userdefault}">
 			
 			
 			</table>
-		<hr/>
-		
-
+		<hr style="width: 1200px"/>
 		<!-- start form for validation -->
-		<form id="demo-form" data-parsley-validate>
+		<form id="demo-form row" data-parsley-validate>
+			<div class="totalCount">
+				<div class="total">
+					<h3 class="totalOrder">
+						<span class="totalOrdertitle">가격</span>
+						<span class="totalOrderDetails">0000원</span>
+					</h3>
+					<h3 class="totalOrder">
+						<span class="totalOrdertitle">할인금액</span>
+						<span class="totalOrderDetails">-000원</span>
+					</h3>
+					<h3 class="totalOrder">
+						<span class="totalOrdertitle">총금액</span>
+						<span class="totalOrderDetails">000원</span>
+					</h3>
+					<p><input type="checkbox" class="totalCheck" value="Y"> 주문 내용을 확인했으며, 결제 내용에 동의합니다.</p>
+					<button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" type="submit">결제하기</button>
+				</div>
+			</div>
 			<div class="orderer">
+			<label class="title">주문자 정보</label>
 				<div class="col-6">
 					<label for="fullname">주문자</label>
 						<input type="text" id="fullname" class="form-control" name="fullname" required />
@@ -121,6 +154,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 			<hr/>
 			
 			<div class="recipient">
+			<label class="title">배송지 정보</label>
 				<div class="col-6">
 					<label for="fullname">수령인</label>
 						<input type="text" id="fullname" class="form-control" name="fullname" required />
@@ -136,35 +170,30 @@ layout:decorate="~{userpage/layout/userdefault}">
 					<div class="col-6">
 						<input type="text" id="deliveryAddr" class="form-control" name="deliveryAddr" placeholder="주소"  readonly="readonly" />
 				</div>
-				<div class="col-lg-3">
+				<div class="col-lg-6">
                        <button type="button" class="genric-btn primary circle" id="postNum" onclick="searchPostNum()">우편번호</button>
                  </div>
 				<div class="col-6">
 					<label for="deliveryAddrDetail"></label>
 						<input type="text" id="deliveryAddrDetail" class="form-control" name="deliveryAddrDetail" placeholder="상세주소" required />
 				</div>   
-				<div class="shpping">
-				<div class="col-12">
-					<select id="heard" class="form-control" required>
-						<option value="">배송메세지를 선택해주세요.</option>
-						<option value="">문 앞에 두고 가주세요.</option>
-						<option value="">부재시 경비실에 맡겨주세요.</option>
-						<option value="">배송 전 미리 연락주세요.</option>
-						<option value="">요청 사항을 직접 입력합니다.</option>
-					</select>
-					</div>
-			</div>
+	
 			</div>
 			
 			<hr/>
 			
 			<div class="discount">
-				<label>포인트 및 할인</label>
+				<label class="title">포인트 및 할인</label>
 				<div class="col-3">
-					<input type="number" id="point" class="form-control" name="point"/>
+					<label>현재 보유 포인트</label>
+					<input type="number" id="point" class="form-control" name="point"/>  
+					<div class="pointCheckBox">
+						<input type="checkbox" class="allPoint"> 전액 사용
+					</div>
 				</div>
-				<div class="check">
-					<input type="checkbox" class="pointCheck"> 전액 사용
+				<div class="col-3">
+					<label>사용 포인트</label>
+					<input type="number" id="point" class="form-control" name="point"/>
 				</div>
 					
 			</div>
@@ -172,17 +201,31 @@ layout:decorate="~{userpage/layout/userdefault}">
 			<hr/>
 			
 			<div class="pay">
-				<label>결제 수단</label>
-					<p><input type="radio" class="flat" name="payment" id="genderM" value="" checked="" required /> 실시간 계좌이체 </p>
-					<p><input type="radio" class="flat" name="payment" id="genderF" value="F" /> 무통장입금 </p>
-					<p><input type="radio" class="flat" name="payment" id="genderF" value="F" /> 휴대폰 결제 </p>
+				<label class="title">결제 수단</label>
+					<input type="radio" class="flat" name="payment" id="transfer" value="실시간 자동이체"/> 실시간 계좌이체
+					<input type="radio" class="flat" name="payment" id="bankbook" value="무통장입금" /> 무통장입금
+					<input type="radio" class="flat" name="payment" id="card" value="카드결제" /> 카드결제
 			</div>
 			
-					
-			<div class="totalOrder">
-				<a href="#" class="genric-btn primary">결제하기</a>
+			<hr/>
+			
+			<div class="issuance">
+				<label class="title">현금 영수증 발급</label>
+					<input type="checkbox" class="checkPay" name="receipt" id="receipt" value="Y"> 신청하기
+					<input type="checkbox" class="checkPay" name="receipt" id="receipt" value="N"> 신청안함
 			</div>
-			</form>
+			
+			<div class="issuance">
+				<label class="title">세금 계산서 발급</label>
+					<input type="checkbox" class="tax" name="taxInvoice" id="taxInvoice" value="Y"> 신청하기
+					<input type="checkbox" class="tax" name="taxInvoice" id="taxInvoice" value="N"> 신청안함
+			</div>
+				
+				<hr/>	
+	
+			
+			
+		</form>
 		
 		<!-- end form for validations -->
 	</div>

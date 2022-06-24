@@ -23,6 +23,20 @@
 		
 	</resultMap>
 	
+		<select id="getOrderCurrentStatusInfoCode" parameterType="String" resultMap="orderCurrentStatusResultMap">
+		/* 현재 주문 상태 상세보기 */
+			SELECT
+				goods_code
+				,order_receive_addr
+				,order_receive_contact
+				,order_sendname
+				,order_sendphone
+			FROM
+				tb_o_order_current_status
+			WHERE
+				order_code = #{orderCode};
+	</select>
+
 	<insert id="addOrderCurrentStatus"></insert>
     
     <insert id="addOrderStatusStandard" parameterType="orderStatusStandard">
