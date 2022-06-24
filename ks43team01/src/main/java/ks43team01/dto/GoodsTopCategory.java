@@ -7,7 +7,6 @@ public class GoodsTopCategory {
 	private String	userIdCode; 
 	private String	goodsTopCategoryRegDate;
 	
-	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
