@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ks43team01.dto.Goods;
@@ -37,12 +38,31 @@ public class UserGoodsController {
 		
 		return "userpage/goods/userGoodsList";
 	}
-	@GetMapping("/goodsRegistration")
-	public String addGoodsRegistration() {
+	
+	//매출 등록
+	@PostMapping("/addGoods")
+	public String addGoods(HttpSession session
+			,Goods goods
+			,HttpServletRequest request) {
 		
+		//log.info("매출 등록 처리 sales : {}", sales);
+		String sessionId = (String) session.getAttribute("UID");
 		
+		goodsService.addGoods(sessionId, goods);
 		
-		return "userpage/goods/userGoodsList";
+		return "redirect:/userpage/goods/userGoodsList";
+	}
+	
+	//매출 등록
+	@GetMapping("/addGoods")
+	public String addGoods(Model model) {
+		
+		List<Goods> userGoodsList = goodsService.getUserGoodsList();
+		
+		model.addAttribute("userGoodsList", userGoodsList);
+		//log.info("지출 등록 내역 : {}", salesList);
+		
+		return "userpage/goods/addGoods";
 	}
 
 }

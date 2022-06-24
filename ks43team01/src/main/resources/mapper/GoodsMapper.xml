@@ -59,12 +59,13 @@
 			</association>
 	</resultMap>
 		
-	<select id="getUserGoodsList" resultMap="GoodsResultMap">
+	<select id="getUserGoodsList" resultType="Map">
+		/* 사용자화면 상품리스트 */
 		SELECT
-		   gi.goods_image_reg,
-		   gbi.goods_name,
-		   gps.goods_price,
-		   gr.user_id_code
+		   gi.goods_image_reg AS goodsImageReg,
+		   gbi.goods_name AS goodsName,
+		   gps.goods_price AS goodsPrice,
+		   gr.user_id_code AS userIdCode
 		FROM
    		   		tb_g_goods_reg AS gr
  			INNER JOIN
@@ -79,6 +80,11 @@
    				tb_g_goods_image AS gi
    			ON
    				gr.goods_image_code = gi.goods_image_code
-	
 	</select>
+	
+		<insert id="addGoods" parameterType="Goods">
+		/* 상품 등록 */
+		
+	</insert>
+	
 </mapper> 

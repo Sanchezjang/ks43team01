@@ -29,5 +29,17 @@ public class GoodsService {
 		
 		return userGoodsList;
 	}
+	
+	/*
+	 * 상품 등록
+	 * */
+	public int addGoods(String sessionId, Goods goods) {
+		
+		goods.setUserIdCode(sessionId);
+		
+		int result = goodsMapper.addGoods(goods);
+		
+		return result;
+	}
 
 }

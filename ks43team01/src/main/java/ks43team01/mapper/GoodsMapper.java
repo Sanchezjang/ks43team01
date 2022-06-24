@@ -9,6 +9,9 @@ import ks43team01.dto.Goods;
 @Mapper
 public interface GoodsMapper {
 
-	
+	//사용자화면 상품 리스트 
 	public List<Goods> getUserGoodsList();
+	
+	//상품 등록
+	public int addGoods(Goods goods);
 }

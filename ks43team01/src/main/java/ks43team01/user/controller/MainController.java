@@ -28,9 +28,7 @@ public class MainController {
 		model.addAttribute("topcategory",expertBusinessField);//탑카테고리 받아옴
 		log.info("탑카테고리 받아온값   :   {}",expertBusinessField);
 	
-		return "userpage/goods/goodsRegistration";
+		return "userpage/goods/addGoods";
 	
 	}
-	
-	
 }

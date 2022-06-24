@@ -8,12 +8,20 @@ public class Goods {
 	private GoodsRequest goodsRequest;
 	private GoodsSubCategory goodsSubCategory;
 	private GoodsTopCategory goodsTopCategory;
+	private String userIdCode;
 	
 	@Override
 	public String toString() {
 		return "Goods [goodsBasicInfo=" + goodsBasicInfo + ", goodsImage=" + goodsImage + ", goodsPriceSetting="
 				+ goodsPriceSetting + ", goodsReg=" + goodsReg + ", goodsRequest=" + goodsRequest
-				+ ", goodsSubCategory=" + goodsSubCategory + ", goodsTopCategory=" + goodsTopCategory + "]";
+				+ ", goodsSubCategory=" + goodsSubCategory + ", goodsTopCategory=" + goodsTopCategory + ", userIdCode="
+				+ userIdCode + "]";
+	}
+	public String getUserIdCode() {
+		return userIdCode;
+	}
+	public void setUserIdCode(String userIdCode) {
+		this.userIdCode = userIdCode;
 	}
 	public GoodsBasicInfo getGoodsBasicInfo() {
 		return goodsBasicInfo;
