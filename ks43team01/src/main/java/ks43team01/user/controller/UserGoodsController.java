@@ -25,12 +25,12 @@ public class UserGoodsController {
 		this.goodsService = goodsService;
 	}
 	
-	//매출 내역
+	//상품리스트 가져오기///
 	@GetMapping("/List")
 	public String getUserGoodsList(Model model) {
 		
 		List<Goods> userGoodsList = goodsService.getUserGoodsList();
-		//log.info("매출 내역 : {}", salesList);
+		log.info("상품리스트 : {}", userGoodsList);
 		model.addAttribute("userGoodsList", userGoodsList);
 		
 		return "userpage/goods/userGoodsList";
