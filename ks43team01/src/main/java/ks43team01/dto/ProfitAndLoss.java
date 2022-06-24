@@ -1,9 +1,9 @@
 package ks43team01.dto;
-
 public class ProfitAndLoss {
+
 	private Spending spending;
-	private Sales sales;
 	private Account account;
+	private Sales sales;
 	
 	@Override
 	public String toString() {

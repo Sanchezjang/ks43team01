@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ks43team01.dto.OrderCurrentStatus;
 import ks43team01.dto.OrderStatusStandard;
+import ks43team01.dto.Payment;
 import ks43team01.dto.QnaBoard;
 import ks43team01.mapper.OrderMapper;
 
@@ -26,6 +27,14 @@ public class OrderService {
 		
 		return result;
 	}
+	
+	/* 현재 주문 상태 상세 내역 */
+	public OrderCurrentStatus getOrderCurrentStatusInfoCode(String orderCode) {
+		
+		return  orderMapper.getOrderCurrentStatusInfoCode(orderCode);
+	
+	}
+	
 	
 	/* 현재 주문 상태 조회 */
 	public List<OrderCurrentStatus> getOrderCurrentStatusList(){

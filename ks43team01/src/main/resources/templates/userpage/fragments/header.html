@@ -71,11 +71,8 @@
 						<nav>
 							<ul id="navigation">                                                                                          
 								<li><a href="#">#전체카테고리</a>
-									<ul class="submenu">
-	                                    <li><a href="#">#디자인</a></li>
-	                                    <li><a href="#">#IT/프로그래밍</a></li>
-	                                    <li><a href="#">#영상/사진/음향</a></li>
-	                                    <li><a href="#">#마케팅</a></li>
+									<ul class="submenu" th:if="${not #lists.isEmpty(accountList)}" th:each="a:${accountList}">
+	                                    <li><a th:value="${a.accountName}">[[${a.accountName}]]</a></li>
 									</ul>
 								</li>
                                 <li><a href="#">커뮤니티</a>

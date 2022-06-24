@@ -221,12 +221,8 @@
                                        <th>주문 상품 현재 상태 갱신코드</th>
                                        <th>상품주문현황코드</th>
                                        <th>구매자회원코드</th>
-                                       <th>등록상품코드</th>
-                                       <th>받는주소</th>
-                                       <th>받는사람연락처</th>
-                                       <th>보내는사람이름</th>
-                                       <th>보낸사람연락처</th>
                                        <th>주문일자</th>
+                                       <th>상세정보</th>
                                        <th>삭제</th>   
                                     </tr>
                                  </thead>
@@ -235,16 +231,14 @@
                                           <td th:text="${l.orderCode}"></td>
                                           <td th:text="${l.orderStatusCode}"></td>
                                           <td th:text="${l.userIdCode}"></td>
-                                          <td th:text="${l.goodsCode}"></td>
-                                          <td th:text="${l.orderReceiveAddr}"></td>
-                                          <td th:text="${l.orderReceiveContact}"></td>
-                                          <td th:text="${l.orderSendName}"></td>
-                                          <td th:text="${l.orderSendPhone}"></td>
                                           <td th:text="${l.orderDate}"></td>
+                                          
+                                          <td><a type="button" class="btn btn-primary" style="font-size: 10px" th:value="${l.orderCode}" th:href="@{/adminpage/orderAdmin/orderCurrentStatusInfo(orderCode=${l.orderCode})}">상세내역 보기</a></td>
+                                          
                                           <td><button type="button" class="btn btn-danger" style="font-size: 10px">삭제</button></td>
                                        </tr>
                                        <tr th:unless="${not #lists.isEmpty(orderCurrentStatusList)}" >
-                                          <td colspan="9">조회된 내용이 없습니다.</td>
+                                          <td colspan="4">조회된 내용이 없습니다.</td>
                                        </tr>
                                  </tbody>
                              </table>

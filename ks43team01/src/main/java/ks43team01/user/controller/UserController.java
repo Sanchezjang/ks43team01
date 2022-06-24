@@ -25,8 +25,8 @@ import ks43team01.dto.SellerCareer;
 import ks43team01.dto.SellerEducation;
 import ks43team01.dto.User;
 import ks43team01.dto.UserLog;
-import ks43team01.dto.goodsSubCategory;
-import ks43team01.dto.goodsTopCategory;
+import ks43team01.dto.GoodsSubCategory;
+import ks43team01.dto.GoodsTopCategory;
 import ks43team01.service.UserService;
 
 @Controller
@@ -79,15 +79,15 @@ public class UserController {
 	@GetMapping("/sellerjoin")// 판매자회원추가진행로
 	public String userInsertCheck(Model model) {
 		
-		List<goodsTopCategory> expertBusinessField = userService.getTopCategory();
+		List<GoodsTopCategory> expertBusinessField = userService.getTopCategory();
 		model.addAttribute("topcategory",expertBusinessField);//탑카테고리 받아옴
 		log.info("탑카테고리들어온값   :{}",expertBusinessField);
 		return "userpage/user/sellerjoin";
 	}
 	@GetMapping("/getCategory")//탑카테고리잡아서 서브 카테고리 출력
 	@ResponseBody
-	public List<goodsSubCategory> getSubCategory(@RequestParam(name="expertBusinessField")String expertBusinessField) {
-		List<goodsSubCategory> scategory = userService.getSubCategory(expertBusinessField);
+	public List<GoodsSubCategory> getSubCategory(@RequestParam(name="expertBusinessField")String expertBusinessField) {
+		List<GoodsSubCategory> scategory = userService.getSubCategory(expertBusinessField);
 		log.info("서브카테고리받아온값제이즌  :{}", scategory);
 		return scategory;
 	}
@@ -155,9 +155,9 @@ public class UserController {
 		return "userpage/user/login";
 	}
 	@GetMapping("/userinfomation")//회원정보수정//
-	public String getUserInfomation(HttpSession session,Model model,User user,goodsTopCategory goodsTopCategory){
+	public String getUserInfomation(HttpSession session,Model model,User user,GoodsTopCategory goodsTopCategory){
 	
-		List<goodsTopCategory> expertBusinessField = userService.getTopCategory();
+		List<GoodsTopCategory> expertBusinessField = userService.getTopCategory();
 		model.addAttribute("topcategory",expertBusinessField);//탑카테고리 받아옴
 		log.info("탑카테고리 받아온값   :   {}",expertBusinessField);
 		String UID = (String) session.getAttribute("UID");

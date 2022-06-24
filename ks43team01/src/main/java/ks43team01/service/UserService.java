@@ -13,8 +13,8 @@ import ks43team01.dto.SellerEducation;
 import ks43team01.dto.User;
 import ks43team01.dto.UserLevelExp;
 import ks43team01.dto.UserLog;
-import ks43team01.dto.goodsSubCategory;
-import ks43team01.dto.goodsTopCategory;
+import ks43team01.dto.GoodsSubCategory;
+import ks43team01.dto.GoodsTopCategory;
 import ks43team01.mapper.UserMapper;
 
 @Service
@@ -79,15 +79,15 @@ public class UserService {
 	}
 	
 	//비지니스 선택 탑카테고리 만들기
-	public List<goodsTopCategory> getTopCategory() {
+	public List<GoodsTopCategory> getTopCategory() {
 		
-		List<goodsTopCategory> Tcategory = userMapper.getTopCategory();
+		List<GoodsTopCategory> Tcategory = userMapper.getTopCategory();
 		
 		return Tcategory;
 	}
 	//비지니스 서브카테고리만들기
-	public List<goodsSubCategory> getSubCategory(String topCategory) {
-		List<goodsSubCategory> Scategory = userMapper.getSubCategory(topCategory);
+	public List<GoodsSubCategory> getSubCategory(String topCategory) {
+		List<GoodsSubCategory> Scategory = userMapper.getSubCategory(topCategory);
 		return Scategory;
 	}
 	
