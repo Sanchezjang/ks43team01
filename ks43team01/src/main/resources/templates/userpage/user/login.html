@@ -23,24 +23,24 @@ layout:decorate="~{userpage/layout/userdefault}">
 	<div class="container">
 		<div class="row">
 	        <div class="input-form col-md-6 mx-auto">
-				<h1 class="text-center login-title" id="mainfont">로그인</h1>
+				<h1 class="text-center login-title" id="mainfont" style="font-size: 25px;">로그인</h1>
 					<div class="account-wall">
 						<img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
 	                    alt="">
 						<form class="form-signin" th:action="@{login}" method="post">
 							<input name="userId" type="text" class="form-control" value="id001" placeholder="아이디" required autofocus>
 							<input name="userPw" type="password" class="form-control" value="pw001" placeholder="비밀번호" required>
-							<button class="btn btn-lg btn-primary btn-block" type="submit">
+							<button class=" btn-lg btn-primary col-6" type="submit" style="margin-left: 70px;">
 								로그인
 							</button>
-							<label class="checkbox pull-left">
-							<input type="checkbox" value="remember-me">
+							<label class="checkbox pull-left row">
+							<input type="checkbox"  class="pull-right need-help" value="remember-me">
 		                   		아이디저장
 		                	</label>
-							<a href="#" class="pull-right need-help">비밀번호찾기</a><span class="clearfix"></span>
+							<a href="#" class="pull-right need-help row">비밀번호찾기</a><span class="clearfix"></span>
 						</form>
 					</div>
-					<a th:href="@{userjoin}" class="text-center new-account">회원가입 </a>
+					<a th:href="@{userjoin}" class="text-center new-account" style="color: black;font-size: 20px;">회원가입 </a>
 				</div>
 			</div>
 		</div>
