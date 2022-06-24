@@ -1,6 +1,6 @@
 package ks43team01.dto;
 
-public class goodsTopCategory {
+public class GoodsTopCategory {
 
 	private String	goodsTopCategoryName; 
 	private String	goodsTopCategoryCode; 
