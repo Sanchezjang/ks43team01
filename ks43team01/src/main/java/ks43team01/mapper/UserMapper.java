@@ -10,8 +10,8 @@ import ks43team01.dto.SellerBusiness;
 import ks43team01.dto.User;
 import ks43team01.dto.UserLevelExp;
 import ks43team01.dto.UserLog;
-import ks43team01.dto.goodsSubCategory;
-import ks43team01.dto.goodsTopCategory;
+import ks43team01.dto.GoodsSubCategory;
+import ks43team01.dto.GoodsTopCategory;
 import ks43team01.dto.SellerCareer;
 import ks43team01.dto.SellerEducation;
 
@@ -40,10 +40,10 @@ public interface UserMapper {
 	public List<UserLog> getLogDate();
 
 	//판매자 비지니스 탑카테고리//
-	public List<goodsTopCategory> getTopCategory();
+	public List<GoodsTopCategory> getTopCategory();
 	
 	//판매자 비지니스 서브카테고리//
-	public List<goodsSubCategory> getSubCategory(String topCategory);
+	public List<GoodsSubCategory> getSubCategory(String topCategory);
 	
 	//로그인을위한아이디조회///
 	public User getUserInfoById(String userId);

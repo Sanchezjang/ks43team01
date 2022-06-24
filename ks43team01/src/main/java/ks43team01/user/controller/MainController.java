@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import ks43team01.dto.goodsTopCategory;
+import ks43team01.dto.GoodsTopCategory;
 import ks43team01.service.UserService;
 
 @Controller
@@ -22,9 +22,9 @@ public class MainController {
 	}
 
 	@GetMapping("/test")
-	public String index(Model model, goodsTopCategory goodsTopCategory){ 
+	public String index(Model model, GoodsTopCategory goodsTopCategory){ 
 		
-		List<goodsTopCategory> expertBusinessField = userService.getTopCategory();
+		List<GoodsTopCategory> expertBusinessField = userService.getTopCategory();
 		model.addAttribute("topcategory",expertBusinessField);//탑카테고리 받아옴
 		log.info("탑카테고리 받아온값   :   {}",expertBusinessField);
 	
