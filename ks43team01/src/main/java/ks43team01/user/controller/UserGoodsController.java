@@ -37,5 +37,12 @@ public class UserGoodsController {
 		
 		return "userpage/goods/userGoodsList";
 	}
+	@GetMapping("/goodsRegistration")
+	public String addGoodsRegistration() {
+		
+		
+		
+		return "userpage/goods/userGoodsList";
+	}
 
 }
