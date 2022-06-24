@@ -10,6 +10,5 @@ import ks43team01.dto.Goods;
 public interface GoodsMapper {
 
 	
-	//손익 계정과목 리스트
 	public List<Goods> getUserGoodsList();
 }

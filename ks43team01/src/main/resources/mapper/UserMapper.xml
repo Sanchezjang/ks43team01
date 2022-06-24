@@ -20,14 +20,14 @@
 	  		<result column="user_update_date" property="userUpDate"/>
 	  		<result column="level_num_code" property="userLevel"/>
   		</resultMap>
-	  		<resultMap type="ks43team01.dto.goodsTopCategory" id="goodsTopCategoryResultMap">
+	  		<resultMap type="ks43team01.dto.GoodsTopCategory" id="GoodsTopCategoryResultMap">
 	  			<id column="goods_top_category_name" property="goodsTopCategoryName"/>
 	  			<result column="goods_top_category_code" property="goodsTopCategoryCode"/>
 	  			<result column="user_id_code " property="userIdCode"/>
 	  			<result column="goods_top_category_reg_date" property="goodsTopCategoryRegDate"/>
 	  		</resultMap>
 	  		
-	  		<resultMap type="ks43team01.dto.goodsSubCategory" id="goodsSubCategoryResultMap">
+	  		<resultMap type="ks43team01.dto.GoodsSubCategory" id="GoodsSubCategoryResultMap">
 	  			<id column="goods_sub_category_code" property="goodsSubCategoryCode"/>
 	  			<result column="goods_sub_category_name" property="goodsSubCategoryName"/>
 	  			<result column="goods_sub_category_reg_date " property="goodsSubCategoryRegDate"/>
