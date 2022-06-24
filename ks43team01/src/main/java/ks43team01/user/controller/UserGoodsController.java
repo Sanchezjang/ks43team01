@@ -26,7 +26,7 @@ public class UserGoodsController {
 	}
 	
 	//상품리스트 가져오기///
-	@GetMapping("/List")
+	@GetMapping("/userGoodsList")
 	public String getUserGoodsList(Model model) {
 		
 		List<Goods> userGoodsList = goodsService.getUserGoodsList();
