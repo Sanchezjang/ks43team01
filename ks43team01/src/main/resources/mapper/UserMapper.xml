@@ -339,7 +339,7 @@
 			tb_u_all_user
   	</select>
     
-    <select id="getTopCategory" resultType="ks43team01.dto.goodsTopCategory">
+    <select id="getTopCategory" resultType="ks43team01.dto.GoodsTopCategory">
 		
 			/*판매가 비지니스 탑카테고리*/
 		SELECT 
@@ -352,7 +352,7 @@
     
     </select>
     
-    <select id="getSubCategory" parameterType="String" resultMap="goodsSubCategoryResultMap">
+    <select id="getSubCategory" parameterType="String" resultMap="GoodsSubCategoryResultMap">
     	select 
 			g.goods_sub_category_code 
 			,g.goods_sub_category_name 
