@@ -78,9 +78,6 @@ layout:decorate="~{userpage/layout/userdefault}">
 	
 	
 	</style>
-
-	     <nav><ul><li><a th:href="@{userpage/order/addOrderCurrentStatus}">주문</a></li></ul></nav>
-
         <div class="slider-area">
             <div class="slider-height2 d-flex align-items-center">
                 <div class="container">
@@ -106,23 +103,19 @@ layout:decorate="~{userpage/layout/userdefault}">
 							<th class="serial">n0</th>
 							<th class="title">제목</th>
 							<th class="writer">작성자</th>
-							<th class="regDate">등록일</th>
-							<th class="pageView">조회수</th>
 						</tr>
-					<tbody th:if="${not #lists.isEmpty(noticeBoardList)}" th:each="l : ${noticeBoardList}">
+					<tbody th:if="${not #lists.isEmpty(userGoodsList)}" th:each="g : ${userGoodsList}">
 						<tr class="table-row">
 							<td class="serial">0</td>
-							<td class="title" th:text="${l.boardPostTitle}"></td>
-							<td class="writer"  th:text="${l.boardUserName}"></td>
-							<td class="regDate" th:text="${l.boardPostRegDate}"> </td>
-							<td class="pageView" th:text="${l.boardPostView}"> </td>
+							<td class="title" th:text="${g.userIdCode}"></td>
+							<td class="writer"  th:text="${g.goodsName}"></td>
+							<td class="regDate" th:text="${g.goodsDescription}"> </td>
 						</tr>
-						<tr th:unless="${not #lists.isEmpty(noticeBoardList)}">
+						<tr th:unless="${not #lists.isEmpty(userGoodsList)}">
 							<td colspan="5">조회된 내용이 없습니다.</td>
 						</tr>
 					</tbody>
 				</table>
-					<div style="text-align:right; margin-top:20px;"><a th:href="@{/addNoticeBoard}" class="genric-btn primary" >글쓰기</a></div>
 			</div>
 		</div>
 		<nav class="blog-pagination justify-content-center d-flex">
