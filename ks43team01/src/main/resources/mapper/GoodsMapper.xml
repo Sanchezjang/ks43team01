@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ks43team01.mapper.ProfitAndLossMapper">
+<mapper namespace="ks43team01.mapper.GoodsMapper">
 
 	<resultMap type="Goods" id="GoodsResultMap" >
 			<association property="goodsBasicInfo" javaType="GoodsBasicInfo">
@@ -59,14 +59,26 @@
 			</association>
 	</resultMap>
 		
-	<select id="getUserGoodsList" resultType="Goods">
-		/*상품리스트조회 */
-		select
-			userIdCode
-			,goodsName
-			,goodsDescription
-		from
-			tb_g_goods_basic_info;
-		
+	<select id="getUserGoodsList" resultMap="GoodsResultMap">
+		SELECT
+   gi.goods_image_reg,
+   gbi.goods_name,
+   gps.goods_price,
+   gr.user_id_code
+FROM
+   tb_g_goods_reg AS gr
+   INNER JOIN
+   tb_g_goods_basic_info AS gbi
+   ON
+   gr.goods_basic_info_code = gbi.goods_basic_info_code
+   INNER JOIN
+   tb_g_goods_price_setting AS gps
+   ON
+   gr.goods_price_setting_code = gps.goods_price_setting_code
+   INNER JOIN
+   tb_g_goods_image AS gi
+   ON
+   gr.goods_image_code = gi.goods_image_code
+	
 	</select>
 </mapper> 

@@ -8,12 +8,35 @@ public class Goods {
 	private GoodsRequest goodsRequest;
 	private GoodsSubCategory goodsSubCategory;
 	private GoodsTopCategory goodsTopCategory;
+	GoodsBasicInfo goodsBasicInfo1;
 	
+	public GoodsBasicInfo getGoodsBasicInfo1() {
+		return goodsBasicInfo1;
+	}
+	public void setGoodsBasicInfo1(GoodsBasicInfo goodsBasicInfo1) {
+		this.goodsBasicInfo1 = goodsBasicInfo1;
+	}
 	@Override
 	public String toString() {
-		return "Goods [goodsBasicInfo=" + goodsBasicInfo + ", goodsImage=" + goodsImage + ", goodsPriceSetting="
-				+ goodsPriceSetting + ", goodsReg=" + goodsReg + ", goodsRequest=" + goodsRequest
-				+ ", goodsSubCategory=" + goodsSubCategory + ", goodsTopCategory=" + goodsTopCategory + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Goods [goodsBasicInfo=");
+		builder.append(goodsBasicInfo);
+		builder.append(", goodsImage=");
+		builder.append(goodsImage);
+		builder.append(", goodsPriceSetting=");
+		builder.append(goodsPriceSetting);
+		builder.append(", goodsReg=");
+		builder.append(goodsReg);
+		builder.append(", goodsRequest=");
+		builder.append(goodsRequest);
+		builder.append(", goodsSubCategory=");
+		builder.append(goodsSubCategory);
+		builder.append(", goodsTopCategory=");
+		builder.append(goodsTopCategory);
+		builder.append(", goodsBasicInfo1=");
+		builder.append(goodsBasicInfo1);
+		builder.append("]");
+		return builder.toString();
 	}
 	public GoodsBasicInfo getGoodsBasicInfo() {
 		return goodsBasicInfo;
