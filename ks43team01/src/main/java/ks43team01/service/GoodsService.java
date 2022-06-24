@@ -13,23 +13,7 @@ import ks43team01.mapper.GoodsMapper;
 public class GoodsService {
 	
 	// DI (의존성 주입) 
-	// 1. 필드주입방식
-	/* 
-		@Autowired
-		private MemberMapper memberMapper;
-	 */
-	
-	// 2. setter 메서드 주입방식 
-	/*
-		@Autowired
-		private MemberMapper memberMapper;
-		
-		public void setMemberMapper(MemberMapper memberMapper) {
-			this.memberMapper = memberMapper;
-		}
-	 */
-	
-	// 3. 생성자 메서드 주입방식 
+
 	private final GoodsMapper goodsMapper;
 	
 	public GoodsService(GoodsMapper goodsMapper) {
@@ -37,7 +21,7 @@ public class GoodsService {
 	}
 
 	/*
-	 * 지출내역조회
+	 * 상품리스트조회
 	 * */
 	public List<Goods> getUserGoodsList(){
 		
