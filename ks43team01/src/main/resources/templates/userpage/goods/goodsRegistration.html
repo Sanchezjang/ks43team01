@@ -86,7 +86,17 @@ layout:decorate="~{userpage/layout/userdefault}">
 	.goods{
 		border-bottom: 1px solid grey;
 	}
+	.select1{
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
+	.btn-lg{
+		text-align: center;
+		margin-top: 20px;
+	}
 	</style>
+	
+			<div style=" margin-left: 220px;">
 	<div class="x_panel">
 		<div class="x_title">
 			<h2>상품(서비스)등록</h2>
@@ -99,22 +109,22 @@ layout:decorate="~{userpage/layout/userdefault}">
 
 		<!-- start form for validation -->
 	<form id="demo-form" data-parsley-validate>
-		<div class="orderer">
+		<div class="orderer form-group">
 			<div class="form-group">	
-								<label for="expertBusinessField" class="col-12">비지니스 분야</label>
-								<select id="expertBusinessField" name="expertBusinessField" class="wide col-6">
-	           	 				<option value="">: : : : : 1차카테고리 : : : : </option>
-	         	 						<th:block th:if="${not #lists.isEmpty(topcategory)}" th:each="g : ${topcategory}">
-	        	 							<option th:value="${g.goodsTopCategoryCode}">[[${g.goodsTopCategoryName}]]</option>
-	          	 					</th:block>
-	         	 						<th:block th:unless="${not #lists.isEmpty(topcategory)}">
-	         	 						<option value="">등록된 카테고리가 없습니다</option>
-	           	 				</th:block>
-	         						</select>
+				<label for="expertBusinessField" class="col-12 mainExplanation">비지니스 분야</label>
+				<select id="expertBusinessField" name="expertBusinessField" class="wide col-6 select1">
+					<option value="">: : : : : 1차카테고리 : : : : </option>
+					<th:block th:if="${not #lists.isEmpty(topcategory)}" th:each="g : ${topcategory}">
+						<option th:value="${g.goodsTopCategoryCode}">[[${g.goodsTopCategoryName}]]</option>
+					</th:block>
+					<th:block th:unless="${not #lists.isEmpty(topcategory)}">
+						<option value="">등록된 카테고리가 없습니다</option>
+					</th:block>
+				</select>
 				</div>
 				<div class="form-group">    
-				    <label for="expertDetailedBusiness" class="col-12">상세분야</label>
-				    <select id="expertDetailedBusiness" name="expertDetailedBusiness" class="wide col-6" >
+				    <label for="expertDetailedBusiness" class="col-12 mainExplanation">상세분야</label>
+				    <select id="expertDetailedBusiness" name="expertDetailedBusiness" class="wide col-6 select1" >
 	        	 							<option value="">: : : : 2차카테고리 : : : : </option>
 	         						</select>
 		  		</div>
@@ -125,7 +135,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 			</div>
 			<div class="col-6 goods">
 				<label for="goodsDescription" class="mainExplanation">서비스설명</label>
-				<textarea class="form-control col-6" rows="5" cols="5" name="goodsDescription" id="goodsDescription">여기에 상품(서비스)의 상세 설명을 적어주세요^^</textarea>
+				<textarea class="form-control col-6" rows="5" cols="5" name="goodsDescription" id="goodsDescription" placeholder="여기에 상품(서비스)의 상세 설명을 적어주세요^^"></textarea>
 			</div>
 			<div class="col-6 goods">
 				<label for="goodsImg" class="mainExplanation">상품이미지</label>
@@ -138,19 +148,30 @@ layout:decorate="~{userpage/layout/userdefault}">
 				<div class="explanation">(원)단위로 적어주세요!</div>
 			</div>
 			<div class="col-6 goods">
-				<label for="goodsName" class="mainExplanation">작업기간</label>
-					<input type="text" id="goodsName" class="form-control col-6" name="goodsName" required />
+				<label for="goodsWork" class="mainExplanation">작업기간</label>
+					<input type="text" id="goodsWork" class="form-control col-6" name="goodsWork" required />
 				<div class="explanation">(개월)단위로 적어주세요!</div>
 			</div>
-		</div>
+			<div class="col-6 goods">
+				<label for="goodsName" class="mainExplanation col-11" >수정가능횟수</label>
+					<select class="form-control col-6">
+						<option value="1">1회</option>
+						<option value="2">2회</option>
+						<option value="3">3회</option>
+						<option value="4">4회</option>
+						<option value="5">5회</option>
+					</select>
+				<div class="explanation">작업결과물에 대한 수정제한 횟수를 입력해주세요!</div>
+			</div>
 			<div class="totalOrder">
-				<a href="#" class="genric-btn primary">이미지</a>
+				<a href="#" class="genric-btn primary btn-sm">등록완료</a>
+			</div>
 			</div>
 			</form>
+		</div>
 		
 		<!-- end form for validations -->
 	</div>
-</div>
 </div>
 
 	
