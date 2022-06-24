@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks43team01.dto.ReviewContentsReg;
 import ks43team01.service.ReviewService;
@@ -28,23 +30,37 @@ public class UserReviewController {
 	public UserReviewController(ReviewService reviewService) {
 		this.reviewService = reviewService;
 	}
-	
-	/* 리뷰 수정 */
+	/* 리뷰 수정 (post)*/
 	@PostMapping("/modifyReview")
-	public String modifyReview(ReviewContentsReg reviewContentsReg) {
-		
+	public String modifyReview(ReviewContentsReg reviewContentsReg
+							  ,RedirectAttributes reAttr) {
+		log.info("reviewContentsReg: {}", reviewContentsReg);
+ 
 		reviewService.modifyReview(reviewContentsReg);
+		String reviewCode = reviewContentsReg.getReviewCode();
+		reAttr.addAttribute("reviewCode", reviewCode);
+		return "redirect:/userpage/reviewUser/reviewDetail";
+	}
+	
+	/* 리뷰 수정 (get)*/
+	@GetMapping("/modifyReview")
+	public String modifyReview(@RequestParam(value="reviewCode", required= false)String reviewCode
+							  ,Model model) {
 		
-		return "redirect:/userpage/reviewUser/reviewUserList";
+		ReviewContentsReg reviewContentsReg = reviewService.getReviewByCode(reviewCode);
+		
+		model.addAttribute("reviewContentsReg",reviewContentsReg);
+		
+		return "userpage/reviewUser/modifyReview";
 	}
 	
 	/* 리뷰 삭제  */
-	@PostMapping("/removeReview")
-	public String removeReview(String reviewCode) {
+	@GetMapping("/removeReview")
+	public String removeReview(@RequestParam(value= "reviewCode")String reviewCode) {
 		log.info("나가는 값:{}" ,"test");
 		reviewService.removeReview(reviewCode);
 		
-		return "/userpage/reviewUser/reviewUserList";
+		return "redirect:/userpage/reviewUser/reviewUserList";
 	}	
 	
 	/* 유저화면 리뷰 상세 페이지 */

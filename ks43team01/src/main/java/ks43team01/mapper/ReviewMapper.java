@@ -11,7 +11,9 @@ import ks43team01.dto.ReviewContentsReg;
 @Mapper
 public interface ReviewMapper {
 	
-	/* 리뷰 수정 */
+	
+	
+	/* 리뷰 수정 처리 */
 	public int modifyReview(ReviewContentsReg reviewContentsReg);
 	
 	/* 리뷰 삭제 */
