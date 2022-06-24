@@ -60,7 +60,13 @@
 	</resultMap>
 		
 	<select id="getUserGoodsList" resultType="Goods">
-		/* 매출 내역 리스트 조회 */
+		/*상품리스트조회 */
+		select
+			userIdCode
+			,goodsName
+			,goodsDescription
+		from
+			tb_g_goods_basic_info;
 		
 	</select>
 </mapper> 
