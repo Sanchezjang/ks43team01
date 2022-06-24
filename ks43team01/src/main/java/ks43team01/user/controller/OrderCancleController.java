@@ -23,13 +23,11 @@ public class OrderCancleController {
 		this.goodsRegService = goodsRegService;
 	}
 	
-	
-	@GetMapping("/orderCancle")
-	public String oderCancle(Model model) {
-	List<GoodsReg> goodsReg = goodsRegService.orderCancle();
-	model.addAttribute("goodsReg", goodsReg);
-	log.info("goodsReg  :  {}",goodsReg);
-		return "redirect:/";
-	}
+	/*
+	 * @GetMapping("/orderCancle") public String oderCancle(Model model) {
+	 * List<GoodsReg> goodsReg = goodsRegService.orderCancle();
+	 * model.addAttribute("goodsReg", goodsReg);
+	 * log.info("goodsReg  :  {}",goodsReg); return "redirect:/"; }
+	 */
 	
 }
