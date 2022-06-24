@@ -149,13 +149,13 @@
 			review_code = #{reviewCode};
 	</delete>
 	
-	<update id="modifyReview" parameterType="ReviewContentsReg">
+	<update id="modifyReview" parameterType="String">
 	/* 리뷰 수정 */
 		UPDATE
 			tb_r_review_contents 
 		SET 
 			review_content = #{reviewContent}
-		    review_reg_date = CURDATE()
+		   ,review_reg_date = CURDATE()	
 		WHERE
 			review_code = #{reviewCode};
 	</update>
