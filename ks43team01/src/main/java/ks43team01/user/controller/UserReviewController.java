@@ -83,13 +83,13 @@ public class UserReviewController {
 		
 		String ip = (String)request.getRemoteAddr();
 		String userIdCode =(String) session.getAttribute("UID");
-		String goodsBasicInfoCode = (String)session.getAttribute("GoodsBasicInfoCode");
+		String goodsCode = (String)session.getAttribute("GoodsCode");
 		reviewContentsReg.setReviewRegIp(ip);
 		reviewContentsReg.setUserIdCode(userIdCode);
-		reviewContentsReg.setGoodsBasicInfoCode(goodsBasicInfoCode);
+		reviewContentsReg.setGoodsCode(goodsCode);
 		log.info("아이피 가저오는지   :  {}",ip);
 		log.info("아이디 값 가져오는지 : {}", userIdCode);
-		log.info("상품기본정보 값 가져오는지 : {}", goodsBasicInfoCode);
+		log.info("상품기본정보 값 가져오는지 : {}", goodsCode);
 		log.info("들어오는 값 :{} ", reviewContentsReg);
 		reviewService.addReview(reviewContentsReg);
 		reviewService.reviewSavePoint(userIdCode);
