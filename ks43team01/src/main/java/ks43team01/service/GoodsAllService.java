@@ -62,4 +62,28 @@ public class GoodsAllService {
 		return goodsTopCategoryList;
 	}
 	
+	/*
+	 * 상품 하위 카테고리 등록
+	 * */
+	public int addGoodsSubCategory(String sessionId, GoodsSubCategory goodsSubCategory) {
+		
+		goodsSubCategory.setUserIdCode(sessionId);
+		
+		int result = goodsAllMapper.addGoodsSubCategory(goodsSubCategory);
+		
+		return result;
+	}
+	
+	/*
+	 * 상품 상위 카테고리 등록
+	 * */
+	public int addGoodsTopCategory(String sessionId, GoodsTopCategory goodsTopCategory) {
+		
+		goodsTopCategory.setUserIdCode(sessionId);
+		
+		int result = goodsAllMapper.addGoodsTopCategory(goodsTopCategory);
+		
+		return result;
+	}
+	
 }
