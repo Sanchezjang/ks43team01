@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ks43team01.dto.Point;
+import ks43team01.dto.PointSaveByGrade;
 import ks43team01.dto.PointStandard;
 import ks43team01.dto.PointStandardDetails;
 import ks43team01.mapper.PointMapper;
@@ -16,13 +17,20 @@ import ks43team01.mapper.PointMapper;
 @Transactional
 public class PointService {
 	private final PointMapper pointMapper;
+
+	private static final Logger log = LoggerFactory.getLogger(PointService.class);
 	
 	public PointService(PointMapper pointMapper) {
 		this.pointMapper = pointMapper;
 
 	}
-	
-	private static final Logger log = LoggerFactory.getLogger(PointService.class);
+	/* 관리자 페이지 포인트 기준 조회 */
+	public List<PointSaveByGrade> getPointGradeList(){
+		
+		List<PointSaveByGrade> pointGradeList = pointMapper.getPointGradeList();
+		
+		return pointGradeList;
+	}
 
 	/* 관리자 페이지 회원 포인트 삭제 */
 	public int removePoint(String pointDetailsCode) {
