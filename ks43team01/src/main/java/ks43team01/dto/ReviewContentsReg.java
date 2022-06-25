@@ -2,7 +2,7 @@ package ks43team01.dto;
 
 public class ReviewContentsReg {
 	private String reviewCode;
-	private String goodsBasicInfoCode;
+	private String goodsCode;
 	private String userIdCode;
 	private String reviewScoreStandardCode;
 	private String reviewContent;
@@ -13,22 +13,20 @@ public class ReviewContentsReg {
 	private String reviewRegIp;
 	private String reviewStarScore;
 	
-	private GoodsBasicInfo goodsBasicInfo;
+	private Goods goods;
 	private ReviewByScore scoreByReview; 
 	private User user;
 	private PointSaveByReview pointSaveByReview;
 	
-	
-	
 	@Override
 	public String toString() {
-		return "ReviewContentsReg [reviewCode=" + reviewCode + ", goodsBasicInfoCode=" + goodsBasicInfoCode
-				+ ", userIdCode=" + userIdCode + ", reviewScoreStandardCode=" + reviewScoreStandardCode
-				+ ", reviewContent=" + reviewContent + ", reviewRecommendationsCount=" + reviewRecommendationsCount
-				+ ", reviewDecommendationsCount=" + reviewDecommendationsCount + ", reviewRegDate=" + reviewRegDate
-				+ ", reviewRegBuyerExp=" + reviewRegBuyerExp + ", reviewRegIp=" + reviewRegIp + ", reviewStarScore="
-				+ reviewStarScore + ", goodsBasicInfo=" + goodsBasicInfo + ", scoreByReview=" + scoreByReview
-				+ ", user=" + user + ", pointSaveByReview=" + pointSaveByReview + "]";
+		return "ReviewContentsReg [reviewCode=" + reviewCode + ", goodsCode=" + goodsCode + ", userIdCode=" + userIdCode
+				+ ", reviewScoreStandardCode=" + reviewScoreStandardCode + ", reviewContent=" + reviewContent
+				+ ", reviewRecommendationsCount=" + reviewRecommendationsCount + ", reviewDecommendationsCount="
+				+ reviewDecommendationsCount + ", reviewRegDate=" + reviewRegDate + ", reviewRegBuyerExp="
+				+ reviewRegBuyerExp + ", reviewRegIp=" + reviewRegIp + ", reviewStarScore=" + reviewStarScore
+				+ ", goods=" + goods + ", scoreByReview=" + scoreByReview + ", user=" + user + ", pointSaveByReview="
+				+ pointSaveByReview + "]";
 	}
 	public String getReviewCode() {
 		return reviewCode;
@@ -36,11 +34,11 @@ public class ReviewContentsReg {
 	public void setReviewCode(String reviewCode) {
 		this.reviewCode = reviewCode;
 	}
-	public String getGoodsBasicInfoCode() {
-		return goodsBasicInfoCode;
+	public String getGoodsCode() {
+		return goodsCode;
 	}
-	public void setGoodsBasicInfoCode(String goodsBasicInfoCode) {
-		this.goodsBasicInfoCode = goodsBasicInfoCode;
+	public void setGoodsCode(String goodsCode) {
+		this.goodsCode = goodsCode;
 	}
 	public String getUserIdCode() {
 		return userIdCode;
@@ -96,11 +94,11 @@ public class ReviewContentsReg {
 	public void setReviewStarScore(String reviewStarScore) {
 		this.reviewStarScore = reviewStarScore;
 	}
-	public GoodsBasicInfo getGoodsBasicInfo() {
-		return goodsBasicInfo;
+	public Goods getGoods() {
+		return goods;
 	}
-	public void setGoodsBasicInfo(GoodsBasicInfo goodsBasicInfo) {
-		this.goodsBasicInfo = goodsBasicInfo;
+	public void setGoods(Goods goods) {
+		this.goods = goods;
 	}
 	public ReviewByScore getScoreByReview() {
 		return scoreByReview;
@@ -120,7 +118,4 @@ public class ReviewContentsReg {
 	public void setPointSaveByReview(PointSaveByReview pointSaveByReview) {
 		this.pointSaveByReview = pointSaveByReview;
 	}
-	
-	
-	
 }
