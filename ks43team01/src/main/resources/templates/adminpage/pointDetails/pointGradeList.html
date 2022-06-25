@@ -88,25 +88,20 @@
                       <thead>
                         <tr>
                           <th></th>
-                          <th>포인트적립날짜</th>
-                          <th>유저 아이디</th>
-                          <th>포인트기준</th>
-                          <th>포인트상세내용</th>
-                          <th>포인트 량</th>
-                          <th>수정</th>
-                          <th>삭제</th>
+                          <th>등급</th>
+                          <th>등급퍼센트</th>
+                          <th>포인트적립기준</th>
+                          
                         </tr>
                       </thead>
                        <tbody>
-                     <tr th:if="${not #lists.isEmpty(pointList)}" th:each="l:${pointList}">
+                     <tr th:if="${not #lists.isEmpty(pointGradeList)}" th:each="p:${pointGradeList}">
                      <td>
                         <input type="checkbox" id="check-all" >
                      </td>
-                     	<td th:text="${l.pointHistoryRegDate}"></td>
-                        <td th:text="${l.userIdCode}"></td>
-		                <td th:text="${l.pointStandardName}"></td>
-		                <td th:text="${l.pointStandardDetailsName}"></td>
-              			<td th:text="${l.pointAmount}"></td>
+                     	<td th:text="${p.gradeName}"></td>
+                        <td th:text="${p.pointSaveByGradePercent}"></td>
+		                <td th:text="${p.pointSaveByGradeUnit}"></td>
               			<td></td>
               			<td></td>
                      </tr>

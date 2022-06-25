@@ -54,9 +54,9 @@
 	
 	<select id="getPointGradeList" resultType="Map">
 		SELECT
-			ur.grade_name						AS gradeName
-		   ,pb.point_save_by_grade_percent		AS pointSaveByGradePercent
-		   ,pb.point_save_by_grade_unit			AS pointSaveByGradeUnit
+			 ur.grade_name															AS gradeName
+		   ,CONCAT(SUBSTRING(pb.point_save_by_grade_percent,3,2),+'%')				AS pointSaveByGradePercent
+		   ,pb.point_save_by_grade_unit												AS pointSaveByGradeUnit
 		FROM
 		 	tb_pt_point_buy_save_by_grade AS pb
 		 	INNER join
