@@ -14,8 +14,7 @@ public class Point {
 	private PointStandard pointStandard;
 	private PointSaveByGrade PointSaveByGrade;
 	private User user;
-	
-	
+	private GradeUserCode gradeUserCode;
 	
 	@Override
 	public String toString() {
@@ -23,7 +22,15 @@ public class Point {
 				+ ", pointStandardDetailsCode=" + pointStandardDetailsCode + ", pointAmount=" + pointAmount
 				+ ", userEmail=" + userEmail + ", pointHistoryRegDate=" + pointHistoryRegDate + ", pointDetailsCode="
 				+ pointDetailsCode + ", pointStandardDetails=" + pointStandardDetails + ", pointStandard="
-				+ pointStandard + ", PointSaveByGrade=" + PointSaveByGrade + ", user=" + user + "]";
+				+ pointStandard + ", PointSaveByGrade=" + PointSaveByGrade + ", user=" + user + ", gradeUserCode="
+				+ gradeUserCode + ", getUserIdCode()=" + getUserIdCode() + ", getPointStandardCode()="
+				+ getPointStandardCode() + ", getPointStandardDetailsCode()=" + getPointStandardDetailsCode()
+				+ ", getPointAmount()=" + getPointAmount() + ", getUserEmail()=" + getUserEmail()
+				+ ", getPointHistoryRegDate()=" + getPointHistoryRegDate() + ", getPointDetailsCode()="
+				+ getPointDetailsCode() + ", getPointStandardDetails()=" + getPointStandardDetails()
+				+ ", getPointStandard()=" + getPointStandard() + ", getPointSaveByGrade()=" + getPointSaveByGrade()
+				+ ", getUser()=" + getUser() + ", getGradeUserCode()=" + getGradeUserCode() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 	public String getUserIdCode() {
 		return userIdCode;
@@ -90,6 +97,12 @@ public class Point {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public GradeUserCode getGradeUserCode() {
+		return gradeUserCode;
+	}
+	public void setGradeUserCode(GradeUserCode gradeUserCode) {
+		this.gradeUserCode = gradeUserCode;
 	}
 	
 	
