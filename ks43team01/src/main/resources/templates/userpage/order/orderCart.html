@@ -67,6 +67,7 @@ layout:decorate="~{userpage/layout/userdefault}">
     						</div>
   						</div>
   						<div class="col-9">
+    						<th:block th:if="${not #lists.isEmpty(orderCartList)}" th:each="o : ${orderCartList}">
     						<div class="tab-content" id="v-pills-tabContent" style="margin-bottom: 10px;">
       							<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
 									<div class="row" style="border-bottom: 1px solid grey;">
@@ -76,26 +77,26 @@ layout:decorate="~{userpage/layout/userdefault}">
 										</div>
 									</div>
 									<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
-											<p>자바스트립트!!!</p>
-											<i>500,000원</i>
-											<i>2022.03.01</i>
-											<p>깔끔한작업!!</p>
+											<input type="hidden" th:value="${o.goodsCode}">
+											<p th:text="${o.goodsName}"></p>
+											<i th:text="${o.goodsPrice+'원'}"></i>
+											<p th:text="${o.goodsDetails}"></p>
 									</div>
 									<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
 										<div class="col-12" style="display: inline-block;">
-											<p class="">잡스모바일</p>
-											<p>010-1111-2222</p>
+											<p th:text="${o.sellerIdCode}"></p>
+											<p th:text="${o.sellerPhoneNumber}"></p>
 										</div>
 									</div>
 									<div class="col-xs-6 col-sm-3" style="text-align:center;  width: 25%;" >
 										<div class="col-12" style="display: inline-block; justify-content: center;margin-top:20%;">
-											<a href="#" class="btn-warning btn-sm" style="display: center;">삭제하기</a>
+											<a th:href="@{removeOrderCart}" class="btn-warning btn-sm" style="display: center;">삭제하기</a>
 										</div>
 									</div>
 									</div>
 									</div>
-									
-									</div>
+								</div>
+								</th:block>
 								<button id="iamportPayment" onclick="requestPay()" class="btn-primary btn-lg" style="float: right;">결제하기</button>
 								</div>
 							</div>

@@ -4,22 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="ks43team01.mapper.GoodsReg">
 
-	  <resultMap type="ks43team01.dto.GoodsReg" id="GoodsReg">
-	  		<id column="goods_code" property="goodsBasicInfoCode"/>
-	  		<result column="goods_basic_info_code" property="goodsPriceSettingCode"/>
-	  		<result column="goods_image_code" property="goodsImageCode"/>
-	  		<result column="goods_requests_code" property="goodsRequestsCode"/>
-	  		<result column="user_id_code" property="userIdCode"/>
-	  		<result column="goods_reg_date" property="goodsRegDate"/>
-  	</resultMap>
+		<resultMap type="ks43team01.dto.Goods" id="Goods">
+		<id 	column="goods_code"			property="goodsCode"/>
+		<result column="goods_sub_category_code" 		property="goodsSubCategoryCode"/>
+		<result column="goods_name" 			property="goodsName"/>
+		<result column="goods_description" 			property="goodsDescription"/>
+		<result column="goods_price" 			property="goodsPrice"/>
+		<result column="goods_working_period" 		property="goodsWorkingPeriod"/>
+		<result column="goods_modified_possibility_count"	property="goodsModifiedPossibilityCount"/>
+		<result column="goods_image_reg" 			property="goodsImageReg"/>
+		<result column="goods_pre_requests_answer_type" 	property="goodsPreRequestsAnswerType"/>
+		<result column="goods_pre_request" 			property="goodsPreRequest"/>
+		<result column="user_id_code" 			property="userIdCode"/>
+		<result column="goods_reg_date" 			property="goodsRegDate"/>
+	</resultMap>
 	  		
-	  <select id="orderCancle" resultMap="GoodsReg">
-	 	SELECT 
-			g.goods_code 
-		FROM 
-			tb_g_goods_reg as g
-		WHERE
-			g.user_id_code =#{userIdCode};
+	  <select id="">
 	 	
 	  </select>
   

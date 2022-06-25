@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">
+	 
+
+<!------ Include the above in your HEAD tag ---------->
+	<div layout:fragment="content">
+		<div class="slider-area">
+			<div class="slider-height2 d-flex align-items-center">
+				<div class="container">
+					<div class="ReviewRow">
+						<div class="col-xl-12">
+							<div class="hero-cap hero-cap2 text-center">
+								<h2>로그인</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<div class="container">
+		<div class="row">
+	        <div class="input-form col-md-6 mx-auto">
+				<h1 class="text-center login-title" id="mainfont" style="font-size: 25px;">로그인</h1>
+					<div class="account-wall">
+						<img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
+	                    alt="">
+						<form class="form-signin" th:action="@{login}" method="post">
+							<input name="userId" type="text" class="form-control" value="id001" placeholder="아이디" required autofocus>
+							<input name="userPw" type="password" class="form-control" value="pw001" placeholder="비밀번호" required>
+							<button class=" btn-lg btn-primary col-6" type="submit" style="margin-left: 70px;">
+								로그인
+							</button>
+							<label class="checkbox pull-left row">
+							<input type="checkbox"  class="pull-right need-help" value="remember-me">
+		                   		아이디저장
+		                	</label>
+							<a href="#" class="pull-right need-help row">비밀번호찾기</a><span class="clearfix"></span>
+						</form>
+					</div>
+					<a th:href="@{userjoin}" class="text-center new-account" style="color: black;font-size: 20px;">회원가입 </a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+

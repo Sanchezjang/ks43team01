@@ -1,0 +1,110 @@
+<!doctype html>
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org"
+ 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ 	layout:decorate="~{userpage/layout/userdefault}">
+ 	
+ 	<th:block layout:fragment="customScript">
+ 		<script>
+ 			
+ 		</script>
+	</th:block>
+	<!------ Include the above in your HEAD tag ---------->
+	<div layout:fragment="content">	
+			<style>
+			.row{
+				justify-content: center;
+			}
+		    body {
+		      font-size : 15px;
+		      min-height: 100vh;
+		
+		      background: -webkit-gradient(linear, left bottom, right top, from(#92b5db), to(#1d466c));
+		      background: -webkit-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
+		      background: -moz-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
+		      background: -o-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
+		      background: linear-gradient(to top right, #92b5db 0%, #1d466c 100%);
+		    }
+		
+		    .input-form {
+		      max-width: 680px;
+		
+		      margin-top: 80px;
+		      padding: 32px;
+		
+		      background: #fff;
+		      -webkit-border-radius: 10px;
+		      -moz-border-radius: 10px;
+		      border-radius: 10px;
+		      -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+		      -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+		      box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
+		    }
+		  </style>
+    <!-- Preloader Start -->
+		<div class="slider-area">
+			<div class="slider-height2 d-flex align-items-center">
+				<div class="container">
+					<div class="ReviewRow">
+						<div class="col-xl-12">
+							<div class="hero-cap hero-cap2 text-center">
+								<h2>학력사항</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="input-form-backgroud row">
+				<div class="input-form col-md-6 mx-auto">
+					<h4 class="mb-3" id="main">판매자학력사항</h4>
+						<form class="validation-form" novalidate id="addsellerForm" th:action="@{sellerComplete}" method="post">
+							<div class="row">
+								<div class="col-md-6 mb-4">
+					               <label for="userIdCode"></label>
+					               <input type="hidden" class="form-control" id="userIdCode" name="userIdCode" th:value="${session.UID}" readonly>
+		             			</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6 mb-3">
+									<label for="expertCompanyName">학교명</label><a class="btn btn-primary btn-sm boxButton" th:href="@{/nullSellerComplete}">학력해당없음</a>
+									<input type="text" id="expertSchoolName" class="form-control" name="expertSchoolName" placeholder="ex ) 졸업,졸업예정학교를 적어주세요"value=''>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6 mb-3">
+						            <label for="expertWorkDepartment">전공</label>
+						            <input type="text" id="expertMajor" class="form-control" name="expertMajor" placeholder="ex ) 전공을 적어주세요~!"value=''>
+		            			</div>
+		          			</div>
+							<div class="row">
+								<div class="col-md-6 mb-3">
+									<label for="expertPosition">학력최종상황</label>
+									<input type="text" id="expertFinalState" class="form-control" name="expertFinalState" placeholder="ex ) 졸업한 최종학력을 적어주세요"value=''>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6 mb-3">
+									<label for="expertAcademicDocument">학력증명사항첨부서류</label>
+									<div class="form-group fileUpload">
+									    <label for="exampleInputFile">파일업로드</label>
+									    <input type="file" name="expertAcademicDocument">
+									    <p class="help-block">반드시PDF파일로 변환하여 업로드해주세요!</p>
+									    <p class="help-block">학력증명서업로드를 권장합니다^^</p>
+									</div>
+								</div>
+							</div>
+							<div class="mb-4"></div>
+								<button class="btn btn-primary btn-lg btn-block" type="submit" >판매자가입완료!!</button>
+						</form>
+					</div>
+				</div>
+	    		<footer class="my-3 text-center text-small">
+	      			<p class="mb-1">&copy; 2022 </p>
+	    		</footer>
+			</div>
+		</div>
+ 
+
+
+
