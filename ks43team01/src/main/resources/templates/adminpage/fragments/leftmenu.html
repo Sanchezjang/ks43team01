@@ -38,15 +38,19 @@
 						<li><a th:href="@{/adminpage/user/sellerDetails}">!판매자사항테이블</a></li>
 					</ul>
 				</li>
-				<li><a><i class="fa fa-home"></i>!상품등록(장한진) <span class="fa fa-chevron-down"></span></a>
+				
+				<!-- 상품 -->
+				
+				<li><a><i class="fa fa-table"></i> !상품(장상혁) <span class="fa fa-chevron-down"></span></a>
 					<ul class="nav child_menu">
-						<li><a th:href="@{/adminpage/goods/userList}">등록상품총목록</a></li>
-						<li><a th:href="@{/adminpage/user/userLogDate}">회원로그인이력테이블</a></li>
-						<li><a th:href="@{/adminpage/user/userAgreeDetails}">!동의약관생성테이블</a></li>
-						<li><a th:href="@{/adminpage/user/userAgreeCheck}">!동의내역테이블</a></li>
-						<li><a th:href="@{/adminpage/user/sellerDetails}">!판매자사항테이블</a></li>
+						<li><a th:href="@{/adminpage/goods/goodsList}">!상품 리스트</a></li>
+						<li><a th:href="@{/adminpage/goods/addGoodsTopCategory}">!상품 상위 카테고리 등록</a></li>
+						<li><a th:href="@{/adminpage/goods/addGoodsSubCategory}">!상품 하위 카테고리 등록</a></li>
+						<li><a th:href="@{/adminpage/goods/goodsTopCategoryList}">!상품 상위 카테고리 리스트</a></li>
+						<li><a th:href="@{/adminpage/goods/goodsSubCategoryList}">!상품 하위 카테고리 리스트</a></li>
 					</ul>
 				</li>
+                
 				<!-- 환불및취소관리 -->
 			
 				<li><a><i class="fa fa-table"></i>!환불및취소관리(장한진)<span class="fa fa-chevron-down"></span></a>

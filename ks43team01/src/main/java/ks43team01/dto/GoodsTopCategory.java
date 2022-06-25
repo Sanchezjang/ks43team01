@@ -2,30 +2,16 @@ package ks43team01.dto;
 
 public class GoodsTopCategory {
 
-	private String	goodsTopCategoryName; 
 	private String	goodsTopCategoryCode; 
+	private String	goodsTopCategoryName; 
 	private String	userIdCode; 
 	private String	goodsTopCategoryRegDate;
 	
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("goodsTopCategory [goodsTopCategoryName=");
-		builder.append(goodsTopCategoryName);
-		builder.append(", goodsTopCategoryCode=");
-		builder.append(goodsTopCategoryCode);
-		builder.append(", userIdCode=");
-		builder.append(userIdCode);
-		builder.append(", goodsTopCategoryRegDate=");
-		builder.append(goodsTopCategoryRegDate);
-		builder.append("]");
-		return builder.toString();
-	}
-	public String getGoodsTopCategoryName() {
-		return goodsTopCategoryName;
-	}
-	public void setGoodsTopCategoryName(String goodsTopCategoryName) {
-		this.goodsTopCategoryName = goodsTopCategoryName;
+		return "GoodsTopCategory [goodsTopCategoryCode=" + goodsTopCategoryCode + ", goodsTopCategoryName="
+				+ goodsTopCategoryName + ", userIdCode=" + userIdCode + ", goodsTopCategoryRegDate="
+				+ goodsTopCategoryRegDate + "]";
 	}
 	public String getGoodsTopCategoryCode() {
 		return goodsTopCategoryCode;
@@ -33,11 +19,17 @@ public class GoodsTopCategory {
 	public void setGoodsTopCategoryCode(String goodsTopCategoryCode) {
 		this.goodsTopCategoryCode = goodsTopCategoryCode;
 	}
-	public String getUserIdocde() {
+	public String getGoodsTopCategoryName() {
+		return goodsTopCategoryName;
+	}
+	public void setGoodsTopCategoryName(String goodsTopCategoryName) {
+		this.goodsTopCategoryName = goodsTopCategoryName;
+	}
+	public String getUserIdCode() {
 		return userIdCode;
 	}
-	public void setUserIdocde(String userIdocde) {
-		this.userIdCode = userIdocde;
+	public void setUserIdCode(String userIdCode) {
+		this.userIdCode = userIdCode;
 	}
 	public String getGoodsTopCategoryRegDate() {
 		return goodsTopCategoryRegDate;
@@ -45,9 +37,4 @@ public class GoodsTopCategory {
 	public void setGoodsTopCategoryRegDate(String goodsTopCategoryRegDate) {
 		this.goodsTopCategoryRegDate = goodsTopCategoryRegDate;
 	}
-	
-	
-	
-	
-	
 }

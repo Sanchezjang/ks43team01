@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks43team01.mapper.GoodsAllMapper">
+
+	<resultMap type="GoodsAll" id="GoodsAllResultMap" >
+		<association property="goods" javaType="Goods">		
+			<id 	column="goods_code"							property="goodsCode"/>
+			<result column="goods_sub_category_code" 			property="goodsSubCategoryCode"/>
+			<result column="goods_name" 						property="goodsName"/>
+			<result column="goods_description" 					property="goodsDescription"/>
+			<result column="goods_price" 						property="goodsPrice"/>
+			<result column="goods_working_period" 				property="goodsWorkingPeriod"/>
+			<result column="goods_modified_possibility_count"	property="goodsModifiedPossibilityCount"/>
+			<result column="goods_image_reg" 					property="goodsImageReg"/>
+			<result column="user_id_code" 						property="userIdCode"/>
+			<result column="goods_reg_date" 					property="goodsRegDate"/>
+		</association>
+		<association property="goodsTopCategory" javaType="GoodsTopCategory">
+			<id 	column="goods_top_category_code"		property="goodsTopCategoryCode"/>
+			<result column="goods_top_category_name" 		property="goodsTopCategoryName"/>
+			<result column="user_id_code" 					property="userIdCode"/>
+			<result column="goods_top_category_reg_date"	property="goodsTopCategoryRegDate"/>
+		</association>
+		<association property="goodsSubCategory" javaType="GoodsSubCategory">
+			<id 	column="goods_sub_category_code"		property="goodsSubCategoryCode"/>
+			<result column="goods_top_category_code" 		property="goodsTopCategoryCode"/>
+			<result column="goods_top_category_name" 		property="goodsTopCategoryName"/>
+			<result column="goods_sub_category_name"		property="goodsSubCategoryName"/>
+			<result column="user_id_code"					property="userIdCode"/>
+			<result column="goods_sub_category_reg_date"	property="goodsSubCategoryRegDate"/>
+		</association>
+	</resultMap>
+		
+	<select id="getUserGoodsList" resultType="Goods">
+		/* 사용자화면 상품리스트 */
+		SELECT
+			g.user_id_code		AS userIdCode,
+			g.goods_name 		AS goodsName,
+			g.goods_image_reg	AS goodsImageReg,
+			g.goods_price 		AS goodsPrice
+		FROM
+			tb_g_goods AS g
+	</select>
+	
+	<insert id="addGoods" parameterType="Goods">
+		/* 상품 등록 */
+		
+	</insert>
+	
+	<select id="getGoodsSubCategoryList" resultType="GoodsSubCategory">
+		/* 상품 하위 카테고리 리스트 조회 */
+		SELECT
+			g.goods_sub_category_code 		AS goodsSubCategoryCode,
+			g.goods_top_category_code 		AS goodsTopCategoryCode,
+			g.goods_top_category_name 		AS goodsTopCategoryName,
+			g.goods_sub_category_name		AS goodsSubCategoryName,
+			g.user_id_code					AS userIdCode,
+			g.goods_sub_category_reg_date	AS goodsSubCategoryRegDate
+		FROM
+			tb_g_goods_sub_category AS g;
+	</select>
+	
+	<select id="getGoodsTopCategoryList" resultType="GoodsTopCategory">
+		/* 상품 상위 카테고리 리스트 조회 */
+		SELECT
+			g.goods_top_category_code 		AS goodsTopCategoryCode,
+			g.goods_top_category_name 		AS goodsTopCategoryName,
+			g.user_id_code 					AS userIdCode,
+			g.goods_top_category_reg_date	AS goodsTopCategoryRegDate
+		FROM
+			tb_g_goods_top_category AS g;
+	</select>
+	
+	
+	
+</mapper> 
