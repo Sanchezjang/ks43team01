@@ -8,23 +8,13 @@ public class GoodsSubCategory {
 	private String goodsSubCategoryName;
 	private String userIdCode;
 	private String goodsSubCategoryRegDate;
+	
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("goodsSubCategory [goodsSubCategoryCode=");
-		builder.append(goodsSubCategoryCode);
-		builder.append(", goodsTopCategoryCode=");
-		builder.append(goodsTopCategoryCode);
-		builder.append(", goodsTopCategoryName=");
-		builder.append(goodsTopCategoryName);
-		builder.append(", goodsSubCategoryName=");
-		builder.append(goodsSubCategoryName);
-		builder.append(", userIdCode=");
-		builder.append(userIdCode);
-		builder.append(", goodsSubCategoryRegDate=");
-		builder.append(goodsSubCategoryRegDate);
-		builder.append("]");
-		return builder.toString();
+		return "GoodsSubCategory [goodsSubCategoryCode=" + goodsSubCategoryCode + ", goodsTopCategoryCode="
+				+ goodsTopCategoryCode + ", goodsTopCategoryName=" + goodsTopCategoryName + ", goodsSubCategoryName="
+				+ goodsSubCategoryName + ", userIdCode=" + userIdCode + ", goodsSubCategoryRegDate="
+				+ goodsSubCategoryRegDate + "]";
 	}
 	public String getGoodsSubCategoryCode() {
 		return goodsSubCategoryCode;
@@ -62,5 +52,4 @@ public class GoodsSubCategory {
 	public void setGoodsSubCategoryRegDate(String goodsSubCategoryRegDate) {
 		this.goodsSubCategoryRegDate = goodsSubCategoryRegDate;
 	}
-	
 }

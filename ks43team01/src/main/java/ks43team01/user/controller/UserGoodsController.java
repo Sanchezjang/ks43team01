@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ks43team01.dto.Goods;
-import ks43team01.service.GoodsService;
+import ks43team01.service.GoodsAllService;
 
 @Controller
 @RequestMapping("/userpage/goods")
@@ -22,9 +22,9 @@ public class UserGoodsController {
 	
 	private static final Logger log = LoggerFactory.getLogger(UserGoodsController.class);
 	
-	public final GoodsService goodsService;
+	public final GoodsAllService goodsService;
 	
-	public UserGoodsController(GoodsService goodsService) {
+	public UserGoodsController(GoodsAllService goodsService) {
 		this.goodsService = goodsService;
 	}
 	
@@ -39,7 +39,7 @@ public class UserGoodsController {
 		return "userpage/goods/userGoodsList";
 	}
 	
-	//매출 등록
+	//상품 등록
 	@PostMapping("/addGoods")
 	public String addGoods(HttpSession session
 			,Goods goods
@@ -53,7 +53,7 @@ public class UserGoodsController {
 		return "redirect:/userpage/goods/userGoodsList";
 	}
 	
-	//매출 등록
+	//상품 등록
 	@GetMapping("/addGoods")
 	public String addGoods(Model model) {
 		

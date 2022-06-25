@@ -108,7 +108,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 		</div>
 
 		<!-- start form for validation -->
-	<form id="demo-form" data-parsley-validate>
+	<form th:action="@{/userpage/goods/addGoods}" method="post" id="demo-form" data-parsley-validate>
 		<div class="orderer form-group">
 			<div class="form-group">	
 				<label for="expertBusinessField" class="col-12 mainExplanation">비지니스 분야</label>
@@ -138,11 +138,6 @@ layout:decorate="~{userpage/layout/userdefault}">
 				<textarea class="form-control col-6" rows="5" cols="5" name="goodsDescription" id="goodsDescription" placeholder="여기에 상품(서비스)의 상세 설명을 적어주세요^^"></textarea>
 			</div>
 			<div class="col-6 goods">
-				<label for="goodsImg" class="mainExplanation">상품이미지</label>
-					<input type="file" id="goodsImg" class="form-control col-6" name="goodsImg" required />
-				<div class="explanation">상품서비스의 이미지를 업로드해주세요!(jpg,png파일 업로드)</div>
-			</div>
-			<div class="col-6 goods">
 				<label for="goodsPrice" class="mainExplanation">상품금액</label>
 					<input type="text" id="goodsPrice" class="form-control col-6" name="goodsPrice" required />
 				<div class="explanation">(원)단위로 적어주세요!</div>
@@ -162,6 +157,11 @@ layout:decorate="~{userpage/layout/userdefault}">
 						<option value="5">5회</option>
 					</select>
 				<div class="explanation">작업결과물에 대한 수정제한 횟수를 입력해주세요!</div>
+			</div>
+			<div class="col-6 goods">
+				<label for="goodsImg" class="mainExplanation">상품이미지</label>
+					<input type="file" id="goodsImg" class="form-control col-6" name="goodsImg" required />
+				<div class="explanation">상품서비스의 이미지를 업로드해주세요!(jpg,png파일 업로드)</div>
 			</div>
 			<div class="totalOrder">
 				<a href="#" class="genric-btn primary btn-sm">등록완료</a>
