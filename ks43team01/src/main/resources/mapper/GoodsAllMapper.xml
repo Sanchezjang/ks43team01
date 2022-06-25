@@ -73,6 +73,53 @@
 			tb_g_goods_top_category AS g;
 	</select>
 	
+	<insert id="addGoodsSubCategory" parameterType="GoodsAll">
+		/* 상품 하위 카테고리 등록 */
+		INSERT INTO tb_g_goods_sub_category
+		(
+			goods_sub_category_code,
+			goods_top_category_code,
+			goods_top_category_name,
+			goods_sub_category_name,
+			user_id_code,
+			goods_sub_category_reg_date
+		) VALUES (
+			(SELECT
+				CONCAT('sub_category_',MAX(CAST(SUBSTRING(g.goods_sub_category_code,14) AS UNSIGNED))+1)
+			 FROM
+				tb_g_goods_sub_category AS g)
+			,(
+			SELECT
+				g.goods_top_category_code
+			FROM
+				tb_g_goods_top_category AS g
+			WHERE
+				g.goods_top_category_name = #{goodsTopCategoryName}
+			)
+			,#{goodsTopCategoryName}
+			,#{goodsSubCategoryName}
+			,#{userIdCode}
+			,CURDATE()
+		);
+	</insert>
 	
+	<insert id="addGoodsTopCategory" parameterType="GoodsAll">
+		/* 상품 상위 카테고리 등록 */
+		INSERT INTO tb_g_goods_top_category
+		(
+			goods_top_category_code,
+			goods_top_category_name,
+			user_id_code,
+			goods_top_category_reg_date
+		) VALUES (
+			(SELECT
+				CONCAT('top_category_',MAX(CAST(SUBSTRING(g.goods_top_category_code,14) AS UNSIGNED))+1)
+			 FROM
+				tb_g_goods_top_category AS g)
+			,#{goodsTopCategoryName}
+			,#{userIdCode}
+			,CURDATE()
+		);
+	</insert>
 	
 </mapper> 

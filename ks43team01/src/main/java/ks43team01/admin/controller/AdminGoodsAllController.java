@@ -10,10 +10,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import ks43team01.dto.Account;
 import ks43team01.dto.GoodsSubCategory;
 import ks43team01.dto.GoodsTopCategory;
+import ks43team01.dto.Sales;
 import ks43team01.service.GoodsAllService;
 
 @Controller
@@ -52,5 +55,35 @@ public class AdminGoodsAllController {
 		
 		return "adminpage/goods/goodsTopCategoryList";
 	}
+	
+	//상품 카테고리 등록
+	@PostMapping("/addGoodsCategory")
+	public String addGoodsCategory(HttpSession session
+			,GoodsTopCategory goodsTopCategory
+			,GoodsSubCategory goodsSubCategory
+			,HttpServletRequest request) {
+		
+		//log.info("매출 등록 처리 sales : {}", sales);
+		String sessionId = (String) session.getAttribute("UID");
+		
+		goodsAllService.addGoodsTopCategory(sessionId, goodsTopCategory);
+		goodsAllService.addGoodsSubCategory(sessionId, goodsSubCategory);
 
+			return "redirect:/adminpage/goods/goodsTopCategoryList";
+
+	}
+
+	//상품 카테고리 등록
+	@GetMapping("/addGoodsCategory")
+	public String addGoodsCategory(Model model) {
+		
+		List<GoodsTopCategory> goodsTopCategoryList = goodsAllService.getGoodsTopCategoryList();
+		List<GoodsSubCategory> goodsSubCategoryList = goodsAllService.getGoodsSubCategoryList();
+		
+		model.addAttribute("goodsTopCategoryList", goodsTopCategoryList);
+		model.addAttribute("goodsSubCategoryList", goodsSubCategoryList);
+		
+		return "adminpage/goods/addGoodsCategory";
+	}
+	
 }
