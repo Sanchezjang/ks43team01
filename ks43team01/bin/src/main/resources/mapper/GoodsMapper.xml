@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks43team01.mapper.GoodsMapper">
+
+	<resultMap type="Goods" id="GoodsResultMap" >
+			<association property="goodsBasicInfo" javaType="GoodsBasicInfo">
+				<id 	column="goods_sub_category_code"	property="goodsSubCategoryCode"/>
+				<result column="goods_description" 			property="goodsDescription"/>
+				<result column="goods_name" 				property="goodsName"/>
+				<result column="user_id_code" 				property="userIdCode"/>
+				<result column="goods_basic_info_reg_date" 	property="goodsBasicInfoRegDate"/>
+				<result column="goods_basic_info_code" 		property="goodsBasicInfoCode"/>
+			</association>
+			<association property="goodsImage" javaType="GoodsImage">
+				<id 	column="goods_image_code"		property="goodsImageCode"/>
+				<result column="goods_image_reg" 		property="goodsImageReg"/>
+				<result column="user_id_code" 			property="userIdCode"/>
+				<result column="goods_image_reg_date" 	property="goodsImageRegDate"/>
+			</association>
+			<association property="goodsPriceSetting" javaType="GoodsPriceSetting">
+				<id 	column="goods_price_setting_code"			property="goodsPriceSettingCode"/>
+				<result column="goods_price" 						property="goodsPrice"/>
+				<result column="goods_working_period" 				property="goodsWorkingPeriod"/>
+				<result column="goods_modified_possibility_count"	property="goodsModifiedPossibilityCount"/>
+				<result column="user_id_code" 						property="userIdCode"/>
+				<result column="goods_price_setting_reg_date" 		property="goodsPriceSettingRegDate"/>
+			</association>
+			<association property="goodsReg" javaType="GoodsReg">
+				<id 	column="goods_code"					property="goodsCode"/>
+				<result column="goods_basic_info_code" 		property="goodsBasicInfoCode"/>
+				<result column="goods_price_setting_code" 	property="goodsPriceSettingCode"/>
+				<result column="goods_image_code" 			property="goodsImageCode"/>
+				<result column="goods_requests_code" 		property="goodsRequestsCode"/>
+				<result column="user_id_code" 				property="userIdCode"/>
+				<result column="goods_reg_date" 			property="goodsRegDate"/>
+			</association>
+			<association property="goodsRequest" javaType="GoodsRequest">
+				<id 	column="goods_requests_code"			property="goodsRequestsCode"/>
+				<result column="goods_pre_request" 				property="goodsPreRequest"/>
+				<result column="goods_pre_requests_answer_type" property="goodsPreRequestsAnswerType"/>
+				<result column="user_id_code" 					property="userIdCode"/>
+				<result column="goods_requests_reg_date" 		property="goodsRequestsRegDate"/>
+			</association>
+			<association property="goodsSubCategory" javaType="GoodsSubCategory">
+				<id 	column="goods_sub_category_code"		property="goodsSubCategoryCode"/>
+				<result column="goods_top_category_code" 		property="goodsTopCategoryCode"/>
+				<result column="goods_top_category_name" 		property="goodsTopCategoryName"/>
+				<result column="goods_sub_category_name" 		property="goodsSubCategoryName"/>
+				<result column="user_id_code" 					property="userIdCode"/>
+				<result column="goods_sub_category_reg_date"	property="goodsSubCategoryRegDate"/>
+			</association>
+			<association property="goodsTopCategory" javaType="GoodsTopCategory">
+				<id 	column="goods_top_category_code"		property="goodsTopCategoryCode"/>
+				<result column="goods_top_category_name" 		property="goodsTopCategoryName"/>
+				<result column="user_id_code" 					property="userIdCode"/>
+				<result column="goods_top_category_reg_date"	property="goodsTopCategoryRegDate"/>
+			</association>
+	</resultMap>
+		
+	<select id="getUserGoodsList" resultType="Map">
+		/* 사용자화면 상품리스트 */
+		SELECT
+		   gi.goods_image_reg AS goodsImageReg,
+		   gbi.goods_name AS goodsName,
+		   gps.goods_price AS goodsPrice,
+		   gr.user_id_code AS userIdCode
+		FROM
+   		   		tb_g_goods_reg AS gr
+ 			INNER JOIN
+				tb_g_goods_basic_info AS gbi
+   			ON
+   				gr.goods_basic_info_code = gbi.goods_basic_info_code
+   			INNER JOIN
+   				tb_g_goods_price_setting AS gps
+   			ON
+   				gr.goods_price_setting_code = gps.goods_price_setting_code
+   			INNER JOIN
+   				tb_g_goods_image AS gi
+   			ON
+   				gr.goods_image_code = gi.goods_image_code
+	</select>
+	
+		<insert id="addGoods" parameterType="Goods">
+		/* 상품 등록 */
+		
+	</insert>
+	
+</mapper> 
