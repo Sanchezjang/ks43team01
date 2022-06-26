@@ -9,8 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import ks43team01.dto.OrderCart;
 import ks43team01.service.OrderCartService;
 
@@ -30,18 +28,20 @@ public class OrderCartController {
 		String userIdCode = (String) session.getAttribute("UID");
 		orderCart.setUserIdCode(userIdCode);
 		
+		
+		
 		List<OrderCart> orderCartList =orderCartService.getOrderCartList(orderCart);
 		model.addAttribute("orderCartList", orderCartList);
 		log.info("가져오는 장바구니값  :  {}",orderCartList);
+		session.setAttribute("OrderCart", orderCart);
 		
 		return "userpage/order/orderCart";
 	}
 	@GetMapping("/removeOrderCart")
-	public String removeOrderCart(OrderCart orderCart,@RequestParam(name="orderCartCode", required = false)String orderCartCode) {
-		orderCart.setOrderCartCode(orderCartCode);
-		log.info("삭제할 코드 받아오는지 확인  :  {}",orderCart.getOrderCartCode());
-		orderCartService.removeOrderCart(orderCartCode);
+	public String removeOrderCart(OrderCart orderCart) {
+		orderCartService.removeOrderCart(orderCart.getOrderCartCode());
 		
+		log.info("삭제 아이디 받아 오는지 :  {}",orderCart.getOrderCartCode());
 		return "redirect:/orderCart";
 	}
 	

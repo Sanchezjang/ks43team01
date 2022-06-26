@@ -27,8 +27,8 @@ public class OrderCartService {
 		
 	}
 	/* 사용자화면 장바구니 삭제로직 */
-	public int removeOrderCart(String orderCartCode) {
-		int result = orderCartMapper.removeOrderCart(orderCartCode);
+	public int removeOrderCart(String orderCart) {
+		int result = 0;
 		return result;
 	}
 
