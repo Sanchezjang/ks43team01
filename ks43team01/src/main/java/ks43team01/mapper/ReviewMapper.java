@@ -13,10 +13,13 @@ public interface ReviewMapper {
 	
 	
 	
-	/* 리뷰 수정 처리 */
+	/* 관리자페이지 리뷰 삭제 처리 */
+	public int removeAdminReview(String reviewCode);
+	
+	/* 회원페이지 리뷰 수정 처리 */
 	public int modifyReview(ReviewContentsReg reviewContentsReg);
 	
-	/* 리뷰 삭제 */
+	/* 회원페이지 리뷰 삭제 처리 */
 	public int removeReview(String reviewCode);
 	
 	/* 리뷰 등록시 회원 테이블에 포인트 적립*/

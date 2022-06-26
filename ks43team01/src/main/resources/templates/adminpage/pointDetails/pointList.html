@@ -107,8 +107,8 @@
 		                <td th:text="${l.pointStandardName}"></td>
 		                <td th:text="${l.pointStandardDetailsName}"></td>
               			<td th:text="${l.pointAmount}"></td>
-              			<td></td>
-              			<td></td>
+              			<td><a type="button" class="btn btn-primary" style="font-size: 10px" th:href="@{/adminpage/pointDetails/pointList}">수정</a></td>
+						<td><button type="button" class="btn btn-danger removePointModalBtn" data-toggle="modal" data-target="#removePointModal" style="font-size: 10px" th:value="${l.pointStandardCode}">삭제</button></td>
                      </tr>
                   </tbody>
                     </table>
@@ -123,6 +123,31 @@
             </div>
           </div>
         <!-- /page content -->
+        
+        <!-- Modal -->
+	         <div class="modal fade" id="removePointModal" tabindex="-1" role="dialog">
+	               <div class="modal-dialog" role="document">
+	                   <div class="modal-content">
+	                     <div class="modal-header">
+	                        <h5 class="modal-title">포인트 삭제</h5>
+	                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                           <span aria-hidden="true">&times;</span>
+	                        </button>
+	                     </div>
+	                     <div class="modal-body">
+	                        	정말 포인트내역을 삭제하시겠습니까?
+	                     </div>
+	                     <div class="modal-footer">
+                           <form action="/adminpage/pointDetails/pointList" method="get">
+								<input type="hidden" name="pointStandardCode" id="removePointStandardCode">
+	                       		<button type="button" class="btn btn-primary" data-dismiss="modal">취소</button>
+								<button type="submit" class="btn btn-danger">삭제</button>
+                           </form>
+	                     </div>
+	                  </div>
+	               </div>
+	         </div>
+              <!-- Modal -->
 
 		<!-- footer content -->
 		<div th:replace="adminpage/fragments/footer :: footerFragment"></div>

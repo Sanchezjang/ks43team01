@@ -28,7 +28,16 @@ public class ReviewService {
 		private static final Logger log = LoggerFactory.getLogger(ReviewService.class);
 		
 		
-		/* 리뷰 수정 */
+		
+		/* 관리자페이지 리뷰 삭제 */
+		public int removeAdminReview(String reviewCode) {
+			
+			int result = reviewMapper.removeAdminReview(reviewCode);
+			
+			return result;
+		}
+		
+		/* 회원페이지 리뷰 수정 */
 		public int modifyReview(ReviewContentsReg reviewContentsReg) {
 			
 			int result = reviewMapper.modifyReview(reviewContentsReg);
@@ -36,7 +45,7 @@ public class ReviewService {
 			return result;
 		}
 		
-		/* 리뷰 삭제 */
+		/* 회원페이지 리뷰 삭제 */
 		public int removeReview(String reviewCode) {
 			
 			int result = reviewMapper.removeReview(reviewCode);
@@ -62,7 +71,7 @@ public class ReviewService {
 		}
 		
 		
-		/* 리뷰 등록 */
+		/* 회원페이지 리뷰 등록 */
 		public int addReview(ReviewContentsReg reviewContentsReg) {
 			
 			int result = reviewMapper.addReview(reviewContentsReg);
@@ -70,7 +79,7 @@ public class ReviewService {
 			return result;
 		}
 		
-		/* 유저페이지 회원 리뷰 조회 */
+		/* 회원페이지 회원 리뷰 조회 */
 		public ReviewContentsReg getReviewByCode(String reviewCode) {
 			System.out.println("___________getReviewByCode_________");
 			return  reviewMapper.getReviewByCode(reviewCode);
@@ -78,7 +87,7 @@ public class ReviewService {
 		}
 		
 		
-		/* 유저 페이지 회원 리뷰 목록 조회 */
+		/* 회원 페이지 회원 리뷰 목록 조회 */
 		public List<ReviewContentsReg> getReviewUserList(){
 			//log.info("리뷰 목록 조회:{}", "test");
 			List<ReviewContentsReg> reviewUserList = reviewMapper.getReviewUserList();

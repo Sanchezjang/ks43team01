@@ -24,6 +24,16 @@ public class AdminReviewController {
 		this.reviewService = reviewService;
 	}
 	
+	
+	/* 관리자 페이지 회원 리뷰 삭제*/
+		@GetMapping("/removeAdminReview")
+		public String removeAdminReview(String reviewCode) {
+			
+			reviewService.removeAdminReview(reviewCode);
+			
+			return "/adminpage/reviewAdmin/reviewAdminList";
+		}
+	
 	/* 관리자 페이지 회원 리뷰 조회 */
 		@GetMapping("/reviewAdminList")
 		public String getReviewAdminList(Model model) {
