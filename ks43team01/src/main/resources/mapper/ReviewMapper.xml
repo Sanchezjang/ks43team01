@@ -57,7 +57,8 @@
 	<select id="getReviewAdminList" resultType="Map">
 	/* 관리자페이지 회원 리뷰 목록 */
 		SELECT
-			tr.review_reg_date                   	AS reviewRegDate    			
+			 tr.review_code							AS reviewCode
+			,tr.review_reg_date                   	AS reviewRegDate    			
 			,tr.review_content						AS reviewContent
 			,rb.review_star_score					AS reviewStarScore			
 			,tr.review_recommendations_count		AS reviewRecommendationsCount		
@@ -83,7 +84,7 @@
 	<select id="getReviewUserList" resultType="Map">
 	/* 유저페이지 회원 리뷰 목록*/
 		SELECT
-			tr.review_code							AS reviewCode
+			 tr.review_code							AS reviewCode
 			,tr.review_reg_date                   	AS reviewRegDate    			
 			,tr.review_content						AS reviewContent
 			,ua.user_id_code						AS userIdCode
@@ -124,6 +125,14 @@
 			rr.review_code = #{reviewCode};
 	</select>
 	
+	<delete id="removeAdminReview" parameterType="String">
+		DELETE
+		FROM
+			tb_r_review_contents 
+		WHERE
+			review_code = #{reviewCode};
+	</delete>
+	
 	<update id="userSavePoint" parameterType="String">
 	/* 리뷰 등록시 유저테이블  총 포인트 적립*/
 		UPDATE
@@ -147,7 +156,7 @@
 	</update>
 
 	<delete id="removeReview" parameterType="String">
-	/* 리뷰 삭제 */
+	/* 회원 페이지 리뷰 삭제 */
 		DELETE 
 		FROM 
 			tb_r_review_contents 
@@ -156,7 +165,7 @@
 	</delete>
 	
 	<update id="modifyReview" parameterType="String">
-	/* 리뷰 수정 */
+	/* 회원 페이지 리뷰 수정 */
 		UPDATE
 			tb_r_review_contents 
 		SET 

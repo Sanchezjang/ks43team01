@@ -54,7 +54,8 @@
 	
 	<select id="getPointGradeList" resultType="Map">
 		SELECT
-			 ur.grade_name															AS gradeName
+			pb.point_buy_save_standard_grade_code									AS pointBuySaveStandardGradeCode
+		   ,ur.grade_name															AS gradeName
 		   ,CONCAT(SUBSTRING(pb.point_save_by_grade_percent,3,2),+'%')				AS pointSaveByGradePercent
 		   ,pb.point_save_by_grade_unit												AS pointSaveByGradeUnit
 		FROM
@@ -67,7 +68,8 @@
 	
 	<select id="getPointList"  resultType="Map">
 		SELECT 
-		   pa.point_history_reg_date			AS pointHistoryRegDate
+		   pa.point_standard_code				AS pointStandardCode	
+		  ,pa.point_history_reg_date			AS pointHistoryRegDate
 		  ,pa.user_id_code						AS userIdCode
 		  ,ps.point_standard_name				AS pointStandardName
 		  ,pd.point_standard_details_name		AS pointStandardDetailsName
