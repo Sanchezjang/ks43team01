@@ -11,7 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ks43team01.dto.Board;
 import ks43team01.dto.BoardLargeCategory;
@@ -29,6 +30,26 @@ public class BoardController {
 	
 	public BoardController(BoardService boardService) {
 		this.boardService = boardService;
+	}
+
+
+	
+	/* 공지사항 게시글 수정 */
+	@PostMapping("/modifyNoticeBoard")
+	public String modeifyNoticeBoard(Board board) {
+		boardService.modifyNoticeBoard(board);
+		
+		return "redirect:/userpage/board/noticeBoardList";
+	}
+	
+	
+	/* 게시글 상세 페이지*/
+	@GetMapping("/boardDetail")
+	public String boardDetail(@RequestParam(value = "boardPostCode")String boardPostCode, Model model) {
+		Board board = boardService.getBoardByCode(boardPostCode);
+		log.info("board : {}", board);
+		model.addAttribute("board", board);
+		return "userpage/board/boardDetail";
 	}
 	
 	/* 4-2. 1:1 문의 게시판 게시글 등록 (post) */

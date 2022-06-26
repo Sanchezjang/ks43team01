@@ -15,6 +15,9 @@ import ks43team01.dto.QnaBoard;
 @Mapper
 public interface BoardMapper {
 	
+	//게시글 상세 조회
+	public Board getBoardByCode(String boardPostCode);
+	
 	//게시글 첨부파일 목록 조회
 	public List<BoardPostFile> getBoardPostFileList();
 	
@@ -38,20 +41,29 @@ public interface BoardMapper {
 	//5. 1:1 게시글 목록 조회
 	public List<QnaBoard> getQnaBoardList();
 	
-	
-	//4-2. 자유게시판 등록
+	//4-4. 사용자용 자유게시판 게시글 삭제
+	public int removeFreeBoard(String boardPostCode);
+	//4-3. 사용자용 자유게시판 게시글 수정
+	public int modifyFreeBoard(Board board);
+	//4-2. 사용자용 자유게시판 등록
 	public int addFreeBoard(Board board);
 	//4. 사용자용 자유게시판 목록 조회
 	public List<Board> getFreeBoardList();
 	
-	
-	//3-2. 자주묻는 질문 게시글 등록
+	//3-4. 사용자용 자주묻는 질문 게시글 삭제
+	public int removeFaqBoard(String boardPostCode);
+	//3-3. 사용자용 자주묻는 질문 게시글 수정
+	public int modifyFaqBoard(Board board);
+	//3-2. 사용자용 자주묻는 질문 게시글 등록
 	public int addFaqBoard(Board board);
 	//3. 사용자용 자주묻는 질문 목록 조회
 	public List<Board> getFaqBoardList();
 	
-	
-	//2-2. 공지사항 게시글 등록
+	//2-4. 사용자용 공지사항 게시글 삭제
+	public int removeNoticeBoard(String boardPostCode);
+	//2-3. 사용자용 공지사항 게시글 수정
+	public int modifyNoticeBoard(Board board);
+	//2-2. 사용자용 공지사항 게시글 등록
 	public int addNoticeBoard(Board board);
 	//2. 사용자용 공지사항 목록 조회
 	public List<Board> getNoticeBoardList();
