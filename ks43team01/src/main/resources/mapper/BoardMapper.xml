@@ -76,13 +76,14 @@
       </association>
   </resultMap>
   
-  <update id="modifyNoticeBoard" parameterType="Board">
+  <update id="modifyBoard" parameterType="String">
 	/* 리뷰 수정 */
 		UPDATE
 			tb_b_board_post 
 		SET 
 			board_post_content = #{boardPostContent}
-		    board_post_reg_date = CURDATE()
+		    ,board_post_reg_date = CURDATE()
+		    , board_post_title = #{boardPostTitle}
 		WHERE
 			board_post_code = #{boardPostCode};
 	</update>

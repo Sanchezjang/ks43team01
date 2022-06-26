@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks43team01.dto.Board;
 import ks43team01.dto.BoardLargeCategory;
 import ks43team01.dto.BoardMediumCategory;
 import ks43team01.dto.QnaBoard;
+import ks43team01.dto.ReviewContentsReg;
 import ks43team01.service.BoardService;
 
 
@@ -34,14 +36,27 @@ public class BoardController {
 
 
 	
-	/* 공지사항 게시글 수정 */
-	@PostMapping("/modifyNoticeBoard")
-	public String modeifyNoticeBoard(Board board) {
-		boardService.modifyNoticeBoard(board);
+	/* 게시글 수정 (post) */
+	@PostMapping("/modifyBoard")
+	public String modeifyBoard(Board board
+								, RedirectAttributes reAttr) {
+		log.info("board: {}", board);
+		boardService.modifyBoard(board);
+		String boardPostCode = board.getBoardPostCode();
+		reAttr.addAttribute("boardPostCode", boardPostCode);
 		
-		return "redirect:/userpage/board/noticeBoardList";
+		return "redirect:/userpage/board/boardDetail";
 	}
 	
+	/* 게시글 수정 (get) */
+	@GetMapping("/modifyBoard")
+	public String modifyBoard(@RequestParam(value="boardPostCode", required= false)String boardPostCode
+							  ,Model model) {
+		Board board = boardService.getBoardByCode(boardPostCode);
+		model.addAttribute("board",board);
+		
+		return "userpage/board/modifyBoard";
+	}
 	
 	/* 게시글 상세 페이지*/
 	@GetMapping("/boardDetail")

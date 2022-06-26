@@ -23,6 +23,20 @@ public class BoardService {
 		this.boardMapper = boardMapper;
 	}
 
+	/* 2-4. 사용자용 게시글  삭제*/
+	public int removeBoard(String boardPostCode) {
+		int result = boardMapper.removeBoard(boardPostCode);
+		
+		return result;
+	}
+	
+	/* 2-3. 사용자용 게시글  수정*/
+	public int modifyBoard(Board board) {
+		int result = boardMapper.modifyBoard(board);
+		
+		return result;
+	}
+	
 	   /* 게시글 상세 조회 */
 	   public Board getBoardByCode(String boardPostCode) {
 	      System.out.println("___________getBoardByCode____________");
@@ -90,19 +104,7 @@ public class BoardService {
 		List<QnaBoard> qnaBoardList = boardMapper.getQnaBoardList();
 		return qnaBoardList;
 	}
-	/* 4-4. 사용자용 자유게시판 게시글  삭제*/
-	public int removeFreeBoard(String boardPostCode) {
-		int result = boardMapper.removeFreeBoard(boardPostCode);
-		
-		return result;
-	}
-	
-	/* 4-3. 사용자용 자유게시판 게시글  수정*/
-	public int modifyFreeBoard(Board board) {
-		int result = boardMapper.modifyFreeBoard(board);
-		
-		return result;
-	}
+
 	/* 4-2. 자유게시판 게시글 등록 */
 	public int addFreeBoard(String sessionId, Board board) {
 		board.setUserIdCode(sessionId);
@@ -116,21 +118,8 @@ public class BoardService {
 		List<Board> freeBoardList = boardMapper.getFreeBoardList();
 		return freeBoardList;
 	}
-	/* 3-4. 사용자용 자주묻는 질문 게시글  삭제*/
-	public int removeFaqBoard(String boardPostCode) {
-		int result = boardMapper.removeFaqBoard(boardPostCode);
-		
-		return result;
-	}
 	
-	/* 3-3. 사용자용 자주묻는 질문 게시글  수정*/
-	public int modifyFaqBoard(Board board) {
-		int result = boardMapper.modifyFaqBoard(board);
-		
-		return result;
-	}
-	
-	
+
 	/* 3-2. 자주묻는 질문 게시글 등록 */
 	public int addFaqBoard(String sessionId, Board board) {
 		board.setUserIdCode(sessionId);
@@ -146,19 +135,7 @@ public class BoardService {
 	}
 	
 	
-	/* 2-4. 사용자용 공지사항 게시글  삭제*/
-	public int removeNoticeBoard(String boardPostCode) {
-		int result = boardMapper.removeNoticeBoard(boardPostCode);
-		
-		return result;
-	}
-	
-	/* 2-3. 사용자용 공지사항 게시글  수정*/
-	public int modifyNoticeBoard(Board board) {
-		int result = boardMapper.modifyNoticeBoard(board);
-		
-		return result;
-	}
+
 	/* 2-2. 사용자용 공지사항 게시글 등록 */
 	public int addNoticeBoard(String sessionId, Board board) {
 		board.setUserIdCode(sessionId);
