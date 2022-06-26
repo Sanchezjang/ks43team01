@@ -77,7 +77,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 										</div>
 									</div>
 									<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
-											<input type="hidden" th:value="${o.goodsCode}">
+											<input type="hidden" th:name="orderCartCode" id="orderCartCode" th:value="${o.orderCartCode}">
 											<p th:text="${o.goodsName}"></p>
 											<i th:text="${o.goodsPrice+'원'}"></i>
 											<p th:text="${o.goodsDetails}"></p>
@@ -98,6 +98,9 @@ layout:decorate="~{userpage/layout/userdefault}">
 								</div>
 								</th:block>
 								<button id="iamportPayment" onclick="requestPay()" class="btn-primary btn-lg" style="float: right;">결제하기</button>
+								<th:block th:unless="${not #lists.isEmpty(orderCartList)}">
+									<a>장바구니에 담긴 상품이 없습니다.	</a>
+								</th:block>
 								</div>
 							</div>
 						</div>

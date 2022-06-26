@@ -18,7 +18,7 @@ public class OrderCartService {
 		this.orderCartMapper = orderCartMapper;
 	}
 	
-
+	/* 사용자화면 장바구니 리스트 출력 */
 	public List<OrderCart> getOrderCartList(OrderCart orderCart){
 		
 		List<OrderCart> result = orderCartMapper.getOrderCartList(orderCart);
@@ -26,6 +26,10 @@ public class OrderCartService {
 		return result;
 		
 	}
-	
-	
+	/* 사용자화면 장바구니 삭제로직 */
+	public int removeOrderCart(String orderCartCode) {
+		int result = orderCartMapper.removeOrderCart(orderCartCode);
+		return result;
+	}
+
 }

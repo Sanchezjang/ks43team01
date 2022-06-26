@@ -20,9 +20,9 @@
 </resultMap>
 	  		
 	<resultMap type="OrderCart" id="OrderCartResultMap">
-		<id column="order_cart_code" property="orderCartCode"/>
-		<result column="user_id_code" property="userIdCode"/>
-		<result column="seller_id_code" property="sellerIdCode"/>
+		<id column="order_cart_code"         property="orderCartCode"/>
+		<result column="user_id_code"        property="userIdCode"/>
+		<result column="seller_id_code"      property="sellerIdCode"/>
 		<result column="seller_phone_number" property="sellerPhoneNumber"/>
 		<result column="goods_img" property="goodsImg"/>
 		<result column="goods_price" property="goodsPrice"/>
@@ -48,12 +48,13 @@
 		WHERE 
 			goc.user_id_code = #{userIdCode};
 	</select>
-	<delete id="removeOrderCart">
+	<delete id="removeOrderCart" parameterType="OrderCart">
+		/* 사용자화면 장바구니 상품삭제하기*/
 		DELETE  
 		FROM 
 			tb_g_order_cart 
 		WHERE 
-			order_cart_code ='occ22010'
+			order_cart_code = #{orderCartCode};
 	</delete>
 	
 </mapper> 
