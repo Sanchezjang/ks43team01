@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ks43team01.dto.Goods;
+import ks43team01.dto.GoodsAll;
 import ks43team01.dto.GoodsSubCategory;
 import ks43team01.dto.GoodsTopCategory;
 import ks43team01.mapper.GoodsAllMapper;
@@ -19,10 +20,11 @@ public class GoodsAllService {
 	public GoodsAllService(GoodsAllMapper goodsAllMapper) {
 		this.goodsAllMapper = goodsAllMapper;
 	}
-
+	
 	/*
-	 * 상품리스트조회
+	 * 사용자 화면
 	 * */
+	// 상품리스트조회
 	public List<Goods> getUserGoodsList(){
 		
 		List<Goods> userGoodsList = goodsAllMapper.getUserGoodsList();
@@ -30,9 +32,7 @@ public class GoodsAllService {
 		return userGoodsList;
 	}
 	
-	/*
-	 * 상품 등록
-	 * */
+	// 상품 등록
 	public int addGoods(String sessionId, Goods goods) {
 		
 		goods.setUserIdCode(sessionId);
@@ -43,8 +43,31 @@ public class GoodsAllService {
 	}
 	
 	/*
-	 * 상품 하위 카테고리 리스트
+	 * 관리자 화면
 	 * */
+	// 상품 삭제
+	public int removeAdminGoods(String goodsCode) {
+	      
+		int result = goodsAllMapper.removeAdminGoods(goodsCode);
+		return result;
+	}
+	
+	// 상품리스트
+	public List<GoodsAll> getAdminGoodsList(){
+		
+		List<GoodsAll> adminGoodsList = goodsAllMapper.getAdminGoodsList();
+		
+		return adminGoodsList;
+	}
+	
+	//상품 하위 카테고리 삭제
+	public int removeGoodsSubCategory(String goodsSubCategoryCode) {
+	      
+		int result = goodsAllMapper.removeGoodsSubCategory(goodsSubCategoryCode);
+		return result;
+	}
+	
+	// 상품 하위 카테고리 리스트
 	public List<GoodsSubCategory> getGoodsSubCategoryList(){
 		
 		List<GoodsSubCategory> goodsSubCategoryList = goodsAllMapper.getGoodsSubCategoryList();
@@ -52,9 +75,7 @@ public class GoodsAllService {
 		return goodsSubCategoryList;
 	}
 	
-	/*
-	 * 상품 상위 카테고리 리스트
-	 * */
+	// 상품 상위 카테고리 리스트
 	public List<GoodsTopCategory> getGoodsTopCategoryList(){
 		
 		List<GoodsTopCategory> goodsTopCategoryList = goodsAllMapper.getGoodsTopCategoryList();
@@ -62,9 +83,7 @@ public class GoodsAllService {
 		return goodsTopCategoryList;
 	}
 	
-	/*
-	 * 상품 하위 카테고리 등록
-	 * */
+	// 상품 하위 카테고리 등록
 	public int addGoodsSubCategory(String sessionId, GoodsSubCategory goodsSubCategory) {
 		
 		goodsSubCategory.setUserIdCode(sessionId);
@@ -74,9 +93,7 @@ public class GoodsAllService {
 		return result;
 	}
 	
-	/*
-	 * 상품 상위 카테고리 등록
-	 * */
+	// 상품 상위 카테고리 등록
 	public int addGoodsTopCategory(String sessionId, GoodsTopCategory goodsTopCategory) {
 		
 		goodsTopCategory.setUserIdCode(sessionId);
