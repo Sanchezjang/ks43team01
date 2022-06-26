@@ -111,7 +111,7 @@ a:link, a:visited {text-decoration:none; color: #656565;}
 					<tbody th:if="${not #lists.isEmpty(faqBoardList)}" th:each="l : ${faqBoardList}">
 						<tr class="table-row">
 							<td class="serial">0</td>
-							<td class="title" th:text="${l.boardPostTitle}"></td>
+							<td class="title"><a th:href="@{/boardDetail(boardPostCode=${l.boardPostCode})}" th:value="${l.boardPostCode}" th:text="${l.boardPostTitle}" style="color: #212529;"></a></td>
 							<td class="writer"  th:text="${l.boardUserName}"></td>
 							<td class="regDate" th:text="${l.boardPostRegDate}"> </td>
 							<td class="pageView" th:text="${l.boardPostView}"> </td>
