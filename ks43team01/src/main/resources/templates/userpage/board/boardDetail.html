@@ -105,7 +105,9 @@ layout:decorate="~{userpage/layout/userdefault}">
                   </tbody>
                </table>
               <div class="clickBtn mt-3" >
-				<button type="button" class="genric-btn primary">수정</button>
+				<a th:href="@{/modifyBoard(boardPostCode=${board.boardPostCode})}">
+					<button type="submit" class="genric-btn primary" th:if="${session.UID == board.userIdCode}">수정</button>
+				</a>
 				<button type="button" class="genric-btn primary-border">삭제</button>
 				
                </div>
