@@ -9,9 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ks43team01.dto.OrderCart;
-import ks43team01.mapper.OrderCartMapper;
+import ks43team01.service.OrderCartService;
 
 @Controller
 public class OrderCartController {
@@ -19,25 +20,27 @@ public class OrderCartController {
 		private static final Logger log = LoggerFactory.getLogger(OrderCartController.class);
 
 	////DI///
-	private final OrderCartMapper orderCartMapper;
-	public OrderCartController(OrderCartMapper orderCartMapper) {
-		this.orderCartMapper = orderCartMapper;
+	private final OrderCartService orderCartService;
+	public OrderCartController(OrderCartService orderCartService) {
+		this.orderCartService = orderCartService;
 	}
-	
+	/* 사용자화면 장바구니 리스트 출력 */
 	@GetMapping("/orderCart")
 	public String addOderCartList(HttpSession session, Model model,OrderCart orderCart) {
 		String userIdCode = (String) session.getAttribute("UID");
 		orderCart.setUserIdCode(userIdCode);
 		
-		List<OrderCart> orderCartList = orderCartMapper.getOrderCartList(orderCart);
+		List<OrderCart> orderCartList =orderCartService.getOrderCartList(orderCart);
 		model.addAttribute("orderCartList", orderCartList);
 		log.info("가져오는 장바구니값  :  {}",orderCartList);
 		
 		return "userpage/order/orderCart";
 	}
 	@GetMapping("/removeOrderCart")
-	public String removeOrderCart(String orderCartCode) {
-		
+	public String removeOrderCart(OrderCart orderCart,@RequestParam(name="orderCartCode", required = false)String orderCartCode) {
+		orderCart.setOrderCartCode(orderCartCode);
+		log.info("삭제할 코드 받아오는지 확인  :  {}",orderCart.getOrderCartCode());
+		orderCartService.removeOrderCart(orderCartCode);
 		
 		return "redirect:/orderCart";
 	}
