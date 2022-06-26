@@ -86,7 +86,7 @@ public class AdminProfitAndLossController {
 	@GetMapping("/removeSpending")
 	public String removeSpending(String spendingGroupCode) {
 		
-		log.info("삭제 spending : {}" , spendingGroupCode);
+		//log.info("삭제 spending : {}" , spendingGroupCode);
 		profitAndLossService.removeSpending(spendingGroupCode);
 		return "adminpage/profitAndLoss/removeSpending";
 	}
@@ -110,7 +110,7 @@ public class AdminProfitAndLossController {
 			,Spending spending
 			,HttpServletRequest request) {
 		
-		log.info("지출 등록 처리 spending : {}", spending);
+		//log.info("지출 등록 처리 spending : {}", spending);
 		String sessionId = (String) session.getAttribute("UID");
 		
 		profitAndLossService.addSpending(sessionId, spending);
@@ -136,7 +136,7 @@ public class AdminProfitAndLossController {
 	@GetMapping("/removeSales")
 	public String removeSales(String salesGroupCode) {
 		
-		log.info("삭제 sales : {}" , salesGroupCode);
+		//log.info("삭제 sales : {}" , salesGroupCode);
 		profitAndLossService.removeSales(salesGroupCode);
 		return "adminpage/profitAndLoss/removeSales";
 	}
@@ -184,7 +184,7 @@ public class AdminProfitAndLossController {
 	@GetMapping("/removeAccount")
 	public String removeAccount(String accountSubjectCode) {
 		
-		log.info("삭제 account : {}" , accountSubjectCode);
+		//log.info("삭제 account : {}" , accountSubjectCode);
 		profitAndLossService.removeAccount(accountSubjectCode);
 		return "adminpage/profitAndLoss/removeAccount";
 	}

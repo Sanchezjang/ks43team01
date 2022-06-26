@@ -110,10 +110,20 @@ layout:decorate="~{userpage/layout/userdefault}">
 		<!-- start form for validation -->
 	<form th:action="@{/userpage/goods/addGoods}" method="post" id="demo-form" data-parsley-validate>
 		<div class="orderer form-group">
-			<div class="form-group">	
-				<label for="expertBusinessField" class="col-12 mainExplanation">비지니스 분야</label>
+			<div class="form-group">
+				<label class="control-label col-md-3 col-sm-3 " for="accountName">계정과목<span class="required">*</span></label>
+					<div class="col-md-9 col-sm-9 ">
+						<select required="required" class="form-control col-md-10" id="accountName" name="accountName">
+							<option value="" disabled selected> :: 계정과목 선택 :: </option>
+							<th:block th:if="${not #lists.isEmpty(accountList)}" th:each="a:${accountList}">
+								<option th:if="${a.profitLossClassification} == '지출'" th:value="${a.accountName}">[[${a.accountName}]]</option>
+							</th:block>
+						</select>
+					</div>
+					
+				<label for="expertBusinessField" class="col-12 mainExplanation"></label>
 				<select id="expertBusinessField" name="expertBusinessField" class="wide col-6 select1">
-					<option value="">: : : : : 1차카테고리 : : : : </option>
+					<option value=""> : :  1차카테고리   : :  </option>
 					<th:block th:if="${not #lists.isEmpty(topcategory)}" th:each="g : ${topcategory}">
 						<option th:value="${g.goodsTopCategoryCode}">[[${g.goodsTopCategoryName}]]</option>
 					</th:block>
@@ -125,17 +135,17 @@ layout:decorate="~{userpage/layout/userdefault}">
 				<div class="form-group">    
 				    <label for="expertDetailedBusiness" class="col-12 mainExplanation">상세분야</label>
 				    <select id="expertDetailedBusiness" name="expertDetailedBusiness" class="wide col-6 select1" >
-	        	 							<option value="">: : : : 2차카테고리 : : : : </option>
+	        	 							<option value=""> : : 2차카테고리  : : </option>
 	         						</select>
 		  		</div>
 			<div class="col-6 goods">
 				<label for="goodsName" class="mainExplanation">상품서비스명</label>
-					<input type="text" id="goodsName" class="form-control col-6" name="goodsName" required />
+					<input type="text" id="goodsName" class="form-control  col-md-10" name="goodsName" required />
 				<div class="explanation">이목을 집중시킬 상품명을 적어주세요!</div>
 			</div>
 			<div class="col-6 goods">
 				<label for="goodsDescription" class="mainExplanation">서비스설명</label>
-				<textarea class="form-control col-6" rows="5" cols="5" name="goodsDescription" id="goodsDescription" placeholder="여기에 상품(서비스)의 상세 설명을 적어주세요^^"></textarea>
+				<textarea class="form-control col-6" rows="5" cols="5" name="goodsDescription" id="goodsDescription"></textarea>
 			</div>
 			<div class="col-6 goods">
 				<label for="goodsPrice" class="mainExplanation">상품금액</label>

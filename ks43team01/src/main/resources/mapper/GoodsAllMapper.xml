@@ -32,7 +32,9 @@
 			<result column="goods_sub_category_reg_date"	property="goodsSubCategoryRegDate"/>
 		</association>
 	</resultMap>
-		
+	
+	<!-- 사용자 화면 -->
+	<!-- 사용자 화면 -->
 	<select id="getUserGoodsList" resultType="Goods">
 		/* 사용자화면 상품리스트 */
 		SELECT
@@ -48,6 +50,50 @@
 		/* 상품 등록 */
 		
 	</insert>
+	
+	
+	<!-- 관리자 화면 -->
+	<!-- 관리자 화면 -->
+	<delete id="removeAdminGoods" parameterType="Goods">
+		/* 상품 삭제 */
+		DELETE
+		FROM
+			tb_g_goods
+		WHERE
+			goods_code = #{goodsCode};
+	</delete>
+	
+	<select id="getAdminGoodsList" resultType="Map">
+		/* 상품 리스트 조회 */
+		SELECT
+			gg.goods_code AS goodsCode,
+			gs.goods_top_category_name AS goodsTopCategoryName,
+			gs.goods_sub_category_name AS goodsSubCategoryName,
+			gg.goods_name AS goodsName,
+			gg.goods_price AS goodsPrice,
+			gg.user_id_code AS userIdCode,
+			gg.goods_reg_date AS goodsRegDate
+		FROM
+			tb_g_goods AS gg
+			INNER JOIN
+			tb_g_goods_sub_category AS gs
+			ON
+			gg.goods_sub_category_code = gs.goods_sub_category_code;
+	</select>
+	
+	<delete id="removeGoodsSubCategory" parameterType="GoodsSubCategory">
+		/* 상품 하위 카테고리 삭제 */
+		DELETE
+		FROM
+			tb_g_goods_sub_category
+		WHERE
+			goods_sub_category_code = #{goodsSubCategoryCode};
+	</delete>
+	
+	<delete id="removeGoodsTopCategory" parameterType="GoodsTopCategory">
+		/* 상품 상위 카테고리 삭제 */
+		
+	</delete>
 	
 	<select id="getGoodsSubCategoryList" resultType="GoodsSubCategory">
 		/* 상품 하위 카테고리 리스트 조회 */
