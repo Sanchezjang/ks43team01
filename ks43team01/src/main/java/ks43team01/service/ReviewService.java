@@ -63,7 +63,7 @@ public class ReviewService {
 		
 		
 		/* 리뷰 등록 */
-		public int addReview( ReviewContentsReg reviewContentsReg) {
+		public int addReview(ReviewContentsReg reviewContentsReg) {
 			
 			int result = reviewMapper.addReview(reviewContentsReg);
 			

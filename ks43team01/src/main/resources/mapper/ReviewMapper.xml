@@ -16,13 +16,19 @@
 			<result column="review_reg_ip" 					property="reviewRegIp"/>
 			<result column="review_star_score" 				property="reviewStarScore"/>
 			
-		<association property="goodsBasicInfo" javaType="GoodsBasicInfo">
-			<id 	column="goods_basic_info_code"	 		property="goodsBasicInfoCode"/>
-			<result column="goods_sub_category_code" 		property="goodsSubCategoryCode"/>
-			<result column="goods_description" 				property="goodsDescription"/>
-			<result column="goods_name" 					property="goodsName"/>
-			<result column="user_id_code" 					property="userIdCode"/>
-			<result column="goods_basic_info_reg_date" 		property="goodsBasicInfoRegDate"/>
+		<association property="goods" javaType="Goods">
+			<id 	column="goods_code"							property="goodsCode"/>
+			<result column="goods_sub_category_code" 			property="goodsSubCategoryCode"/>
+			<result column="goods_name" 						property="goodsName"/>
+			<result column="goods_description" 					property="goodsDescription"/>
+			<result column="goods_price" 						property="goodsPrice"/>
+			<result column="goods_working_period" 				property="goodsWorkingPeriod"/>
+			<result column="goods_modified_possibility_count"	property="goodsModifiedPossibilityCount"/>
+			<result column="goods_image_reg" 					property="goodsImageReg"/>
+			<result column="goods_pre_requests_answer_type" 	property="goodsPreRequestsAnswerType"/>
+			<result column="goods_pre_request" 					property="goodsPreRequest"/>
+			<result column="user_id_code" 						property="userIdCode"/>
+			<result column="goods_reg_date" 					property="goodsRegDate"/>
 		</association>
 		
 		<association property="scoreByReview" javaType="ReviewByScore">
@@ -51,17 +57,17 @@
 	<select id="getReviewAdminList" resultType="Map">
 	/* 관리자페이지 회원 리뷰 목록 */
 		SELECT
-		    tr.review_reg_date                   	AS  reviewRegDate    			
-		   ,tr.review_content						AS  reviewContent
-		   ,rb.review_star_score					AS  reviewStarScore			
-		   ,tr.review_recommendations_count			AS	reviewRecommendationsCount		
-		   ,tr.review_decommendations_count			AS	reviewDecommendationsCount		
+			tr.review_reg_date                   	AS reviewRegDate    			
+			,tr.review_content						AS reviewContent
+			,rb.review_star_score					AS reviewStarScore			
+			,tr.review_recommendations_count		AS reviewRecommendationsCount		
+			,tr.review_decommendations_count		AS reviewDecommendationsCount		
 		FROM 
 			tb_r_review_contents AS tr 
 			INNER join
-			tb_g_goods_basic_info AS gg
+			tb_g_goods AS gg
 			on
-			tr.goods_basic_info_code = gg.goods_basic_info_code
+			tr.goods_code = gg.goods_code
 			INNER JOIN 
 			tb_u_all_user AS ua
 			ON 
@@ -77,19 +83,19 @@
 	<select id="getReviewUserList" resultType="Map">
 	/* 유저페이지 회원 리뷰 목록*/
 		SELECT
-			tr.review_code 							AS  reviewCode
-		   ,tr.review_reg_date                   	AS  reviewRegDate    			
-		   ,tr.review_content						AS  reviewContent
-		   ,ua.user_id_code							AS  userIdCode
-		   ,tr.review_star_score					AS  reviewStarScore			
-		   ,tr.review_recommendations_count			AS	reviewRecommendationsCount		
-		   ,tr.review_decommendations_count			AS	reviewDecommendationsCount
+			tr.review_code							AS reviewCode
+			,tr.review_reg_date                   	AS reviewRegDate    			
+			,tr.review_content						AS reviewContent
+			,ua.user_id_code						AS userIdCode
+			,tr.review_star_score					AS reviewStarScore
+			,tr.review_recommendations_count		AS reviewRecommendationsCount
+			,tr.review_decommendations_count		AS reviewDecommendationsCount
 		FROM 
 			tb_r_review_contents AS tr 
 			INNER join
-			tb_g_goods_basic_info AS gg
+			tb_g_goods AS gg
 			on
-			tr.goods_basic_info_code = gg.goods_basic_info_code
+			tr.goods_code = gg.goods_code
 			INNER JOIN 
 			tb_u_all_user AS ua
 			ON 
@@ -156,6 +162,7 @@
 		SET 
 			review_content = #{reviewContent}
 		   ,review_reg_date = CURDATE()	
+		   ,review_star_score = #{reviewStarScore}
 		WHERE
 			review_code = #{reviewCode};
 	</update>
@@ -164,7 +171,7 @@
 	/* 리뷰 등록 */
 		INSERT INTO tb_r_review_contents 
 			( review_code
-			 ,goods_basic_info_code
+			 ,goods_code
 			 ,user_id_code
 			 ,review_score_standard_code
 			 ,review_content
@@ -176,11 +183,11 @@
 	 		 ,review_star_score
 			 )
 			 VALUES (
-			  (SELECT
-					CONCAT(LPAD(MAX(CAST(SUBSTRING(rr.review_code,1) AS UNSIGNED))+1,2,0))
-				FROM
+			(SELECT
+				CONCAT(LPAD(MAX(CAST(SUBSTRING(rr.review_code,1) AS UNSIGNED))+1,2,0))
+			FROM
 				   tb_r_review_contents AS rr)
-			 ,'goods_basic_info_01'
+			 ,'goods_01'
 			 ,#{userIdCode}
 			 ,'rssc01'
 			 ,#{reviewContent}
