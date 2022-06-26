@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ks43team01.dto.GoodsAll;
 import ks43team01.dto.GoodsSubCategory;
@@ -39,6 +40,17 @@ public class AdminGoodsAllController {
 		//log.info("삭제  : {}" , goodsCode);
 		goodsAllService.removeAdminGoods(goodsCode);
 		return "adminpage/goods/removeAdminGoods";
+	}
+	
+	//개별 상품 보기
+	@GetMapping("/goodsInfo")
+	public String goodsInfo(@RequestParam(value = "goodsCode")String goodsCode, Model model) {
+		
+		GoodsAll goodsAll = goodsAllService.getGoodsInfoCode(goodsCode);
+		//log.info("goodsAll :{}", goodsAll);
+		model.addAttribute("goodsAll", goodsAll);
+		return "/userpage/goods/goodsInfo" ;
+		
 	}
 	
 	//상품 리스트

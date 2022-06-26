@@ -14,8 +14,14 @@ public interface GoodsAllMapper {
 	/*
 	 * 사용자 화면
 	 * */
+	//상품 삭제
+	public int removeUserGoods(String goodsCode);
+	
+	//개별 상품 보기
+	public GoodsAll getGoodsInfoCode(String goodsCode);
+	
 	//상품 리스트 
-	public List<Goods> getUserGoodsList();
+	public List<GoodsAll> getUserGoodsList();
 	
 	//상품 등록
 	public int addGoods(Goods goods);

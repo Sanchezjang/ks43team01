@@ -5,7 +5,7 @@
 <mapper namespace="ks43team01.mapper.GoodsAllMapper">
 
 	<resultMap type="GoodsAll" id="GoodsAllResultMap" >
-		<association property="goods" javaType="Goods">		
+		<association property="goods" javaType="Goods">
 			<id 	column="goods_code"							property="goodsCode"/>
 			<result column="goods_sub_category_code" 			property="goodsSubCategoryCode"/>
 			<result column="goods_name" 						property="goodsName"/>
@@ -35,9 +35,30 @@
 	
 	<!-- 사용자 화면 -->
 	<!-- 사용자 화면 -->
-	<select id="getUserGoodsList" resultType="Goods">
+	<delete id="removeUserGoods" parameterType="Goods">
+		/* 상품 삭제 */
+		DELETE
+		FROM
+			tb_g_goods
+		WHERE
+			goods_code = #{goodsCode};
+	</delete>
+	
+	<select id="getGoodsInfoCode" parameterType="String" resultMap="GoodsAllResultMap">
+		/* 개별 상품 보기 */
+		SELECT
+			g.goods_code,
+			g.goods_price
+		FROM
+			tb_g_goods AS g
+		WHERE
+			g.goods_code = #{goodsCode};
+	</select>
+	
+	<select id="getUserGoodsList" resultType="Map">
 		/* 사용자화면 상품리스트 */
 		SELECT
+			g.goods_code		AS goodsCode,
 			g.user_id_code		AS userIdCode,
 			g.goods_name 		AS goodsName,
 			g.goods_image_reg	AS goodsImageReg,

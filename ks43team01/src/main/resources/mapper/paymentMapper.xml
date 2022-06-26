@@ -23,7 +23,7 @@
 	</resultMap>
 	
 	<select id="getPaymentInfoCode" parameterType="String" resultMap="PaymentResultMap">
-		/* 결제내역 리스트 */
+		/* 결제내역 상세보기 */
 		SELECT
 			pp.payment_by_cash_time,
 			pp.user_id_code,

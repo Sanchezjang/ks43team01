@@ -24,10 +24,24 @@ public class GoodsAllService {
 	/*
 	 * 사용자 화면
 	 * */
-	// 상품리스트조회
-	public List<Goods> getUserGoodsList(){
+	
+	// 상품 삭제
+	public int removeUserGoods(String goodsCode) {
+	      
+		int result = goodsAllMapper.removeUserGoods(goodsCode);
+		return result;
+	}	
+	
+	// 개별 상품 보기
+	public GoodsAll getGoodsInfoCode(String goodsCode) {
+		return goodsAllMapper.getGoodsInfoCode(goodsCode);
 		
-		List<Goods> userGoodsList = goodsAllMapper.getUserGoodsList();
+	}
+	
+	// 상품리스트조회
+	public List<GoodsAll> getUserGoodsList(){
+		
+		List<GoodsAll> userGoodsList = goodsAllMapper.getUserGoodsList();
 		
 		return userGoodsList;
 	}
@@ -45,6 +59,7 @@ public class GoodsAllService {
 	/*
 	 * 관리자 화면
 	 * */
+	
 	// 상품 삭제
 	public int removeAdminGoods(String goodsCode) {
 	      
