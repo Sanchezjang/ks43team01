@@ -68,7 +68,6 @@
 				                    <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action" style="width:100%; white-space: nowrap;" border="1">
 				                      <thead>
 				                        <tr>
-				                          <th></th>
 				                          <th>상품코드</th>
 				                          <th>상위카테고리</th>
 				                          <th>하위카테고리</th>
@@ -81,11 +80,10 @@
 				                      </thead>
 									<tbody>
 										<tr th:if="${not #lists.isEmpty(adminGoodsList)}" th:each="g:${adminGoodsList}">
-											<td><a type="button" class="btn btn-warning" style="color:navy; font-size: 10px;" th:value="${g.goodsCode}" th:href="@{/userpage/goods/goodsInfo(goodsCode=${g.goodsCode})}">상품 보기</a></td>
 											<td th:text="${g.goodsCode}"></td>
 											<td th:text="${g.goodsTopCategoryName}"></td>
 											<td th:text="${g.goodsSubCategoryName}"></td>
-											<td th:text="${g.goodsName}"></td>
+											<td><a th:href="@{/userpage/goods/goodsInfo(goodsCode=${g.goodsCode})}" th:value="${g.goodsCode}" th:text="${g.goodsName}" style="color:maroon;"></a></td>
 											<td th:text="${g.goodsPrice}"></td>
 											<td th:text="${g.userIdCode}"></td>
 											<td th:text="${g.goodsRegDate}"></td>
