@@ -33,5 +33,10 @@ public class OrderCartService {
 		
 		return result;
 	}
+	/* 사용자화면 장바구니 전체삭제(비우기) */
+	public int removeAllOrderCart(String userIdCode) {
+		int result = orderCartMapper.removeAllOrderCart(userIdCode);
+	 	return result;
+	}
 
 }
