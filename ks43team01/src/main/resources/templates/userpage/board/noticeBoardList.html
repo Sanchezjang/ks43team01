@@ -79,7 +79,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 	
 	</style>
 
-	     <nav><ul><li><a th:href="@{userpage/order/addOrderCurrentStatus}">주문</a></li></ul></nav>
+	     <nav><ul><li><a th:href="@{/userpage/order/addOrderCurrentStatus}">주문</a></li></ul></nav>
 	     
         <div class="slider-area">
             <div class="slider-height2 d-flex align-items-center">
@@ -112,7 +112,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 					<tbody th:if="${not #lists.isEmpty(noticeBoardList)}" th:each="l : ${noticeBoardList}">
 						<tr class="table-row">
 							<td class="serial">0</td>
-							<td class="title"><a th:href="@{/userpage/board/boardDetail(boardPostCode=${l.boardPostCode})}" th:value="${l.boardPostCode}" th:text="${l.boardPostTitle}" style="color: #212529;"></a></td>
+							<td class="title"><a th:href="@{/userpage/board/noticeBoardDetail(boardPostCode=${l.boardPostCode})}" th:value="${l.boardPostCode}" th:text="${l.boardPostTitle}" style="color: #212529;"></a></td>
 							<td class="writer"  th:text="${l.boardUserName}"></td>
 							<td class="regDate" th:text="${l.boardPostRegDate}"> </td>
 							<td class="pageView" th:text="${l.boardPostView}"> </td>

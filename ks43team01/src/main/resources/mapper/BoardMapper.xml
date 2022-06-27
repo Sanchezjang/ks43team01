@@ -76,8 +76,18 @@
       </association>
   </resultMap>
   
+
+  <delete id="removeBoard" parameterType="String">
+  	DELETE
+		FROM
+			tb_b_board_post
+		WHERE
+			board_post_code = #{boardPostCode};
+  </delete>
+  
+
   <update id="modifyBoard" parameterType="String">
-	/* 리뷰 수정 */
+	/* 게시글 수정 */
 		UPDATE
 			tb_b_board_post 
 		SET 

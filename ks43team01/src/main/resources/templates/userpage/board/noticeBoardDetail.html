@@ -78,7 +78,7 @@ layout:decorate="~{userpage/layout/userdefault}">
                   <a type="button" class="returnPage"
                      onclick="history.back(-1)">돌아가기</a>
                </div>
-			
+			<input type="hidden" th:value="${board.boardPostCode}">
                <table class="boardView">
                   <colgroup>
                      <col width="15%">
@@ -105,10 +105,12 @@ layout:decorate="~{userpage/layout/userdefault}">
                   </tbody>
                </table>
               <div class="clickBtn mt-3" >
-				<a th:href="@{/userpage/board/modifyBoard(boardPostCode=${board.boardPostCode})}">
+				<a th:href="@{/userpage/board/modifyNoticeBoard(boardPostCode=${board.boardPostCode})}">
 					<button type="submit" class="genric-btn primary" th:if="${session.UID == board.userIdCode}">수정</button>
 				</a>
-				<button type="button" class="genric-btn primary-border">삭제</button>
+				<a th:href="@{/userpage/board/removeNoticeBoard(boardPostCode=${board.boardPostCode})}">
+					<button type="button" class="genric-btn primary-border" th:if="${session.UID == board.userIdCode}">삭제</button>
+				</a>
 				
                </div>
                

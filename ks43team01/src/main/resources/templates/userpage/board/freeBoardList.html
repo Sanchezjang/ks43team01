@@ -113,7 +113,7 @@ a:link, a:visited {text-decoration:none; color: #656565;}
 					<tbody th:if="${not #lists.isEmpty(freeBoardList)}" th:each="l : ${freeBoardList}">
 						<tr class="table-row">
 							<td class="serial">0</td>
-							<td class="title"><a th:href="@{/userpage/board/boardDetail(boardPostCode=${l.boardPostCode})}" th:value="${l.boardPostCode}" th:text="${l.boardPostTitle}" style="color: #212529;"></a></td>
+							<td class="title"><a th:href="@{/userpage/board/freeBoardDetail(boardPostCode=${l.boardPostCode})}" th:value="${l.boardPostCode}" th:text="${l.boardPostTitle}" style="color: #212529;"></a></td>
 							<td class="writer"  th:text="${l.boardUserName}"></td>
 							<td class="regDate" th:text="${l.boardPostRegDate}"> </td>
 							<td class="pageView" th:text="${l.boardPostView}"> </td>
@@ -123,7 +123,7 @@ a:link, a:visited {text-decoration:none; color: #656565;}
 						</tr>
 					</tbody>
 				</table>
-					<div style="text-align:right; margin-top:20px;"><a th:href="@{/addFreeBoard}" class="genric-btn primary" >글쓰기</a></div>
+					<div style="text-align:right; margin-top:20px;"><a th:href="@{/userpage/board/addFreeBoard}" class="genric-btn primary" >글쓰기</a></div>
 				</div>
 				</div>
 					

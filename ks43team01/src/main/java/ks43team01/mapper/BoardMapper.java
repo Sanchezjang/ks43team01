@@ -15,10 +15,11 @@ import ks43team01.dto.QnaBoard;
 @Mapper
 public interface BoardMapper {
 	
-	
-	//2-4. 사용자용  게시글 삭제
+
+	// 사용자용 게시글 삭제
 	public int removeBoard(String boardPostCode);
-	//2-3. 사용자용 게시글 수정
+	
+	// 사용자용 게시글 수정
 	public int modifyBoard(Board board);
 	
 	//게시글 상세 조회

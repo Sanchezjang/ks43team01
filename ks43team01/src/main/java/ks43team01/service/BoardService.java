@@ -23,14 +23,15 @@ public class BoardService {
 		this.boardMapper = boardMapper;
 	}
 
-	/* 2-4. 사용자용 게시글  삭제*/
+
+	/* 사용자용 게시글삭제*/
 	public int removeBoard(String boardPostCode) {
 		int result = boardMapper.removeBoard(boardPostCode);
 		
 		return result;
 	}
-	
-	/* 2-3. 사용자용 게시글  수정*/
+
+	/* 사용자용 게시글  수정*/
 	public int modifyBoard(Board board) {
 		int result = boardMapper.modifyBoard(board);
 		
@@ -144,7 +145,7 @@ public class BoardService {
 		return result;
 	}
 	
-	/* 2. 사용자용 공지사항 목록 조회 */
+	/* 2. 사용자용 공지사항 목록 조회  */
 	public List<Board> getNoticeBoardList(){
 		List<Board> noticeBoardList = boardMapper.getNoticeBoardList();
 		return noticeBoardList;
