@@ -14,6 +14,9 @@ public class Goods {
 	private String userIdCode;
 	private String goodsRegDate;
 	
+	private GoodsTopCategory goodsTopCategory;
+	private GoodsSubCategory goodsSubCategory;
+	
 	@Override
 	public String toString() {
 		return "Goods [goodsCode=" + goodsCode + ", goodsSubCategoryCode=" + goodsSubCategoryCode + ", goodsName="
@@ -21,7 +24,8 @@ public class Goods {
 				+ ", goodsWorkingPeriod=" + goodsWorkingPeriod + ", goodsModifiedPossibilityCount="
 				+ goodsModifiedPossibilityCount + ", goodsImageReg=" + goodsImageReg + ", goodsPreRequestsAnswerType="
 				+ goodsPreRequestsAnswerType + ", goodsPreRequest=" + goodsPreRequest + ", userIdCode=" + userIdCode
-				+ ", goodsRegDate=" + goodsRegDate + "]";
+				+ ", goodsRegDate=" + goodsRegDate + ", goodsTopCategory=" + goodsTopCategory + ", goodsSubCategory="
+				+ goodsSubCategory + "]";
 	}
 	public String getGoodsCode() {
 		return goodsCode;
@@ -95,4 +99,17 @@ public class Goods {
 	public void setGoodsRegDate(String goodsRegDate) {
 		this.goodsRegDate = goodsRegDate;
 	}
+	public GoodsTopCategory getGoodsTopCategory() {
+		return goodsTopCategory;
+	}
+	public void setGoodsTopCategory(GoodsTopCategory goodsTopCategory) {
+		this.goodsTopCategory = goodsTopCategory;
+	}
+	public GoodsSubCategory getGoodsSubCategory() {
+		return goodsSubCategory;
+	}
+	public void setGoodsSubCategory(GoodsSubCategory goodsSubCategory) {
+		this.goodsSubCategory = goodsSubCategory;
+	}
+	
 }

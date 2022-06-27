@@ -6,19 +6,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ks43team01.dto.Goods;
-import ks43team01.dto.GoodsAll;
 import ks43team01.dto.GoodsSubCategory;
 import ks43team01.dto.GoodsTopCategory;
-import ks43team01.mapper.GoodsAllMapper;
+import ks43team01.mapper.GoodsMapper;
 
 @Service
 @Transactional
-public class GoodsAllService {
+public class GoodsService {
 
-	private final GoodsAllMapper goodsAllMapper;
+	private final GoodsMapper goodsMapper;
 	
-	public GoodsAllService(GoodsAllMapper goodsAllMapper) {
-		this.goodsAllMapper = goodsAllMapper;
+	public GoodsService(GoodsMapper goodsMapper) {
+		this.goodsMapper = goodsMapper;
 	}
 	
 	/*
@@ -28,20 +27,20 @@ public class GoodsAllService {
 	// 상품 삭제
 	public int removeUserGoods(String goodsCode) {
 	      
-		int result = goodsAllMapper.removeUserGoods(goodsCode);
+		int result = goodsMapper.removeUserGoods(goodsCode);
 		return result;
 	}	
 	
 	// 개별 상품 보기
-	public GoodsAll getGoodsInfoCode(String goodsCode) {
-		return goodsAllMapper.getGoodsInfoCode(goodsCode);
+	public Goods getGoodsInfoCode(String goodsCode) {
+		return goodsMapper.getGoodsInfoCode(goodsCode);
 		
 	}
 	
 	// 상품리스트조회
-	public List<GoodsAll> getUserGoodsList(){
+	public List<Goods> getUserGoodsList(){
 		
-		List<GoodsAll> userGoodsList = goodsAllMapper.getUserGoodsList();
+		List<Goods> userGoodsList = goodsMapper.getUserGoodsList();
 		
 		return userGoodsList;
 	}
@@ -51,7 +50,7 @@ public class GoodsAllService {
 		
 		goods.setUserIdCode(sessionId);
 		
-		int result = goodsAllMapper.addGoods(goods);
+		int result = goodsMapper.addGoods(goods);
 		
 		return result;
 	}
@@ -63,14 +62,14 @@ public class GoodsAllService {
 	// 상품 삭제
 	public int removeAdminGoods(String goodsCode) {
 	      
-		int result = goodsAllMapper.removeAdminGoods(goodsCode);
+		int result = goodsMapper.removeAdminGoods(goodsCode);
 		return result;
 	}
 	
 	// 상품리스트
-	public List<GoodsAll> getAdminGoodsList(){
+	public List<Goods> getAdminGoodsList(){
 		
-		List<GoodsAll> adminGoodsList = goodsAllMapper.getAdminGoodsList();
+		List<Goods> adminGoodsList = goodsMapper.getAdminGoodsList();
 		
 		return adminGoodsList;
 	}
@@ -78,14 +77,14 @@ public class GoodsAllService {
 	//상품 하위 카테고리 삭제
 	public int removeGoodsSubCategory(String goodsSubCategoryCode) {
 	      
-		int result = goodsAllMapper.removeGoodsSubCategory(goodsSubCategoryCode);
+		int result = goodsMapper.removeGoodsSubCategory(goodsSubCategoryCode);
 		return result;
 	}
 	
 	// 상품 하위 카테고리 리스트
 	public List<GoodsSubCategory> getGoodsSubCategoryList(){
 		
-		List<GoodsSubCategory> goodsSubCategoryList = goodsAllMapper.getGoodsSubCategoryList();
+		List<GoodsSubCategory> goodsSubCategoryList = goodsMapper.getGoodsSubCategoryList();
 		
 		return goodsSubCategoryList;
 	}
@@ -93,7 +92,7 @@ public class GoodsAllService {
 	// 상품 상위 카테고리 리스트
 	public List<GoodsTopCategory> getGoodsTopCategoryList(){
 		
-		List<GoodsTopCategory> goodsTopCategoryList = goodsAllMapper.getGoodsTopCategoryList();
+		List<GoodsTopCategory> goodsTopCategoryList = goodsMapper.getGoodsTopCategoryList();
 		
 		return goodsTopCategoryList;
 	}
@@ -103,7 +102,7 @@ public class GoodsAllService {
 		
 		goodsSubCategory.setUserIdCode(sessionId);
 		
-		int result = goodsAllMapper.addGoodsSubCategory(goodsSubCategory);
+		int result = goodsMapper.addGoodsSubCategory(goodsSubCategory);
 		
 		return result;
 	}
@@ -113,7 +112,7 @@ public class GoodsAllService {
 		
 		goodsTopCategory.setUserIdCode(sessionId);
 		
-		int result = goodsAllMapper.addGoodsTopCategory(goodsTopCategory);
+		int result = goodsMapper.addGoodsTopCategory(goodsTopCategory);
 		
 		return result;
 	}

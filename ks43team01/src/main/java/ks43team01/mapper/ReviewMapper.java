@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import ks43team01.dto.GoodsBasicInfo;
-import ks43team01.dto.ReviewByScore;
 import ks43team01.dto.ReviewContentsReg;
 
 @Mapper
