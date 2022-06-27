@@ -53,6 +53,31 @@
 		</association>
 	</resultMap>
 	
+	<insert id="addPointGradelist" parameterType="PointSaveByGrade">
+	/* 관리자 페이지 포인트 기준 등록 */
+	INSERT INTO tb_pt_point_buy_save_by_grade 
+		(point_buy_save_standard_grade_code
+		,grade_user_code
+		,point_standard_details_code
+		,point_standard_code
+		,point_save_by_grade_percent
+		,point_save_by_grade_unit)
+		VALUES
+		(#{pointBuySaveByGrade}
+		,(SELECT
+			a.grade_user_code		
+		FROM
+			tb_u_user_rating_standard AS a
+		WHERE
+			a.grade_name = #{gradeName}		
+		)
+		,#{pointStandardCode}
+		,#{pointStandardDetailsCode}
+		,#{pointSaveByGradePercent}
+		,#{pointSaveByGradeUnit}
+		);
+	</insert>
+	
 	<delete id="removePointStandard" parameterType="String">
 	/* 관리자 페이지 포인트 내역 삭제 */
 		DELETE
