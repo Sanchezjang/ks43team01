@@ -112,7 +112,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 					<tbody th:if="${not #lists.isEmpty(noticeBoardList)}" th:each="l : ${noticeBoardList}">
 						<tr class="table-row">
 							<td class="serial">0</td>
-							<td class="title"><a th:href="@{/boardDetail(boardPostCode=${l.boardPostCode})}" th:value="${l.boardPostCode}" th:text="${l.boardPostTitle}" style="color: #212529;"></a></td>
+							<td class="title"><a th:href="@{/userpage/board/boardDetail(boardPostCode=${l.boardPostCode})}" th:value="${l.boardPostCode}" th:text="${l.boardPostTitle}" style="color: #212529;"></a></td>
 							<td class="writer"  th:text="${l.boardUserName}"></td>
 							<td class="regDate" th:text="${l.boardPostRegDate}"> </td>
 							<td class="pageView" th:text="${l.boardPostView}"> </td>
@@ -122,7 +122,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 						</tr>
 					</tbody>
 				</table>
-					<div style="text-align:right; margin-top:20px;"><a th:href="@{/addNoticeBoard}" class="genric-btn primary" >글쓰기</a></div>
+					<div style="text-align:right; margin-top:20px;"><a th:href="@{/userpage/board/addNoticeBoard}" class="genric-btn primary" >글쓰기</a></div>
 			</div>
 		</div>
 		<nav class="blog-pagination justify-content-center d-flex">
