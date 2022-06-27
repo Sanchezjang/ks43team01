@@ -24,6 +24,14 @@ public class PointService {
 		this.pointMapper = pointMapper;
 
 	}
+	/* 관리자 페이지 포인트 기준 등록*/
+	public int addPointGradeList(PointSaveByGrade pointSaveByGrade) {
+		
+		int result = pointMapper.addPointGradeList(pointSaveByGrade);
+		
+		return result;
+	}
+	
 	/* 관리자 페이지 포인트 기준 삭제*/
 	public int removePointStandard(String pointDetailsCode) {
 		log.info("pointDetailsCode: {}",pointDetailsCode);

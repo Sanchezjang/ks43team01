@@ -38,6 +38,25 @@ public class AdminPointController {
 		return "redirect:/adminpage/pointDetails/pointList";
 	}
 	
+	/* 관리자 페이지 포인트 기준 내역 등록(post) */
+	@PostMapping("/addPointGradeList")
+	public String addPointGradeList(PointSaveByGrade pointSaveByGrade) {
+		
+		pointService.addPointGradeList(pointSaveByGrade);
+		
+		return "redirect:/adminpage/pointDetails/pointGradeList";
+		
+	}
+	
+	/* 관리자 페이지 포인트 기준 내역 등록(get) */
+	@GetMapping("/addPointGradeList")
+	public String addPointGradeList(Model model) {
+		
+		List<Point> pointList = pointService.getPointList();
+		model.addAttribute("pointList", pointList);
+		
+		return "adminpage/pointDetails/addPointGradeList";
+	}
 	
 	/* 관리자 페이지 포인트 기준 내역 조회*/
 	@GetMapping("/pointGradeList")
