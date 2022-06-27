@@ -85,6 +85,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 							<th>상품코드</th>
 							<th hidden="userId">판매자</th>
 							<th>상품가격</th>
+							<th>수정</th>
 							<th>삭제</th>
 						</tr>
 					</thead>
@@ -94,6 +95,8 @@ layout:decorate="~{userpage/layout/userdefault}">
 							<td th:text="${goods.userIdCode}" hidden="userId"></td>
 							<td th:text="${goods.goodsPrice}"></td>
 							<td>
+							</td>
+							<td>
 								<button type="button" class="btn btn-danger removeUserGoodsModalBtn" data-toggle="modal" data-target="#removeUserGoodsModal"
 								th:if="${session.UID == goods.userIdCode}" th:value="${goods.goodsCode}">삭제</button>
 							</td>
@@ -101,6 +104,11 @@ layout:decorate="~{userpage/layout/userdefault}">
 					</tbody>
 				</table>
 			</form>
+			<div>
+				<a th:href="@{/userpage/goods/modifyGoods(goodsCode=${goods.goodsCode})}">
+					<button type="submit" class="btn" id="swal-modify-goods" th:if="${session.UID == goods.userIdCode}">수정</button>
+				</a>
+			</div>
 		</div>
 		<div>
 		
@@ -129,8 +137,15 @@ layout:decorate="~{userpage/layout/userdefault}">
 	                  </div>
 	               </div>
 	         </div>
-               <!-- Modal -->
+             <!-- Modal -->
             
+            <script type="text/javascript">
+				var $swalModifyGoods = $('#swal-modify-goods');
+            	$('.btn').on('click', function() {
+            	  $swalModifyGoods.val($(this).val());            	  
+            	})
+			</script>
+			
             <script type="text/javascript">
             	var $removeUserGoodsCode = $('#removeUserGoodsCode');
             	$('.removeUserGoodsModalBtn').on('click', function() {

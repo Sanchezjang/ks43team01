@@ -29,7 +29,15 @@ public class GoodsService {
 	      
 		int result = goodsMapper.removeUserGoods(goodsCode);
 		return result;
-	}	
+	}
+	
+	// 상품 수정
+	public int modifyGoods(Goods goods) {
+		
+		int result = goodsMapper.modifyGoods(goods);
+		
+		return result;
+	}
 	
 	// 개별 상품 보기
 	public Goods getGoodsInfoCode(String goodsCode) {
@@ -43,6 +51,14 @@ public class GoodsService {
 		List<Goods> userGoodsList = goodsMapper.getUserGoodsList();
 		
 		return userGoodsList;
+	}
+	
+	// 상품 상위 카테고리 해당 상품 하위 카테고리
+	public List<GoodsSubCategory> getaddGoodsSubCategory(String addGoodsTopCategory) {
+		
+		List<GoodsSubCategory> addGoodsSubCategory = goodsMapper.getaddGoodsSubCategory(addGoodsTopCategory);
+		
+		return addGoodsSubCategory;
 	}
 	
 	// 상품 등록

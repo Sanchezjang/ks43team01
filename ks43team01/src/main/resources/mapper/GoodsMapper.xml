@@ -33,6 +33,23 @@
 	
 	<!-- 사용자 화면 -->
 	<!-- 사용자 화면 -->
+	<update id="modifyGoods" parameterType="String">
+		/* 회원 페이지 리뷰 수정 */
+		UPDATE
+			tb_g_goods 
+		SET 
+			goods_sub_category_code = #{goodsSubCategoryCode}
+		   ,goods_name = #{goodsName}	
+		   ,goods_description = #{goodsDescription}
+		   ,goods_price = #{goodsPrice}
+		   ,goods_working_period = #{goodsWorkingPeriod}
+		   ,goods_modified_possibility_count = #{goodsModifiedPossibilityCount}
+		   ,goods_image_reg = #{goodsImageReg}
+		   ,goods_reg_date =  CURDATE()
+		WHERE
+			goods_code = #{goodsCode};
+	</update>	
+	
 	<delete id="removeUserGoods" parameterType="String">
 		/* 상품 삭제 */
 		DELETE
@@ -65,6 +82,32 @@
 		FROM
 			tb_g_goods AS g
 	</select>
+	
+    <select id="getaddGoodsTopCategory" resultType="goodsTopCategory">
+		/*판매가 비지니스 탑카테고리*/
+		SELECT 
+			g.goods_top_category_name as goodsTopCategoryName
+			,g.goods_top_category_code as goodsTopCategoryCode
+			,g.user_id_code as userIdocde
+			,g.goods_top_category_reg_date as goodsTopCategoryRegDate
+		FROM 
+			tb_g_goods_top_category as g
+    
+    </select>
+    
+    <select id="getaddGoodsSubCategory" resultType="GoodsSubCategory">
+    	select 
+			g.goods_sub_category_code 
+			,g.goods_sub_category_name 
+			,g.goods_sub_category_reg_date 
+			,g.goods_top_category_code 
+			,g.goods_top_category_name 
+		from 
+			tb_g_goods_sub_category as g
+		where
+			g.goods_top_category_code = #{addGoodsTopCategory};
+    </select>	
+	
 	
 	<insert id="addGoods" parameterType="Goods">
 		/* 상품 등록 */
