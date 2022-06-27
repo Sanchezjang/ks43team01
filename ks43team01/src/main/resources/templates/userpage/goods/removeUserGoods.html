@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">	
+
+<!------ Include the above in your HEAD tag ---------->
+<div layout:fragment="content">
+	<style>
+	html, body, div, a, table, thead, tbody, tr, th, td {
+		margin:0; outline:0; border:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent;
+	}
+	body { 
+		font-size:0.875em; line-height:1.5; color:#666; -webkit-text-size-adjust:none; min-width:320px;
+		font-family:'NanumGothic','나눔고딕',dotum, "Helvetica Neue", Helvetica, Verdana, Arial, Sans-Serief;
+	}
+	
+	
+	ul{margin:0;}
+	a:link, a:visited {text-decoration:none; color: #656565;}
+	
+	.container {max-width:1024px; margin:30px auto;}
+	
+	.blog-pagination {
+	    margin-top: 0;
+	    
+	}    
+	.boardForm{
+		padding-top: 50px;
+	
+	}
+	.section-top-border{
+		width: 1200px;
+		margin:0 auto;
+	
+	}
+	.progress-table{
+		background: #f9f9ff;
+		padding: 15px 0px 30px 0px;
+		min-width: 800px;
+		
+	}
+		.serial{
+			width: 11.83%;
+	        padding-left: 30px;
+		}
+		.writer{
+			width:  28.07%;
+		}
+		.regDate {
+	        width: 19.74%;
+	    }
+	    .title {
+	        width: 40.36%;
+	        padding-right: 50px;
+	    }
+	    .pageView{
+	    	width: 11.83%;
+	    	padding-left: 30px;
+	    }
+		.table-head {
+		    	padding: 15px 0;
+	        	display: flex;
+	  			font-weight: bold;
+	            color: $title-color;
+	            line-height: 40px;
+	            text-transform: uppercase;
+	            font-weight: 500;
+	            border-bottom: 2px solid #c6d8f7;
+	    }
+		.table-row {
+	        padding: 15px 0;
+	        border-top: 1px solid #edf3fd;
+	        display: flex;
+	        }
+	
+		
+	
+	
+	</style>
+       
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <h3>상품</h3>
+         
+		    <div class="col-md-12 col-sm-12 ">
+					<div class="x_panel">
+						<div class="x_title">
+							<h2>
+								삭제완료
+							</h2>
+							 <div class="clearfix"></div>
+						</div>
+						<div class="x_content">
+							<br />
+							<form class="form-horizontal form-label-left">
+								<div class="form-group row ">
+									<label class="control-label col-md-3 col-sm-3 ">
+									선택하신 상품이 삭제 되었습니다.</label>
+								</div>
+								<div class="form-group">
+									<div class="col-md-8 col-sm-8  offset-md-4">
+										<a th:href="@{/userpage/goods/userGoodsList}"><button type="button" class="btn btn-primary">리스트로 돌아가기</button></a>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+</div>

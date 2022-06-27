@@ -37,7 +37,7 @@ public class UserGoodsController {
 		
 		//log.info("삭제  : {}" , goodsCode);
 		goodsService.removeUserGoods(goodsCode);
-		return "redirect:/userpage/goods/userGoodsList";
+		return "userpage/goods/removeUserGoods";
 	}
 	
 	//개별 상품 보기
@@ -47,7 +47,7 @@ public class UserGoodsController {
 		Goods goods = goodsService.getGoodsInfoCode(goodsCode);
 		//log.info("goods :{}", goods);
 		model.addAttribute("goods", goods);
-		return "/userpage/goods/goodsInfo" ;
+		return "userpage/goods/goodsInfo" ;
 		
 	}
 	
