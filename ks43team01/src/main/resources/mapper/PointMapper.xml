@@ -27,6 +27,7 @@
 		<association property="pointSaveByGrade" javaType="PointSaveByGrade">
 			<id 	column="point_buy_save_standard_grade_code"	 	property="pointBuySaveStandardGradeCode"/>
 			<result column="grade_user_code" 						property="gradeUserCode"/>
+			<result column="point_standard_details_code" 			property="pointStandardDetailsCode"/>
 			<result column="point_standard_code" 					property="pointStandardCode"/>
 			<result column="point_save_by_grade_percent" 			property="pointSaveByGradePercent"/>
 			<result column="point_save_by_grade_unit" 				property="pointSaveByGradeUnit"/>
@@ -52,23 +53,40 @@
 		</association>
 	</resultMap>
 	
+	<delete id="removePointStandard" parameterType="String">
+	/* 관리자 페이지 포인트 내역 삭제 */
+		DELETE
+		FROM 
+			tb_pt_point_accumulation_details
+		WHERE
+			point_details_code = #{pointDetailsCode};
+	</delete>
+	
 	<select id="getPointGradeList" resultType="Map">
+	/* 관리자 페이지 포인트 적립 기준 조회 */
 		SELECT
-			pb.point_buy_save_standard_grade_code									AS pointBuySaveStandardGradeCode
-		   ,ur.grade_name															AS gradeName
-		   ,CONCAT(SUBSTRING(pb.point_save_by_grade_percent,3,2),+'%')				AS pointSaveByGradePercent
-		   ,pb.point_save_by_grade_unit												AS pointSaveByGradeUnit
-		FROM
-		 	tb_pt_point_buy_save_by_grade AS pb
-		 	INNER join
-		 	tb_u_user_rating_standard AS ur
-		 	on
-		 	pb.grade_user_code = ur.grade_user_code;	
+			 pb.point_buy_save_standard_grade_code									AS pointBuySaveStandardGradeCode
+			,pp.point_standard_details_name 										AS pointStandardDetailsName
+			,ur.grade_name															AS gradeName
+			,CONCAT(SUBSTRING(pb.point_save_by_grade_percent,3,2),+'%')				AS pointSaveByGradePercent
+			,pb.point_save_by_grade_unit											AS pointSaveByGradeUnit
+		FROM 
+			tb_pt_point_buy_save_by_grade AS pb 
+			INNER JOIN 
+			tb_u_user_rating_standard AS ur 
+			ON 
+			pb.grade_user_code = ur.grade_user_code
+			INNER JOIN 
+			tb_pt_point_standard_details AS pp
+			ON 
+			pb.point_standard_details_code = pp.point_standard_details_code;
 	</select>
 	
 	<select id="getPointList"  resultType="Map">
-		SELECT 
-		   pa.point_standard_code				AS pointStandardCode	
+	/* 관리자 페이지 포인트 내역 조회 */
+		SELECT
+		   pa.point_details_code 				AS pointDetailsCode	 
+		  ,pa.point_standard_code				AS pointStandardCode	
 		  ,pa.point_history_reg_date			AS pointHistoryRegDate
 		  ,pa.user_id_code						AS userIdCode
 		  ,ps.point_standard_name				AS pointStandardName

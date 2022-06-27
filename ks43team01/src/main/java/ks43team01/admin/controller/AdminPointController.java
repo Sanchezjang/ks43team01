@@ -29,17 +29,16 @@ public class AdminPointController {
 		this.pointService = pointService;
 	}
 	
-	
-	/* 포인트 삭제 */
-	@PostMapping("/pointList")
-	public String removePoint(String pointDetailsCode) {
+	/* 관리자 페이지 포인트  내역 삭제 */
+	@GetMapping("/removePointStandard")
+	public String removePointStandard(String pointDetailsCode) {
+		log.info("pointDetailsCode: {}",pointDetailsCode);
+		pointService.removePointStandard(pointDetailsCode);
 		
-		pointService.removePoint(pointDetailsCode);
-		
-		return "adminpage/pointDetails/pointList"; 
-	
-	
+		return "redirect:/adminpage/pointDetails/pointList";
 	}
+	
+	
 	/* 관리자 페이지 포인트 기준 내역 조회*/
 	@GetMapping("/pointGradeList")
 	public String getPointGradeList(Model model) {
