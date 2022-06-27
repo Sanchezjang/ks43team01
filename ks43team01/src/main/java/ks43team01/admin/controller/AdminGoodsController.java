@@ -47,7 +47,7 @@ public class AdminGoodsController {
 	public String goodsInfo(@RequestParam(value = "goodsCode")String goodsCode, Model model) {
 		
 		Goods goods = goodsService.getGoodsInfoCode(goodsCode);
-		//log.info("goodsAll :{}", goodsAll);
+		//log.info("goods :{}", goods);
 		model.addAttribute("goods", goods);
 		return "/userpage/goods/goodsInfo" ;
 		
