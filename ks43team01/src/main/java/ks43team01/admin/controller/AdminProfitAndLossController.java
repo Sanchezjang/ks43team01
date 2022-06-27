@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks43team01.dto.Account;
 import ks43team01.dto.Sales;
@@ -24,24 +25,12 @@ public class AdminProfitAndLossController {
 	
 	private static final Logger log = LoggerFactory.getLogger(AdminProfitAndLossController.class);
 
-	
-	//DI (의존성 주입)
-	// 3. 생성자 메서드 주입방식
 	private final ProfitAndLossService profitAndLossService;
 	
 	public AdminProfitAndLossController(ProfitAndLossService profitAndLossService) {
 		this.profitAndLossService = profitAndLossService;
 	}
 
-	/*
-	 * 커맨드 객체 : http 통신 시에 data(key, value) => DTO(멤버변수 명 일치 시) 자동으로 바인딩 하는 객체
-	 * String memberId = request.getParameter("memberId")
-	 * Member member = new Member();
-	 * member.setMemberId(memberID);
-	 * @RequestParam(name="memberId", required, defaultValue, value) String memberId (==) String memberId = request.getParameter("memberId")
-	 * @param Member member (커맨드 객체)
-	 * @return Controller (String) "redirect:/" == response.sendRedirect("/")
-	 * */
 
 	/*
 	 * //매출 검색
@@ -193,25 +182,19 @@ public class AdminProfitAndLossController {
 	@PostMapping("/modifyAccount")
 	public String modifyAccount(Account account
 							   ,HttpSession session
-							   ,HttpServletRequest request) {
-		
-		String sessionId = (String) session.getAttribute("UID");
+							   ,HttpServletRequest request
+							   ,RedirectAttributes reAttr) {
 		
 		profitAndLossService.modifyAccount(account);
+		
+		String sessionId = (String) session.getAttribute("UID");
+		String accountSubjectCode = account.getAccountSubjectCode();
+		reAttr.addAttribute("accountSubjectCode", accountSubjectCode);
 		
 		return "redirect:/adminpage/profitAndLoss/accountList";
 	}	
 	
 	//손익 계정과목 수정
-	@GetMapping("/modifyAccount")
-	public String modifyAccount(Model model) {
-		
-		List<Account> accountList = profitAndLossService.getAccountList();
-		
-		model.addAttribute("accountList", accountList);
-		
-		return "adminpage/profitAndLoss/modifyAccount";
-	}
 	
 	//손익 계정과목 리스트
 	@GetMapping("/accountList")

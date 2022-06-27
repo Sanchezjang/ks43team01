@@ -5,7 +5,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{userpage/layout/userdefault}">
 <!------ Include the above in your HEAD tag ---------->
 <div layout:fragment="content">
-		<style>
+<script type="text/javascript" th:src="@{/Doc/js/jquery-3.6.0.min.js}"></script>
+<style>
 .card-body{
 	padding: 7.25rem;
 	padding-bottom: 10px;
@@ -82,6 +83,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 					<thead>
 						<tr>
 							<th>상품코드</th>
+							<th hidden="userId">판매자</th>
 							<th>상품가격</th>
 							<th>삭제</th>
 						</tr>
@@ -89,9 +91,11 @@ layout:decorate="~{userpage/layout/userdefault}">
 					<tbody>
 						<tr>
 							<td th:text="${goods.goodsCode}"></td>
+							<td th:text="${goods.userIdCode}" hidden="userId"></td>
 							<td th:text="${goods.goodsPrice}"></td>
 							<td>
-							
+								<button type="button" class="btn btn-danger removeUserGoodsModalBtn" data-toggle="modal" data-target="#removeUserGoodsModal"
+								th:if="${session.UID == goods.userIdCode}" th:value="${goods.goodsCode}">삭제</button>
 							</td>
 						</tr>
 					</tbody>
@@ -99,10 +103,6 @@ layout:decorate="~{userpage/layout/userdefault}">
 			</form>
 		</div>
 		<div>
-				<a th:href="@{/userpage/goods/removeUserGoods(goodsCode=${goods.goodsCode})}">
-					<button class="btn btn-danger removeUserGoodsModalBtn" data-toggle="modal" data-target="#removeUserGoodsModal"
-					th:if="${session.UID == goods.userIdCode}" th:value="${goods.goodsCode}">삭제</button>
-				</a>
 		
 		</div>
 			
@@ -120,7 +120,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 	                        	정말 상품을 삭제하시겠습니까?
 	                     </div>
 	                     <div class="modal-footer">
-                           <form action="/userpage/goods/removeUserGoods" method="get">
+                           <form th:action="@{/userpage/goods/removeUserGoods(goodsCode=${goods.goodsCode})}" method="get">
 								<input type="hidden" name="goodsCode" id="removeUserGoodsCode">
 	                       		<button type="button" class="btn btn-primary" data-dismiss="modal">취소</button>
 								<button type="submit" class="btn btn-danger">삭제</button>
@@ -202,6 +202,6 @@ layout:decorate="~{userpage/layout/userdefault}">
            </div> -->
         </div>
    	</div>
-
+</div>
 </html>
 

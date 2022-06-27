@@ -34,69 +34,72 @@
 		<link th:href="@{/admin/build/css/custom.min.css}" rel="stylesheet">
 	</head>
 
-	<body class="nav-md">
-		<div class="container body">
-			<div class="main_container">
+<body class="nav-md">
+<div class="container body">
+<div class="main_container">
 	
-			<!-- left menu -->
-			<div th:replace="adminpage/fragments/leftmenu :: leftmenuFragment"></div>
-			<!-- /left menu -->
-	
-			<!-- top navigation -->
-			<div th:replace="adminpage/fragments/header :: headerFragment"></div>
-			<!-- /top navigation -->
-	
-			<!-- page content -->
-			<div class="right_col" role="main">
-				<h3>상품</h3>
-				<div class="col-md-9 ">
-					<div class="x_panel">
-						<div class="x_title">
-							<h2>상품 하위 카테고리 등록</h2>
-								<ul class="nav navbar-right panel_toolbox">
-									<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-									<li><a class="close-link"><i class="fa fa-close"></i></a></li>
-								</ul>
-								<h6><a style="float: right; background-color: teal; border-radius: 5px; padding: 5px; margin: 10px; color: white;" th:href="@{/adminpage/goods/addGoodsTopCategory}">상품 상위 카테고리 등록</a></h6>
-								<div class="clearfix"></div>
-							</div>
-							<div class="x_content"><br />
-								<form name="agc" class="form-horizontal form-label-left" th:action="@{/adminpage/goods/addGoodsSubCategory}" method="post">
-									<div class="form-group row">
-										<label class="control-label col-md-3 col-sm-3 " for="goodsTopCategoryName">상위 카테고리<span class="required">*</span></label>
-										<div class="col-md-9 col-sm-9 ">
-											<select required="required" class="form-control col-md-10" id="goodsTopCategoryName" name="goodsTopCategoryName" >
-												<option value="" disabled selected> :: 상품 상위 카테고리 선택 :: </option>
-												<th:block th:if="${not #lists.isEmpty(goodsTopCategoryList)}" th:each="c:${goodsTopCategoryList}">
-													<option th:value="${c.goodsTopCategoryName}">[[${c.goodsTopCategoryName}]]</option>
-												</th:block>
-											</select>
-										</div>
-									</div>
-									<div class="form-group row">
-										<label class="control-label col-md-3 col-sm-3 " for="goodsSubCategoryName">상품 하위 카테고리명<span class="required">*</span></label>
-										<div class="col-md-9 col-sm-9 ">
-											<input type="text" name="goodsSubCategoryName" id="goodsSubCategoryName" required="required" class="form-control col-md-10" />
-										</div>
-									</div>
-								<div class="ln_solid"></div>
-									<div class="form-group">
-										<div class="col-md-12">
-											<button style="float: right;" type="submit" class="btn btn-success">등록</button>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			<!-- /page content -->
-			</div>
-		</div>
+           <!-- left menu -->
+<div th:replace="adminpage/fragments/leftmenu :: leftmenuFragment"></div>
+         <!-- /left menu -->
 
-			<!-- footer content -->
-			<div th:replace="adminpage/fragments/footer :: footerFragment"></div>
-			<!-- /footer content -->
+<!-- top navigation -->
+<div th:replace="adminpage/fragments/header :: headerFragment"></div>
+<!-- /top navigation -->
+
+<!-- page content -->
+<div class="right_col" role="main">
+<h3>상품</h3>
+<div class="col-md-9 ">
+<div class="x_panel">
+<div class="x_title">
+<h2>상품 하위 카테고리 등록</h2>
+<ul class="nav navbar-right panel_toolbox">
+<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+</li>
+<li><a class="close-link"><i class="fa fa-close"></i></a>
+</li>
+</ul>
+<h6><a style="float: right; background-color: teal; border-radius: 5px; padding: 5px; margin: 10px; color: white;" th:href="@{/adminpage/goods/addGoodsTopCategory}">상품 상위 카테고리 등록</a></h6>
+<div class="clearfix"></div>
+</div>
+<div class="x_content"><br/>
+<form name="agc" class="form-horizontal form-label-left" th:action="@{/adminpage/goods/addGoodsSubCategory}" method="post">
+<div class="form-group row">
+<label class="control-label col-md-3 col-sm-3 " for="goodsTopCategoryName">상위 카테고리<span class="required">*</span></label>
+<div class="col-md-9 col-sm-9 ">
+<select required="required" class="form-control col-md-10" id="goodsTopCategoryName" name="goodsTopCategoryName" >
+<option value="" disabled selected> :: 상품 상위 카테고리 선택 :: </option>
+<th:block th:if="${not #lists.isEmpty(goodsTopCategoryList)}" th:each="c:${goodsTopCategoryList}">
+<option th:value="${c.goodsTopCategoryName}">[[${c.goodsTopCategoryName}]]</option>
+</th:block>
+</select>
+</div>
+</div>
+<div class="form-group row">
+<label class="control-label col-md-3 col-sm-3 " for="goodsSubCategoryName">상품 하위 카테고리명<span class="required">*</span>
+</label>
+<div class="col-md-9 col-sm-9 ">
+<input type="text" name="goodsSubCategoryName" id="goodsSubCategoryName" required="required" class="form-control col-md-10" />
+</div>
+</div>
+<div class="ln_solid"></div>
+<div class="form-group">
+<div class="col-md-12">
+<button style="float: right;" type="submit" class="btn btn-success">등록</button>
+</div>
+</div>
+</form>	
+</div>
+</div>
+</div>
+</div>
+<!-- /page content -->
+</div>
+</div>
+
+<!-- footer content -->
+<div th:replace="adminpage/fragments/footer :: footerFragment"></div>
+<!-- /footer content -->
 
 	<!-- jQuery -->
 	<script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>

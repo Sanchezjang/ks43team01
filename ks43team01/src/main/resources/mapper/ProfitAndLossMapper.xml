@@ -182,6 +182,7 @@
 	
 	<update id="modifyAccount">
 		/*손익 계정과목 수정*/
+		
 	</update>
 	
 	<select id="getAccountList" resultType="Account">

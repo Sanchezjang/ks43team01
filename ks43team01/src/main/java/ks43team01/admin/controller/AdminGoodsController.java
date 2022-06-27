@@ -49,7 +49,7 @@ public class AdminGoodsController {
 		Goods goods = goodsService.getGoodsInfoCode(goodsCode);
 		//log.info("goods :{}", goods);
 		model.addAttribute("goods", goods);
-		return "/userpage/goods/goodsInfo" ;
+		return "userpage/goods/goodsInfo" ;
 		
 	}
 	
@@ -72,6 +72,12 @@ public class AdminGoodsController {
 		goodsService.removeGoodsSubCategory(goodsSubCategoryCode);
 		return "adminpage/goods/removeGoodsSubCategory";
 	}
+	
+	//상품 하위 카테고리 수정
+	
+	
+	//상품 하위 카테고리 수정
+		
 
 	//상품 하위 카테고리 리스트
 	@GetMapping("/goodsSubCategoryList")
@@ -82,17 +88,6 @@ public class AdminGoodsController {
 		model.addAttribute("goodsSubCategoryList", goodsSubCategoryList);
 		
 		return "adminpage/goods/goodsSubCategoryList";
-	}
-	
-	//상품 상위 카테고리 리스트
-	@GetMapping("/goodsTopCategoryList")
-	public String getGoodsTopCategoryList(Model model) {
-		
-		List<GoodsTopCategory> goodsTopCategoryList = goodsService.getGoodsTopCategoryList();
-		//log.info("상품 상위 카테고리 : {}", goodsTopCategoryList);
-		model.addAttribute("goodsTopCategoryList", goodsTopCategoryList);
-		
-		return "adminpage/goods/goodsTopCategoryList";
 	}
 	
 	//상품 하위 카테고리 등록
@@ -121,6 +116,23 @@ public class AdminGoodsController {
 		model.addAttribute("goodsTopCategoryList", goodsTopCategoryList);
 		
 		return "adminpage/goods/addGoodsSubCategory";
+	}
+	
+	//상품 상위 카테고리 삭제
+	
+	
+	//상품 상위 카테고리 수정
+	
+	
+	//상품 상위 카테고리 리스트
+	@GetMapping("/goodsTopCategoryList")
+	public String getGoodsTopCategoryList(Model model) {
+		
+		List<GoodsTopCategory> goodsTopCategoryList = goodsService.getGoodsTopCategoryList();
+		//log.info("상품 상위 카테고리 : {}", goodsTopCategoryList);
+		model.addAttribute("goodsTopCategoryList", goodsTopCategoryList);
+		
+		return "adminpage/goods/goodsTopCategoryList";
 	}
 	
 	//상품 상위 카테고리 등록

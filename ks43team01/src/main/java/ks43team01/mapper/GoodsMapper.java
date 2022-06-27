@@ -16,6 +16,9 @@ public interface GoodsMapper {
 	//상품 삭제
 	public int removeUserGoods(String goodsCode);
 	
+	//상품 수정
+	
+	
 	//개별 상품 보기
 	public Goods getGoodsInfoCode(String goodsCode);
 	
@@ -37,14 +40,23 @@ public interface GoodsMapper {
 	//상품 하위 카테고리 삭제
 	public int removeGoodsSubCategory(String goodsSubCategoryCode);
 	
+	//상품 하위 카테고리 수정
+	
+	
 	//상품 하위 카테고리 리스트
 	public List<GoodsSubCategory> getGoodsSubCategoryList();
 	
-	//상품 상위 카테고리 리스트
-	public List<GoodsTopCategory> getGoodsTopCategoryList();
-	
 	//상품 하위 카테고리 등록
 	public int addGoodsSubCategory(GoodsSubCategory goodsSubCategory);
+	
+	//상품 상위 카테고리 삭제
+	
+	
+	//상품 상위 카테고리 수정
+	
+	
+	//상품 상위 카테고리 리스트
+	public List<GoodsTopCategory> getGoodsTopCategoryList();
 	
 	//상품 상위 카테고리 등록
 	public int addGoodsTopCategory(GoodsTopCategory goodsTopCategory);
