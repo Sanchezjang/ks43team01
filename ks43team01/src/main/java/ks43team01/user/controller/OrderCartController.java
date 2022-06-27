@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import ks43team01.dto.OrderCart;
 import ks43team01.service.OrderCartService;
 
@@ -38,7 +40,7 @@ public class OrderCartController {
 		return "userpage/order/orderCart";
 	}
 	@GetMapping("/removeOrderCart")
-	public String removeOrderCart(OrderCart orderCart) {
+	public String removeOrderCart(@RequestParam(value = "odercartcode" OrderCart orderCart) {
 		orderCartService.removeOrderCart(orderCart.getOrderCartCode());
 		
 		log.info("삭제 아이디 받아 오는지 :  {}",orderCart.getOrderCartCode());
