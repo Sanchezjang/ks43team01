@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">
+<!------ Include the above in your HEAD tag ---------->
+<div layout:fragment="content">
+<style>
+	html, body, div, a, table, thead, tbody, tr, th, td {
+		margin:0; outline:0; border:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent;
+	}
+	body { 
+		font-size:0.875em; line-height:1.5; color:#666; -webkit-text-size-adjust:none; min-width:320px;
+		font-family:'NanumGothic','나눔고딕',dotum, "Helvetica Neue", Helvetica, Verdana, Arial, Sans-Serief;
+	}
+	.boardDetailView{
+		width: 1000px;
+		height:600px;
+		margin: 0 auto;
+		padding-top: 50px;
+	}
+	.boardView{
+		border: 1px solid #ccc;
+		width: 1000px;
+	}
+	
+	th{
+		background-color: #F6F6F6;
+		height: 40px;
+		text-align: center;
+		border: 1px solid #ccc;
+		vertical-align: middle;
+	}
+	
+	td{
+		border: 1px solid #ccc;
+		vertical-align: middle;
+		padding: 15px;
+		
+	}
+	
+	.detailContent{
+		height: 200px;
+		
+	}
+	
+	.clickBtn{
+	width: 1000px;
+	text-align:right;
+	padding-top: 20px;
+}
+
+	.returnPage{
+		padding-bottom: 30px;
+	}
+
+</style>
+
+   <div class="slider-area">
+      <div class="slider-height2 d-flex align-items-center">
+         <div class="container">
+            <div class="BoardRow">
+               <div class="col-xl-12">
+                  <div class="hero-cap hero-cap2 text-center">
+                     <h2>Free bulletin board</h2>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- Hero End -->
+   <!-- About Details Start -->
+   <div class="boardDetailView">
+      <div class="col-12">
+         <div class="boardPostDetail">
+               <div>
+                  <a type="button" class="returnPage"
+                     onclick="history.back(-1)">돌아가기</a>
+               </div>
+			<input type="hidden" th:value="${board.boardPostCode}">
+               <table class="boardView">
+                  <colgroup>
+                     <col width="15%">
+                     <col width="35%">
+                     <col width="15%">
+                  </colgroup>
+                  <tbody>
+                     <tr>
+                        <th>제목</th>
+                        <td th:text="${board.boardPostTitle}"></td>
+                        <th>조회수</th>
+                        <td th:text="${board.boardPostView}"></td>
+                     </tr>
+                     <tr>
+                        <th>작성자</th>
+                        <td th:text="${board.boardUserName}"></td>
+                        <th>작성시간</th>
+                        <td th:text="${board.boardPostRegDate}"></td>
+                     </tr>
+                     <tr>
+                        <th>내용</th>
+                        <td class="detailContent" colspan="3" th:text="${board.boardPostContent}"></td>
+                     </tr>
+                  </tbody>
+               </table>
+              <div class="clickBtn mt-3" >
+				<a th:href="@{/userpage/board/modifyFreeBoard(boardPostCode=${board.boardPostCode})}">
+					<button type="submit" class="genric-btn primary" th:if="${session.UID == board.userIdCode}">수정</button>
+				</a>
+				<a th:href="@{/userpage/board/removeFreeBoard(boardPostCode=${board.boardPostCode})}">
+					<button type="button" class="genric-btn primary-border" th:if="${session.UID == board.userIdCode}">삭제</button>
+				</a>
+				
+               </div>
+               
+            </div>   
+          </div>
+         </div>
+               
+        
+        
+
+</div>
+</html>
