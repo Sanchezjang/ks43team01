@@ -88,8 +88,8 @@ layout:decorate="~{userpage/layout/userdefault}">
 					</thead>
 					<tbody>
 						<tr>
-							<td th:text="${goodsAll.goods.goodsCode}"></td>
-							<td th:text="${goodsAll.goods.goodsPrice}"></td>
+							<td th:text="${goods.goodsCode}"></td>
+							<td th:text="${goods.goodsPrice}"></td>
 							<td>
 							
 							</td>
@@ -99,9 +99,9 @@ layout:decorate="~{userpage/layout/userdefault}">
 			</form>
 		</div>
 		<div>
-				<a th:href="@{/userpage/goods/removeUserGoods(goodsCode=${goodsAll.goods.goodsCode})}">
+				<a th:href="@{/userpage/goods/removeUserGoods(goodsCode=${goods.goodsCode})}">
 					<button class="btn btn-danger removeUserGoodsModalBtn" data-toggle="modal" data-target="#removeUserGoodsModal"
-					th:if="${session.UID == goodsAll.goods.userIdCode}" th:value="${goodsAll.goods.goodsCode}">삭제</button>
+					th:if="${session.UID == goods.userIdCode}" th:value="${goods.goodsCode}">삭제</button>
 				</a>
 		
 		</div>

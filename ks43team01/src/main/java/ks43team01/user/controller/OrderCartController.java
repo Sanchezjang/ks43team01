@@ -40,7 +40,7 @@ public class OrderCartController {
 		return "userpage/order/orderCart";
 	}
 	@GetMapping("/removeOrderCart")
-	public String removeOrderCart(@RequestParam(value = "odercartcode" OrderCart orderCart) {
+	public String removeOrderCart(OrderCart orderCart) {
 		orderCartService.removeOrderCart(orderCart.getOrderCartCode());
 		
 		log.info("삭제 아이디 받아 오는지 :  {}",orderCart.getOrderCartCode());

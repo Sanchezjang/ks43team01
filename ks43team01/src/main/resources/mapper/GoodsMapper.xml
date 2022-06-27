@@ -138,7 +138,7 @@
 			tb_g_goods_top_category AS g;
 	</select>
 	
-	<insert id="addGoodsSubCategory" parameterType="GoodsAll">
+	<insert id="addGoodsSubCategory" parameterType="Goods">
 		/* 상품 하위 카테고리 등록 */
 		INSERT INTO tb_g_goods_sub_category
 		(
@@ -168,7 +168,7 @@
 		);
 	</insert>
 	
-	<insert id="addGoodsTopCategory" parameterType="GoodsAll">
+	<insert id="addGoodsTopCategory" parameterType="Goods">
 		/* 상품 상위 카테고리 등록 */
 		INSERT INTO tb_g_goods_top_category
 		(
