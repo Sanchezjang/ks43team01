@@ -6,38 +6,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 
 	<!------ Include the above in your HEAD tag ---------->
 	<th:block layout:fragment="customScript">
-		<script>
- 			$(function(){
-				$(document).on('change', '#addGoodsTopCategoryName', function(){
-					var $addGoodsTopCategory =$("#addGoodsTopCategoryName").val()
-					var request = $.ajax({
-						url: "/getGoodsSubCategory",
-						method: "GET",
-						data: { 'addGoodsTopCategoryName' : $goodsTopCategory},
-						dataType: "json"
-					});
-			 						 
-					request.done(function( data ) {
-					
-					var html = '', $goodsSubCategory = $('#goodsSubCategoryName');
-					if(data.length == 0){
-						html += '<option value=""> :: 하위 카테고리 :: </option>';
-					}else{ 								
-						for(var i=0; i < data.length; i++){
-							html += '<option value="'+data[i].goodsSubCategoryCode+'"> ' + data[i].goodsSubCategoryName + ' </option>';
-						}
-					}
-						$goodsSubCategory.html(html);
-						$goodsSubCategory.niceSelect('update');
-					});
-					 
-						request.fail(function( jqXHR, textStatus ) {
-							alert( "Request failed: " + textStatus );
-					});
-				});
-			});
- 		</script>
- 		
+		
 	</th:block>	
 
 <div layout:fragment="content">
@@ -156,8 +125,11 @@ layout:decorate="~{userpage/layout/userdefault}">
 						<input type="file" id="goodsImageReg" class="form-control col-6" name="goodsImageReg" required />
 						<div class="explanation">상품서비스의 이미지를 업로드해주세요!(jpg,png파일 업로드)</div>
 					</div>
+					<div class="form-group">
+						<input class="form-control" name="goodsCode" type="hidden" th:value="${goods.goodsCode}"></input>
+					</div>
 					<div class="totalOrder">
-						<a href="#" class="genric-btn primary btn-sm">등록완료</a>
+						<a th:href="@{/userpage/goods/userGoodsList}" class="genric-btn primary btn-sm">등록완료</a>
 					</div>
 				</div>
 			</form>

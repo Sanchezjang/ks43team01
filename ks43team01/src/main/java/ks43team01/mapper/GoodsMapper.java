@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import ks43team01.dto.Goods;
 import ks43team01.dto.GoodsSubCategory;
 import ks43team01.dto.GoodsTopCategory;
+import ks43team01.dto.ReviewContentsReg;
 
 @Mapper
 public interface GoodsMapper {
@@ -17,13 +18,19 @@ public interface GoodsMapper {
 	public int removeUserGoods(String goodsCode);
 	
 	//상품 수정
-	
+	public int modifyGoods(Goods goods);
 	
 	//개별 상품 보기
 	public Goods getGoodsInfoCode(String goodsCode);
 	
 	//상품 리스트 
 	public List<Goods> getUserGoodsList();
+	
+	//등록상품 상위 카테고리
+	public List<GoodsTopCategory> getaddGoodsTopCategory();
+	
+	//등록상품 상위 카테고리 해당 상품 하위 카테고리
+	public List<GoodsSubCategory> getaddGoodsSubCategory(String addGoodsTopCategory);
 	
 	//상품 등록
 	public int addGoods(Goods goods);

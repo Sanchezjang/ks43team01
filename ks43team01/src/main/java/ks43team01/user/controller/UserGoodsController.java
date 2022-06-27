@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks43team01.dto.Goods;
 import ks43team01.dto.GoodsSubCategory;
 import ks43team01.dto.GoodsTopCategory;
+import ks43team01.dto.ReviewContentsReg;
 import ks43team01.service.GoodsService;
 
 @Controller
@@ -40,6 +43,30 @@ public class UserGoodsController {
 		return "userpage/goods/removeUserGoods";
 	}
 	
+	//상품 수정
+	@PostMapping("/modifyGoods")
+	public String modifyGoods(Goods goods
+							  ,RedirectAttributes reAttr) {
+		log.info("goods: {}", goods);
+ 
+		goodsService.modifyGoods(goods);
+		String goodsCode = goods.getGoodsCode();
+		reAttr.addAttribute("goodsCode", goodsCode);
+		return "redirect:/userpage/goods/userGoodsList";
+	}
+	
+	//상품 수정
+	@GetMapping("/modifyGoods")
+	public String modifyGoods(@RequestParam(value="goodsCode", required= false)String goodsCode
+							  ,Model model) {
+		
+		Goods goods = goodsService.getGoodsInfoCode(goodsCode);
+		
+		model.addAttribute("goods", goods);
+		
+		return "userpage/goods/modifyGoods";
+	}
+	
 	//개별 상품 보기
 	@GetMapping("/goodsInfo")
 	public String goodsInfo(@RequestParam(value = "goodsCode")String goodsCode, Model model) {
@@ -60,6 +87,15 @@ public class UserGoodsController {
 		//log.info("상품리스트 : {}", userGoodsList);
 		
 		return "userpage/goods/userGoodsList";
+	}
+	
+	//상품 상위 카테고리 선택 시 해당 상품 하위 카테고리 불러오기
+	@GetMapping("/getaddGoodsSubCategory")
+	@ResponseBody
+	public List<GoodsSubCategory> getaddGoodsSubCategory(@RequestParam(name="addGoodsTopCategoryName")String addGoodsTopCategoryName) {
+		List<GoodsSubCategory> addGoodsSubCategory = goodsService.getaddGoodsSubCategory(addGoodsTopCategoryName);
+		log.info("서브카테고리받아온값제이즌  :{}", addGoodsSubCategory);
+		return addGoodsSubCategory;
 	}
 	
 	//상품 등록
