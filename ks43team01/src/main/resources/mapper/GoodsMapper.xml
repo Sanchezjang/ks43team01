@@ -2,10 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ks43team01.mapper.GoodsAllMapper">
+<mapper namespace="ks43team01.mapper.GoodsMapper">
 
-	<resultMap type="GoodsAll" id="GoodsAllResultMap" >
-		<association property="goods" javaType="Goods">
+	<resultMap type="Goods" id="GoodsResultMap" >
 			<id 	column="goods_code"							property="goodsCode"/>
 			<result column="goods_sub_category_code" 			property="goodsSubCategoryCode"/>
 			<result column="goods_name" 						property="goodsName"/>
@@ -16,7 +15,6 @@
 			<result column="goods_image_reg" 					property="goodsImageReg"/>
 			<result column="user_id_code" 						property="userIdCode"/>
 			<result column="goods_reg_date" 					property="goodsRegDate"/>
-		</association>
 		<association property="goodsTopCategory" javaType="GoodsTopCategory">
 			<id 	column="goods_top_category_code"		property="goodsTopCategoryCode"/>
 			<result column="goods_top_category_name" 		property="goodsTopCategoryName"/>
@@ -44,7 +42,7 @@
 			goods_code = #{goodsCode};
 	</delete>
 	
-	<select id="getGoodsInfoCode" parameterType="String" resultMap="GoodsAllResultMap">
+	<select id="getGoodsInfoCode" parameterType="String" resultMap="GoodsResultMap">
 		/* 개별 상품 보기 */
 		SELECT
 			g.goods_code,

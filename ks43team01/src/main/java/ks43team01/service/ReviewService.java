@@ -10,10 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ks43team01.dto.GoodsBasicInfo;
-import ks43team01.dto.ReviewByScore;
 import ks43team01.dto.ReviewContentsReg;
-import ks43team01.dto.User;
 import ks43team01.mapper.ReviewMapper;
 
 

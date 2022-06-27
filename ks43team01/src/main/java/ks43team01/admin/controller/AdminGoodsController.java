@@ -14,23 +14,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ks43team01.dto.GoodsAll;
+import ks43team01.dto.Goods;
 import ks43team01.dto.GoodsSubCategory;
 import ks43team01.dto.GoodsTopCategory;
-import ks43team01.service.GoodsAllService;
+import ks43team01.service.GoodsService;
 
 @Controller
 @RequestMapping("/adminpage/goods")
-public class AdminGoodsAllController {
+public class AdminGoodsController {
 	
-	private static final Logger log = LoggerFactory.getLogger(AdminGoodsAllController.class);
+	private static final Logger log = LoggerFactory.getLogger(AdminGoodsController.class);
 
 	//DI (의존성 주입)
 	// 3. 생성자 메서드 주입방식
-	private final GoodsAllService goodsAllService;
+	private final GoodsService goodsService;
 	
-	public AdminGoodsAllController(GoodsAllService goodsAllService) {
-		this.goodsAllService = goodsAllService;
+	public AdminGoodsController(GoodsService goodsService) {
+		this.goodsService = goodsService;
 	}
 	
 	//상품 삭제
@@ -38,7 +38,7 @@ public class AdminGoodsAllController {
 	public String removeAdminGoods(String goodsCode) {
 		
 		//log.info("삭제  : {}" , goodsCode);
-		goodsAllService.removeAdminGoods(goodsCode);
+		goodsService.removeAdminGoods(goodsCode);
 		return "adminpage/goods/removeAdminGoods";
 	}
 	
@@ -46,9 +46,9 @@ public class AdminGoodsAllController {
 	@GetMapping("/goodsInfo")
 	public String goodsInfo(@RequestParam(value = "goodsCode")String goodsCode, Model model) {
 		
-		GoodsAll goodsAll = goodsAllService.getGoodsInfoCode(goodsCode);
+		Goods goods = goodsService.getGoodsInfoCode(goodsCode);
 		//log.info("goodsAll :{}", goodsAll);
-		model.addAttribute("goodsAll", goodsAll);
+		model.addAttribute("goods", goods);
 		return "/userpage/goods/goodsInfo" ;
 		
 	}
@@ -57,7 +57,7 @@ public class AdminGoodsAllController {
 	@GetMapping("/adminGoodsList")
 	public String getAdminGoodsList(Model model) {
 		
-		List<GoodsAll> adminGoodsList = goodsAllService.getAdminGoodsList();
+		List<Goods> adminGoodsList = goodsService.getAdminGoodsList();
 		//log.info("매출 내역 : {}", adminGoodsList);
 		model.addAttribute("adminGoodsList", adminGoodsList);
 		
@@ -69,7 +69,7 @@ public class AdminGoodsAllController {
 	public String removeGoodsSubCategory(String goodsSubCategoryCode) {
 		
 		//log.info("삭제 : {}" , goodsSubCategoryCode);
-		goodsAllService.removeGoodsSubCategory(goodsSubCategoryCode);
+		goodsService.removeGoodsSubCategory(goodsSubCategoryCode);
 		return "adminpage/goods/removeGoodsSubCategory";
 	}
 
@@ -77,7 +77,7 @@ public class AdminGoodsAllController {
 	@GetMapping("/goodsSubCategoryList")
 	public String getGoodsSubCategoryList(Model model) {
 		
-		List<GoodsSubCategory> goodsSubCategoryList = goodsAllService.getGoodsSubCategoryList();
+		List<GoodsSubCategory> goodsSubCategoryList = goodsService.getGoodsSubCategoryList();
 		//log.info("상품 하위 카테고리 : {}", goodsSubCategoryList);
 		model.addAttribute("goodsSubCategoryList", goodsSubCategoryList);
 		
@@ -88,7 +88,7 @@ public class AdminGoodsAllController {
 	@GetMapping("/goodsTopCategoryList")
 	public String getGoodsTopCategoryList(Model model) {
 		
-		List<GoodsTopCategory> goodsTopCategoryList = goodsAllService.getGoodsTopCategoryList();
+		List<GoodsTopCategory> goodsTopCategoryList = goodsService.getGoodsTopCategoryList();
 		//log.info("상품 상위 카테고리 : {}", goodsTopCategoryList);
 		model.addAttribute("goodsTopCategoryList", goodsTopCategoryList);
 		
@@ -104,7 +104,7 @@ public class AdminGoodsAllController {
 		//log.info("매출 등록 처리 sales : {}", sales);
 		String sessionId = (String) session.getAttribute("UID");
 		
-		goodsAllService.addGoodsSubCategory(sessionId, goodsSubCategory);
+		goodsService.addGoodsSubCategory(sessionId, goodsSubCategory);
 
 			return "redirect:/adminpage/goods/goodsSubCategoryList";
 
@@ -114,8 +114,8 @@ public class AdminGoodsAllController {
 	@GetMapping("/addGoodsSubCategory")
 	public String addGoodsSubCategory(Model model) {
 		
-		List<GoodsSubCategory> goodsSubCategoryList = goodsAllService.getGoodsSubCategoryList();
-		List<GoodsTopCategory> goodsTopCategoryList = goodsAllService.getGoodsTopCategoryList();
+		List<GoodsSubCategory> goodsSubCategoryList = goodsService.getGoodsSubCategoryList();
+		List<GoodsTopCategory> goodsTopCategoryList = goodsService.getGoodsTopCategoryList();
 		
 		model.addAttribute("goodsSubCategoryList", goodsSubCategoryList);
 		model.addAttribute("goodsTopCategoryList", goodsTopCategoryList);
@@ -132,7 +132,7 @@ public class AdminGoodsAllController {
 		//log.info("매출 등록 처리 sales : {}", sales);
 		String sessionId = (String) session.getAttribute("UID");
 		
-		goodsAllService.addGoodsTopCategory(sessionId, goodsTopCategory);
+		goodsService.addGoodsTopCategory(sessionId, goodsTopCategory);
 		
 		return "redirect:/adminpage/goods/goodsTopCategoryList";
 		
@@ -142,7 +142,7 @@ public class AdminGoodsAllController {
 	@GetMapping("/addGoodsTopCategory")
 	public String addGoodsTopCategory(Model model) {
 		
-		List<GoodsTopCategory> goodsTopCategoryList = goodsAllService.getGoodsTopCategoryList();
+		List<GoodsTopCategory> goodsTopCategoryList = goodsService.getGoodsTopCategoryList();
 		
 		model.addAttribute("goodsTopCategoryList", goodsTopCategoryList);
 		
