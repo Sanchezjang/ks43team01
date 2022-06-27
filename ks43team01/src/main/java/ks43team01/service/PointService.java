@@ -24,6 +24,14 @@ public class PointService {
 		this.pointMapper = pointMapper;
 
 	}
+	/* 관리자 페이지 포인트 기준 삭제*/
+	public int removePointStandard(String pointDetailsCode) {
+		log.info("pointDetailsCode: {}",pointDetailsCode);
+		int result = pointMapper.removePointStandard(pointDetailsCode);
+		
+		return result;
+	}
+	
 	/* 관리자 페이지 포인트 기준 조회 */
 	public List<PointSaveByGrade> getPointGradeList(){
 		
@@ -32,14 +40,6 @@ public class PointService {
 		return pointGradeList;
 	}
 
-	/* 관리자 페이지 회원 포인트 삭제 */
-	public int removePoint(String pointDetailsCode) {
-		
-		int result = pointMapper.removePoint(pointDetailsCode);
-		
-		return result;
-	}
-	
 	
 	/*	관리자 페이지 회원 포인트 조회  */
 	 public List<Point> getPointList() {

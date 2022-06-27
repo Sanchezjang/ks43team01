@@ -3,6 +3,7 @@ package ks43team01.dto;
 public class PointSaveByGrade {
 	private String pointBuySaveStandardGradeCode;
 	private String gradeUserCode;
+	private String pointStandardDetailsCode;
 	private String pointStandardCode;
 	private int pointSaveByGradePercent;
 	private String pointSaveByGradeUnit;
@@ -11,8 +12,9 @@ public class PointSaveByGrade {
 	@Override
 	public String toString() {
 		return "PointSaveByGrade [pointBuySaveStandardGradeCode=" + pointBuySaveStandardGradeCode + ", gradeUserCode="
-				+ gradeUserCode + ", pointStandardCode=" + pointStandardCode + ", pointSaveByGradePercent="
-				+ pointSaveByGradePercent + ", pointSaveByGradeUnit=" + pointSaveByGradeUnit + "]";
+				+ gradeUserCode + ", pointStandardDetailsCode=" + pointStandardDetailsCode + ", pointStandardCode="
+				+ pointStandardCode + ", pointSaveByGradePercent=" + pointSaveByGradePercent + ", pointSaveByGradeUnit="
+				+ pointSaveByGradeUnit + "]";
 	}
 	public String getPointBuySaveStandardGradeCode() {
 		return pointBuySaveStandardGradeCode;
@@ -25,6 +27,12 @@ public class PointSaveByGrade {
 	}
 	public void setGradeUserCode(String gradeUserCode) {
 		this.gradeUserCode = gradeUserCode;
+	}
+	public String getPointStandardDetailsCode() {
+		return pointStandardDetailsCode;
+	}
+	public void setPointStandardDetailsCode(String pointStandardDetailsCode) {
+		this.pointStandardDetailsCode = pointStandardDetailsCode;
 	}
 	public String getPointStandardCode() {
 		return pointStandardCode;
@@ -44,4 +52,7 @@ public class PointSaveByGrade {
 	public void setPointSaveByGradeUnit(String pointSaveByGradeUnit) {
 		this.pointSaveByGradeUnit = pointSaveByGradeUnit;
 	}
+	
+	
+	
 }

@@ -30,6 +30,7 @@
 
     <!-- Custom Theme Style -->
     <link th:href="@{/admin/build/css/custom.min.css}" rel="stylesheet">
+        <script type="text/javascript" th:src="@{/Doc/js/jquery-3.6.0.min.js}"></script>
   </head>
 
   <body class="nav-md">
@@ -88,6 +89,7 @@
                       <thead>
                         <tr>
                           <th></th>
+                          <th hidden="standard">내역코드값</th>
                           <th>포인트적립날짜</th>
                           <th>유저 아이디</th>
                           <th>포인트기준</th>
@@ -98,17 +100,18 @@
                         </tr>
                       </thead>
                        <tbody>
-                     <tr th:if="${not #lists.isEmpty(pointList)}" th:each="l:${pointList}">
+                     <tr th:if="${not #lists.isEmpty(pointList)}" th:each="p:${pointList}">
                      <td>
                         <input type="checkbox" id="check-all" >
                      </td>
-                     	<td th:text="${l.pointHistoryRegDate}"></td>
-                        <td th:text="${l.userIdCode}"></td>
-		                <td th:text="${l.pointStandardName}"></td>
-		                <td th:text="${l.pointStandardDetailsName}"></td>
-              			<td th:text="${l.pointAmount}"></td>
+                     	<td hidden="standard" th:text="${p.pointDetailsCode}"></td>
+                     	<td th:text="${p.pointHistoryRegDate}"></td>
+                        <td th:text="${p.userIdCode}"></td>
+		                <td th:text="${p.pointStandardName}"></td>
+		                <td th:text="${p.pointStandardDetailsName}"></td>
+              			<td th:text="${p.pointAmount}"></td>
               			<td><a type="button" class="btn btn-primary" style="font-size: 10px" th:href="@{/adminpage/pointDetails/pointList}">수정</a></td>
-						<td><button type="button" class="btn btn-danger removePointModalBtn" data-toggle="modal" data-target="#removePointModal" style="font-size: 10px" th:value="${l.pointStandardCode}">삭제</button></td>
+						<td><button type="button" class="btn btn-danger removePointModalBtn" data-toggle="modal" data-target="#removePointModal" style="font-size: 10px" th:value="${p.pointDetailsCode}">삭제</button></td>
                      </tr>
                   </tbody>
                     </table>
@@ -129,7 +132,7 @@
 	               <div class="modal-dialog" role="document">
 	                   <div class="modal-content">
 	                     <div class="modal-header">
-	                        <h5 class="modal-title">포인트 삭제</h5>
+	                        <h5 class="modal-title">포인트 내역 삭제</h5>
 	                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	                           <span aria-hidden="true">&times;</span>
 	                        </button>
@@ -138,8 +141,8 @@
 	                        	정말 포인트내역을 삭제하시겠습니까?
 	                     </div>
 	                     <div class="modal-footer">
-                           <form action="/adminpage/pointDetails/pointList" method="get">
-								<input type="hidden" name="pointStandardCode" id="removePointStandardCode">
+                           <form action="/adminpage/pointDetails/removePointStandard" method="get">
+								<input type="hidden" name="pointDetailsCode" id="removeDetailsCode">
 	                       		<button type="button" class="btn btn-primary" data-dismiss="modal">취소</button>
 								<button type="submit" class="btn btn-danger">삭제</button>
                            </form>
@@ -148,6 +151,12 @@
 	               </div>
 	         </div>
               <!-- Modal -->
+              <script type="text/javascript">
+				var $removeDetailsCode = $('#removeDetailsCode');
+            	$('.removePointModalBtn').on('click', function() {
+            	  $removeDetailsCode.val($(this).val());            	  
+            	})
+           	 </script>
 
 		<!-- footer content -->
 		<div th:replace="adminpage/fragments/footer :: footerFragment"></div>
