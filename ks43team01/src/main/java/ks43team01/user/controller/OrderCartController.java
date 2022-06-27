@@ -1,6 +1,7 @@
 package ks43team01.user.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -54,7 +56,7 @@ public class OrderCartController {
 	/*사용자가 선택한 제품만 주문으로 이동*/
 	@PostMapping("/orderCheck")
 	@ResponseBody
-	public String orderCheck(@RequestParam(name="checkOrder", required = false)String checkOrder,OrderCart orderCart) {
+	public String orderCheck(@RequestBody List<Map<String, Object>> checkOrder) {
 		log.info("선택한주문 들어왔는지 확인:   {}",checkOrder);
 		
 		return "userpage/order/addOrderCurrentStatus";

@@ -26,11 +26,15 @@ layout:decorate="~{userpage/layout/userdefault}">
 				chaeckObjJson['goodsPrice'] = goodsPrice;
 				chaeckObjJson['ordercartcode'] = ordercartcode;
 				checkOrder1.push(chaeckObjJson);
-			}var request = $.ajax({
+			}
+			console.log(JSON.stringify(checkOrder1))
+			
+			var request = $.ajax({
 				  	  url: "/orderCheck",
-					  method: "GET",
-					  data: { 'checkOrder' : checkOrder1},
-					  dataType: "json"
+					  method: "POST",
+					  contentType: 'application/json',
+					  data: JSON.stringify(checkOrder1),
+					  dataType: "text"
 					});request.done(function( data ) {
 						console.log(data);
 					});
@@ -148,7 +152,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 								</div>
 								</th:block>
 								<div class="row" style="font-size: 20px;"><b id="totalPrice">총 결제금액  : 0</b></div>
-								<button type="submit" class="btn-primary btn-lg" id="orderSign" style="float: right;">주문하기</button>
+								<button type="button" class="btn-primary btn-lg" id="orderSign" style="float: right;">주문하기</button>
 								</form>
 								<button id="iamportPayment" onclick="requestPay()" class="btn-primary btn-lg" style="float: right;">진짜결제</button>
 								<th:block th:unless="${not #lists.isEmpty(orderCartList)}">
