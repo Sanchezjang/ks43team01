@@ -67,6 +67,7 @@ layout:decorate="~{userpage/layout/userdefault}">
     						</div>
   						</div>
   						<div class="col-9">
+  							<div class="col-12"><button class="btn-primary btn-lg float-right col-3">장바구니비우기</button></div>
     						<th:block th:if="${not #lists.isEmpty(orderCartList)}" th:each="o : ${orderCartList}">
     						<div class="tab-content" id="v-pills-tabContent" style="margin-bottom: 10px;">
       							<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
@@ -90,13 +91,14 @@ layout:decorate="~{userpage/layout/userdefault}">
 									</div>
 									<div class="col-xs-6 col-sm-3" style="text-align:center;  width: 25%;" >
 										<div class="col-12" style="display: inline-block; justify-content: center;margin-top:20%;">
-											<a th:href="@{removeOrderCart}" class="btn-warning btn-sm" style="display: center;">삭제하기</a>
+											<a th:href="@{removeOrderCart(orderCartCode=${o.orderCartCode})}" class="btn-warning btn-sm" style="display: center;">삭제하기</a>
 										</div>
 									</div>
 									</div>
 									</div>
 								</div>
 								</th:block>
+								
 								<button id="iamportPayment" onclick="requestPay()" class="btn-primary btn-lg" style="float: right;">결제하기</button>
 								<th:block th:unless="${not #lists.isEmpty(orderCartList)}">
 									<a>장바구니에 담긴 상품이 없습니다.	</a>

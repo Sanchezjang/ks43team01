@@ -54,7 +54,7 @@
 		FROM 
 			tb_g_order_cart 
 		WHERE 
-			order_cart_code = #{orderCartCode};
+			order_cart_code = #{ocCode};
 	</delete>
 	
 </mapper> 

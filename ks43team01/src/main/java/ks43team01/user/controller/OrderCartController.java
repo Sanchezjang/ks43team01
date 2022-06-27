@@ -29,9 +29,6 @@ public class OrderCartController {
 	public String addOderCartList(HttpSession session, Model model,OrderCart orderCart) {
 		String userIdCode = (String) session.getAttribute("UID");
 		orderCart.setUserIdCode(userIdCode);
-		
-		
-		
 		List<OrderCart> orderCartList =orderCartService.getOrderCartList(orderCart);
 		model.addAttribute("orderCartList", orderCartList);
 		log.info("가져오는 장바구니값  :  {}",orderCartList);
@@ -40,10 +37,9 @@ public class OrderCartController {
 		return "userpage/order/orderCart";
 	}
 	@GetMapping("/removeOrderCart")
-	public String removeOrderCart(OrderCart orderCart) {
-		orderCartService.removeOrderCart(orderCart.getOrderCartCode());
-		
-		log.info("삭제 아이디 받아 오는지 :  {}",orderCart.getOrderCartCode());
+	public String removeOrderCart(@RequestParam("orderCartCode")String ocCode) {
+		orderCartService.removeOrderCart(ocCode);
+		log.info("삭제 아이디 받아 오는지 :  {}",ocCode);
 		return "redirect:/orderCart";
 	}
 	
