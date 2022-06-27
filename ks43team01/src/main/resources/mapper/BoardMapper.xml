@@ -82,12 +82,11 @@
 			tb_b_board_post 
 		SET 
 			board_post_content = #{boardPostContent}
-		    ,board_post_reg_date = CURDATE()
+		    , board_post_reg_date = CURDATE()
 		    , board_post_title = #{boardPostTitle}
 		WHERE
 			board_post_code = #{boardPostCode};
 	</update>
-  
   
   
      <select id="getBoardByCode" parameterType="String" resultType="Board">

@@ -24,6 +24,7 @@ import ks43team01.service.BoardService;
 
 
 @Controller
+@RequestMapping("/userpage/board")
 public class BoardController {
 	
 	private static final Logger log = LoggerFactory.getLogger(BoardController.class);
@@ -55,7 +56,7 @@ public class BoardController {
 		Board board = boardService.getBoardByCode(boardPostCode);
 		model.addAttribute("board",board);
 		
-		return "userpage/board/modifyBoard";
+		return "/userpage/board/modifyBoard";
 	}
 	
 	/* 게시글 상세 페이지*/
@@ -64,7 +65,7 @@ public class BoardController {
 		Board board = boardService.getBoardByCode(boardPostCode);
 		log.info("board : {}", board);
 		model.addAttribute("board", board);
-		return "userpage/board/boardDetail";
+		return "/userpage/board/boardDetail";
 	}
 	
 	/* 4-2. 1:1 문의 게시판 게시글 등록 (post) */
@@ -88,7 +89,7 @@ public class BoardController {
 		model.addAttribute("boardMediumCategoryList", boardMediumCategoryList);
     	model.addAttribute("qnaBoardList", qnaBoardList);
 		
-       return "userpage/board/addQnaBoard";
+       return "/userpage/board/addQnaBoard";
     }
 	
 	
@@ -99,7 +100,7 @@ public class BoardController {
 		log.info("1:1 게시판 게시글 목록: {}", qnaBoardList);
 		model.addAttribute("qnaBoardList", qnaBoardList);
 		
-		return "userpage/board/qnaBoardList";
+		return "/userpage/board/qnaBoardList";
 	}
 
 	/* 3-2. 자유게시판 게시글 등록 (post) */
@@ -110,7 +111,7 @@ public class BoardController {
 		String sessionId = (String) session.getAttribute("UID");
 		boardService.addFreeBoard(sessionId, board);
        
-		return "redirect:/freeBoardList";
+		return "redirect:/userpage/board/freeBoardList";
     }
 
     /* 3-2. 자유게시판 게시글 등록 (get) */
@@ -119,7 +120,7 @@ public class BoardController {
 		List<Board> freeBoardList = boardService.getFreeBoardList();
 		model.addAttribute("freeBoardList", freeBoardList);
 		
-		return "userpage/board/addFreeBoard";
+		return "/userpage/board/addFreeBoard";
     }
 	
 	/* 3. 사용자용 자유게시판 목록 조회*/
@@ -129,7 +130,7 @@ public class BoardController {
 		log.info("자유게시판 게시글 목록: {}", freeBoardList);
 		model.addAttribute("freeBoardList", freeBoardList);
 		
-		return "userpage/board/freeBoardList";
+		return "/userpage/board/freeBoardList";
 	}
 	
 	/* 2-2. 자주묻는 질문 게시글 등록 (post) */
@@ -140,7 +141,7 @@ public class BoardController {
 		String sessionId = (String) session.getAttribute("UID");
 		boardService.addFaqBoard(sessionId, board);
        
-		return "redirect:/faqBoardList";
+		return "redirect:/userpage/board/faqBoardList";
     }
     
     /* 2-2. 자주묻는 질문 등록 (get) */
@@ -149,7 +150,7 @@ public class BoardController {
 		List<Board> faqBoardList = boardService.getFaqBoardList();
 		model.addAttribute("faqBoardList", faqBoardList);
 
-		return "userpage/board/addFaqBoard";
+		return "/userpage/board/addFaqBoard";
     }
     
 	/* 2. 사용자용 자주묻는 질문 목록 */
@@ -159,7 +160,7 @@ public class BoardController {
 		log.info("자주묻는 질문 게시글 목록: {}", faqBoardList);
 		model.addAttribute("faqBoardList", faqBoardList);
 		
-		return "userpage/board/faqBoardList";
+		return "/userpage/board/faqBoardList";
 	}
 	
 	/* 1-2. 공지사항 게시글 등록 (post) */
@@ -170,7 +171,7 @@ public class BoardController {
 		String sessionId = (String) session.getAttribute("UID");
 		boardService.addNoticeBoard(sessionId, board);
        
-		return "redirect:/noticeBoardList";
+		return "redirect:/userpage/board/noticeBoardList";
     }
     
     /* 1-2. 공지사항 등록 (get) */
@@ -179,7 +180,7 @@ public class BoardController {
 		List<Board> noticeBoardList = boardService.getNoticeBoardList();
 		model.addAttribute("noticeBoardList", noticeBoardList);
 		
-		return "userpage/board/addNoticeBoard";
+		return "/userpage/board/addNoticeBoard";
     }
 	
 	/* 1.사용자용 공지사항 목록 조회 */
@@ -189,6 +190,6 @@ public class BoardController {
 		log.info("공지사항 게시글 목록: {}", noticeBoardList);
 		model.addAttribute("noticeBoardList", noticeBoardList);
 		
-		return "userpage/board/noticeBoardList";
+		return "/userpage/board/noticeBoardList";
 	}
 }
