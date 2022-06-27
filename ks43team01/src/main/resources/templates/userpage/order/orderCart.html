@@ -13,10 +13,61 @@ layout:decorate="~{userpage/layout/userdefault}">
 		$("#iamportPayment").click(function(){
 			requestPay();
 		});
+		/*ajax로 controller에서 컨트럴할 생각*/
+		$(document).on('click','#orderSign',function(){
+			var checkedObjs = $('.orderCheck:checked');
+			var checkOrder1= [];
+			var chaeckObjJson;
+			for(let checkedObj of checkedObjs){
+				let goodsPrice = $(checkedObj).attr('data-goodsprice');
+				let ordercartcode = $(checkedObj).attr('data-ordercartcode');
+				
+				chaeckObjJson = {};
+				chaeckObjJson['goodsPrice'] = goodsPrice;
+				chaeckObjJson['ordercartcode'] = ordercartcode;
+				checkOrder1.push(chaeckObjJson);
+			}
+			console.log(JSON.stringify(checkOrder1))
+			
+			var request = $.ajax({
+				  	  url: "/orderCheck",
+					  method: "POST",
+					  contentType: 'application/json',
+					  data: JSON.stringify(checkOrder1),
+					  dataType: "text"
+					});request.done(function( data ) {
+						console.log(data);
+					});
+			
+		});
+		/*체크박스 한것만 총 결제금액으로 합계를 구해서  다해주는 로직*/
+		$(document).on('click', '.orderCheck', function(){
+			var totalGoodsPrice = 0;
+			
+			var checkedObjs = $('.orderCheck:checked');
+			console.log(checkedObjs);
+			var checkOrder1= [];
+			var chaeckObjJson;
+			for(let checkedObj of checkedObjs){
+				let goodsPrice = $(checkedObj).attr('data-goodsprice');
+				let ordercartcode = $(checkedObj).attr('data-ordercartcode');
+				
+				chaeckObjJson = {};
+				chaeckObjJson['goodsPrice'] = goodsPrice;
+				chaeckObjJson['ordercartcode'] = ordercartcode;
+
+				checkOrder1.push(chaeckObjJson);
+				
+				totalGoodsPrice += Number(goodsPrice);
+			}
+			$('#totalPrice').text('총결제금액   :  '+totalGoodsPrice+'원');
+			console.log(totalGoodsPrice);
+			console.log(checkOrder1);
+		});
 	})
-	
+			/*결제API*/
 	  var IMP = window.IMP; // 생략가능
-	  IMP.init('imp05239063'); // <-- 본인 가맹점 식별코드 삽입
+	  IMP.init('imp05239063');
 	  function requestPay(date) {
 		  IMP.request_pay({
 		    pg: "html5_inicis",
@@ -42,7 +93,6 @@ layout:decorate="~{userpage/layout/userdefault}">
 			    }
 		    });
 		  }
-	  
 	</script>
 	<style>
 	
@@ -67,17 +117,21 @@ layout:decorate="~{userpage/layout/userdefault}">
     						</div>
   						</div>
   						<div class="col-9">
+  							<form id="orderCheck" method="Post" th:action="@{/orderCheck}">
+  							<div class="mb-3"><a th:href="@{removeAllOrderCart(userIdCode=${session.UID})}" class="btn-primary btn-lg col-3">장바구니비우기</a></div>
     						<th:block th:if="${not #lists.isEmpty(orderCartList)}" th:each="o : ${orderCartList}">
     						<div class="tab-content" id="v-pills-tabContent" style="margin-bottom: 10px;">
       							<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
 									<div class="row" style="border-bottom: 1px solid grey;">
 									<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
+										<input type="checkbox" class="orderCheck" th:data-orderCartCode="${o.orderCartCode}" th:data-goodsPrice="${o.goodsPrice}">
 										<div class="col-12" style="display: inline-block;">
 											<img  class="img-responsive" style="width: 80%" src="https://t1.daumcdn.net/cfile/tistory/25367D465817198104">
 										</div>
 									</div>
 									<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
-											<input type="hidden" th:name="orderCartCode" id="orderCartCode" th:value="${o.orderCartCode}">
+											<input type="hidden" name="userIdCode" id="userIdCode" th:value="${o.userIdCode}">
+											<input type="hidden" name="orderCartCode" id="orderCartCode" th:value="${o.orderCartCode}">
 											<p th:text="${o.goodsName}"></p>
 											<i th:text="${o.goodsPrice+'원'}"></i>
 											<p th:text="${o.goodsDetails}"></p>
@@ -90,14 +144,17 @@ layout:decorate="~{userpage/layout/userdefault}">
 									</div>
 									<div class="col-xs-6 col-sm-3" style="text-align:center;  width: 25%;" >
 										<div class="col-12" style="display: inline-block; justify-content: center;margin-top:20%;">
-											<a th:href="@{removeOrderCart}" class="btn-warning btn-sm" style="display: center;">삭제하기</a>
+											<a th:href="@{removeOrderCart(orderCartCode=${o.orderCartCode})}" class="btn-warning btn-sm" style="display: center;">삭제하기</a>
 										</div>
 									</div>
 									</div>
 									</div>
 								</div>
 								</th:block>
-								<button id="iamportPayment" onclick="requestPay()" class="btn-primary btn-lg" style="float: right;">결제하기</button>
+								<div class="row" style="font-size: 20px;"><b id="totalPrice">총 결제금액  : 0</b></div>
+								<button type="button" class="btn-primary btn-lg" id="orderSign" style="float: right;">주문하기</button>
+								</form>
+								<button id="iamportPayment" onclick="requestPay()" class="btn-primary btn-lg" style="float: right;">진짜결제</button>
 								<th:block th:unless="${not #lists.isEmpty(orderCartList)}">
 									<a>장바구니에 담긴 상품이 없습니다.	</a>
 								</th:block>

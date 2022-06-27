@@ -27,9 +27,16 @@ public class OrderCartService {
 		
 	}
 	/* 사용자화면 장바구니 삭제로직 */
-	public int removeOrderCart(String orderCart) {
-		int result = 0;
+	public int removeOrderCart(String ocCode) {
+		
+		int result = orderCartMapper.removeOrderCart(ocCode);
+		
 		return result;
+	}
+	/* 사용자화면 장바구니 전체삭제(비우기) */
+	public int removeAllOrderCart(String userIdCode) {
+		int result = orderCartMapper.removeAllOrderCart(userIdCode);
+	 	return result;
 	}
 
 }

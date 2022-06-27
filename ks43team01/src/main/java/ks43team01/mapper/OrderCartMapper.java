@@ -12,6 +12,7 @@ public interface OrderCartMapper {
 	/* 사용자화면 장바구니 리스트 출력 */
 	public List<OrderCart> getOrderCartList(OrderCart orderCart);
 	/* 사용자화면 장바구니 삭제로직 */
-	public int removeOrderCar(OrderCart orderCart);
-	
+	public int removeOrderCart(String ocCode);
+	/* 사용자화면 장바구니 전체삭제(비우기) */
+	public int removeAllOrderCart(String userIdCode);
 }

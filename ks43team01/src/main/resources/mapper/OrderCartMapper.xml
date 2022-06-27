@@ -54,7 +54,15 @@
 		FROM 
 			tb_g_order_cart 
 		WHERE 
-			order_cart_code = #{orderCartCode};
+			order_cart_code = #{ocCode};
 	</delete>
 	
+		<delete id="removeAllOrderCart" parameterType="OrderCart">
+		/* 사용자화면 장바구니비우기*/
+		DELETE 
+		FROM 
+			tb_g_order_cart 
+		WHERE
+			user_id_code =#{userIdCode}
+	</delete>
 </mapper> 
