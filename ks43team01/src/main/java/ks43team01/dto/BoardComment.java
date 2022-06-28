@@ -5,10 +5,8 @@ public class BoardComment {
 	private String boardCommentCode;
 	private String userIdCode;
 	private String boardPostCode;
-	private String boardAnswerCode;
 	private String boardCommentContent;
 	private String boardCommentRegDate;
-	private int boardCommentPageView;
 	private String boardCommentUse;
 	private String userName;
 	private String boardCommentUpdateDate;
@@ -30,12 +28,6 @@ public class BoardComment {
 	public void setBoardPostCode(String boardPostCode) {
 		this.boardPostCode = boardPostCode;
 	}
-	public String getBoardAnswerCode() {
-		return boardAnswerCode;
-	}
-	public void setBoardAnswerCode(String boardAnswerCode) {
-		this.boardAnswerCode = boardAnswerCode;
-	}
 	public String getBoardCommentContent() {
 		return boardCommentContent;
 	}
@@ -47,12 +39,6 @@ public class BoardComment {
 	}
 	public void setBoardCommentRegDate(String boardCommentRegDate) {
 		this.boardCommentRegDate = boardCommentRegDate;
-	}
-	public int getBoardCommentPageView() {
-		return boardCommentPageView;
-	}
-	public void setBoardCommentPageView(int boardCommentPageView) {
-		this.boardCommentPageView = boardCommentPageView;
 	}
 	public String getBoardCommentUse() {
 		return boardCommentUse;
@@ -81,14 +67,10 @@ public class BoardComment {
 		builder.append(userIdCode);
 		builder.append(", boardPostCode=");
 		builder.append(boardPostCode);
-		builder.append(", boardAnswerCode=");
-		builder.append(boardAnswerCode);
 		builder.append(", boardCommentContent=");
 		builder.append(boardCommentContent);
 		builder.append(", boardCommentRegDate=");
 		builder.append(boardCommentRegDate);
-		builder.append(", boardCommentPageView=");
-		builder.append(boardCommentPageView);
 		builder.append(", boardCommentUse=");
 		builder.append(boardCommentUse);
 		builder.append(", userName=");

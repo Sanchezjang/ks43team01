@@ -24,7 +24,12 @@ public class BoardService {
 	public BoardService(BoardMapper boardMapper) {
 		this.boardMapper = boardMapper;
 	}
-
+	/* 사용자용 게시글 댓글 조회 */
+	public List<BoardComment> getBoardPostCommentList(String boardPostCode){
+		List<BoardComment> boardPostCommentList = boardMapper.getBoardPostCommentList();
+		return boardPostCommentList;
+	}
+	
 	/* 게시글 답변모음 목록 조회 */
 	public List<BoardAnswer> getBoardAnswerList(){
 		List<BoardAnswer> boardAnswerList = boardMapper.getBoardAnswerList();
@@ -49,7 +54,7 @@ public class BoardService {
 		
 		return result;
 	}
-	
+
 	   /* 게시글 상세 조회 */
 	   public Board getBoardByCode(String boardPostCode) {
 	      System.out.println("___________getBoardByCode____________");
@@ -146,8 +151,6 @@ public class BoardService {
 		List<Board> faqBoardList = boardMapper.getFaqBoardList();
 		return faqBoardList;
 	}
-	
-	
 
 	/* 2-2. 사용자용 공지사항 게시글 등록 */
 	public int addNoticeBoard(String sessionId, Board board) {

@@ -16,7 +16,11 @@ import ks43team01.dto.QnaBoard;
 
 @Mapper
 public interface BoardMapper {
-	//게시글 답변 모음 목록 조회
+	
+	//사용자용 게시글 댓글 조회
+	public List<BoardComment> getBoardPostCommentList();
+	
+	//관리자용 게시글 답변 모음 목록 조회
 	public List<BoardAnswer> getBoardAnswerList();
 	
 	//게시글 댓글 목록 조회
