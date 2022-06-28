@@ -41,8 +41,6 @@ public class OrderCartController {
 		List<OrderCart> orderCartList =orderCartService.getOrderCartList(orderCart);
 		model.addAttribute("orderCartList", orderCartList);
 		log.info("가져오는 장바구니값  :  {}",orderCartList);
-		session.setAttribute("OrderCart", orderCart);
-		
 		return "userpage/order/orderCart";
 	}
 	/* 사용자화면 장바구니 삭제로직 */
@@ -61,21 +59,17 @@ public class OrderCartController {
 	/*사용자가 선택한 제품만 주문으로 이동*/
 	@PostMapping("/orderCheck")
 	@ResponseBody
-	public String orderCheck(@RequestBody List<Map<String, Object>> checkOrder,OrderCart orderCart) {
-		log.info("선택한주문 들어왔는지 확인:   {}",checkOrder);
-	for(int i=0; i<checkOrder.size(); i++) {
-		for(Map<String, Object> map : checkOrder){
-			Map<String, Object>	check=checkOrder.get(i);
-			        log.info("밸류값  : {}",check.values());
-		}
-	}
-		
+	public String orderCheck(@RequestBody List<Map<String, Object>> checkOrder,OrderCart orderCart, HttpSession session, OrderCart user, Model model) {
 		return "userpage/order/addOrderCurrentStatus";
 	}
+	/*장바구니에서 체크한 상품만 주문으로 이동하며,주문인정사항불러오기*/
 	@GetMapping("/orderCheck1")
-	public String orderCheck1(Model model,User user,HttpSession session) {
+	public String orderCheck1(Model model,User user,HttpSession session,OrderCart orderCart) {
 		String userIdCode = (String) session.getAttribute("UID");
 		user.setUserIdCode(userIdCode);
+		List<OrderCart> orderCartList = orderCartService.getOrderCartList(orderCart);
+		model.addAttribute("orderCartList", orderCartList);
+		log.info("주문값 들어오는지 확인!!   :   {}",orderCartList);
 		User userList = userService.getUserInfoById(userIdCode);
 		model.addAttribute("userList", userList);
 		log.info("주문자 정보 받아오는지 출력!!  :  {}",userList);

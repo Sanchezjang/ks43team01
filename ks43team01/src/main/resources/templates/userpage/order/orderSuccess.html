@@ -95,17 +95,40 @@ layout:decorate="~{userpage/layout/userdefault}">
 	}
 
 	</style>
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<div class="x_panel">
+		<h2>주문/결제</h2>
+		<div class="x_content">
+			<table class="section-top-border">
+				<thead>
+					<tr class="table-head">
+						<th>항목</th>
+						<th>판매자</th>
+						<th>가격</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr class="table-row">
+						<td>이미지, 상품 이름</td>
+						<td>자바</td>
+						<td>50000</td>
+					</tr>
+				
+				</tbody>
+			
+			
+			</table>
+		<hr style="width: 1200px"/>
+		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
-		<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 		<script>
 			window.onload = function(){
 			    document.getElementById("postnumber").addEventListener("click", function(){ //주소입력칸을 클릭하면
 			        //카카오 지도 발생
 			        new daum.Postcode({
 			            oncomplete: function(data) { //선택시 입력값 세팅
-			                document.getElementById("deliveryAddr").value = data.address; // 주소 넣기
-			                document.getElementById("postnumber").value = data.zonecode; // 주소 넣기
+			                document.getElementById("address_kakao").value = data.address; // 주소 넣기
 			                document.querySelector("input[name=address_detail]").focus(); //상세입력 포커싱
 			            }
 			        }).open();
@@ -141,42 +164,13 @@ layout:decorate="~{userpage/layout/userdefault}">
 				    });
 			  }
 		</script>
-	<div class="x_panel">
-		<h2>주문/결제</h2>
-		<div class="x_content">
-			<table class="section-top-border">
-				<thead>
-					<tr class="table-head">
-						<th>항목</th>
-						<th>판매자</th>
-						<th>가격</th>
-					</tr>
-				</thead>
-				
-					<th:block th:if="${not #lists.isEmpty(orderCartList)}" th:each="o : ${orderCartList}">
-				<tbody>
-					<tr class="table-row">
-						<input type="hidden" id="userIdCode" th:value="${session.UID}">
-						<td th:text="${o.goodsName}">1</td>
-						<td th:text="${o.sellerIdCode}">2</td>
-						<td class="jang" th:text="${o.goodsPrice+'원'}">3</td>
-					</tr>
-				</tbody>
-					</th:block>
-			
-			
-			</table>
-		<hr style="width: 1200px"/>
-		
 		<!-- start form for validation -->
 		<form id="demo-form row" data-parsley-validate>
 			<div class="totalCount">
 				<div class="total">
 					<h3 class="totalOrder">
 						<span class="totalOrdertitle">가격</span>
-					<th:block th:if="${not #lists.isEmpty(orderCartList)}" th:each="o : ${orderCartList}">
-						<span class="totalOrderDetails th:text="${#aggregates.sum(o.goodsPrice.{purchasePrice * amount})}">0000원</span>
-					</th:block>
+						<span class="totalOrderDetails">0000원</span>
 					</h3>
 					<h3 class="totalOrder">
 						<span class="totalOrdertitle">할인금액</span>
@@ -186,7 +180,6 @@ layout:decorate="~{userpage/layout/userdefault}">
 						<span class="totalOrdertitle">총금액</span>
 						<span class="totalOrderDetails">000원</span>
 					</h3>
-					
 					<p><input type="checkbox" class="totalCheck" value="Y"> 주문 내용을 확인했으며, 결제 내용에 동의합니다.</p>
 					<button id="iamportPayment" onclick="requestPay()" class="btn-primary btn-lg btn-block" style="float: right;">결제하기</button>
 				</div>
@@ -228,7 +221,7 @@ layout:decorate="~{userpage/layout/userdefault}">
                  </div>
 				<div class="col-6">
 					<label for="deliveryAddrDetail"></label>
-						<input type="text" id="deliveryAddrDetail" class="form-control" name="address_detail" placeholder="상세주소" required />
+						<input type="text" id="deliveryAddrDetail" class="form-control" name="deliveryAddrDetail" placeholder="상세주소" required />
 				</div>   
 			
 			</div>

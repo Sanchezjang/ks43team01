@@ -44,7 +44,7 @@
 								<ul>
 	                            	<li><a th:href="@{/default}">!관리자화면전환 임시버튼</a></li>
 	                               	<li th:unless="${session.UID == null}"><a th:href="@{/sellerjoin}"><i class="ti-user"></i>전문가 등록</a></li>
-	                               	<li th:unless="${session.UID == null}"><a th:href="@{/logout}"><i class="ti-user"></i>로그아웃</a></li>
+	                               	<li th:unless="${session.UID == null}"><a th:href="@{/userpage/login/logout}"><i class="ti-user"></i>로그아웃</a></li>
 	                               	<li th:unless="${session.UID == null}"><a th:href="@{/userinfomation}"><i class="ti-user"></i>내정보</a></li>
 	                                <li th:unless="${session.UID != null}"><a th:href="@{/userpage/login/login}"><i class="ti-user"></i>로그인</a></li>
 	                                <li th:unless="${session.UID != null}"><a th:href="@{/userjoin}"><i class="ti-lock"></i>회원가입</a></li>
