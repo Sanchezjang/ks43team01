@@ -35,7 +35,7 @@ public class BoardController {
 		this.boardService = boardService;
 	}
  
-	/* 자유게시판 게시글 삭제 */
+	/* 5-3. 자유게시판 게시글 삭제 */
 	@GetMapping("/removeFreeBoard")
 	public String removeFreeBoard(@RequestParam(value = "boardPostCode")String boardPostCode) {
 		log.info("나가는 값:{}", "test");
@@ -44,7 +44,7 @@ public class BoardController {
 		return "redirect:/userpage/board/freeBoardList";
 	}
 	
-	/* 자주묻는 질문 게시글 삭제 */
+	/* 5-2. 자주묻는 질문 게시글 삭제 */
 	@GetMapping("/removeFaqBoard")
 	public String removeFaqBoard(@RequestParam(value = "boardPostCode")String boardPostCode) {
 		log.info("나가는 값:{}", "test");
@@ -53,7 +53,7 @@ public class BoardController {
 		return "redirect:/userpage/board/faqBoardList";
 	}
 	
-	/* 공지사항 게시글 삭제 */
+	/* 5-1. 공지사항 게시글 삭제 */
 	@GetMapping("/removeNoticeBoard")
 	public String removeNoticeBoard(@RequestParam(value = "boardPostCode")String boardPostCode) {
 		log.info("나가는 값:{}", "test");
@@ -62,7 +62,7 @@ public class BoardController {
 		return "redirect:/userpage/board/noticeBoardList";
 	}
 
-	/* 게시글 수정 (post) */
+	/* 4-3. 자유게시판 게시글 수정 (post) */
 	@PostMapping("/modifyFreeBoard")
 	public String modifyFreeBoard(Board board
 								, RedirectAttributes reAttr) {
@@ -74,7 +74,7 @@ public class BoardController {
 		return "redirect:/userpage/board/freeBoardDetail";
 	}
 	
-	/* 게시글 수정 (get) */
+	/* 4-3. 자유게시판 게시글 수정 (get) */
 	@GetMapping("/modifyFreeBoard")
 	public String modifyFreeBoard(@RequestParam(value = "boardPostCode", required = false)String boardPostCode, Model model) {
 		Board board = boardService.getBoardByCode(boardPostCode);
@@ -83,7 +83,7 @@ public class BoardController {
 		return "/userpage/board/modifyFreeBoard";
 	}
 	
-	/* 게시글 수정 (post) */
+	/* 4-2. 자주묻는 질문 게시글 수정 (post) */
 	@PostMapping("/modifyFaqBoard")
 	public String modifyFaqBoard(Board board
 			, RedirectAttributes reAttr) {
@@ -95,7 +95,7 @@ public class BoardController {
 		return "redirect:/userpage/board/faqBoardDetail";
 	}
 	
-	/* 게시글 수정 (get) */
+	/* 4-2. 자주묻는 질문 게시글 수정 (get) */
 	@GetMapping("/modifyFaqBoard")
 	public String modifyFaqBoard(@RequestParam(value = "boardPostCode", required = false)String boardPostCode, Model model) {
 		Board board = boardService.getBoardByCode(boardPostCode);
@@ -104,7 +104,7 @@ public class BoardController {
 		return "/userpage/board/modifyFaqBoard";
 	}
 	
-	/* 게시글 수정 (post) */
+	/* 4-1. 공지사항 게시글 수정 (post) */
 	@PostMapping("/modifyNoticeBoard")
 	public String modifyNoticeBoard(Board board
 								, RedirectAttributes reAttr) {
@@ -116,7 +116,7 @@ public class BoardController {
 		return "redirect:/userpage/board/noticeBoardDetail";
 	}
 	
-	/* 게시글 수정 (get) */
+	/* 4-1. 공지사항 게시글 수정 (get) */
 	@GetMapping("/modifyNoticeBoard")
 	public String modifyNoticeBoard(@RequestParam(value = "boardPostCode", required = false)String boardPostCode, Model model) {
 		Board board = boardService.getBoardByCode(boardPostCode);
@@ -125,7 +125,7 @@ public class BoardController {
 		return "/userpage/board/modifyNoticeBoard";
 	}
 	
-	/* 게시글 상세 페이지*/
+	/* 3-3. 자유게시판 게시글 상세 페이지 조회 */
 	@GetMapping("/freeBoardDetail")
 	public String freeBoardDetail(@RequestParam(value = "boardPostCode")String boardPostCode, Model model) {
 		Board board = boardService.getBoardByCode(boardPostCode);
@@ -133,7 +133,7 @@ public class BoardController {
 		model.addAttribute("board", board);
 		return "/userpage/board/freeBoardDetail";
 	}
-	/* 게시글 상세 페이지*/
+	/* 3-2. 자주묻는 질문 게시글 상세 페이지 조회 */
 	@GetMapping("/faqBoardDetail")
 	public String faqBoardDetail(@RequestParam(value = "boardPostCode")String boardPostCode, Model model) {
 		Board board = boardService.getBoardByCode(boardPostCode);
@@ -141,7 +141,7 @@ public class BoardController {
 		model.addAttribute("board", board);
 		return "/userpage/board/faqBoardDetail";
 	}
-	/* 게시글 상세 페이지*/
+	/* 3-1. 공지사항 게시글 상세 페이지 조회 */
 	@GetMapping("/noticeBoardDetail")
 	public String noticeBoardDetail(@RequestParam(value = "boardPostCode")String boardPostCode, Model model) {
 		Board board = boardService.getBoardByCode(boardPostCode);
@@ -150,7 +150,7 @@ public class BoardController {
 		return "/userpage/board/noticeBoardDetail";
 	}
 	
-	/* 4-2. 1:1 문의 게시판 게시글 등록 (post) */
+	/* 2-4. 사용자 1:1 문의 게시판 게시글 등록 (post) */
 	@PostMapping("/addQnaBoard")
 	public String addQnaBoard(QnaBoard qnaBoard
 							, HttpSession session
@@ -160,7 +160,7 @@ public class BoardController {
        
 		return "redirect:/userpage/board/qnaBoardList";
     }
-	/* 4-2. 1:1 문의 게시판 게시글 등록 (get) */
+	/* 2-4. 사용자 1:1 문의 게시판 게시글 등록 (get) */
     @GetMapping("/addQnaBoard")
     public String addQnaBoard(Model model) {
     	List<BoardLargeCategory> boardLargeCategoryList = boardService.getBoardLargeCategoryList();
@@ -171,20 +171,8 @@ public class BoardController {
 		
        return "/userpage/board/addQnaBoard";
     }
-	
-	
-	/* 4. 1:1 게시판 게시글 조회
-	@GetMapping("/qnaBoardList")
-	public String getQnaBoardList(Model model) {
-		List<QnaBoard> qnaBoardList = boardService.getQnaBoardList();
-		log.info("1:1 게시판 게시글 목록: {}", qnaBoardList);
-		model.addAttribute("qnaBoardList", qnaBoardList);
-		
-		return "/userpage/board/qnaBoardList";
-	}
-	*/
 
-	/* 3-2. 자유게시판 게시글 등록 (post) */
+	/* 2-3. 사용자 자유게시판 게시글 등록 (post) */
 	@PostMapping("/addFreeBoard")
 	public String addFreeBoard(Board board 
 							, HttpSession session
@@ -195,24 +183,14 @@ public class BoardController {
 		return "redirect:/userpage/board/freeBoardList";
     }
 
-    /* 3-2. 자유게시판 게시글 등록 (get) */
+    /* 2-3. 사용자 자유게시판 게시글 등록 (get) */
 	@GetMapping("/addFreeBoard")
 	public String addFreeBoard(Model model) {
 		
 		return "/userpage/board/addFreeBoard";
     }
-	/*
-	// 3. 사용자용 자유게시판 목록 조회
-	@GetMapping("/freeBoardList")
-	public String getFreeBoardList(Model model) {
-		List<Board> freeBoardList = boardService.getFreeBoardList();
-		log.info("자유게시판 게시글 목록: {}", freeBoardList);
-		model.addAttribute("freeBoardList", freeBoardList);
-		
-		return "/userpage/board/freeBoardList";
-	}
-	*/
-	/* 2-2. 자주묻는 질문 게시글 등록 (post) */
+
+	/* 2-2. 사용자 자주묻는 질문 게시글 등록 (post) */
 	@PostMapping("/addFaqBoard")
 	public String addFaqBoard(Board board
 							, HttpSession session
@@ -223,25 +201,15 @@ public class BoardController {
 		return "redirect:/userpage/board/faqBoardList";
     }
     
-    /* 2-2. 자주묻는 질문 등록 (get) */
+    /* 2-2. 사용자 자주묻는 질문 게시글 등록 (get) */
 	@GetMapping("/addFaqBoard")
 	public String addFaqBoard(Model model) {
 	
 		return "/userpage/board/addFaqBoard";
     }
     
-	/*
-	// 2. 사용자용 자주묻는 질문 목록
-	@GetMapping("/faqBoardList")
-	public String getFaqBoardList(Model model) {
-		List<Board> faqBoardList = boardService.getFaqBoardList();
-		log.info("자주묻는 질문 게시글 목록: {}", faqBoardList);
-		model.addAttribute("faqBoardList", faqBoardList);
-		
-		return "/userpage/board/faqBoardList";
-	}
-	*/
-	/* 1-2. 공지사항 게시글 등록 (post) */
+
+	/* 2-1. 사용자 공지사항 게시글 등록 (post) */
 	@PostMapping("/addNoticeBoard")
 	public String addNoticeBoard(Board board
 								, HttpSession session
@@ -252,25 +220,15 @@ public class BoardController {
 		return "redirect:/userpage/board/noticeBoardList";
     }
     
-    /* 1-2. 공지사항 등록 (get) */
+    /* 2-1. 사용자 공지사항 게시글 등록 (get) */
 	@GetMapping("/addNoticeBoard")
 	public String addNoticeBoard(Model model) {	
 		
 		return "/userpage/board/addNoticeBoard";
     }
-	/*
-	//1.사용자용 공지사항 목록 조회 
-	@GetMapping("/noticeBoardList")
-	public String getNoticeBoardList(Model model) {
-		List<Board> noticeBoardList = boardService.getNoticeBoardList();
-		log.info("공지사항 게시글 목록: {}", noticeBoardList);
-		model.addAttribute("noticeBoardList", noticeBoardList);
+
 		
-		return "/userpage/board/noticeBoardList";
-	}
-	*/
-		
-	/* 사용자 게시글 조회 */
+	/* 1. 사용자 게시글 목록 조회 */
 	@GetMapping("/{boardCategory}")
 	public String getBoardList(@PathVariable(value="boardCategory", required = false) String boardCategory
 							   ,Model model) {

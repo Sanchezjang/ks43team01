@@ -15,7 +15,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 	}
 	.boardDetailView{
 		width: 1000px;
-		height:600px;
+		min-height:800px;
 		margin: 0 auto;
 		padding-top: 50px;
 	}
@@ -52,6 +52,18 @@ layout:decorate="~{userpage/layout/userdefault}">
 
 	.returnPage{
 		padding-bottom: 30px;
+	}
+
+	
+	.comment{
+		width: 1050px;
+   		margin: 0 auto;
+    	text-align: center;
+	}
+	
+	.btn{
+		margin-left: 10px;
+		margin-bottom: 40px;
 	}
 
 </style>
@@ -116,6 +128,14 @@ layout:decorate="~{userpage/layout/userdefault}">
                
             </div>   
           </div>
+         <hr>
+         <form class="commentForm" th:action="@{/userpage/board/freeBoardDetail}">
+         <label>댓글</label>
+         	<div class="comment">
+         		<textarea rows="2" cols="120" name="comment"></textarea>
+         		<button type="submit" class="btn genric-btn primary">댓글 등록</button>
+         	</div>
+         </form>
          </div>
                
         
