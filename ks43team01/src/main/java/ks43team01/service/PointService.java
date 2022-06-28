@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ks43team01.dto.Point;
 import ks43team01.dto.PointSaveByGrade;
-import ks43team01.dto.PointStandard;
 import ks43team01.dto.PointStandardDetails;
 import ks43team01.mapper.PointMapper;
 

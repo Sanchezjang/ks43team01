@@ -88,6 +88,7 @@
                       <thead>
                         <tr>
                           <th></th>
+                          <th hidden="gradeUser"></th>
                           <th>구분</th>
                           <th>등급</th>
                           <th>등급퍼센트</th>
@@ -101,6 +102,7 @@
                      <td>
                         <input type="checkbox" id="check-all" >
                      </td>
+                     	<td hidden="gradeUser" th:text="${p.gradeUserCode}"></td>
                      	<td th:text="${p.pointStandardDetailsName}"></td>
                      	<td th:text="${p.gradeName}"></td>
                         <td th:text="${p.pointSaveByGradePercent}"></td>

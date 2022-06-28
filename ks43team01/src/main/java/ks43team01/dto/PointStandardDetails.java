@@ -2,16 +2,16 @@ package ks43team01.dto;
 
 public class PointStandardDetails {
 	private String pointStandardDetailsCode;
-	private String pointStandardCode;
+	private String point_standard_name;
 	private String pointStandardDetailsName;
 	private String userIdCode;
 	private String pointStandardDetailsRegDate;
 	
 	@Override
 	public String toString() {
-		return "PointStandardDetails [pointStandardCode=" + pointStandardCode + ", pointStandardDetailsName="
-				+ pointStandardDetailsName + ", userIdCode=" + userIdCode + ", pointStandardDetailsRegDate="
-				+ pointStandardDetailsRegDate + ", pointStandardDetailsCode=" + pointStandardDetailsCode + "]";
+		return "PointStandardDetails [pointStandardDetailsCode=" + pointStandardDetailsCode + ", point_standard_name="
+				+ point_standard_name + ", pointStandardDetailsName=" + pointStandardDetailsName + ", userIdCode="
+				+ userIdCode + ", pointStandardDetailsRegDate=" + pointStandardDetailsRegDate + "]";
 	}
 	public String getPointStandardDetailsCode() {
 		return pointStandardDetailsCode;
@@ -19,11 +19,11 @@ public class PointStandardDetails {
 	public void setPointStandardDetailsCode(String pointStandardDetailsCode) {
 		this.pointStandardDetailsCode = pointStandardDetailsCode;
 	}
-	public String getPointStandardCode() {
-		return pointStandardCode;
+	public String getPoint_standard_name() {
+		return point_standard_name;
 	}
-	public void setPointStandardCode(String pointStandardCode) {
-		this.pointStandardCode = pointStandardCode;
+	public void setPoint_standard_name(String point_standard_name) {
+		this.point_standard_name = point_standard_name;
 	}
 	public String getPointStandardDetailsName() {
 		return pointStandardDetailsName;
@@ -43,5 +43,6 @@ public class PointStandardDetails {
 	public void setPointStandardDetailsRegDate(String pointStandardDetailsRegDate) {
 		this.pointStandardDetailsRegDate = pointStandardDetailsRegDate;
 	}
+	
 	
 }

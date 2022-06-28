@@ -3,7 +3,6 @@ package ks43team01.dto;
 
 public class Point {
 	private String userIdCode;
-	private String pointStandardCode;
 	private String pointStandardDetailsCode;
 	private int pointAmount;
 	private String userEmail;	
@@ -11,38 +10,24 @@ public class Point {
 	private String pointDetailsCode;
 	
 	private PointStandardDetails pointStandardDetails;
-	private PointStandard pointStandard;
 	private PointSaveByGrade PointSaveByGrade;
 	private User user;
 	private GradeUserCode gradeUserCode;
 	
+	
 	@Override
 	public String toString() {
-		return "Point [userIdCode=" + userIdCode + ", pointStandardCode=" + pointStandardCode
-				+ ", pointStandardDetailsCode=" + pointStandardDetailsCode + ", pointAmount=" + pointAmount
-				+ ", userEmail=" + userEmail + ", pointHistoryRegDate=" + pointHistoryRegDate + ", pointDetailsCode="
-				+ pointDetailsCode + ", pointStandardDetails=" + pointStandardDetails + ", pointStandard="
-				+ pointStandard + ", PointSaveByGrade=" + PointSaveByGrade + ", user=" + user + ", gradeUserCode="
-				+ gradeUserCode + ", getUserIdCode()=" + getUserIdCode() + ", getPointStandardCode()="
-				+ getPointStandardCode() + ", getPointStandardDetailsCode()=" + getPointStandardDetailsCode()
-				+ ", getPointAmount()=" + getPointAmount() + ", getUserEmail()=" + getUserEmail()
-				+ ", getPointHistoryRegDate()=" + getPointHistoryRegDate() + ", getPointDetailsCode()="
-				+ getPointDetailsCode() + ", getPointStandardDetails()=" + getPointStandardDetails()
-				+ ", getPointStandard()=" + getPointStandard() + ", getPointSaveByGrade()=" + getPointSaveByGrade()
-				+ ", getUser()=" + getUser() + ", getGradeUserCode()=" + getGradeUserCode() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+		return "Point [userIdCode=" + userIdCode + ", pointStandardDetailsCode=" + pointStandardDetailsCode
+				+ ", pointAmount=" + pointAmount + ", userEmail=" + userEmail + ", pointHistoryRegDate="
+				+ pointHistoryRegDate + ", pointDetailsCode=" + pointDetailsCode + ", pointStandardDetails="
+				+ pointStandardDetails + ", PointSaveByGrade=" + PointSaveByGrade + ", user=" + user
+				+ ", gradeUserCode=" + gradeUserCode + "]";
 	}
 	public String getUserIdCode() {
 		return userIdCode;
 	}
 	public void setUserIdCode(String userIdCode) {
 		this.userIdCode = userIdCode;
-	}
-	public String getPointStandardCode() {
-		return pointStandardCode;
-	}
-	public void setPointStandardCode(String pointStandardCode) {
-		this.pointStandardCode = pointStandardCode;
 	}
 	public String getPointStandardDetailsCode() {
 		return pointStandardDetailsCode;
@@ -79,12 +64,6 @@ public class Point {
 	}
 	public void setPointStandardDetails(PointStandardDetails pointStandardDetails) {
 		this.pointStandardDetails = pointStandardDetails;
-	}
-	public PointStandard getPointStandard() {
-		return pointStandard;
-	}
-	public void setPointStandard(PointStandard pointStandard) {
-		this.pointStandard = pointStandard;
 	}
 	public PointSaveByGrade getPointSaveByGrade() {
 		return PointSaveByGrade;

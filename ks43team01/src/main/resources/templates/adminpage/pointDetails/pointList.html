@@ -90,6 +90,7 @@
                         <tr>
                           <th></th>
                           <th hidden="standard">내역코드값</th>
+                          <th hidden="details">상세내역코드</th>
                           <th>포인트적립날짜</th>
                           <th>유저 아이디</th>
                           <th>포인트기준</th>
@@ -104,6 +105,7 @@
                      <td>
                         <input type="checkbox" id="check-all" >
                      </td>
+                     	<td hidden="details" th:text=${p.pointStandardDetailsCode}></td>
                      	<td hidden="standard" th:text="${p.pointDetailsCode}"></td>
                      	<td th:text="${p.pointHistoryRegDate}"></td>
                         <td th:text="${p.userIdCode}"></td>
