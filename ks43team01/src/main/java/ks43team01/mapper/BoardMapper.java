@@ -6,7 +6,9 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import ks43team01.dto.Board;
+import ks43team01.dto.BoardAnswer;
 import ks43team01.dto.BoardCategory;
+import ks43team01.dto.BoardComment;
 import ks43team01.dto.BoardLargeCategory;
 import ks43team01.dto.BoardMediumCategory;
 import ks43team01.dto.BoardPostFile;
@@ -14,7 +16,11 @@ import ks43team01.dto.QnaBoard;
 
 @Mapper
 public interface BoardMapper {
+	//게시글 답변 모음 목록 조회
+	public List<BoardAnswer> getBoardAnswerList();
 	
+	//게시글 댓글 목록 조회
+	public List<BoardComment> getBoardCommentList();
 
 	// 사용자용 게시글 삭제
 	public int removeBoard(String boardPostCode);

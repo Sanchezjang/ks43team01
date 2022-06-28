@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ks43team01.dto.Board;
+import ks43team01.dto.BoardAnswer;
 import ks43team01.dto.BoardCategory;
+import ks43team01.dto.BoardComment;
 import ks43team01.dto.BoardLargeCategory;
 import ks43team01.dto.BoardMediumCategory;
 import ks43team01.dto.BoardPostFile;
@@ -25,14 +27,34 @@ import ks43team01.user.controller.BoardController;
 
 @RequestMapping("/adminpage/boardAdmin")
 @Controller
-public class AdminBoardCategoryController {
+public class AdminBoardController {
 
 private static final Logger log = LoggerFactory.getLogger(BoardController.class);
 	
 	public final BoardService boardService;
 	
-	public AdminBoardCategoryController(BoardService boardService) {
+	public AdminBoardController(BoardService boardService) {
 		this.boardService = boardService;
+	}
+	
+	/* 게시글 답변 모음 목록 조회*/
+	@GetMapping("/boardAnswerList")
+	public String getBoardAnswerList(Model model) {
+		List<BoardAnswer> boardAnswerList = boardService.getBoardAnswerList();
+		log.info("게시글 답변 모음 목록 조회: {}", boardAnswerList);
+		model.addAttribute("boardAnswerList", boardAnswerList);
+		
+		return "adminpage/boardAdmin/boardAnswerList";
+	}
+	
+	/* 게시글 댓글 목록 조회 */
+	@GetMapping("/boardCommentList")
+	public String getBoardCommentList(Model model) {
+		List<BoardComment> boardCommentList = boardService.getBoardCommentList();
+		log.info("게시글 댓글 목록: {}", boardCommentList);
+		model.addAttribute("boardCommentList", boardCommentList);
+		
+		return "adminpage/boardAdmin/boardCommentList";
 	}
 	
 	/* 게시글 첨부파일 목록 조회 */

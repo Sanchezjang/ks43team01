@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ks43team01.dto.Board;
+import ks43team01.dto.BoardAnswer;
 import ks43team01.dto.BoardCategory;
+import ks43team01.dto.BoardComment;
 import ks43team01.dto.BoardLargeCategory;
 import ks43team01.dto.BoardMediumCategory;
 import ks43team01.dto.BoardPostFile;
@@ -23,6 +25,16 @@ public class BoardService {
 		this.boardMapper = boardMapper;
 	}
 
+	/* 게시글 답변모음 목록 조회 */
+	public List<BoardAnswer> getBoardAnswerList(){
+		List<BoardAnswer> boardAnswerList = boardMapper.getBoardAnswerList();
+		return boardAnswerList;
+	}
+	/* 게시글 댓글 목록 조회 */
+	public List<BoardComment> getBoardCommentList(){
+		List<BoardComment> boardCommentList = boardMapper.getBoardCommentList();
+		return boardCommentList;
+	}
 
 	/* 사용자용 게시글삭제*/
 	public int removeBoard(String boardPostCode) {
