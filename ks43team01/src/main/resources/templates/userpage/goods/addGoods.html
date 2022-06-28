@@ -6,20 +6,21 @@ layout:decorate="~{userpage/layout/userdefault}">
 
 	<!------ Include the above in your HEAD tag ---------->
 	<th:block layout:fragment="customScript">
-		<script>
+		<!-- <script>
  			$(function(){
-				$(document).on('change', '#addGoodsTopCategoryName', function(){
-					var $addGoodsTopCategory =$("#addGoodsTopCategoryName").val()
+				$(document).on('change', '#goodsTopCategoryName', function(){
+					var $goodsTopCategory = $("#goodsTopCategoryName").val()
+					console.log($goodsTopCategory);
 					var request = $.ajax({
 						url: "/getGoodsSubCategory",
 						method: "GET",
-						data: { 'addGoodsTopCategoryName' : $goodsTopCategory},
+						data: { 'goodsTopCategory' : goodsTopCategory},
 						dataType: "json"
 					});
 			 						 
 					request.done(function( data ) {
 					
-					var html = '', $goodsSubCategory = $('#goodsSubCategoryName');
+					var html = '', goodsSubCategory = $('#goodsSubCategoryCode');
 					if(data.length == 0){
 						html += '<option value=""> :: 하위 카테고리 :: </option>';
 					}else{ 								
@@ -36,7 +37,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 					});
 				});
 			});
- 		</script>
+ 		</script> -->
  		
 	</th:block>	
 
@@ -112,10 +113,13 @@ layout:decorate="~{userpage/layout/userdefault}">
 				<div class="orderer form-group">
 					<div class="form-group">
 					<label for="goodsTopCategoryName" class="col-12 mainExplanation required">상위 카테고리</label>
-						<select id="addGoodsTopCategoryName" name="addGoodsTopCategoryName" class="wide col-6 select1">
+						<select id="goodsTopCategoryName" name="goodsTopCategoryName" class="wide col-6 select1">
 							<option value="" disabled selected> :: 상위 카테고리 :: </option>
-							<th:block th:if="${not #lists.isEmpty(goodsTopCategoryList)}" th:each="g:${goodsTopCategoryList}">
-							<option th:value="${g.goodsTopCategoryCode}">[[${g.goodsTopCategoryName}]]</option>
+							<th:block th:if="${not #lists.isEmpty(goodsTopCategory)}" th:each="g:${goodsTopCategory}">
+								<option th:value="${g.goodsTopCategoryCode}">[[${g.goodsTopCategoryName}]]</option>
+							</th:block>
+							<th:block th:unless="${not #lists.isEmpty(goodsTopCategory)}">
+								<option value="">등록된 카테고리가 없습니다</option>
 							</th:block>
 						</select>
 					</div>

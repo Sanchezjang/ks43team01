@@ -26,11 +26,11 @@ public interface GoodsMapper {
 	//상품 리스트 
 	public List<Goods> getUserGoodsList();
 	
-	//등록상품 상위 카테고리
-	public List<GoodsTopCategory> getaddGoodsTopCategory();
+	//상품 상위 카테고리(등록화면)
+	public List<GoodsSubCategory> getGoodsSubCategory(String goodsTopCategory);
 	
-	//등록상품 상위 카테고리 해당 상품 하위 카테고리
-	public List<GoodsSubCategory> getaddGoodsSubCategory(String addGoodsTopCategory);
+	//상품 상위 카테고리(등록화면)
+	public List<GoodsTopCategory> getGoodsTopCategory();
 	
 	//상품 등록
 	public int addGoods(Goods goods);

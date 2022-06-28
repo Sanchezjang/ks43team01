@@ -33,8 +33,17 @@
 	
 	<!-- 사용자 화면 -->
 	<!-- 사용자 화면 -->
+	<delete id="removeUserGoods" parameterType="String">
+		/* 상품 삭제 */
+		DELETE
+		FROM
+			tb_g_goods
+		WHERE
+			goods_code = #{goodsCode};
+	</delete>
+	
 	<update id="modifyGoods" parameterType="String">
-		/* 회원 페이지 리뷰 수정 */
+		/* 상품 수정 */
 		UPDATE
 			tb_g_goods 
 		SET 
@@ -49,15 +58,6 @@
 		WHERE
 			goods_code = #{goodsCode};
 	</update>	
-	
-	<delete id="removeUserGoods" parameterType="String">
-		/* 상품 삭제 */
-		DELETE
-		FROM
-			tb_g_goods
-		WHERE
-			goods_code = #{goodsCode};
-	</delete>
 	
 	<select id="getGoodsInfoCode" parameterType="String" resultMap="GoodsResultMap">
 		/* 개별 상품 보기 */
@@ -82,32 +82,32 @@
 		FROM
 			tb_g_goods AS g
 	</select>
-	
-    <select id="getaddGoodsTopCategory" resultType="goodsTopCategory">
-		/*판매가 비지니스 탑카테고리*/
+    
+	<select id="getGoodsTopCategory" resultType="Goods">
+		/* 상품 등록 화면 상위 카테고리 조회 */
 		SELECT 
-			g.goods_top_category_name as goodsTopCategoryName
-			,g.goods_top_category_code as goodsTopCategoryCode
-			,g.user_id_code as userIdocde
-			,g.goods_top_category_reg_date as goodsTopCategoryRegDate
-		FROM 
-			tb_g_goods_top_category as g
+			gt.goods_top_category_code		AS goodsTopCategoryCode,
+			gt.goods_top_category_name		AS goodsTopCategoryName,
+			gt.user_id_code					AS userIdCode,
+			gt.goods_top_category_reg_date	AS goodsTopCategoryRegDate
+		FROM
+			tb_g_goods_top_category AS gt;
+	</select>
     
-    </select>
-    
-    <select id="getaddGoodsSubCategory" resultType="GoodsSubCategory">
-    	select 
-			g.goods_sub_category_code 
-			,g.goods_sub_category_name 
-			,g.goods_sub_category_reg_date 
-			,g.goods_top_category_code 
-			,g.goods_top_category_name 
-		from 
-			tb_g_goods_sub_category as g
-		where
-			g.goods_top_category_code = #{addGoodsTopCategory};
-    </select>	
-	
+	<select id="getGoodsSubCategory" parameterType="String" resultMap="GoodsResultMap">
+		/* 상품 등록 화면 하위 카테고리 조회 */
+		SELECT 
+			gs.goods_sub_category_code		AS goodsSubCategoryCode,
+			gs.goods_top_category_code		AS goodsTopCategoryCode,
+			gs.goods_top_category_name		AS goodsTopCategoryName,
+			gs.goods_sub_category_name		AS goodsSubCategoryName,
+			gs.user_id_code					AS userIdCode,
+			gs.goods_sub_category_reg_date	AS goodsSubCategoryRegDate
+		FROM
+			tb_g_goods_sub_category AS gs
+		WHERE
+			gs.goods_top_category_code = #{goodsTopCategory};
+	</select>
 	
 	<insert id="addGoods" parameterType="Goods">
 		/* 상품 등록 */
