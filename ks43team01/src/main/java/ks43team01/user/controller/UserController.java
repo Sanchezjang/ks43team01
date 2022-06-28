@@ -30,8 +30,6 @@ public class UserController {
 
 	//DI//
 	private final UserService userService;
-
-	private Object userIdCode;
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
@@ -89,7 +87,6 @@ public class UserController {
 		session.setAttribute("userIdCode",sellerBusiness.getUserIdCode());
 		
 		log.info("셀러비지니스분야입력   :{}",sellerBusiness);
-		log.info("세션아이디 받아오는지  :  {}", userIdCode);
 		userService.addSellerBusiness(sellerBusiness);
 		return "userpage/user/sellerBusiness";
 	}

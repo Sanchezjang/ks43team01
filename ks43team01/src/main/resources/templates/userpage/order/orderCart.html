@@ -36,7 +36,8 @@ layout:decorate="~{userpage/layout/userdefault}">
 					  data: JSON.stringify(checkOrder1),
 					  dataType: "text"
 					});request.done(function( data ) {
-						console.log(data);
+						location.href="/orderCheck1";
+						console.log(checkOrder1);
 					});
 			
 		});
