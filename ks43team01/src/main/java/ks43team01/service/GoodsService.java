@@ -53,12 +53,20 @@ public class GoodsService {
 		return userGoodsList;
 	}
 	
-	// 상품 상위 카테고리 해당 상품 하위 카테고리
-	public List<GoodsSubCategory> getaddGoodsSubCategory(String addGoodsTopCategory) {
+	//
+	public List<GoodsTopCategory> getGoodsTopCategory() {
 		
-		List<GoodsSubCategory> addGoodsSubCategory = goodsMapper.getaddGoodsSubCategory(addGoodsTopCategory);
+		List<GoodsTopCategory> goodsTopCategory = goodsMapper.getGoodsTopCategory();
 		
-		return addGoodsSubCategory;
+		return goodsTopCategory;
+	}
+	
+	//비지니스 서브카테고리만들기
+	public List<GoodsSubCategory> getGoodsSubCategory(String goodsTopCategory) {
+		
+		List<GoodsSubCategory> goodsSubCategory = goodsMapper.getGoodsSubCategory(goodsTopCategory);
+		
+		return goodsSubCategory;
 	}
 	
 	// 상품 등록

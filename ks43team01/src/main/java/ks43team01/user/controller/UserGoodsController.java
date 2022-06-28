@@ -47,7 +47,7 @@ public class UserGoodsController {
 	@PostMapping("/modifyGoods")
 	public String modifyGoods(Goods goods
 							  ,RedirectAttributes reAttr) {
-		log.info("goods: {}", goods);
+		//log.info("goods: {}", goods);
  
 		goodsService.modifyGoods(goods);
 		String goodsCode = goods.getGoodsCode();
@@ -88,23 +88,14 @@ public class UserGoodsController {
 		
 		return "userpage/goods/userGoodsList";
 	}
-	
-	//상품 상위 카테고리 선택 시 해당 상품 하위 카테고리 불러오기
-	@GetMapping("/getaddGoodsSubCategory")
-	@ResponseBody
-	public List<GoodsSubCategory> getaddGoodsSubCategory(@RequestParam(name="addGoodsTopCategoryName")String addGoodsTopCategoryName) {
-		List<GoodsSubCategory> addGoodsSubCategory = goodsService.getaddGoodsSubCategory(addGoodsTopCategoryName);
-		log.info("서브카테고리받아온값제이즌  :{}", addGoodsSubCategory);
-		return addGoodsSubCategory;
-	}
-	
+		
 	//상품 등록
 	@PostMapping("/addGoods")
 	public String addGoods(HttpSession session
 			,Goods goods
 			,HttpServletRequest request) {
 		
-		//log.info("매출 등록 처리 sales : {}", sales);
+		//log.info("상품 등록 처리 goods : {}", goods);
 		String sessionId = (String) session.getAttribute("UID");
 		
 		goodsService.addGoods(sessionId, goods);
@@ -117,15 +108,23 @@ public class UserGoodsController {
 	public String addGoods(Model model) {
 		
 		List<Goods> userGoodsList = goodsService.getUserGoodsList();
-		List<GoodsTopCategory> goodsTopCategoryList = goodsService.getGoodsTopCategoryList();
-		List<GoodsSubCategory> goodsSubCategoryList = goodsService.getGoodsSubCategoryList();
+		List<GoodsTopCategory> goodsTopCategory = goodsService.getGoodsTopCategory();
 		
 		model.addAttribute("userGoodsList", userGoodsList);
-		model.addAttribute("goodsTopCategoryList", goodsTopCategoryList);
-		model.addAttribute("goodsSubCategoryList", goodsSubCategoryList);
-		//log.info("지출 등록 내역 : {}", salesList);
+		model.addAttribute("goodsTopCategory", goodsTopCategory);
+		log.info("상위 카테고리  :{}", goodsTopCategory);
 		
 		return "userpage/goods/addGoods";
+	}
+	
+	//상위카테고리에 해당하는 하위카테고리 불러오기
+	@GetMapping("/getGoodsSubCategory")
+	@ResponseBody
+	public List<GoodsSubCategory> getGoodsSubCategory(@RequestParam(name="goodsTopCategoryName")String goodsTopCategory) {
+		
+		log.info("서브카테고리받아온값제이즌  :{}", goodsTopCategory);
+		List<GoodsSubCategory> getGoodsSubCategory = goodsService.getGoodsSubCategory(goodsTopCategory);
+		return getGoodsSubCategory;
 	}
 
 }

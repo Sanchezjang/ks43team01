@@ -3,7 +3,7 @@ package ks43team01.dto;
 public class GoodsTopCategory {
 
 	private String	goodsTopCategoryCode; 
-	private String	goodsTopCategoryName; 
+	private String	goodsTopCategoryName;
 	private String	userIdCode; 
 	private String	goodsTopCategoryRegDate;
 	
