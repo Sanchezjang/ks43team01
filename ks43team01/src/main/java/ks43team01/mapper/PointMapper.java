@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 import ks43team01.dto.Point;
 import ks43team01.dto.PointSaveByGrade;
-import ks43team01.dto.PointStandard;
 import ks43team01.dto.PointStandardDetails;
 
 

@@ -4,16 +4,14 @@ public class PointSaveByGrade {
 	private String pointBuySaveStandardGradeCode;
 	private String gradeUserCode;
 	private String pointStandardDetailsCode;
-	private String pointStandardCode;
 	private int pointSaveByGradePercent;
 	private String pointSaveByGradeUnit;
-	
 	
 	@Override
 	public String toString() {
 		return "PointSaveByGrade [pointBuySaveStandardGradeCode=" + pointBuySaveStandardGradeCode + ", gradeUserCode="
-				+ gradeUserCode + ", pointStandardDetailsCode=" + pointStandardDetailsCode + ", pointStandardCode="
-				+ pointStandardCode + ", pointSaveByGradePercent=" + pointSaveByGradePercent + ", pointSaveByGradeUnit="
+				+ gradeUserCode + ", pointStandardDetailsCode=" + pointStandardDetailsCode
+				+ ", pointSaveByGradePercent=" + pointSaveByGradePercent + ", pointSaveByGradeUnit="
 				+ pointSaveByGradeUnit + "]";
 	}
 	public String getPointBuySaveStandardGradeCode() {
@@ -33,12 +31,6 @@ public class PointSaveByGrade {
 	}
 	public void setPointStandardDetailsCode(String pointStandardDetailsCode) {
 		this.pointStandardDetailsCode = pointStandardDetailsCode;
-	}
-	public String getPointStandardCode() {
-		return pointStandardCode;
-	}
-	public void setPointStandardCode(String pointStandardCode) {
-		this.pointStandardCode = pointStandardCode;
 	}
 	public int getPointSaveByGradePercent() {
 		return pointSaveByGradePercent;

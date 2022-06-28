@@ -6,29 +6,20 @@
 	<resultMap type="Point" id="PointStandardReusltMap">
 			<id 	column="point_details_code"	 					property="pointDetailsCode"/>
 			<result column="user_id_code" 							property="userIdCode"/>
-			<result column="point_standard_code" 					property="pointStandardCode"/>
 			<result column="point_standard_details_code" 			property="pointStandardDetailsCode"/>
 			<result column="point_amount"				   		 	property="pointAmount"/>
 			<result column="user_email" 							property="userEmail"/>
 			<result column="point_history_reg_date" 				property="pointHistoryRegDate"/>
 		<association property="pointStandardDetails" javaType="PointStandardDetails">
 			<id 	column="point_standard_details_code"	 		property="pointStandardDetailsCode"/>
-			<result column="point_standard_code" 					property="pointStandardCode"/>
 			<result column="point_standard_details_name" 			property="pointStandardDetailsName"/>
 			<result column="user_id_code" 							property="userIdCode"/>
 			<result column="point_standard_details_reg_date" 		property="pointStandardDetailsRegDate"/>
-		</association>
-		<association property="pointStandard" javaType="PointStandard">
-			<id 	column="point_standard_code"	 				property="pointStandardCode"/>
-			<result column="point_standard_name" 					property="pointStandardName"/>
-			<result column="user_id_code" 							property="userIdCode"/>
-			<result column="point_standard_reg_date" 				property="pointStandardRegDate"/>
 		</association>
 		<association property="pointSaveByGrade" javaType="PointSaveByGrade">
 			<id 	column="point_buy_save_standard_grade_code"	 	property="pointBuySaveStandardGradeCode"/>
 			<result column="grade_user_code" 						property="gradeUserCode"/>
 			<result column="point_standard_details_code" 			property="pointStandardDetailsCode"/>
-			<result column="point_standard_code" 					property="pointStandardCode"/>
 			<result column="point_save_by_grade_percent" 			property="pointSaveByGradePercent"/>
 			<result column="point_save_by_grade_unit" 				property="pointSaveByGradeUnit"/>
 		</association>
@@ -53,26 +44,30 @@
 		</association>
 	</resultMap>
 	
-	<insert id="addPointGradelist" parameterType="PointSaveByGrade">
+	<insert id="addPointGradeList" parameterType="PointSaveByGrade">
 	/* 관리자 페이지 포인트 기준 등록 */
 	INSERT INTO tb_pt_point_buy_save_by_grade 
 		(point_buy_save_standard_grade_code
 		,grade_user_code
 		,point_standard_details_code
-		,point_standard_code
 		,point_save_by_grade_percent
 		,point_save_by_grade_unit)
 		VALUES
-		(#{pointBuySaveByGrade}
+		(#{pointBuySaveStandardGradeCode}
 		,(SELECT
-			a.grade_user_code		
+			grade_name
 		FROM
-			tb_u_user_rating_standard AS a
+			tb_u_user_rating_standard 
 		WHERE
-			a.grade_name = #{gradeName}		
+			grade_user_code = #{gradeUserCode}
 		)
-		,#{pointStandardCode}
-		,#{pointStandardDetailsCode}
+		,(SELECT
+				point_standard_details_code
+			FROM 
+				tb_pt_point_standard_details 
+			WHERE
+				point_standard_details_name = #{pointStandardDetailsName};
+		)
 		,#{pointSaveByGradePercent}
 		,#{pointSaveByGradeUnit}
 		);
@@ -90,7 +85,8 @@
 	<select id="getPointGradeList" resultType="Map">
 	/* 관리자 페이지 포인트 적립 기준 조회 */
 		SELECT
-			 pb.point_buy_save_standard_grade_code									AS pointBuySaveStandardGradeCode
+			 ur.grade_user_code														AS gradeUserCode
+			,pb.point_buy_save_standard_grade_code									AS pointBuySaveStandardGradeCode
 			,pp.point_standard_details_name 										AS pointStandardDetailsName
 			,ur.grade_name															AS gradeName
 			,CONCAT(SUBSTRING(pb.point_save_by_grade_percent,3,2),+'%')				AS pointSaveByGradePercent
@@ -109,23 +105,20 @@
 	
 	<select id="getPointList"  resultType="Map">
 	/* 관리자 페이지 포인트 내역 조회 */
-		SELECT
-		   pa.point_details_code 				AS pointDetailsCode	 
-		  ,pa.point_standard_code				AS pointStandardCode	
-		  ,pa.point_history_reg_date			AS pointHistoryRegDate
-		  ,pa.user_id_code						AS userIdCode
-		  ,ps.point_standard_name				AS pointStandardName
-		  ,pd.point_standard_details_name		AS pointStandardDetailsName
-		  ,pa.point_amount						AS pointAmount
-		FROM 
-			tb_pt_point_standard AS ps
-			INNER JOIN 
-			tb_pt_point_standard_details AS pd
-			ON 
-			ps.point_standard_code = pd.point_standard_code
-			INNER JOIN 
-			tb_pt_point_accumulation_details AS pa 
-			ON 
-			pd.point_standard_details_code = pa.point_standard_details_code;
+		   SELECT
+		   	 pd.point_standard_details_code		AS pointStandardDetailsCode
+	        ,pa.point_details_code             	AS pointDetailsCode    
+	        ,pa.point_history_reg_date         	AS pointHistoryRegDate
+	        ,pa.user_id_code                  	AS userIdCode
+	        ,pd.point_standard_name            	AS pointStandardName
+	        ,pd.point_standard_details_name     AS pointStandardDetailsName
+	        ,pa.point_amount                  	AS pointAmount
+	      FROM 
+	    	 tb_pt_point_standard_details AS pd     
+	         INNER JOIN 
+	         tb_pt_point_accumulation_details AS pa 
+	         ON 
+	         pd.point_standard_details_code = pa.point_standard_details_code;
+         
 	</select>
 </mapper>
