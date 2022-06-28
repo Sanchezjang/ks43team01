@@ -119,6 +119,20 @@ layout:decorate="~{userpage/layout/userdefault}">
 			
 			</table>
 		<hr style="width: 1200px"/>
+		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		<script>
+			window.onload = function(){
+			    document.getElementById("postnumber").addEventListener("click", function(){ //주소입력칸을 클릭하면
+			        //카카오 지도 발생
+			        new daum.Postcode({
+			            oncomplete: function(data) { //선택시 입력값 세팅
+			                document.getElementById("address_kakao").value = data.address; // 주소 넣기
+			                document.querySelector("input[name=address_detail]").focus(); //상세입력 포커싱
+			            }
+			        }).open();
+			    });
+			}
+		</script>
 		<!-- start form for validation -->
 		<form id="demo-form row" data-parsley-validate>
 			<div class="totalCount">
@@ -139,15 +153,16 @@ layout:decorate="~{userpage/layout/userdefault}">
 					<button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" type="submit">결제하기</button>
 				</div>
 			</div>
+			<th:block th:if="${not #lists.isEmpty(userList)}" th:each="u : ${userList}">
 			<div class="orderer">
 			<label class="title">주문자 정보</label>
 				<div class="col-6">
 					<label for="fullname">주문자</label>
-						<input type="text" id="fullname" class="form-control" name="fullname" required />
+						<input type="text" id="fullname" class="form-control" name="fullname" th:value="${u.userName}" required />
 				</div>
 				<div class="col-6">
 					<label for="phone">주문자 연락처</label>
-						<input type="tel" id="tel" class="form-control" name="tel" required />
+						<input type="tel" id="tel" class="form-control" name="tel" th:value="${u.userContact}" required />
 				</div>
 			</div>
 			
@@ -157,27 +172,27 @@ layout:decorate="~{userpage/layout/userdefault}">
 			<label class="title">배송지 정보</label>
 				<div class="col-6">
 					<label for="fullname">수령인</label>
-						<input type="text" id="fullname" class="form-control" name="fullname" required />
+						<input type="text" id="fullname" class="form-control" name="fullname" th:value="${u.userName}" required />
 				</div>
 				<div class="col-6">
 					<label for="phone">수령인 연락처</label>
-						<input type="tel" id="tel" class="form-control" name="tel" required />
+						<input type="tel" id="tel" class="form-control" name="tel" th:value="${u.userContact}" required />
 				</div>
 				<div class="col-6">
-					<label for="phone">배송지</label>
+					<label for="postnumber">배송지 ::우편번호 클릭시 주소입력창이 팝업됩니다::</label>
 						<input type="text" id="postnumber" class="form-control" name="postnumber" placeholder="우편번호"  readonly="readonly" />
 				</div>
 					<div class="col-6">
 						<input type="text" id="deliveryAddr" class="form-control" name="deliveryAddr" placeholder="주소"  readonly="readonly" />
 				</div>
 				<div class="col-lg-6">
-                       <button type="button" class="genric-btn primary circle" id="postNum" onclick="searchPostNum()">우편번호</button>
+                       <button type="button" class="genric-btn primary circle" id="postNum">우편번호</button>
                  </div>
 				<div class="col-6">
 					<label for="deliveryAddrDetail"></label>
 						<input type="text" id="deliveryAddrDetail" class="form-control" name="deliveryAddrDetail" placeholder="상세주소" required />
 				</div>   
-	
+			
 			</div>
 			
 			<hr/>
@@ -186,7 +201,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 				<label class="title">포인트 및 할인</label>
 				<div class="col-3">
 					<label>현재 보유 포인트</label>
-					<input type="number" id="point" class="form-control" name="point"/>  
+					<input type="number" id="point" class="form-control" th:value="${u.userPoint}"name="point"/>  
 					<div class="pointCheckBox">
 						<input type="checkbox" class="allPoint"> 전액 사용
 					</div>
@@ -195,14 +210,14 @@ layout:decorate="~{userpage/layout/userdefault}">
 					<label>사용 포인트</label>
 					<input type="number" id="point" class="form-control" name="point"/>
 				</div>
-					
+				</th:block>	
 			</div>
 			
 			<hr/>
 			
 			<div class="pay">
 				<label class="title">결제 수단</label>
-					<input type="radio" class="flat" name="payment" id="transfer" value="실시간 자동이체"/> 실시간 계좌이체
+					<input type="radio" class="flat" name="payment" id="transfer" value="카카오페이" checked="checked"/> 카카오페이
 					<input type="radio" class="flat" name="payment" id="bankbook" value="무통장입금" /> 무통장입금
 					<input type="radio" class="flat" name="payment" id="card" value="카드결제" /> 카드결제
 			</div>
