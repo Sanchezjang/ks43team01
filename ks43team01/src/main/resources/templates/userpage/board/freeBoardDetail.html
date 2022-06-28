@@ -60,12 +60,11 @@ layout:decorate="~{userpage/layout/userdefault}">
    		margin: 0 auto;
     	text-align: center;
 	}
-	
-	.btn{
-		margin-left: 10px;
-		margin-bottom: 40px;
-	}
 
+
+#boardComment{
+	width: 800px;
+}
 </style>
 
    <div class="slider-area">
@@ -130,12 +129,20 @@ layout:decorate="~{userpage/layout/userdefault}">
           </div>
          <hr>
          <form class="commentForm" th:action="@{/userpage/board/freeBoardDetail}">
-         <label>댓글</label>
+         <label>댓글 목록</label>
          	<div class="comment">
-         		<textarea rows="2" cols="120" name="comment"></textarea>
-         		<button type="submit" class="btn genric-btn primary">댓글 등록</button>
+         		<input class="form-control valid" name="boardComment" id="boardComment" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '댓글을 입력하세요.'" placeholder="댓글을 입력하세요."  required>
+         		<button type="submit" class="genric-btn primary">댓글 등록</button>
          	</div>
          </form>
+         	<div>
+         		<p class="replyContent" >작성자</p>
+				<p class="replyContent" th:text="${boardComment.userName}"></p>
+         		<p class="replyContent" >내용</p>
+				<p class="replyContent" th:text="${boardComment.boardCommentContent}"></p>
+         		<p class="replyContent" >작성일</p>
+				<p class="replyContent" th:text="${boardComment.boardCommentRegDate}"></p>
+         	</div>
          </div>
                
         

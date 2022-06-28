@@ -4,7 +4,7 @@ public class BoardAnswer {
 
 	private String boardAnswerCode;
 	private String userIdCode;
-	private String boardLargerCategoryCode;
+	private String boardLargeCategoryCode;
 	private String boardMediumCategoryCode;
 	private String boardAnswerWord;
 	private String boardAnswerContent;
@@ -22,11 +22,11 @@ public class BoardAnswer {
 	public void setUserIdCode(String userIdCode) {
 		this.userIdCode = userIdCode;
 	}
-	public String getBoardLargerCategoryCode() {
-		return boardLargerCategoryCode;
+	public String getBoardLargeCategoryCode() {
+		return boardLargeCategoryCode;
 	}
-	public void setBoardLargerCategoryCode(String boardLargerCategoryCode) {
-		this.boardLargerCategoryCode = boardLargerCategoryCode;
+	public void setBoardLargeCategoryCode(String boardLargeCategoryCode) {
+		this.boardLargeCategoryCode = boardLargeCategoryCode;
 	}
 	public String getBoardMediumCategoryCode() {
 		return boardMediumCategoryCode;
@@ -66,7 +66,7 @@ public class BoardAnswer {
 		builder.append(", userIdCode=");
 		builder.append(userIdCode);
 		builder.append(", boardLargerCategoryCode=");
-		builder.append(boardLargerCategoryCode);
+		builder.append(boardLargeCategoryCode);
 		builder.append(", boardMediumCategoryCode=");
 		builder.append(boardMediumCategoryCode);
 		builder.append(", boardAnswerWord=");

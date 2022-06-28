@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks43team01.dto.Board;
+import ks43team01.dto.BoardComment;
 import ks43team01.dto.BoardLargeCategory;
 import ks43team01.dto.BoardMediumCategory;
 import ks43team01.dto.QnaBoard;
@@ -34,7 +35,7 @@ public class BoardController {
 	public BoardController(BoardService boardService) {
 		this.boardService = boardService;
 	}
- 
+
 	/* 5-3. 자유게시판 게시글 삭제 */
 	@GetMapping("/removeFreeBoard")
 	public String removeFreeBoard(@RequestParam(value = "boardPostCode")String boardPostCode) {
@@ -129,9 +130,14 @@ public class BoardController {
 	@GetMapping("/freeBoardDetail")
 	public String freeBoardDetail(@RequestParam(value = "boardPostCode")String boardPostCode, Model model) {
 		Board board = boardService.getBoardByCode(boardPostCode);
-		log.info("board : {}", board);
+		
 		model.addAttribute("board", board);
+		
+		log.info("board : {}", board);
 		return "/userpage/board/freeBoardDetail";
+		
+		
+		
 	}
 	/* 3-2. 자주묻는 질문 게시글 상세 페이지 조회 */
 	@GetMapping("/faqBoardDetail")
