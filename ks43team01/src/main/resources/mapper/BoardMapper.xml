@@ -96,6 +96,40 @@
          <result column="board_answer_update_date"           property="boardAnswerUpdateDate"/>   
       </association>
   </resultMap>
+  
+  <delete id="removeComment" parameterType="String">
+  	/* 게시글 댓글 삭제 */
+		  	DELETE
+			FROM
+				tb_b_board_comment
+			WHERE
+			board_comment_code = #{boardCommentCode};
+  </delete>
+  
+  <insert id="addComment" parameterType="BoardComment">
+  /* 게시글 댓글 등록 */
+	INSERT INTO tb_b_board_comment
+		(board_comment_code
+		, user_id_code
+		, board_post_code
+		, board_comment_content
+		, board_comment_reg_date
+		, board_comment_use
+		, user_name
+		, board_comment_update_date)
+	VALUES (
+		(select date_format(NOW(),'comment%y%m%d%H%i%s')AS board_comment_code)
+		, #{userIdCode}
+		, #{boardPostCode}
+		, #{boardCommentContent}
+		, NOW()
+		, 'Y'
+		, #{userName}
+		, NOW()
+		);
+  
+  </insert>
+  
 
 	<select id="getBoardPostCommentList" resultType="BoardComment">
 		/* 게시글 댓글 조회 */
