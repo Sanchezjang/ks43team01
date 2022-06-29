@@ -2,6 +2,7 @@ package ks43team01.user.controller;
 
 import java.util.List;
 
+import javax.print.DocFlavor.STRING;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -35,7 +36,46 @@ public class BoardController {
 	public BoardController(BoardService boardService) {
 		this.boardService = boardService;
 	}
+	
+	/* 게시글 댓글 삭제 */
+	@GetMapping("/removeComment")
+	public String removeComment(@RequestParam(value = "boardCommentCode")String boardCommentCode) {
+		log.info("나가는 값:{}", "test");
+		boardService.removeComment(boardCommentCode);
+		
+		return "redirect:/userpage/board/freeBoardList";
+	}
+	/* 게시글 댓글 등록 (post) */
+	@PostMapping("/addComment")
+	public String addComment (@RequestParam(name="boardPostCode", required = false)String boardPostCode
+							,BoardComment boardComment
+							, HttpSession session
+							, Board board
+							, RedirectAttributes reAttr) {
+		
+		session.setAttribute("userName", boardComment.getUserName()); //세션 값 설정
+		String sessionId = (String) session.getAttribute("UID");
+		String sessionName = (String) session.getAttribute("UNAME"); //세션값 가져오기
+		boardComment.setUserName(sessionName);
+		log.info("sessionName값 : {}",sessionName);
+	    String boardPostCode1 = board.getBoardPostCode();
+		boardComment.setBoardPostCode(boardPostCode1);
+	    log.info("가져온 코드값 :  {}",boardPostCode1);
+		boardService.addComment(sessionId, sessionName, boardComment);
+		
+		reAttr.addAttribute("boardPostCode", boardPostCode1);
+		return "redirect:/userpage/board/freeBoardDetail";
+	}
+	
+	
+	/* 게시글 댓글 등록 (get) */
+	@GetMapping("/addComment")
+	public String addComment (Model model) {
+		
 
+		return "/userpage/board/freeBoardDetail";
+	}
+	
 	/* 5-3. 자유게시판 게시글 삭제 */
 	@GetMapping("/removeFreeBoard")
 	public String removeFreeBoard(@RequestParam(value = "boardPostCode")String boardPostCode) {
@@ -56,7 +96,7 @@ public class BoardController {
 	
 	/* 5-1. 공지사항 게시글 삭제 */
 	@GetMapping("/removeNoticeBoard")
-	public String removeNoticeBoard(@RequestParam(value = "boardPostCode")String boardPostCode) {
+	public String removeNoticeBoard(@RequestParam(value = "boardPostCode", required = false)String boardPostCode) {
 		log.info("나가는 값:{}", "test");
 		boardService.removeBoard(boardPostCode);
 		
@@ -131,9 +171,13 @@ public class BoardController {
 	public String freeBoardDetail(@RequestParam(value = "boardPostCode")String boardPostCode, Model model) {
 		Board board = boardService.getBoardByCode(boardPostCode);
 		
+		List<BoardComment> boardPostCommentList = boardService.getBoardPostCommentList(boardPostCode);
 		model.addAttribute("board", board);
+		model.addAttribute("boardPostCommentList", boardPostCommentList);
 		
 		log.info("board : {}", board);
+		log.info("boardPostCommentList: {}" ,boardPostCommentList);
+		
 		return "/userpage/board/freeBoardDetail";
 		
 		

@@ -46,14 +46,16 @@ public class LoginController {
 	@PostMapping("/login")
 	public String login(@RequestParam(name="userId",required = false)String userId
 						,@RequestParam(name="userPw",required = false)String userPw	
-						,HttpSession session,HttpServletRequest request,UserLog userLog,UserLevelExp userLevelExp) {
-		User user = userService.getUserInfoById(userId);
+						,HttpSession session,HttpServletRequest request,UserLog userLog,UserLevelExp userLevelExp,User user) {
+		User user1 = userService.getUserInfoById(userId);
+		
 		log.info("user에서 받아온값 :   {}",user);
 
 		if(user != null) {
 			String userPwCheck = user.getUserPw();
 			if(userPw != null && userPw.equals(userPwCheck)) {
 				session.setAttribute("UID"   , userId);
+				session.setAttribute("UNAME"   , user1.getUserName());
 				String loginUserIp = request.getRemoteAddr();
 				userLog.setLoginIp(loginUserIp);
 				userLog.setUserIdCode(userId);

@@ -55,16 +55,43 @@ layout:decorate="~{userpage/layout/userdefault}">
 	}
 
 	
-	.comment{
-		width: 1050px;
-   		margin: 0 auto;
-    	text-align: center;
-	}
-
+   .comment{
+      width: 1000px;
+         margin: 0 auto;
+       text-align: center;
+   }
+   
+   .btn{
+      margin-left: 10px;
+      margin-bottom: 40px;
+   }
 
 #boardComment{
 	width: 800px;
 }
+
+.modify{
+	color: black;
+}
+.delete{
+	color: black;
+}
+
+.userName{
+	font-size: 15px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.commentContent{
+	margin-bottom: 5px;	
+}
+
+textarea {
+	width: 800px;
+}
+
+
 </style>
 
    <div class="slider-area">
@@ -110,8 +137,10 @@ layout:decorate="~{userpage/layout/userdefault}">
                         <td th:text="${board.boardPostRegDate}"></td>
                      </tr>
                      <tr>
-                        <th>내용</th>
-                        <td class="detailContent" colspan="3" th:text="${board.boardPostContent}"></td>
+                     	<th colspan="4">내용</th>
+                     </tr>
+                     <tr>
+                        <td class="detailContent" colspan="4" th:text="${board.boardPostContent}"></td>
                      </tr>
                   </tbody>
                </table>
@@ -128,24 +157,28 @@ layout:decorate="~{userpage/layout/userdefault}">
             </div>   
           </div>
          <hr>
-         <form class="commentForm" th:action="@{/userpage/board/freeBoardDetail}">
-         <label>댓글 목록</label>
-         	<div class="comment">
-         		<input class="form-control valid" name="boardComment" id="boardComment" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '댓글을 입력하세요.'" placeholder="댓글을 입력하세요."  required>
-         		<button type="submit" class="genric-btn primary">댓글 등록</button>
+       
+         <h4>댓글 목록</h4>
+         	<div th:if="${not #lists.isEmpty(boardPostCommentList)}" th:each="l : ${boardPostCommentList}">
+         		<div class="userName" th:text="${l.userName}"></div>
+         		<div class="commentContent" th:text="${l.boardCommentContent}"></div>
+         		<div class="commentReg" th:text="${l.boardCommentRegDate}"></div>
+         		<div class="commentMenu">
+         			<a class="modify" href="#">수정</a>
+         			<a class="delete" href="#">삭제</a>
+         		</div>
+         		<hr>
          	</div>
+         <form class="commentForm" th:action="@{/userpage/board/addComment(boardPostCode=${board.boardPostCode})}" method="post">
+            <div class="comment">
+               <textarea rows="2" cols="120" name="boardCommentContent"></textarea>
+               <button type="submit" class="btn genric-btn primary">댓글 등록</button>
+            </div>
          </form>
-         	<div>
-         		<p class="replyContent" >작성자</p>
-				<p class="replyContent" th:text="${boardComment.userName}"></p>
-         		<p class="replyContent" >내용</p>
-				<p class="replyContent" th:text="${boardComment.boardCommentContent}"></p>
-         		<p class="replyContent" >작성일</p>
-				<p class="replyContent" th:text="${boardComment.boardCommentRegDate}"></p>
          	</div>
-         </div>
+
                
-        
+   
         
 
 </div>

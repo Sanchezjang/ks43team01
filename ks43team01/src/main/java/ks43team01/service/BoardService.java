@@ -24,9 +24,28 @@ public class BoardService {
 	public BoardService(BoardMapper boardMapper) {
 		this.boardMapper = boardMapper;
 	}
+	
+	/* 사용자용 게시글 댓글 삭제*/
+	public int removeComment(String boardCommentCode) {
+		int result = boardMapper.removeComment(boardCommentCode);
+		
+		return result;
+	}
+	
+	
+	/* 게시글 댓글 작성*/
+	public int addComment(String sessionId, String sessionName, BoardComment boardComment) {
+		boardComment.setUserIdCode(sessionId);
+		boardComment.setUserName(sessionName);
+		
+		int result = boardMapper.addComment(boardComment);
+	
+		return result;
+	}
+	
 	/* 사용자용 게시글 댓글 조회 */
 	public List<BoardComment> getBoardPostCommentList(String boardPostCode){
-		List<BoardComment> boardPostCommentList = boardMapper.getBoardPostCommentList();
+		List<BoardComment> boardPostCommentList = boardMapper.getBoardPostCommentList(boardPostCode);
 		return boardPostCommentList;
 	}
 	
