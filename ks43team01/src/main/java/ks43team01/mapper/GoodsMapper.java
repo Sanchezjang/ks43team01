@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 import ks43team01.dto.Goods;
 import ks43team01.dto.GoodsSubCategory;
 import ks43team01.dto.GoodsTopCategory;
-import ks43team01.dto.ReviewContentsReg;
 
 @Mapper
 public interface GoodsMapper {
@@ -16,6 +15,9 @@ public interface GoodsMapper {
 	 * */
 	//상품 삭제
 	public int removeUserGoods(String goodsCode);
+	
+	//상품 수정 화면에서 기존 데이터 불러오기
+	public Goods getModifyGoodsInfoCode(String goodsCode);
 	
 	//상품 수정
 	public int modifyGoods(Goods goods);

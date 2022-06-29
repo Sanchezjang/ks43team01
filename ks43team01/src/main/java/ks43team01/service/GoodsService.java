@@ -31,6 +31,15 @@ public class GoodsService {
 		return result;
 	}
 	
+	// 상품 수정화면에서 기존 데이터 불러오기
+	public Goods getModifyGoodsInfoCode(String goodsCode) {
+		
+		Goods goods = goodsMapper.getModifyGoodsInfoCode(goodsCode);
+		
+		return goods;
+		
+	}
+	
 	// 상품 수정
 	public int modifyGoods(Goods goods) {
 		
@@ -53,7 +62,7 @@ public class GoodsService {
 		return userGoodsList;
 	}
 	
-	//
+	// 상품 상위 카테고리(등록화면)
 	public List<GoodsTopCategory> getGoodsTopCategory() {
 		
 		List<GoodsTopCategory> goodsTopCategory = goodsMapper.getGoodsTopCategory();
@@ -61,7 +70,7 @@ public class GoodsService {
 		return goodsTopCategory;
 	}
 	
-	//비지니스 서브카테고리만들기
+	// 상품 하위 카테고리(등록화면)
 	public List<GoodsSubCategory> getGoodsSubCategory(String goodsTopCategory) {
 		
 		List<GoodsSubCategory> goodsSubCategory = goodsMapper.getGoodsSubCategory(goodsTopCategory);

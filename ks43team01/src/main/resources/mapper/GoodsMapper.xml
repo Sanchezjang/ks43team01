@@ -30,6 +30,20 @@
 			<result column="goods_sub_category_reg_date"	property="goodsSubCategoryRegDate"/>
 		</association>
 	</resultMap>
+	<resultMap type="goodsTopCategory" id="GoodsTopCategoryResultMap">
+		<id 	column="goods_top_category_code"		property="goodsTopCategoryCode"/>
+		<result column="goods_top_category_name" 		property="goodsTopCategoryName"/>
+		<result column="user_id_code" 					property="userIdCode"/>
+		<result column="goods_top_category_reg_date"	property="goodsTopCategoryRegDate"/>
+	</resultMap>
+	<resultMap type="goodsSubCategory" id="GoodsSubCategoryResultMap">
+		<id 	column="goods_sub_category_code"		property="goodsSubCategoryCode"/>
+		<result column="goods_top_category_code" 		property="goodsTopCategoryCode"/>
+		<result column="goods_top_category_name" 		property="goodsTopCategoryName"/>
+		<result column="goods_sub_category_name"		property="goodsSubCategoryName"/>
+		<result column="user_id_code"					property="userIdCode"/>
+		<result column="goods_sub_category_reg_date"	property="goodsSubCategoryRegDate"/>	
+	</resultMap>
 	
 	<!-- 사용자 화면 -->
 	<!-- 사용자 화면 -->
@@ -41,6 +55,30 @@
 		WHERE
 			goods_code = #{goodsCode};
 	</delete>
+	
+	<select id="getModifyGoodsInfoCode" parameterType="String" resultMap="GoodsResultMap">
+	  	/* 수정화면 기존 데이터 조회 */	
+		SELECT
+			c.goods_top_category_name,
+			c.goods_sub_category_name,
+			g.goods_sub_category_code,
+			g.goods_name,
+			g.goods_description,
+			g.goods_price,
+			g.goods_working_period,
+			g.goods_modified_possibility_count,
+			g.goods_image_reg,
+			g.goods_code,
+			g.user_id_code
+		FROM
+			tb_g_goods AS g
+			INNER JOIN
+			tb_g_goods_sub_category AS c
+			ON
+			g.goods_sub_category_code = c.goods_sub_category_code
+		WHERE
+			g.goods_code = #{goodsCode};
+  	</select>
 	
 	<update id="modifyGoods" parameterType="String">
 		/* 상품 수정 */
@@ -83,7 +121,7 @@
 			tb_g_goods AS g
 	</select>
     
-	<select id="getGoodsTopCategory" resultType="Goods">
+	<select id="getGoodsTopCategory" resultType="GoodsTopCategory">
 		/* 상품 등록 화면 상위 카테고리 조회 */
 		SELECT 
 			gt.goods_top_category_code		AS goodsTopCategoryCode,
@@ -94,26 +132,52 @@
 			tb_g_goods_top_category AS gt;
 	</select>
     
-	<select id="getGoodsSubCategory" parameterType="String" resultMap="GoodsResultMap">
+	<select id="getGoodsSubCategory" parameterType="String" resultMap="GoodsSubCategoryResultMap">
 		/* 상품 등록 화면 하위 카테고리 조회 */
 		SELECT 
-			gs.goods_sub_category_code		AS goodsSubCategoryCode,
-			gs.goods_top_category_code		AS goodsTopCategoryCode,
-			gs.goods_top_category_name		AS goodsTopCategoryName,
-			gs.goods_sub_category_name		AS goodsSubCategoryName,
-			gs.user_id_code					AS userIdCode,
-			gs.goods_sub_category_reg_date	AS goodsSubCategoryRegDate
+			gs.goods_sub_category_code,
+			gs.goods_top_category_code,
+			gs.goods_top_category_name,
+			gs.goods_sub_category_name,
+			gs.user_id_code,
+			gs.goods_sub_category_reg_date
 		FROM
 			tb_g_goods_sub_category AS gs
 		WHERE
-			gs.goods_top_category_code = #{goodsTopCategory};
+			gs.goods_top_category_code = #{goodsTopCategoryName};
 	</select>
 	
 	<insert id="addGoods" parameterType="Goods">
 		/* 상품 등록 */
-		
+		INSERT INTO tb_g_goods
+		(
+			goods_code,
+			goods_sub_category_code,
+			goods_name,
+			goods_description,
+			goods_price,
+			goods_working_period,
+			goods_modified_possibility_count,
+			goods_image_reg,
+			user_id_code,
+			goods_reg_date
+		)VALUES(
+			(SELECT
+				CONCAT('goods_',MAX(CAST(SUBSTRING(g.goods_code,7) AS UNSIGNED))+1)
+			 FROM
+				tb_g_goods AS g),
+			#{goodsSubCategoryCode},
+			#{goodsName},
+			#{goodsDescription},
+			#{goodsPrice},
+			#{goodsWorkingPeriod},
+			#{goodsModifiedPossibilityCount},
+			#{goodsImageReg},
+			#{userIdCode},
+			CURDATE()
+		);
 	</insert>
-	
+
 	
 	<!-- 관리자 화면 -->
 	<!-- 관리자 화면 -->
