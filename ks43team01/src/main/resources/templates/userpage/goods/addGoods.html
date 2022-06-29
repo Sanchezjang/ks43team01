@@ -6,21 +6,21 @@ layout:decorate="~{userpage/layout/userdefault}">
 
 	<!------ Include the above in your HEAD tag ---------->
 	<th:block layout:fragment="customScript">
-		<!-- <script>
+		<script>
  			$(function(){
 				$(document).on('change', '#goodsTopCategoryName', function(){
-					var $goodsTopCategory = $("#goodsTopCategoryName").val()
-					console.log($goodsTopCategory);
+					var $goodsTopCategoryName = $("#goodsTopCategoryName").val()
+					console.log($goodsTopCategoryName);
 					var request = $.ajax({
-						url: "/getGoodsSubCategory",
+						url: "/userpage/goods/getGoodsSubCategory",
 						method: "GET",
-						data: { 'goodsTopCategory' : goodsTopCategory},
+						data: { 'goodsTopCategoryName' : $goodsTopCategoryName},
 						dataType: "json"
 					});
-			 						 
+			 		
 					request.done(function( data ) {
-					
-					var html = '', goodsSubCategory = $('#goodsSubCategoryCode');
+					console.log(data)
+					var html = '', $goodsSubCategory = $('#goodsSubCategoryCode');
 					if(data.length == 0){
 						html += '<option value=""> :: 하위 카테고리 :: </option>';
 					}else{ 								
@@ -37,7 +37,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 					});
 				});
 			});
- 		</script> -->
+ 		</script>
  		
 	</th:block>	
 
@@ -124,8 +124,8 @@ layout:decorate="~{userpage/layout/userdefault}">
 						</select>
 					</div>
 					<div class="form-group">   
-					<label for="goodsSubCategoryName" class="col-12 mainExplanation required">하위 카테고리</label>
-						 <select id="goodsSubCategoryName" name="goodsSubCategoryName" class="wide col-6 select1" >
+					<label for="goodsSubCategoryCode" class="col-12 mainExplanation required">하위 카테고리</label>
+						 <select id="goodsSubCategoryCode" name="goodsSubCategoryCode" class="wide col-6 select1" >
 							<option value=""> :: 하위 카테고리 :: </option>
 						</select>
 					</div>
@@ -147,13 +147,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 					</div>
 					<div class="col-6 goods">
 					<label for="goodsModifiedPossibilityCount" class="mainExplanation col-11" >수정가능횟수</label>
-						<select class="form-control col-6">
-						<option value="1">1회</option>
-						<option value="2">2회</option>
-						<option value="3">3회</option>
-						<option value="4">4회</option>
-						<option value="5">5회</option>
-						</select>
+						<input type="text" id="goodsModifiedPossibilityCount" class="form-control col-6" name="goodsModifiedPossibilityCount" required/>
 					</div>
 					<div class="col-6 goods">
 						<label for="goodsImageReg" class="mainExplanation">상품이미지</label>
@@ -161,7 +155,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 						<div class="explanation">상품서비스의 이미지를 업로드해주세요!(jpg,png파일 업로드)</div>
 					</div>
 					<div class="totalOrder">
-						<a href="#" class="genric-btn primary btn-sm">등록완료</a>
+						<button type="submit" class="genric-btn primary btn-sm" id="addGoods">등록</button>
 					</div>
 				</div>
 			</form>

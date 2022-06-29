@@ -19,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ks43team01.dto.Goods;
 import ks43team01.dto.GoodsSubCategory;
 import ks43team01.dto.GoodsTopCategory;
-import ks43team01.dto.ReviewContentsReg;
 import ks43team01.service.GoodsService;
 
 @Controller
@@ -43,30 +42,6 @@ public class UserGoodsController {
 		return "userpage/goods/removeUserGoods";
 	}
 	
-	//상품 수정
-	@PostMapping("/modifyGoods")
-	public String modifyGoods(Goods goods
-							  ,RedirectAttributes reAttr) {
-		//log.info("goods: {}", goods);
- 
-		goodsService.modifyGoods(goods);
-		String goodsCode = goods.getGoodsCode();
-		reAttr.addAttribute("goodsCode", goodsCode);
-		return "redirect:/userpage/goods/userGoodsList";
-	}
-	
-	//상품 수정
-	@GetMapping("/modifyGoods")
-	public String modifyGoods(@RequestParam(value="goodsCode", required= false)String goodsCode
-							  ,Model model) {
-		
-		Goods goods = goodsService.getGoodsInfoCode(goodsCode);
-		
-		model.addAttribute("goods", goods);
-		
-		return "userpage/goods/modifyGoods";
-	}
-	
 	//개별 상품 보기
 	@GetMapping("/goodsInfo")
 	public String goodsInfo(@RequestParam(value = "goodsCode")String goodsCode, Model model) {
@@ -87,6 +62,35 @@ public class UserGoodsController {
 		//log.info("상품리스트 : {}", userGoodsList);
 		
 		return "userpage/goods/userGoodsList";
+	}
+	
+	//상품 수정
+	@PostMapping("/modifyGoods")
+	public String modifyGoods(Goods goods
+			,RedirectAttributes reAttr) {
+		log.info("goods: {}", goods);
+		
+		goodsService.modifyGoods(goods);
+		String goodsCode = goods.getGoodsCode();
+		reAttr.addAttribute("goodsCode", goodsCode);
+		return "redirect:/userpage/goods/userGoodsList";
+	}
+	
+	//상품 수정
+	@GetMapping("/modifyGoodsInfo")
+	public String modifyGoods(@RequestParam(value="goodsCode", required= false)String goodsCode
+			,Model model) {
+		
+		log.info("123 {}", goodsCode);
+		Goods goods = goodsService.getModifyGoodsInfoCode(goodsCode);
+		List<GoodsTopCategory> goodsTopCategory = goodsService.getGoodsTopCategory();
+		
+		log.info("goods {}", goods);
+		
+		model.addAttribute("goods", goods);
+		model.addAttribute("goodsTopCategory", goodsTopCategory);
+		
+		return "userpage/goods/modifyGoodsInfo";
 	}
 		
 	//상품 등록
