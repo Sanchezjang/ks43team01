@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import groovyjarjarantlr.Lookahead;
 import ks43team01.dto.OrderCart;
+import ks43team01.dto.OrderCurrent;
+import ks43team01.dto.OrderStatusComplete;
 import ks43team01.dto.User;
 import ks43team01.service.OrderCartService;
+import ks43team01.service.OrderService;
 import ks43team01.service.UserService;
 
 @Controller
@@ -66,7 +68,7 @@ public class OrderCartController {
 	@GetMapping("/orderCheck1")
 	public String orderCheck1(Model model,User user,HttpSession session,OrderCart orderCart) {
 		String userIdCode = (String) session.getAttribute("UID");
-		user.setUserIdCode(userIdCode);
+		orderCart.setUserIdCode(userIdCode);
 		List<OrderCart> orderCartList = orderCartService.getOrderCartList(orderCart);
 		model.addAttribute("orderCartList", orderCartList);
 		log.info("주문값 들어오는지 확인!!   :   {}",orderCartList);
@@ -74,5 +76,35 @@ public class OrderCartController {
 		model.addAttribute("userList", userList);
 		log.info("주문자 정보 받아오는지 출력!!  :  {}",userList);
 		return "userpage/order/addOrderCurrentStatus";
+	}
+	/*주문내역을포스트맵핑으로 보냄 13번 테이블로 정보를 쌓는다.*/
+	@PostMapping("/orderSuccess")
+	public String orderSuccess(Model model,OrderCurrent orderCurrent,HttpSession session, OrderCart orderCart){
+		String userIdCode = (String) session.getAttribute("UID");
+		orderCurrent.setUserIdCode(userIdCode);
+		log.info("????!!!!-------:{}",11);
+		orderCartService.addOrderCurrent(orderCurrent);
+		model.addAttribute("orderCurrentID",orderCurrent.getOrderCode());
+		return "userpage/order/orderSuccess";
+	}
+	/*주문>결제시 13번 테이블로 인썰트되는정보*/
+	@GetMapping("/orderSuccess")
+	public String orderSuccess(HttpSession session,User user) {
+	 String userIdCode = (String) session.getAttribute("UID");
+		user.setUserIdCode(userIdCode);
+		return "userpage/order/orderSuccess";
+	}
+	/*주문>결제완료시 15번 테이블로 인썰트되는정보 처리후 이동경로 잡아줘야함!!!!*/
+	@PostMapping("/orderComplate")
+	public String orderComplate1(OrderStatusComplete orderStatusComplete) {
+		orderCartService.addOrderStatusComplete(orderStatusComplete);
+		return "userpage/user/login";
+	}
+	@GetMapping("/orderComplate")
+	public String orderComplate(Model model, OrderStatusComplete orderStatusComplete,OrderCurrent orderCurrent) {
+		List<OrderCurrent> complateList = orderCartService.getOrderCurrent(null);
+		model.addAttribute("complateList", complateList);
+		log.info("출력잘되는지   :   {}",complateList);
+		return "userpage/user/login";
 	}
 }
