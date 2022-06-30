@@ -49,6 +49,7 @@
 	                               	<li th:unless="${session.UID == null}"><a th:href="@{/userinfomation}"><i class="ti-user"></i>내정보</a></li>
 	                                <li th:unless="${session.UID != null}"><a th:href="@{/userpage/login/login}"><i class="ti-user"></i>로그인</a></li>
 	                                <li th:unless="${session.UID != null}"><a th:href="@{/userjoin}"><i class="ti-lock"></i>회원가입</a></li>
+	                               	<li th:unless="${session.UID == null}"><a th:href="@{/userpage/goods/addGoods}"><i class="ti-user"></i>상품 등록</a></li>
 	                                <li><a th:href="@{/orderCart}"><i class="ti-bag"></i>#장바구니</a></li>
 								</ul>
 							</div>
@@ -67,14 +68,29 @@
 						<div class="logo logo2 d-block d-lg-none">
 							<a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
 						</div>
+					<!-- 상품 카테고리 -->
+						<div class="navi_bar_area">
+							<div class="dropdown">
+								<button class="dropbtn" style="color: black;">카테고리
+									<i class="fa fa-caret-down"></i>
+								</button>
+								<div class="dropdown-content">
+									<a href="/search?type=C&cateCode=top_category_01" style="color: black;">디자인</a>
+									<a href="#" style="color: black;">테스트2</a>
+									<a href="#" style="color: black;">테스트3</a>
+									<a href="#" style="color: black;">테스트4</a>
+									<a href="#" style="color: black;">테스트5</a>
+								</div>
+							</div>
+						</div>		
 					<!-- Main-menu -->
 					<div class="main-menu d-none d-lg-block">
 						<nav>
-							<ul id="navigation">                                                                                          
-								<li><a href="#">#전체카테고리</a>
-									<ul class="submenu" th:if="${not #lists.isEmpty(accountList)}" th:each="a:${accountList}">
-	                                    <li><a th:value="${a.accountName}">[[${a.accountName}]]</a></li>
-									</ul>
+							<ul id="navigation">
+                                <li><a href="#">카테고리</a>
+									<ul class="submenu" th:if="${not #lists.isEmpty(goodsSubCategoryList)}" th:each="g:${goodsSubCategoryList}">
+		                                <li><a th:text="${goods.goodsSubCategory.goodsTopCategoryName}"></a></li>
+									</ul>                                  
 								</li>
                                 <li><a href="#">커뮤니티</a>
                                     <ul class="submenu">

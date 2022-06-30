@@ -37,13 +37,16 @@ layout:decorate="~{userpage/layout/userdefault}">
 					});
 				});
 			});
- 		</script>
- 		<script>
+ 			
  			$(function(){
 				$goodsTopCategoryNameVal = $('#goodsTopCategoryName').attr('data-goodsSubCategory');
+					
 					console.log($goodsTopCategoryNameVal);
-				$('#goodsTopCategoryName option[value=' + $goodsTopCategoryNameVal + ']').attr('selected', 'selected');
- 				
+				
+					$('#goodsTopCategoryName option[value=' + $goodsTopCategoryNameVal + ']').attr('selected', 'selected');
+				
+						$goodsTopCategoryNameVal.html(html);
+						$goodsTopCategoryNameVal.niceSelect('update');
  			});
  		</script>
  		
