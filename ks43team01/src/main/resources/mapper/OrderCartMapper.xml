@@ -3,33 +3,109 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks43team01.mapper.OrderCartMapper">
-
-<resultMap type="ks43team01.dto.Goods" id="Goods">
-	<id 	column="goods_code"			property="goodsCode"/>
-	<result column="goods_sub_category_code" 		property="goodsSubCategoryCode"/>
-	<result column="goods_name" 			property="goodsName"/>
-	<result column="goods_description" 			property="goodsDescription"/>
-	<result column="goods_price" 			property="goodsPrice"/>
-	<result column="goods_working_period" 		property="goodsWorkingPeriod"/>
+	
+<resultMap type="ks43team01.dto.Goods" 					id="Goods">
+	<id 	column="goods_code"							property="goodsCode"/>
+	<result column="goods_sub_category_code" 			property="goodsSubCategoryCode"/>
+	<result column="goods_name" 						property="goodsName"/>		
+<result column="goods_description" 						property="goodsDescription"/>
+	<result column="goods_price" 						property="goodsPrice"/>
+<result column="goods_working_period" 					property="goodsWorkingPeriod"/>
 	<result column="goods_modified_possibility_count"	property="goodsModifiedPossibilityCount"/>
-	<result column="goods_image_reg" 			property="goodsImageReg"/>
+	<result column="goods_image_reg" 					property="goodsImageReg"/>
 	<result column="goods_pre_requests_answer_type" 	property="goodsPreRequestsAnswerType"/>
-	<result column="goods_pre_request" 			property="goodsPreRequest"/>
-	<result column="user_id_code" 			property="userIdCode"/>
-	<result column="goods_reg_date" 			property="goodsRegDate"/>
+	<result column="goods_pre_request" 					property="goodsPreRequest"/>
+	<result column="user_id_code" 						property="userIdCode"/>
+	<result column="goods_reg_date" 					property="goodsRegDate"/>
 </resultMap>
 	  		
-	<resultMap type="OrderCart" id="OrderCartResultMap">
+	<resultMap type="OrderCart" 			id="OrderCartResultMap">
 		<id column="order_cart_code"         property="orderCartCode"/>
 		<result column="user_id_code"        property="userIdCode"/>
 		<result column="seller_id_code"      property="sellerIdCode"/>
 		<result column="seller_phone_number" property="sellerPhoneNumber"/>
-		<result column="goods_img" property="goodsImg"/>
-		<result column="goods_price" property="goodsPrice"/>
-		<result column="goods_code" property="goodsCode"/>
-		<result column="goods_name" property="goodsName"/>
-		<result column="goods_details" property="goodsDetails"/>
+		<result column="goods_img" 			 property="goodsImg"/>
+		<result column="goods_price" 		 property="goodsPrice"/>
+		<result column="goods_code" 		 property="goodsCode"/>
+		<result column="goods_name" 		 property="goodsName"/>
+		<result column="goods_details"		 property="goodsDetails"/>
 	</resultMap>
+	
+	<resultMap type="OrderCurrent" 				id="OrderCurrentResultMap">
+		<id column="order_code"         		property="orderCode"/>
+		<result column="user_id_code"        	property="userIdCode"/>
+		<result column="goods_code"    			property="goodsCode"/>
+		<result column="order_receive_addr" 	property="orderReceiveAddr"/>
+		<result column="order_receive_contact"  property="orderReceiveContact"/>
+		<result column="order_sendname" 		property="orderSendname"/>
+		<result column="order_sendphone" 		property="orderSendphone"/>
+		<result column="order_date" 			property="orderDate"/>
+	</resultMap>
+	
+	<resultMap type="OrderStatusComplete" 		    id="OrderStatusCompleteResultMap">
+		<id column="order_status_code"         		property="orderStatusCode"/>
+		<result column="user_id_code"     	    	property="userIdCode"/>
+		<result column="goods_code"      			property="goodsCode"/>
+		<result column="order_code" 	     	  	property="orderCode"/>
+		<result column="order_status_standard_code" property="orderStatusStandardCode"/>
+		<result column="order_status_update_time" 	property="orderStatusUpdateTime"/>
+	</resultMap>
+		
+	<insert id="addOrderStatusComplete" parameterType="OrderStatusComplete">
+		/*주문>결제완료시 15번 테이블로 인썰트되는정보*/
+		INSERT into tb_o_order_status
+		(	 order_status_code
+			,user_id_code
+			,goods_code
+			,order_status_standard_code
+			,order_status_update_time
+		)values(
+			date_format(NOW(),'delc%y%m%d%H%i%s')
+			,#{userIdCode}
+			,#{goodsCode}
+			,s002
+			,CURDATE()
+		);
+	</insert>	
+	<select id="getOrderCurrent" resultType="OrderCurrent">
+		/*주문>결제완료시 셀렉터 13번 테이블정보꺼내*/
+		SELECT
+			 order_code
+			,user_id_code
+			,goods_code
+			,order_receive_addr
+			,order_receive_contact
+			,order_sendname
+			,order_sendphone
+			,order_date
+		FROM
+			tb_o_order_current_status
+		WHERE 
+			order_code  = #{userIdCode}
+		
+	</select>
+	<insert id="addOrderCurrent" parameterType="OrderCurrent">
+		/*주문>결제시 13번 테이블로 인썰트되는정보*/
+		INSERT into tb_o_order_current_status
+		(	order_code
+			,user_id_code
+			,goods_code
+			,order_receive_addr
+			,order_receive_contact
+			,order_sendname
+			,order_sendphone
+			,order_date
+		)values(
+			date_format(NOW(),'o%y%m%d%H%i%s')
+			,#{userIdCode}
+			,#{goodsCode}
+			,#{orderReceiveAddr}
+			,#{orderReceiveContact}
+			,#{orderSendname}
+			,#{orderSendphone}
+			,CURDATE()
+		);
+	</insert>
 	
 	<select id="getOrderCartList" resultType="OrderCart">
 				/* 사용자화면 장바구니 리스트 출력 */

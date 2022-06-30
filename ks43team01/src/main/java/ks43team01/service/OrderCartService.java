@@ -2,16 +2,22 @@ package ks43team01.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ks43team01.dto.OrderCart;
+import ks43team01.dto.OrderCurrent;
+import ks43team01.dto.OrderStatusComplete;
 import ks43team01.mapper.OrderCartMapper;
 
 @Service
 @Transactional
 public class OrderCartService {
 	
+	private static final Logger log = LoggerFactory.getLogger(OrderCartService.class);
+
 	///DI////
 	private final OrderCartMapper orderCartMapper;
 	public OrderCartService(OrderCartMapper orderCartMapper) {
@@ -38,5 +44,21 @@ public class OrderCartService {
 		int result = orderCartMapper.removeAllOrderCart(userIdCode);
 	 	return result;
 	}
-
-}
+	/*주문>결제시 13번 테이블로 인썰트되는정보*/
+	public int addOrderCurrent(OrderCurrent orderCurrent) {
+		int result = orderCartMapper.addOrderCurrent(orderCurrent);
+		log.info("result의 값  ; {}",result);
+		return result;
+	}
+	/*주문>결제완료시 셀렉터 13번 테이블정보꺼내*/
+	public List<OrderCurrent> getOrderCurrent(String orderCode){
+		List<OrderCurrent> reusult = orderCartMapper.getOrderCurrent();
+		return reusult;
+	}
+	/*주문>결제완료시 15번 테이블로 인썰트되는정보*/
+	public int addOrderStatusComplete(OrderStatusComplete orderStatusComplete) {
+		int result = orderCartMapper.addOrderStatusComplete(orderStatusComplete);
+		return result;
+	}
+	
+	}
