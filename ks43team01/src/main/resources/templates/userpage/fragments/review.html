@@ -6,7 +6,30 @@ layout:decorate="~{userpage/layout/userdefault}">
 <!------ Include the above in your HEAD tag ---------->
 <th:block th:fragment="reviewFragment">
 	<style>
-	
+	 .rating {
+	    display: inline-block;
+	    direction: rtl;
+	    border:none;
+		}
+		.rating {
+		    text-align: right;
+		}
+		.rating input[type=radio]{
+		    display: none;
+		}
+		.rating label{
+		    font-size: 1.5em;
+		    color: transparent;
+		    text-shadow: 0 0 0 #b1b1b1;
+		    margin: -2px;
+		}
+		.rating .yellowstar{
+		    font-size: 1.5em;
+		    color: transparent;
+		    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+		    margin: -2px;
+		    float: left;
+		}
 	</style>
         <!-- About Details Start -->
 			
@@ -23,16 +46,13 @@ layout:decorate="~{userpage/layout/userdefault}">
 							</form>
 						</div>
 					</div>
+					
 					<div class="x_panel">
 						<div class="reviewForm"  th:each="r : ${reviewUserList}"> <!-- th:if="${session.GoodsCode == r.goodsCode}" --> 
 							<div style="position: absolute;  left: 10%;  transform: translateX(-50%);  transform: translateY(-30px);">
 								<span th:text="${r.userIdCode}">작성자</span>
 							</div>
 							
-<!-- 							
-							
-							
-							 -->
 							<div class="rating" id="viewScore" data-rate="3" style="position: absolute;  left: 45%;  transform: translateX(-50%); transform: translateY(-35px); ">
 								<label class="yellowstar" for="rate1" th:if="${r.reviewStarScore} == 1">★</label>
 								<input type="radio" name="reviewStarScore" value="5" id="rate1"><label for="rate1" th:if="${r.reviewStarScore} == 1">★★★★</label>
