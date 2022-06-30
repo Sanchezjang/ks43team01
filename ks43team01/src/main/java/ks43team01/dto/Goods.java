@@ -111,5 +111,4 @@ public class Goods {
 	public void setGoodsSubCategory(GoodsSubCategory goodsSubCategory) {
 		this.goodsSubCategory = goodsSubCategory;
 	}
-	
 }
