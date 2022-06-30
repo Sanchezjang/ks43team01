@@ -2,6 +2,8 @@ package ks43team01.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +27,9 @@ public class BoardService {
 		this.boardMapper = boardMapper;
 	}
 	
+	private static final Logger log = LoggerFactory.getLogger(BoardService.class);
+
+	
 	/* 사용자용 게시글 댓글 삭제*/
 	public int removeComment(String boardCommentCode) {
 		int result = boardMapper.removeComment(boardCommentCode);
@@ -32,6 +37,12 @@ public class BoardService {
 		return result;
 	}
 	
+	/* 사용자용 게시글  수정*/
+	public int modifyComment(BoardComment boardComment) {
+		int result = boardMapper.modifyComment(boardComment);
+		
+		return result;
+	}
 	
 	/* 게시글 댓글 작성*/
 	public int addComment(String sessionId, String sessionName, BoardComment boardComment) {

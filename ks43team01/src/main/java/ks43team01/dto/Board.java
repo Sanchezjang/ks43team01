@@ -11,6 +11,10 @@ public class Board {
 	private String boardPostUpdateDate;
 	private int boardPostView;
 	private String boardPostUse;
+	
+	private BoardComment boardComment;
+	private BoardCategory boardCategory;
+	
 	public String getBoardPostCode() {
 		return boardPostCode;
 	}

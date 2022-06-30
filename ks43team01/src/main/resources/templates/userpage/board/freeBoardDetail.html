@@ -73,7 +73,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 .modify{
 	color: black;
 }
-.delete{
+.remove{
 	color: black;
 }
 
@@ -89,6 +89,10 @@ layout:decorate="~{userpage/layout/userdefault}">
 
 textarea {
 	width: 800px;
+}
+
+.modifyText{
+	display: none;
 }
 
 
@@ -163,9 +167,17 @@ textarea {
          		<div class="userName" th:text="${l.userName}"></div>
          		<div class="commentContent" th:text="${l.boardCommentContent}"></div>
          		<div class="commentReg" th:text="${l.boardCommentRegDate}"></div>
-         		<div class="commentMenu">
-         			<a class="modify" href="#">수정</a>
-         			<a class="delete" href="#">삭제</a>
+         		<div class="commentMenu" th:if="${session.UID == l.userIdCode}">
+         			<a class="modify" th:href="@{/userpage/board/modifyComment(boardPostCode=${l.boardPostCode},boardCommentCode=${l.boardCommentCode})}" >수정</a>
+         			<a class="remove" th:href="@{/userpage/board/removeComment(boardPostCode=${l.boardPostCode},boardCommentCode=${l.boardCommentCode})}">삭제</a>
+         		</div>
+         		
+         		<div class="modifyText">
+         			<textarea rows="2" cols="120" th:text="${l.boardCommentContent}"></textarea>
+         			<div class="modifyBtn">
+         			<button type="submit" class="btn genric-btn primary">수정</button>
+         			<button type="button" class="btn genric-btn primary">취소</button>
+         			</div>
          		</div>
          		<hr>
          	</div>

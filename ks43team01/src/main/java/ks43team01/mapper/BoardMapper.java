@@ -16,8 +16,12 @@ import ks43team01.dto.QnaBoard;
 
 @Mapper
 public interface BoardMapper {
-	// 사용자용 게시글 댓글 삭제
+	
+	// 게시글 댓글 삭제
 	public int removeComment(String boardCommentCode);
+	
+	// 게시글 댓글 수정 
+	public int modifyComment(BoardComment boardComment);
 	
 	// 게시글 댓글 등록
 	public int addComment(BoardComment boardComment);

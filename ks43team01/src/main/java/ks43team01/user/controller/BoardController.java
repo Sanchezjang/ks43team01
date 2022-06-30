@@ -39,12 +39,48 @@ public class BoardController {
 	
 	/* 게시글 댓글 삭제 */
 	@GetMapping("/removeComment")
-	public String removeComment(@RequestParam(value = "boardCommentCode")String boardCommentCode) {
-		log.info("나가는 값:{}", "test");
-		boardService.removeComment(boardCommentCode);
+	public String removeComment( Model model
+								, BoardComment boardComment
+								, @RequestParam(name = "boardCommentCode", required = false) String boardCommentCode
+								, @RequestParam(value = "boardPostCode", required = false) String boardPostCode
+								, RedirectAttributes reAttr) {
 		
-		return "redirect:/userpage/board/freeBoardList";
+		boardService.getBoardByCode(boardPostCode);
+		boardService.removeComment(boardCommentCode);
+
+		log.info("댓글 삭제 : {}", boardCommentCode);
+		reAttr.addAttribute("boardPostCode", boardPostCode);
+		
+		return "redirect:/userpage/board/freeBoardDetail";
 	}
+	
+	/* 게시글  댓글 수정 (post) */
+	@PostMapping("/modifyComment")
+	public String modifyComment(BoardComment boardComment
+								, RedirectAttributes reAttr) {
+		log.info("boardComment: {}", boardComment);
+		boardService.modifyComment(boardComment);
+		String boardCommentCode = boardComment.getBoardCommentCode();
+		reAttr.addAttribute("boardCommentCode", boardCommentCode);
+		
+		return "redirect:/userpage/board/freeBoardDetail";
+	}
+	
+	/* 게시글  댓글 수정 (get) */
+	@GetMapping("/modifyComment")
+	public String modifyComment(Model model
+								, @RequestParam(value = "boardPostCode", required = false)String boardPostCode
+								, @RequestParam(value = "boardCommentCode", required = false)String boardCommentCode) {
+		Board board = boardService.getBoardByCode(boardPostCode);
+
+		
+		model.addAttribute("board",board);
+
+		
+		return "/userpage/board/freeBoardDetail";
+	}
+	
+	
 	/* 게시글 댓글 등록 (post) */
 	@PostMapping("/addComment")
 	public String addComment (@RequestParam(name="boardPostCode", required = false)String boardPostCode
@@ -171,9 +207,11 @@ public class BoardController {
 	public String freeBoardDetail(@RequestParam(value = "boardPostCode")String boardPostCode, Model model) {
 		Board board = boardService.getBoardByCode(boardPostCode);
 		
+		
 		List<BoardComment> boardPostCommentList = boardService.getBoardPostCommentList(boardPostCode);
 		model.addAttribute("board", board);
 		model.addAttribute("boardPostCommentList", boardPostCommentList);
+		 
 		
 		log.info("board : {}", board);
 		log.info("boardPostCommentList: {}" ,boardPostCommentList);
