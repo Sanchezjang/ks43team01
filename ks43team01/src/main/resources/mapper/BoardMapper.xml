@@ -4,68 +4,68 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="ks43team01.mapper.BoardMapper">
-   <resultMap type="Board" id="boardResultMap">
-         <id    column="board_post_code"              property="boardPostCode"/>
-         <result column="user_id_code"                 property="userIdCode"/>
-         <result column="board_category_code"          property="boardCategoryCode"/>
-         <result column="board_post_title"              property="boardPostTitle"/>
-         <result column="board_user_name"            property="boardUserName"/>
-         <result column="board_post_content"            property="boardPostContent"/>
-         <result column="board_post_reg_date"         property="boardPostRegDate"/>
-         <result column="board_post_update_date"         property="boardPostUpdateDate"/>
-         <result column="board_post_view"            property="boardPostView"/>
-         <result column="board_post_use"               property="boardPostUse"/>
+	<resultMap type="Board" id="boardResultMap">
+		<id    column="board_post_code"						property="boardPostCode"/>
+		<result column="user_id_code"						property="userIdCode"/>
+		<result column="board_category_code"				property="boardCategoryCode"/>
+		<result column="board_post_title"					property="boardPostTitle"/>
+		<result column="board_user_name"					property="boardUserName"/>
+		<result column="board_post_content"					property="boardPostContent"/>
+		<result column="board_post_reg_date"				property="boardPostRegDate"/>
+		<result column="board_post_update_date"				property="boardPostUpdateDate"/>
+		<result column="board_post_view"					property="boardPostView"/>
+		<result column="board_post_use"						property="boardPostUse"/>
          
-       <association property="boardCategory" javaType="BoardCategory">
-          <id    column="board_category_code"             property="boardCategoryCode"/>
-         <result column="user_id_code"                 property="userIdCode"/>
-         <result column="board_category_name"          property="boardCategoryName"/>
-         <result column="board_category_reg_date"      property="boardCategoryRegDate"/>
-         <result column="board_category_update_date"      property="boardCategoryUpdateDate"/>
-         <result column="board_category_use"           property="boardCategoryUse"/>   
-       </association>   
-       
-        <association property="boardComment" javaType="BoardComment">
-			<id    column="board_comment_code"					property="boardCommentCode"/>
-			<result column="user_id_code"						property="userIdCode"/>
-			<result column="board_post_code"					property="boardPostCode"/>
-	         <result column="board_comment_content"				property="boardCommentContent"/>
-	         <result column="board_comment_reg_date"			property="boardCommentRegDate"/>   
-	         <result column="board_comment_use"					property="boardCommentUse"/>
-	         <result column="user_name"							property="userName"/>   
-	         <result column="board_comment_update_date"			property="boardCommentUpdateDate"/>   
+		<association property="boardCategory" javaType="BoardCategory">
+			<id    column="board_category_code"				property="boardCategoryCode"/>
+			<result column="user_id_code"					property="userIdCode"/>
+			<result column="board_category_name"			property="boardCategoryName"/>
+			<result column="board_category_reg_date"		property="boardCategoryRegDate"/>
+			<result column="board_category_update_date"		property="boardCategoryUpdateDate"/>
+			<result column="board_category_use"				property="boardCategoryUse"/>   
 		</association>   
-    </resultMap>
+       
+		<association property="boardComment" javaType="BoardComment">
+			<id    column="board_comment_code"				property="boardCommentCode"/>
+			<result column="user_id_code"					property="userIdCode"/>
+			<result column="board_post_code"				property="boardPostCode"/>
+			<result column="board_comment_content"			property="boardCommentContent"/>
+			<result column="board_comment_reg_date"			property="boardCommentRegDate"/>   
+			<result column="board_comment_use"				property="boardCommentUse"/>
+			<result column="user_name"						property="userName"/>   
+			<result column="board_comment_update_date"		property="boardCommentUpdateDate"/>   
+		</association>   
+	</resultMap>
 
-   <resultMap type="QnaBoard" id="qnaBoardResultMap">
-         <id    column="board_question_code"             property="boardQuestionCode"/>
-         <result column="user_id_code"                 property="userIdCode"/>
-         <result column="board_category_code"           property="boardCategoryCode"/>
-         <result column="board_l_category_code"         property="boardLargeCategoryCode"/>
-         <result column="board_m_category_code"         property="boardMediumCategoryCode"/>
-         <result column="board_question_num"            property="boardQuestionNum"/>
-         <result column="board_question_title"         property="boardQuestionTitle"/>
-         <result column="user_name"                  property="userName"/>
-         <result column="board_question_content"         property="boardQuestionContent"/>
-         <result column="board_question_reg_date"      property="boardQuestionRegDate"/>
-         <result column="user_email"                  property="userEmail"/>
-           <result column="board_question_answer_method"   property="boardQuestionAnswerMethod"/>
-         <result column="board_question_lock"         property="boardQuestionLock"/>
-         <result column="board_question_pw"            property="boardQuestionPw"/>
-         <result column="board_question_update_date"      property="boardQuestionUpdateDate"/>
-         <result column="board_question_page_view"      property="boardQuestionPageView"/>
-         <result column="board_question_use"            property="boardQuestionUse"/>
+	<resultMap type="QnaBoard" id="qnaBoardResultMap">
+		<id    column="board_question_code"					property="boardQuestionCode"/>
+		<result column="user_id_code"						property="userIdCode"/>
+		<result column="board_category_code"				property="boardCategoryCode"/>
+		<result column="board_l_category_code"				property="boardLargeCategoryCode"/>
+		<result column="board_m_category_code"				property="boardMediumCategoryCode"/>
+		<result column="board_question_num"					property="boardQuestionNum"/>
+		<result column="board_question_title"				property="boardQuestionTitle"/>
+		<result column="user_name"							property="userName"/>
+		<result column="board_question_content"				property="boardQuestionContent"/>
+		<result column="board_question_reg_date"			property="boardQuestionRegDate"/>
+		<result column="user_email"							property="userEmail"/>
+		<result column="board_question_answer_method"		property="boardQuestionAnswerMethod"/>
+		<result column="board_question_lock"				property="boardQuestionLock"/>
+		<result column="board_question_pw"					property="boardQuestionPw"/>
+		<result column="board_question_update_date"			property="boardQuestionUpdateDate"/>
+		<result column="board_question_page_view"			property="boardQuestionPageView"/>
+		<result column="board_question_use"					property="boardQuestionUse"/>
       
-      <association property="boardLargeCategory" javaType="BoardLargeCategory">
-         <id    column="board_l_category_code"          property="boardLargeCategoryCode"/>
-         <result column="user_id_code"                 property="userIdCode"/>
-         <result column="board_l_category_name"          property="boardLargeCategoryName"/>
-         <result column="board_l_category_reg_date"      property="boardLargeCategoryRegDate"/>
-         <result column="board_l_category_update_date"   property="boardLargeCategoryUpdateDate"/>
-         <result column="board_l_category_use"           property="boardLargeCategoryUse"/>
-      </association>
+		<association property="boardLargeCategory" javaType="BoardLargeCategory">
+			<id    column="board_l_category_code"			property="boardLargeCategoryCode"/>
+			<result column="user_id_code"					property="userIdCode"/>
+			<result column="board_l_category_name"			property="boardLargeCategoryName"/>
+			<result column="board_l_category_reg_date"		property="boardLargeCategoryRegDate"/>
+			<result column="board_l_category_update_date"	property="boardLargeCategoryUpdateDate"/>
+			<result column="board_l_category_use"			property="boardLargeCategoryUse"/>
+		</association>
   
-        <association property="boardMediumCategory" javaType="BoardMediumCategory">
+ 		<association property="boardMediumCategory" javaType="BoardMediumCategory">
            <id    column="board_m_category_code"          property="boardMediumCategoryCode"/>
          <result column="user_id_code"                 property="userIdCode"/>
          <result column="board_l_category_code"           property="boardLargeCategoryCode"/>
@@ -103,8 +103,20 @@
 			FROM
 				tb_b_board_comment
 			WHERE
-			board_comment_code = #{boardCommentCode};
+				board_comment_code = #{boardCommentCode};
   </delete>
+  
+  	<update id="modifyComment" parameterType="String">
+		/* 게시글  댓글 수정 */
+			UPDATE
+				tb_b_board_comment 
+			SET 
+				board_comment_content = #{boardCommentContent}
+			    , board_comment_reg_date = CURDATE()
+			WHERE
+				board_comment_code = #{boardCommentCode};
+	</update>
+  
   
   <insert id="addComment" parameterType="BoardComment">
   /* 게시글 댓글 등록 */
