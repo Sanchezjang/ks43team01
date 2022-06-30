@@ -39,7 +39,7 @@ public class UserReviewController {
 		reviewService.modifyReview(reviewContentsReg);
 		String reviewCode = reviewContentsReg.getReviewCode();
 		reAttr.addAttribute("reviewCode", reviewCode);
-		return "redirect:/userpage/reviewUser/reviewDetail";
+		return "redirect:/userpage/reviewUser/reviewUserList";
 	}
 	
 	/* 리뷰 수정 (get)*/
@@ -104,7 +104,8 @@ public class UserReviewController {
 	/* 리뷰 등록(get) */
 	@GetMapping("/addReview")
 	public String addReview(Model model
-						   ,@RequestParam(name = "reviewStarScore" , required = false)String reviewStarScore) {
+						   ,@RequestParam(name = "reviewStarScore" , required = false)String reviewStarScore
+						   ,@RequestParam(name = "userIdCode", required = false)String usedIdCode) {
 		
 		List<ReviewContentsReg> reviewUserList = reviewService.getReviewUserList();
 		model.addAttribute("reviewUserList", reviewUserList);
@@ -115,7 +116,8 @@ public class UserReviewController {
 	
 	/* 유저 페이지 회원 리뷰 목록 조회 */
 	@GetMapping("/reviewUserList")
-	public String getReviewUserList(Model model) {
+	public String getReviewUserList(@RequestParam(name = "goodsCode", required = false)String goodsCode
+									,Model model) {
 		
 		List<ReviewContentsReg> reviewUserList = reviewService.getReviewUserList();
 		model.addAttribute("reviewUserList",reviewUserList);

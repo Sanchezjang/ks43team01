@@ -84,7 +84,8 @@
 	<select id="getReviewUserList" resultType="Map">
 	/* 유저페이지 회원 리뷰 목록*/
 		SELECT
-			 tr.review_code							AS reviewCode
+			 gg.goods_code							AS goodsCode
+			,tr.review_code							AS reviewCode
 			,tr.review_reg_date                   	AS reviewRegDate    			
 			,tr.review_content						AS reviewContent
 			,ua.user_id_code						AS userIdCode
