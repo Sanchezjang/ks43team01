@@ -38,6 +38,14 @@ layout:decorate="~{userpage/layout/userdefault}">
 				});
 			});
  		</script>
+ 		<script>
+ 			$(function(){
+				$goodsTopCategoryNameVal = $('#goodsTopCategoryName').attr('data-goodsSubCategory');
+					console.log($goodsTopCategoryNameVal);
+				$('#goodsTopCategoryName option[value=' + $goodsTopCategoryNameVal + ']').attr('selected', 'selected');
+ 				
+ 			});
+ 		</script>
  		
 	</th:block>	
 
@@ -113,7 +121,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 				<div class="orderer form-group">
 					<div class="form-group">
 					<label for="goodsTopCategoryName" class="col-12 mainExplanation required">상위 카테고리</label>
-						<select id="goodsTopCategoryName" name="goodsTopCategoryName" class="wide col-6 select1">
+						<select id="goodsTopCategoryName" name="goodsTopCategoryName" class="wide col-6 select1" th:data-goodsSubCategory="${goods.goodsSubCategory.goodsTopCategoryName}">
 							<option value="" disabled selected> :: 상위 카테고리 :: </option>
 							<th:block th:if="${not #lists.isEmpty(goodsTopCategory)}" th:each="g:${goodsTopCategory}">
 								<option th:value="${g.goodsTopCategoryCode}">[[${g.goodsTopCategoryName}]]</option>
