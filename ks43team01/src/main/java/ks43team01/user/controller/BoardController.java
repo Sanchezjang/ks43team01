@@ -37,6 +37,15 @@ public class BoardController {
 		this.boardService = boardService;
 	}
 	
+	/*1:1 문의 게시글 상세 조회*/
+	@GetMapping("/qnaBoardDetail")
+	public String qnaBoardDetail(@RequestParam(value = "boardQuestionCode")String boardQuestionCode, Model model) {
+		QnaBoard qnaBoard = boardService.getQnaBoardByCode(boardQuestionCode);
+		log.info("qnaBoard : {}", qnaBoard);
+		model.addAttribute("qnaBoard", qnaBoard);
+		return "/userpage/board/qnaBoardDetail";
+	}
+	
 	/* 게시글 댓글 삭제 */
 	@GetMapping("/removeComment")
 	public String removeComment( Model model
@@ -57,11 +66,12 @@ public class BoardController {
 	/* 게시글  댓글 수정 (post) */
 	@PostMapping("/modifyComment")
 	public String modifyComment(BoardComment boardComment
+								, Board board
 								, RedirectAttributes reAttr) {
 		log.info("boardComment: {}", boardComment);
 		boardService.modifyComment(boardComment);
-		String boardCommentCode = boardComment.getBoardCommentCode();
-		reAttr.addAttribute("boardCommentCode", boardCommentCode);
+		String boardPostCode = board.getBoardPostCode();
+		reAttr.addAttribute("boardPostCode", boardPostCode);
 		
 		return "redirect:/userpage/board/freeBoardDetail";
 	}
@@ -72,9 +82,9 @@ public class BoardController {
 								, @RequestParam(value = "boardPostCode", required = false)String boardPostCode
 								, @RequestParam(value = "boardCommentCode", required = false)String boardCommentCode) {
 		Board board = boardService.getBoardByCode(boardPostCode);
-
-		
+		List<BoardComment> boardComment = boardService.getBoardCommentList();
 		model.addAttribute("board",board);
+		model.addAttribute("boardComment", boardComment);
 
 		
 		return "/userpage/board/freeBoardDetail";
@@ -217,8 +227,6 @@ public class BoardController {
 		log.info("boardPostCommentList: {}" ,boardPostCommentList);
 		
 		return "/userpage/board/freeBoardDetail";
-		
-		
 		
 	}
 	/* 3-2. 자주묻는 질문 게시글 상세 페이지 조회 */

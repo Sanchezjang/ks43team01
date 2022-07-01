@@ -3,7 +3,7 @@ package ks43team01.dto;
 public class BoardPostFile {
 	private String boardPostFileCode;
 	private String userIdCode;
-	private String boardPostCode;
+	private String boardQuestionCode;
 	private String boardPostFileName;
 	private String boardPostFileExtension;
 	private String boardPostFileSize;
@@ -21,11 +21,11 @@ public class BoardPostFile {
 	public void setUserIdCode(String userIdCode) {
 		this.userIdCode = userIdCode;
 	}
-	public String getBoardPostCode() {
-		return boardPostCode;
+	public String getBoardQuestionCode() {
+		return boardQuestionCode;
 	}
-	public void setBoardPostCode(String boardPostCode) {
-		this.boardPostCode = boardPostCode;
+	public void setBoardQuestionCode(String boardQuestionCode) {
+		this.boardQuestionCode = boardQuestionCode;
 	}
 	public String getBoardPostFileName() {
 		return boardPostFileName;
@@ -64,8 +64,8 @@ public class BoardPostFile {
 		builder.append(boardPostFileCode);
 		builder.append(", userIdCode=");
 		builder.append(userIdCode);
-		builder.append(", boardPostCode=");
-		builder.append(boardPostCode);
+		builder.append(", boardQuestionCode=");
+		builder.append(boardQuestionCode);
 		builder.append(", boardPostFileName=");
 		builder.append(boardPostFileName);
 		builder.append(", boardPostFileExtension=");

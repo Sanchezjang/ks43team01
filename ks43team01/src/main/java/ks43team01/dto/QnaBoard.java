@@ -18,6 +18,12 @@ public class QnaBoard {
 	private String boardQuestionUpdateDate;
 	private int boardQuestionPageView;
 	private String boardQuestionUse;
+	
+	private BoardLargeCategory boardLargeCategory;
+	private BoardMediumCategory boardMediumCategory;
+	private BoardPostFile boardPostFile;
+	private BoardAnswer boardAnswer;
+	
 	public String getBoardQuestionCode() {
 		return boardQuestionCode;
 	}

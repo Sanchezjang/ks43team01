@@ -102,8 +102,8 @@ layout:decorate="~{userpage/layout/userdefault}">
 				</thead>	
 				<tbody th:if="${not #lists.isEmpty(qnaBoardList)}" th:each="l : ${qnaBoardList}">
 					<tr class="table-row">
-						<td class="serial"></td>
-						<td class="title" th:text="${l.boardQuestionTitle}"></td>
+						<td class="serial" th:text="${boardQuestionNum}"></td>
+						<td class="title"><a th:href="@{/userpage/board/qnaBoardDetail(boardQuestionCode=${l.boardQuestionCode})}" th:value="${l.boardQuestionCode}" th:text="${l.boardQuestionTitle}" style="color: #212529;"></a></td>
 						<td class="writer"  th:text="${l.userName}"></td>
 						<td class="lock"  th:text="${l.boardQuestionLock}"></td>
 						<td class="regDate" th:text="${l.boardQuestionRegDate}"> </td>

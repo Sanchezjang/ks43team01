@@ -16,14 +16,16 @@ import ks43team01.dto.QnaBoard;
 
 @Mapper
 public interface BoardMapper {
+	//1:1 문의 게시글 상세 조회
+	public QnaBoard getQnaBoardByCode(String boardQuestionCode);
 	
-	// 게시글 댓글 삭제
+	//게시글 댓글 삭제
 	public int removeComment(String boardCommentCode);
 	
-	// 게시글 댓글 수정 
+	//게시글 댓글 수정 
 	public int modifyComment(BoardComment boardComment);
 	
-	// 게시글 댓글 등록
+	//게시글 댓글 등록
 	public int addComment(BoardComment boardComment);
 	
 	//사용자용 게시글 댓글 조회
@@ -35,10 +37,10 @@ public interface BoardMapper {
 	//게시글 댓글 목록 조회
 	public List<BoardComment> getBoardCommentList();
 
-	// 사용자용 게시글 삭제
+	//사용자용 게시글 삭제
 	public int removeBoard(String boardPostCode);
 	
-	// 사용자용 게시글 수정
+	//사용자용 게시글 수정
 	public int modifyBoard(Board board);
 	
 	//게시글 상세 조회

@@ -28,7 +28,11 @@ public class BoardService {
 	}
 	
 	private static final Logger log = LoggerFactory.getLogger(BoardService.class);
-
+	  /*1:1 문의 게시글 상세 조회 */
+	public QnaBoard getQnaBoardByCode(String boardQuestionCode) {
+	      System.out.println("___________getQnaBoardByCode____________");
+	      return boardMapper.getQnaBoardByCode(boardQuestionCode);
+	  }
 	
 	/* 사용자용 게시글 댓글 삭제*/
 	public int removeComment(String boardCommentCode) {
