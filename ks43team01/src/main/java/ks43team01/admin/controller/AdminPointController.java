@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ks43team01.dto.Point;
 import ks43team01.dto.PointSaveByGrade;
@@ -52,8 +53,10 @@ public class AdminPointController {
 	@GetMapping("/addPointGradeList")
 	public String addPointGradeList(Model model) {
 		
+		
 		List<Point> pointList = pointService.getPointList();
 		model.addAttribute("pointList", pointList);
+		log.info("test : {}", "test");
 		
 		return "adminpage/pointDetails/addPointGradeList";
 	}
