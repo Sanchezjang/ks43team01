@@ -73,10 +73,6 @@ layout:decorate="~{userpage/layout/userdefault}">
 	        border-top: 1px solid #edf3fd;
 	        display: flex;
 	        }
-	
-		
-	
-	
 	</style>
         <div class="slider-area">
             <div class="slider-height2 d-flex align-items-center">
@@ -84,7 +80,7 @@ layout:decorate="~{userpage/layout/userdefault}">
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="hero-cap hero-cap2 text-center">
-                                <h2>Notice</h2>
+                                <h2>상품 리스트</h2>
                             </div>
                         </div>
                     </div>
@@ -141,7 +137,6 @@ layout:decorate="~{userpage/layout/userdefault}">
         <!-- Popular Course End -->
         
         <!-- About Details Start -->
-        
    
 		<div class="boardForm">
 			<div class="box">
@@ -149,6 +144,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 					<thead class="progress-table">
 						<tr class="table-head">
 							<th class="title">상품코드</th>
+							<th class="title" hidden="goodsTct">상품하위카테고리코드</th>
 							<th class="title">판매자</th>
 							<th class="writer">상품명</th>
 							<th class="writer">상품이미지</th>
@@ -158,10 +154,11 @@ layout:decorate="~{userpage/layout/userdefault}">
 					<tbody th:if="${not #lists.isEmpty(userGoodsList)}" th:each="g:${userGoodsList}">
 						<tr class="table-row">
 							<td class="title" th:text="${g.goodsCode}"></td>
+							<td class="title" hidden="goodsTct" th:text="${g.goodsSubCategoryCode}"></td>
 							<td class="title" th:text="${g.userIdCode}"></td>
 							<td><a th:href="@{/userpage/goods/goodsInfo(goodsCode=${g.goodsCode})}" th:value="${g.goodsCode}" th:text="${g.goodsName}"></a></td>
-							<td class="regDate" th:text="${g.goodsImageReg}"> </td>
-							<td class="goodsPrice" th:text="${g.goodsPrice}"> </td>
+							<td class="regDate" th:text="${g.goodsImageReg}"></td>
+							<td class="goodsPrice" th:text="${g.goodsPrice}"></td>
 						</tr>
 						<tr th:unless="${not #lists.isEmpty(userGoodsList)}">
 							<td colspan="4">조회된 내용이 없습니다.</td>
