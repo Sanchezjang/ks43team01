@@ -151,6 +151,7 @@ public class UserController {
 		log.info("탑카테고리 받아온값   :   {}",expertBusinessField);
 		String UID = (String) session.getAttribute("UID");
 		User userList =	userService.getUserInfoById(UID);
+		
 		model.addAttribute("userList", userList);
 		log.info("user값 ::::::: {}", userList);
 		return "userpage/user/userinfomation";
