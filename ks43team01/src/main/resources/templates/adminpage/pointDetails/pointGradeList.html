@@ -87,8 +87,9 @@
                     <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action" style="width:100%">
                       <thead>
                         <tr>
-                          <th></th>
+                          <th hidden="pointBuySaveStandardGradeCode"></th>
                           <th hidden="gradeUser"></th>
+                          <th hidden="pointStandardDetailsCode"></th>
                           <th>구분</th>
                           <th>등급</th>
                           <th>등급퍼센트</th>
@@ -102,7 +103,10 @@
                      <td>
                         <input type="checkbox" id="check-all" >
                      </td>
+                     
+                     	<td hidden="pointBuySaveStandardGradeCode" th:text="${p.pointBuySaveStandardGradeCode}"></td>
                      	<td hidden="gradeUser" th:text="${p.gradeUserCode}"></td>
+                     	<td hidden="pointStandardDetailsCode" th:text="${p.pointStandardDetailsCode}"></td>
                      	<td th:text="${p.pointStandardDetailsName}"></td>
                      	<td th:text="${p.gradeName}"></td>
                         <td th:text="${p.pointSaveByGradePercent}"></td>
