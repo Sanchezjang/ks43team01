@@ -9,7 +9,6 @@ layout:decorate="~{userpage/layout/userdefault}">
 		$('#example').popover(options)
 	</script>
 <div layout:fragment="content">
-	
 	<div class="slider-height2 d-flex align-items-center">
 		<div class="container">
 			<div class="ReviewRow">
@@ -23,65 +22,65 @@ layout:decorate="~{userpage/layout/userdefault}">
 	</div>
 	<div class="container">
 		<div class="row">
-	        	<div class="col-12">
-	        <div class="input-form mx-auto refund" style="max-width: 100%;">
-	        	<h1 class="text-center login-title" id="mainfont">상품환불신청</h1>
-					<form class="validation-form" novalidate id="addUserForm" th:action="@{userjoin}" method="post">
-	       					
+	        <div class="col-12">
+	        	<div class="input-form mx-auto refund" style="max-width: 100%;">
+	        		<h1 class="text-center login-title" id="mainfont">상품환불신청</h1>
+						<form class="validation-form" novalidate id="addUserForm" th:action="@{userjoin}" method="post">
 		         			<div class="from-group col-12 row" style="margin:0 auto; padding:15px 0; border-bottom:1px solid #eee;">
 				               	<label for="userIdCode"class="col-12 font4">상품명</label>
 				               	<div class="font2 col-12">
 			        					환불요청하시는 상품이 맞는지 반드시 확인해주세요!
-			       					</div>
+		       					</div>
 				               	<input type="text" class="form-control col-4" id="userIdCode" name="userIdCode" placeholder="" value="" required>
 	    					</div>
-			       					
-		         			<div class="from-group col-12 row" style="margin:0 auto; padding:15px 0; border-bottom:1px solid #eee;">
+		         			<div class="from-group col-6 row" style="margin:0 auto; padding:15px 0; border-bottom:1px solid #eee;">
 				               	<label for="userIdCode" class="col-12 font4" style="display:block;">환불신청이유</label>
+				               	<select class="col-8 row ">
+				               			<option class="text-center">: : : : 환불신청사유 : : : :</option>
+				               			<option class="">1</option>
+				               			<option class="">2</option>
+				               			<option class="">3</option>
+				               	</select>
 				               	<div class="font2 col-12">
-			        					상세히 적어주시면 보다 빠른 처리가 가능합니다!
-			       					</div>
+			        					기타내용을 상세히 적어주시면 보다 빠른 처리가 가능합니다!
+		       					</div>
 			       				<textarea rows="6" cols="4" class="col-4"></textarea>	
 	    					</div>
-			       					
-		         			<div class="from-group col-12 row" style="margin:0 auto; padding:15px 0; border-bottom:1px solid #eee;">
+		         			<div class="from-group col-6 row" style="margin:0 auto; padding:15px 0; border-bottom:1px solid #eee;">
 				               	<label for="userIdCode" class="col-12">협의진행율</label>
-				               	<a class="btn-danger col-4" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-								  ::협의에따른 환불기준보기::
+				               		<select class="col-8">
+				               			<option class="">: : : : 협의율선택 : : : :</option>
+				               			<option value="100">협의된 진행율 0% = 100%환불</option>
+								    	<option value="90">협의된 진행율 10% = 90%환불</option>
+								    	<option value="80">협의된 진행율 20% = 80%환불</option>
+								    	<option value="70">협의된 진행율 30% = 70%환불</option>
+								    	<option value="60">협의된 진행율 40% = 60%환불</option>
+								    	<option value="50">협의된 진행율 50% = 50%환불</option>
+								    	<option value="40">협의된 진행율 60% = 40%환불</option>
+								    	<option value="30">협의된 진행율 70% = 30%환불</option>
+								    	<option value="20">협의된 진행율 80% = 20%환불</option>
+								    	<option value="10">협의된 진행율 90% = 10%환불</option>
+								    	<option value="0">협의된 진행율 100% = 0%환불</option>
+				               		</select>
+				               	<a class="btn-danger col-8" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+								  : : : :환불전꼭확인하세요!!: : : :
 								</a>
-								<div class="collapse" id="collapseExample">
-								  <div class="col-12" >
-								    	<p>협의된 진행율 0% = 100%환불</p>
-								    	<p>협의된 진행율 10% = 90%환불</p>
-								    	<p>협의된 진행율 20% = 80%환불</p>
-								    	<p>협의된 진행율 30% = 70%환불</p>
-								    	<p>협의된 진행율 40% = 60%환불</p>
-								    	<p>협의된 진행율 50% = 50%환불</p>
-								    	<p>협의된 진행율 60% = 40%환불</p>
-								    	<p>협의된 진행율 70% = 30%환불</p>
-								    	<p>협의된 진행율 80% = 20%환불</p>
-								    	<p>협의된 진행율 90% = 10%환불</p>
-								    	<p>협의된 진행율 100% = 0%환불</p>
-								  </div>
+								<div class="collapse col-8 row" id="collapseExample" style="color:firebrick">
+								    환불신청전 판매자와 합의된 진행율을 적어주세요!
+								    저희가 최선을 다해 중재하지만 이견이 있을 경우 
+								    당사자 합의가 우선인점 꼭 참고해주세요!
 								</div>
-				               	<div  class="col-12 font3">
-			        					판매자와 조율된 협의 진행율을 적어주세요! 
-			       					</div>
-				               	<input type="text" class="form-control" id="userIdCode" name="userIdCode" placeholder="" value="" required>
 	    					</div>
-			       					
 		         			<div class="col-3" style="margin:0 auto; padding:0;">
 				               	<label for="userIdCode">환불신청금액(구입가격)</label>
 				               	<div class="font1">
 			        					환불신청금액은 협의진행율에 따라 변동 될 수 있습니다!
-			       					</div>
+		       					</div>
 				               	<input type="text" class="form-control" id="userIdCode" name="userIdCode" placeholder="" value="" required>
 	    					</div>
-			       					
 	         				<button type="submit" style="margin-top:10px;" class="btn btn-default btn-block col-3" >환불요청완료</button>
-	            	</form>	
-	        	</div>
-					
+	            		</form>	
+	        		</div>
 				</div>
 			</div>
 		</div>		

@@ -80,7 +80,7 @@ public class OrderCartController {
 	}
 	/*주문내역을포스트맵핑으로 보냄 13번 테이블로 정보를 쌓는다.*/
 	@PostMapping("/orderSuccess")
-	public String orderSuccess(Model model,OrderCurrent orderCurrent,HttpSession session, OrderCart orderCart, OrderStatusComplete orderStatusComplete){
+	public String orderSuccess(Model model,OrderCurrent orderCurrent,HttpSession session, OrderCart orderCart, OrderStatusComplete orderStatusComplete, PaymentGoods paymentGoods){
 		String userIdCode = (String) session.getAttribute("UID");
 		orderCartService.addOrderStatusComplete(orderStatusComplete);
 		String oscode= orderStatusComplete.getOrderStatusCode();
@@ -90,8 +90,11 @@ public class OrderCartController {
 		String OCcode =  orderCurrent.getOrderCode();
 		log.info("OCcode1111값    :   {}",OCcode);
 		
-		List<OrderCurrent>  CurrentList = orderCartService.getOrderCurrent(orderCurrent);
+		List<OrderCurrent>  CurrentList = orderCartService.getOrderCurrent(OCcode);
 		log.info("Current아이디  :  {}",CurrentList);
+		paymentGoods.setUserIdCode(userIdCode);
+		paymentGoods.setOrderCode(OCcode);
+		orderCartService.addPaymentGoods(paymentGoods);
 		
 		return "userpage/order/orderSuccess";
 	}
@@ -115,7 +118,6 @@ public class OrderCartController {
 		orderCurrent.setUserIdCode(userIdCode);
 		String orderCode1 = orderCurrent.getOrderCode();
 		log.info("orderCode1  :  {}",orderCode1);
-		paymentGoods.setUserIdCode(userIdCode);
 		
 	
 		return "index";
