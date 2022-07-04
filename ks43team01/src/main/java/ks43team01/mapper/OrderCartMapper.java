@@ -26,4 +26,6 @@ public interface OrderCartMapper {
 	public List<OrderCurrent> getOrderCurrent(OrderCurrent orderCurrent);
 	/*주문>결제완료시 페이먼트 테이블로 인썰트되는정보*/
 	public int addPaymentGoods(PaymentGoods paymentGoods);
+	
+	public List<OrderCurrent> getOrderCurrent(String oCcode);
 }

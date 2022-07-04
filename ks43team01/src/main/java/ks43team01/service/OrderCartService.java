@@ -66,5 +66,10 @@ public class OrderCartService {
 		return result;
 	}
 
+	public List<OrderCurrent> getOrderCurrent(String oCcode) {
+		List<OrderCurrent> orderCurrent1 = orderCartMapper.getOrderCurrent(oCcode);
+		return orderCurrent1;
+	}
+
 		
 	}
