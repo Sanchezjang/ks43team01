@@ -18,12 +18,20 @@ public class QnaBoard {
 	private String boardQuestionUpdateDate;
 	private int boardQuestionPageView;
 	private String boardQuestionUse;
+	private String boardPostFileCode;
 	
+	private BoardCategory boardCategory;
 	private BoardLargeCategory boardLargeCategory;
 	private BoardMediumCategory boardMediumCategory;
 	private BoardPostFile boardPostFile;
 	private BoardAnswer boardAnswer;
 	
+	public String getBoardPostFileCode() {
+		return boardPostFileCode;
+	}
+	public void setBoardPostFileCode(String boardPostFileCode) {
+		this.boardPostFileCode = boardPostFileCode;
+	}
 	public String getBoardQuestionCode() {
 		return boardQuestionCode;
 	}
@@ -126,6 +134,36 @@ public class QnaBoard {
 	public void setBoardQuestionUse(String boardQuestionUse) {
 		this.boardQuestionUse = boardQuestionUse;
 	}
+	public BoardCategory getBoardCategory() {
+		return boardCategory;
+	}
+	public void setBoardCategory(BoardCategory boardCategory) {
+		this.boardCategory = boardCategory;
+	}
+	public BoardLargeCategory getBoardLargeCategory() {
+		return boardLargeCategory;
+	}
+	public void setBoardLargeCategory(BoardLargeCategory boardLargeCategory) {
+		this.boardLargeCategory = boardLargeCategory;
+	}
+	public BoardMediumCategory getBoardMediumCategory() {
+		return boardMediumCategory;
+	}
+	public void setBoardMediumCategory(BoardMediumCategory boardMediumCategory) {
+		this.boardMediumCategory = boardMediumCategory;
+	}
+	public BoardPostFile getBoardPostFile() {
+		return boardPostFile;
+	}
+	public void setBoardPostFile(BoardPostFile boardPostFile) {
+		this.boardPostFile = boardPostFile;
+	}
+	public BoardAnswer getBoardAnswer() {
+		return boardAnswer;
+	}
+	public void setBoardAnswer(BoardAnswer boardAnswer) {
+		this.boardAnswer = boardAnswer;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -163,8 +201,21 @@ public class QnaBoard {
 		builder.append(boardQuestionPageView);
 		builder.append(", boardQuestionUse=");
 		builder.append(boardQuestionUse);
+		builder.append(", boardPostFileCode=");
+		builder.append(boardPostFileCode);
+		builder.append(", boardCategory=");
+		builder.append(boardCategory);
+		builder.append(", boardLargeCategory=");
+		builder.append(boardLargeCategory);
+		builder.append(", boardMediumCategory=");
+		builder.append(boardMediumCategory);
+		builder.append(", boardPostFile=");
+		builder.append(boardPostFile);
+		builder.append(", boardAnswer=");
+		builder.append(boardAnswer);
 		builder.append("]");
 		return builder.toString();
 	}
-	
+
+
 }

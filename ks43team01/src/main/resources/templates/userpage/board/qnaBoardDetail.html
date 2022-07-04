@@ -15,7 +15,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 	}
 	.boardDetailView{
 		width: 1000px;
-		height:600px;
+		min-height:800px;
 		margin: 0 auto;
 		padding-top: 50px;
 	}
@@ -78,61 +78,68 @@ layout:decorate="~{userpage/layout/userdefault}">
                   <a type="button" class="returnPage"
                      onclick="history.back(-1)">돌아가기</a>
                </div>
-			<input type="hidden" th:value="${qnaboard.boardQuestionCode}">
-               <table class="boardView">
+               	<input type="hidden" th:value="${qnaBoard.boardQuestionCode}">
+  				<table class="boardView">
                   <colgroup>
                      <col width="15%">
                      <col width="35%">
                      <col width="15%">
-                     <col width="15%">
-                     <col width="15%">
+                     <col width="35%">
                   </colgroup>
                   <tbody>
-                  	<tr>
+                     <tr>
                         <th>문의 1차 카테고리</th>
-                        <td th:text="${qnaboard.boardLargeCategoryCode}"></td>
+                        <td th:text="${qnaBoard.boardLargeCategoryCode}"></td>
                         <th>문의 2차 카테고리</th>
-                        <td th:text="${qnaboard.boardMediumCategoryCode}"></td>
+                        <td th:text="${qnaBoard.boardMediumCategoryCode}"></td>
                      </tr>
                      <tr>
                         <th>제목</th>
-                        <td th:text="${qnaboard.boardQuestionTitle}"></td>
+                        <td th:text="${qnaBoard.boardQuestionTitle}"></td>
                         <th>조회수</th>
-                        <td th:text="${qnaboard.boardQuestionPageView}"></td>
+                        <td th:text="${qnaBoard.boardQuestionPageView}"></td>
                      </tr>
                      <tr>
                         <th>작성자</th>
-                        <td th:text="${qnaboard.userName}"></td>
+                        <td th:text="${qnaBoard.userName}"></td>
                         <th>작성시간</th>
-                        <td th:text="${qnaboard.boardQuestionRegDate}"></td>
+                        <td th:text="${qnaBoard.boardQuestionRegDate}"></td>
                      </tr>
                      <tr>
-                        <th>내용</th>
-                        <td class="detailContent" colspan="3" th:text="${qnaboard.boardQuestionContent}"></td>
+                        <th colspan="4">내용</th>
+                     </tr>
+                     <tr>
+                        <td class="detailContent" colspan="4" th:text="${qnaBoard.boardQuestionContent}"></td>
                      </tr>
                       <tr>
                         <th>답변 방법</th>
-                        <td th:text="${qnaboard.boardQuestionAnswerMethod}"></td>
+                        <td th:text="${qnaBoard.boardQuestionAnswerMethod}"></td>
                         <th>이메일</th>
-                        <td th:text="${qnaboard.userEmail}"></td>
+                        <td th:text="${qnaBoard.userEmail}"></td>
                        </tr>
                       <tr>
-                        <th>공개 여부d</th>
-                        <td th:text="${qnaboard.boardQuestionLock}"></td>
-                        <th>비밀번호</th>
-                        <td th:text="${qnaboard.boardQuestionPw}"></td>
+                        <th>공개 여부</th>
+                        <td th:text="${qnaBoard.boardQuestionLock}"></td>
+                        <th>첨부파일</th>
+                        <td th:text="${qnaBoard.boardPostFileCode}"></td>
                        </tr>
     
                   </tbody>
                </table>
-         
-               
+				
+			</div>   
+		</div>
+		<hr>
+             
+               <div class="clickBtn mt-3" >
+					<a th:href="@{/userpage/board/modifyQnaBoard(boardQuestionCode=${qnaBoard.boardQuestionCode})}">
+						<button type="submit" class="genric-btn primary" th:if="${session.UID == qnaBoard.userIdCode}">수정</button>
+					</a>
+					<a th:href="@{/userpage/board/removeQnaBoard(boardQuestionCode=${qnaBoard.boardQuestionCode})}">
+						<button type="button" class="genric-btn primary-border" th:if="${session.UID == qnaBoard.userIdCode}">삭제</button>
+					</a>
+				</div>
             </div>   
           </div>
-         </div>
-               
-        
-        
 
-</div>
 </html>

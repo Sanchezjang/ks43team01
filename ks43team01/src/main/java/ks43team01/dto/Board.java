@@ -21,6 +21,18 @@ public class Board {
 	public void setBoardPostCode(String boardPostCode) {
 		this.boardPostCode = boardPostCode;
 	}
+	public BoardComment getBoardComment() {
+		return boardComment;
+	}
+	public void setBoardComment(BoardComment boardComment) {
+		this.boardComment = boardComment;
+	}
+	public BoardCategory getBoardCategory() {
+		return boardCategory;
+	}
+	public void setBoardCategory(BoardCategory boardCategory) {
+		this.boardCategory = boardCategory;
+	}
 	public String getUserIdCode() {
 		return userIdCode;
 	}
@@ -98,8 +110,13 @@ public class Board {
 		builder.append(boardPostView);
 		builder.append(", boardPostUse=");
 		builder.append(boardPostUse);
+		builder.append(", boardComment=");
+		builder.append(boardComment);
+		builder.append(", boardCategory=");
+		builder.append(boardCategory);
 		builder.append("]");
 		return builder.toString();
 	}
+
 	
 }

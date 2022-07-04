@@ -102,7 +102,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 				</thead>	
 				<tbody th:if="${not #lists.isEmpty(qnaBoardList)}" th:each="l : ${qnaBoardList}">
 					<tr class="table-row">
-						<td class="serial" th:text="${boardQuestionNum}"></td>
+						<td class="serial" th:text="${l.boardQuestionNum}"></td>
 						<td class="title"><a th:href="@{/userpage/board/qnaBoardDetail(boardQuestionCode=${l.boardQuestionCode})}" th:value="${l.boardQuestionCode}" th:text="${l.boardQuestionTitle}" style="color: #212529;"></a></td>
 						<td class="writer"  th:text="${l.userName}"></td>
 						<td class="lock"  th:text="${l.boardQuestionLock}"></td>
@@ -114,7 +114,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 					</tr>
 				</tbody>	
 			</table>
-				<div style="text-align:right; margin-top:20px;"><a th:href="@{/addQnaBoard}" class="genric-btn primary" >글쓰기</a></div>	
+				<div style="text-align:right; margin-top:20px;"><a th:href="@{/userpage/board/addQnaBoard}" class="genric-btn primary" >글쓰기</a></div>	
 		</div>
 	</div>
 	

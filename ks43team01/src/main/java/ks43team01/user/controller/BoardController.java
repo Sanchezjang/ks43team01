@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks43team01.dto.Board;
@@ -36,7 +37,17 @@ public class BoardController {
 	public BoardController(BoardService boardService) {
 		this.boardService = boardService;
 	}
+	//1차 카테고리 선택 시 2차 카테고리 응답
+	@GetMapping("/getBoardMediumCategory")
+	@ResponseBody
+	public List<BoardMediumCategory> getBoardMediumCategory(@RequestParam(name="boardLargeCategoryName")String boardLargeCategory) {
 	
+		log.info("2차 카테고리에서 받아온 값 : {}",boardLargeCategory);
+		List<BoardMediumCategory> getBoardMediumCategory = boardService.getBoardMediumCategory(boardLargeCategory);
+		return getBoardMediumCategory;
+	}
+
+		
 	/*1:1 문의 게시글 상세 조회*/
 	@GetMapping("/qnaBoardDetail")
 	public String qnaBoardDetail(@RequestParam(value = "boardQuestionCode")String boardQuestionCode, Model model) {
@@ -94,7 +105,7 @@ public class BoardController {
 	/* 게시글 댓글 등록 (post) */
 	@PostMapping("/addComment")
 	public String addComment (@RequestParam(name="boardPostCode", required = false)String boardPostCode
-							,BoardComment boardComment
+							, BoardComment boardComment
 							, HttpSession session
 							, Board board
 							, RedirectAttributes reAttr) {
@@ -252,18 +263,22 @@ public class BoardController {
 							, HttpSession session
 							, HttpServletRequest request) {
 		String sessionId = (String) session.getAttribute("UID");
-		boardService.addQnaBoard(sessionId, qnaBoard);
+		String sessionName = (String) session.getAttribute("UName");
+
+		boardService.addQnaBoard(sessionId, sessionName, qnaBoard);
        
 		return "redirect:/userpage/board/qnaBoardList";
     }
 	/* 2-4. 사용자 1:1 문의 게시판 게시글 등록 (get) */
     @GetMapping("/addQnaBoard")
     public String addQnaBoard(Model model) {
-    	List<BoardLargeCategory> boardLargeCategoryList = boardService.getBoardLargeCategoryList();
-		List<BoardMediumCategory> boardMediumCategoryList = boardService.getBoardMediumCategoryList();
+    	List<QnaBoard> qnaBoardList = boardService.getQnaBoardList();
+    	List<BoardLargeCategory> boardLargeCategory = boardService.getBoardLargeCategory();
 		
-		model.addAttribute("boardLargeCategoryList", boardLargeCategoryList);
-		model.addAttribute("boardMediumCategoryList", boardMediumCategoryList);
+		model.addAttribute("qnaBoardList", qnaBoardList);
+		model.addAttribute("boardLargeCategory", boardLargeCategory);
+		
+		log.info("1차 카테고리 : {}",boardLargeCategory);
 		
        return "/userpage/board/addQnaBoard";
     }
