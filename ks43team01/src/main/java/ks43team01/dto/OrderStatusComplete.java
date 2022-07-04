@@ -5,7 +5,6 @@ public class OrderStatusComplete {
 	 private String orderStatusCode;
 	 private String userIdCode;
 	 private String goodsCode;
-	 private String orderCode;
 	 private String orderStatusStandardCode;
 	 private String orderStatusUpdateTime;
 	
@@ -18,8 +17,6 @@ public class OrderStatusComplete {
 		builder.append(userIdCode);
 		builder.append(", goodsCode=");
 		builder.append(goodsCode);
-		builder.append(", orderCode=");
-		builder.append(orderCode);
 		builder.append(", orderStatusStandardSode=");
 		builder.append(orderStatusStandardCode);
 		builder.append(", orderStatusUpdateTime=");
@@ -44,12 +41,6 @@ public class OrderStatusComplete {
 	}
 	public void setGoodsCode(String goodsCode) {
 		this.goodsCode = goodsCode;
-	}
-	public String getOrderCode() {
-		return orderCode;
-	}
-	public void setOrderCode(String orderCode) {
-		this.orderCode = orderCode;
 	}
 	public String getOrderStatusStandardCode() {
 		return orderStatusStandardCode;

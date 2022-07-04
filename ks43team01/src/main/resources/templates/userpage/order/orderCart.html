@@ -112,8 +112,8 @@ layout:decorate="~{userpage/layout/userdefault}">
 													</div>
 													<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
 														<div class="col-12" style="display: inline-block;">
-															<p th:text="${o.sellerIdCode}"></p>
-															<p th:text="${o.sellerPhoneNumber}"></p>
+															<p th:text="|판매자 : ${o.sellerIdCode}|">₩</p>
+															<p th:text="|판매자번호 ${o.sellerPhoneNumber}|">1</p>
 														</div>
 													</div>
 													<div class="col-xs-6 col-sm-3" style="text-align:center;  width: 25%;" >

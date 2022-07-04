@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ks43team01.dto.OrderCart;
 import ks43team01.dto.OrderCurrent;
 import ks43team01.dto.OrderStatusComplete;
+import ks43team01.dto.PaymentGoods;
 import ks43team01.dto.User;
 import ks43team01.service.OrderCartService;
 import ks43team01.service.OrderService;
@@ -79,32 +80,44 @@ public class OrderCartController {
 	}
 	/*주문내역을포스트맵핑으로 보냄 13번 테이블로 정보를 쌓는다.*/
 	@PostMapping("/orderSuccess")
-	public String orderSuccess(Model model,OrderCurrent orderCurrent,HttpSession session, OrderCart orderCart){
+	public String orderSuccess(Model model,OrderCurrent orderCurrent,HttpSession session, OrderCart orderCart, OrderStatusComplete orderStatusComplete){
 		String userIdCode = (String) session.getAttribute("UID");
-		orderCurrent.setUserIdCode(userIdCode);
-		log.info("????!!!!-------:{}",11);
+		orderCartService.addOrderStatusComplete(orderStatusComplete);
+		String oscode= orderStatusComplete.getOrderStatusCode();
+		log.info("oscode2222값    :   {}",oscode);
+		orderCurrent.setOrderStatusCode(oscode);
 		orderCartService.addOrderCurrent(orderCurrent);
-		model.addAttribute("orderCurrentID",orderCurrent.getOrderCode());
+		String OCcode =  orderCurrent.getOrderCode();
+		log.info("OCcode1111값    :   {}",OCcode);
+		
+		List<OrderCurrent>  CurrentList = orderCartService.getOrderCurrent(orderCurrent);
+		log.info("Current아이디  :  {}",CurrentList);
+		
 		return "userpage/order/orderSuccess";
 	}
 	/*주문>결제시 13번 테이블로 인썰트되는정보*/
 	@GetMapping("/orderSuccess")
-	public String orderSuccess(HttpSession session,User user) {
+	public String orderSuccess(Model model,HttpSession session,User user,OrderCurrent orderCurrent, OrderCurrent orderCode) {
 	 String userIdCode = (String) session.getAttribute("UID");
 		user.setUserIdCode(userIdCode);
+		
 		return "userpage/order/orderSuccess";
 	}
 	/*주문>결제완료시 15번 테이블로 인썰트되는정보 처리후 이동경로 잡아줘야함!!!!*/
 	@PostMapping("/orderComplate")
-	public String orderComplate1(OrderStatusComplete orderStatusComplete) {
-		orderCartService.addOrderStatusComplete(orderStatusComplete);
-		return "userpage/user/login";
+	public String orderComplate1() {
+		return "index";
 	}
 	@GetMapping("/orderComplate")
-	public String orderComplate(Model model, OrderStatusComplete orderStatusComplete,OrderCurrent orderCurrent) {
-		List<OrderCurrent> complateList = orderCartService.getOrderCurrent(null);
-		model.addAttribute("complateList", complateList);
-		log.info("출력잘되는지   :   {}",complateList);
-		return "userpage/user/login";
+	public String orderComplate(HttpSession session, Model model,OrderCurrent orderCurrent, PaymentGoods paymentGoods) {
+		
+		String userIdCode = (String) session.getAttribute("UID");
+		orderCurrent.setUserIdCode(userIdCode);
+		String orderCode1 = orderCurrent.getOrderCode();
+		log.info("orderCode1  :  {}",orderCode1);
+		paymentGoods.setUserIdCode(userIdCode);
+		
+	
+		return "index";
 	}
 }

@@ -11,11 +11,11 @@ public class login {
 	
 		return "adminpage/layout/default";
 	}
-		@GetMapping("1323")
+		@GetMapping("/hihello")
 
 	public String test() {
 
-		return "userpage/fragments/layout/userdefault.html";
+		return "index";
 	}
 
 }

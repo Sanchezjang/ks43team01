@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import ks43team01.dto.OrderCart;
 import ks43team01.dto.OrderCurrent;
 import ks43team01.dto.OrderStatusComplete;
+import ks43team01.dto.PaymentGoods;
 
 @Mapper
 public interface OrderCartMapper {
@@ -22,5 +23,7 @@ public interface OrderCartMapper {
 	/*주문>결제완료시 15번 테이블로 인썰트되는정보*/
 	public int addOrderStatusComplete(OrderStatusComplete orderStatusComplete);
 	/*주문>결제완료시 셀렉터 13번 테이블정보꺼내*/
-	public List<OrderCurrent> getOrderCurrent();
+	public List<OrderCurrent> getOrderCurrent(OrderCurrent orderCurrent);
+	/*주문>결제완료시 페이먼트 테이블로 인썰트되는정보*/
+	public int addPaymentGoods(PaymentGoods paymentGoods);
 }

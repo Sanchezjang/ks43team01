@@ -89,6 +89,8 @@
 	  		<result column="level_up_buyer_standard_reg_date" property="levelUpBuyerStandardRegDate"/>
 		</resultMap>
   	  
+  
+  	
   	<update id="modifyBusiness" parameterType="SellerBusiness">
   		/*판매자 비지니스수정처리*/  		
   		UPDATE
