@@ -43,6 +43,7 @@
 		<result column="board_category_code"				property="boardCategoryCode"/>
 		<result column="board_l_category_code"				property="boardLargeCategoryCode"/>
 		<result column="board_m_category_code"				property="boardMediumCategoryCode"/>
+		<result column="board_post_file_code"				property="boardPostFileCode"/>
 		<result column="board_question_num"					property="boardQuestionNum"/>
 		<result column="board_question_title"				property="boardQuestionTitle"/>
 		<result column="user_name"							property="userName"/>
@@ -95,10 +96,11 @@
 			<result column="board_answer_content"			property="boardAnswerContent"/>
 			<result column="board_answer_reg_date"			property="boardAnswerRegDate"/>
 			<result column="board_answer_update_date"		property="boardAnswerUpdateDate"/>   
-			</association>
+		</association>
 	</resultMap>
   
 	<update id="updatePageView" parameterType="int"> 
+	/*게시글 조회수 증가*/
 		UPDATE
 			tb_b_board_post
 		SET
@@ -222,21 +224,33 @@
 	<select id="getQnaBoardByCode" parameterType="String" resultType="QnaBoard">
 	/*1:1 문의 게시글 상세 페이지 조회*/
 		SELECT
-			board_question_code
-			, user_id_code
-			, board_category_code
-			, board_l_category_code
-			, board_m_category_code
-			, board_question_title
-			, user_name
-			, board_question_content
-			, board_question_reg_date
-			, user_email
-			, board_question_answer_method
+			q.board_question_code 					AS boardQuestionCode
+			, q.user_id_code 						AS userIdCode
+			, q.board_category_code					AS boardCategoryCode
+			, q.board_l_category_code				AS boardLargeCategoryCode
+			, q.board_m_category_code				AS boardMediumCategoryCode
+			, l.board_l_category_name 				AS boardLargeCategoryName
+			, m.board_m_category_name 				AS boardMediumCategoryName
+			, q.board_question_title 				AS boardQuestionTitle
+			, q.user_name 							AS userName
+			, q.board_question_content 				AS boardQuestionContent
+			, q.board_question_reg_date				AS boardQuestionRegDate
+			, q.user_email 							AS userEmail
+			, q.board_question_answer_method 		AS boardQuestionAnswerMethod
+			, q.board_question_lock 				AS boardQuestionLock
+			, q.board_post_file_code				AS boardPostFileCode
 		FROM
-			tb_b_board_question
-		WHERE 
-			board_question_code = #{boardQuestionCode};
+			tb_b_board_question AS q
+			INNER JOIN
+				tb_b_board_l_category AS l
+			ON
+				q.board_l_category_code = l.board_l_category_code
+			INNER join
+				tb_b_board_m_category AS m
+			ON
+				q.board_m_category_code = m.board_m_category_code
+		WHERE
+			q.board_question_code = #{boardQuestionCode};
 	</select>
    
 	<select id="getBoardByCode" parameterType="String" resultType="Board">
@@ -371,7 +385,12 @@
 	<select id="getQnaBoardList" resultType="QnaBoard">
 	/*사용자용 1:1 문의 게시글 조회*/
 		SELECT
-			board_question_num 						AS boardQuestionNum
+			board_question_code						AS boardQuestionCode
+			, user_id_code							AS userIdCode
+			, board_category_code					AS boardCategoryCode
+			, board_l_category_code					AS boardLargeCategoryCode
+			, board_m_category_code					AS boardMediumCategoryCode
+			, board_question_num 					AS boardQuestionNum
 			, board_question_title					AS boardQuestionTitle
 			, user_name								AS userName
 			, board_question_lock					AS boardQuestionLock

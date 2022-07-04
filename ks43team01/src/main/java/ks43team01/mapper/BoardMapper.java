@@ -12,10 +12,20 @@ import ks43team01.dto.BoardComment;
 import ks43team01.dto.BoardLargeCategory;
 import ks43team01.dto.BoardMediumCategory;
 import ks43team01.dto.BoardPostFile;
+import ks43team01.dto.GoodsSubCategory;
+import ks43team01.dto.GoodsTopCategory;
 import ks43team01.dto.QnaBoard;
 
 @Mapper
 public interface BoardMapper {
+	
+	//1:1 문의 2차 카테고리
+	public List<BoardMediumCategory> getBoardMediumCategory(String boardLargeCategory);
+		
+	//1:1 문의 1차 카테고리
+	public List<BoardLargeCategory> getBoardLargeCategory();
+	
+	
 	//1:1 문의 게시글 상세 조회
 	public QnaBoard getQnaBoardByCode(String boardQuestionCode);
 	
@@ -31,8 +41,6 @@ public interface BoardMapper {
 	//사용자용 게시글 댓글 조회
 	public List<BoardComment> getBoardPostCommentList(String boardPostCode);
 	
-	//관리자용 게시글 답변 모음 목록 조회
-	public List<BoardAnswer> getBoardAnswerList();
 	
 	//게시글 댓글 목록 조회
 	public List<BoardComment> getBoardCommentList();
@@ -46,8 +54,6 @@ public interface BoardMapper {
 	//게시글 상세 조회
 	public Board getBoardByCode(String boardPostCode);
 	
-	//게시글 첨부파일 목록 조회
-	public List<BoardPostFile> getBoardPostFileList();
 	
 	//8-2. 문의 게시판 2차 카테고리 등록
 	public int addBoardMediumCategory(BoardMediumCategory boardMediumCategory);
@@ -82,12 +88,19 @@ public interface BoardMapper {
 	public List<Board> getFaqBoardList();
 	
 
-	//2-2. 사용자용 공지사항 게시글 등록
+	//사용자용 공지사항 게시글 등록
 	public int addNoticeBoard(Board board);
-	//2. 사용자용 공지사항 목록 조회
+	//사용자용 공지사항 목록 조회
 	public List<Board> getNoticeBoardList();
 	
 	
-	//1. 관리자용 전체 게시글 목록 조회
+	
+	//관리자용 게시글 답변 모음 목록 조회
+	public List<BoardAnswer> getBoardAnswerList();
+	
+	//관리자용 게시글 첨부파일 목록 조회
+	public List<BoardPostFile> getBoardPostFileList();
+	
+	//관리자용 전체 게시글 목록 조회
 	public List<Board> getBoardList();
 }

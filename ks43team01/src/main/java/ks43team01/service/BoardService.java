@@ -14,6 +14,8 @@ import ks43team01.dto.BoardComment;
 import ks43team01.dto.BoardLargeCategory;
 import ks43team01.dto.BoardMediumCategory;
 import ks43team01.dto.BoardPostFile;
+import ks43team01.dto.GoodsSubCategory;
+import ks43team01.dto.GoodsTopCategory;
 import ks43team01.dto.QnaBoard;
 import ks43team01.mapper.BoardMapper;
 
@@ -28,7 +30,26 @@ public class BoardService {
 	}
 	
 	private static final Logger log = LoggerFactory.getLogger(BoardService.class);
-	  /*1:1 문의 게시글 상세 조회 */
+	
+	
+	// 1:1 문의 2차 카테고리
+	public List<BoardMediumCategory> getBoardMediumCategory(String boardLargeCategory) {
+		
+		List<BoardMediumCategory> boardMediumCategory = boardMapper.getBoardMediumCategory(boardLargeCategory);
+		
+		return boardMediumCategory;
+	}
+	
+	//1:1 문의 1차 카테고리
+	public List<BoardLargeCategory> getBoardLargeCategory() {
+		
+		List<BoardLargeCategory> boardLargeCategory =boardMapper.getBoardLargeCategory();
+		
+		return boardLargeCategory;
+	}
+	
+	
+	/*1:1 문의 게시글 상세 조회 */
 	public QnaBoard getQnaBoardByCode(String boardQuestionCode) {
 	      System.out.println("___________getQnaBoardByCode____________");
 	      return boardMapper.getQnaBoardByCode(boardQuestionCode);
@@ -144,8 +165,9 @@ public class BoardService {
 	}
 	
 	/* 5-2. 1:1 게시글 등록 */
-	public int addQnaBoard(String sessionId, QnaBoard qnaBoard) {
+	public int addQnaBoard(String sessionId, String sessionName, QnaBoard qnaBoard) {
 		qnaBoard.setUserIdCode(sessionId);
+		qnaBoard.setUserName(sessionName);
 		int result = boardMapper.addQnaBoard(qnaBoard);
 		
 		return result;
