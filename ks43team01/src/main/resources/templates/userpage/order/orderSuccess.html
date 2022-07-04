@@ -102,12 +102,16 @@ layout:decorate="~{userpage/layout/userdefault}">
 	<div class="x_panel">
 		<h2>결제성공</h2>
 		<div class="x_content">
-		<from name="oderFrom" th:action="@{/orderComplate}" method="POST">
+		<from id="oderFrom" name="oderFrom" th:action="@{/orderComplate}" method="POST">
 		 	<th:block th:if="${not #lists.isEmpty(complateList)}" th:each="c : ${complateList}">
 		 	<input type="hidden" id="jang" name="userIdCode" th:value="${c.userIdCode}">
-		 	<input type="hidden" name="goodsCode" th:value="${c.goodsCode}">
+		 	<input type="hidden" id="goodsCode" name="goodsCode" th:value="${c.goodsCode}">
 		 	<input type="hidden" name="orderStatusStandardCode" th:value="${c.orderStatusStandardCode}">
 		 	</th:block>
+		 	<th:block th:unless="${not #lists.isEmpty(complateList)}">
+		 	 값이 없습니다!.
+		 	</th:block>
+		 	
 		</from>
 				<table class="section-top-border">
 					<thead>

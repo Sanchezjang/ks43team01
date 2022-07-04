@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ks43team01.dto.OrderCart;
 import ks43team01.dto.OrderCurrent;
 import ks43team01.dto.OrderStatusComplete;
+import ks43team01.dto.PaymentGoods;
 import ks43team01.mapper.OrderCartMapper;
 
 @Service
@@ -47,18 +48,23 @@ public class OrderCartService {
 	/*주문>결제시 13번 테이블로 인썰트되는정보*/
 	public int addOrderCurrent(OrderCurrent orderCurrent) {
 		int result = orderCartMapper.addOrderCurrent(orderCurrent);
-		log.info("result의 값  ; {}",result);
 		return result;
 	}
 	/*주문>결제완료시 셀렉터 13번 테이블정보꺼내*/
-	public List<OrderCurrent> getOrderCurrent(String orderCode){
-		List<OrderCurrent> reusult = orderCartMapper.getOrderCurrent();
-		return reusult;
+	public List<OrderCurrent> getOrderCurrent(OrderCurrent orderCurrent){
+		List<OrderCurrent> orderCurrent1 = orderCartMapper.getOrderCurrent(orderCurrent);
+		return orderCurrent1;
 	}
 	/*주문>결제완료시 15번 테이블로 인썰트되는정보*/
 	public int addOrderStatusComplete(OrderStatusComplete orderStatusComplete) {
 		int result = orderCartMapper.addOrderStatusComplete(orderStatusComplete);
 		return result;
 	}
-	
+	/*주문>결제완료시 페이먼트 테이블로 인썰트되는정보*/
+	public int addPaymentGoods(PaymentGoods paymentGoods) {
+		int result = orderCartMapper.addPaymentGoods(paymentGoods);
+		return result;
+	}
+
+		
 	}

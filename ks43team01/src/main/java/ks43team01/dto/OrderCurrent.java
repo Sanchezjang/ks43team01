@@ -3,6 +3,7 @@ package ks43team01.dto;
 public class OrderCurrent {
 
 	private String orderCode;
+	private String orderStatusCode;
 	private String userIdCode;
 	private String goodsCode;
 	private String orderReceiveAddr;
@@ -12,11 +13,15 @@ public class OrderCurrent {
 	private String orderDate;
 	
 	
+
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("orderCode [orderCode=");
+		builder.append("OrderCurrent [orderCode=");
 		builder.append(orderCode);
+		builder.append(", orderStatusCode=");
+		builder.append(orderStatusCode);
 		builder.append(", userIdCode=");
 		builder.append(userIdCode);
 		builder.append(", goodsCode=");
@@ -34,6 +39,15 @@ public class OrderCurrent {
 		builder.append("]");
 		return builder.toString();
 	}
+
+	public String getOrderStatusCode() {
+		return orderStatusCode;
+	}
+
+	public void setOrderStatusCode(String orderStatusCode) {
+		this.orderStatusCode = orderStatusCode;
+	}
+
 	public String getOrderCode() {
 		return orderCode;
 	}

@@ -186,30 +186,31 @@ layout:decorate="~{userpage/layout/userdefault}">
 								<div class="tab-pane fade" id="v-pills-profile3" role="tabpanel" aria-labelledby="v-pills-settings-tab">
 									<div class="row" style="border-bottom: 1px solid grey;">
 										<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
-											<input type="checkbox" class="orderCheck">
 											<div class="col-12" style="display: inline-block;">
 												<img  class="img-responsive" style="width: 80%" src="https://t1.daumcdn.net/cfile/tistory/25367D465817198104">
 											</div>
 										</div>
+										<th:block th:if="${not #lists.isEmpty(orderCartList)}" th:each="o : ${orderCartList}">
 										<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
-											<input type="hidden" name="userIdCode" id="userIdCode" >
-											<input type="hidden" name="orderCartCode" id="orderCartCode" >
-											<p>1</p>
-											<i>1</i>
-											<p>1</p>
+											<input type="hidden" name="userIdCode" id="userIdCode" th:value="${o.userIdCode}">
+											<input type="hidden" name="orderCartCode" id="orderCartCode" th:value="${o.userIdCode}">
+											<p th:text="${o.goodsName}">1</p>
+											<i th:text="${o.goodsPrice+'원'}">1</i>
+											<p th:text="${o.goodsDetails}">1</p>
 										</div>
 										<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
 											<div class="col-12" style="display: inline-block;">
-												<p>₩</p>
-												<p>1</p>
-							s				</div>
+												<p th:text="|판매자 : ${o.sellerIdCode}|">₩</p>
+												<p th:text="|판매자번호 ${o.sellerPhoneNumber}|">1</p>
 										</div>
+										</div>
+										</th:block>
 										<div class="col-xs-6 col-sm-3" style="text-align:center;  width: 25%;" >
 											<div class="col-12" style="display: inline-block; justify-content: center;margin-top:20%;">
 												<a  class="btn-warning btn-sm" style="display: center;">리뷰쓰기</a>
 											</div>
 											<div class="col-12" style="display: inline-block; justify-content: center;margin-top:20%;">
-												<a  class="btn-warning btn-sm" style="display: center;">삭제하기</a>
+												<a  th:href="@{userpage/order/orderCancel}" class="btn-danger btn-sm" style="display: center;">환불요청</a>
 											</div>
 										</div>
 									</div>

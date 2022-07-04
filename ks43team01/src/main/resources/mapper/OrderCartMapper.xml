@@ -33,6 +33,7 @@
 	
 	<resultMap type="OrderCurrent" 				id="OrderCurrentResultMap">
 		<id column="order_code"         		property="orderCode"/>
+		<result column="order_status_code"      property="orderStatusCode"/>
 		<result column="user_id_code"        	property="userIdCode"/>
 		<result column="goods_code"    			property="goodsCode"/>
 		<result column="order_receive_addr" 	property="orderReceiveAddr"/>
@@ -50,9 +51,72 @@
 		<result column="order_status_standard_code" property="orderStatusStandardCode"/>
 		<result column="order_status_update_time" 	property="orderStatusUpdateTime"/>
 	</resultMap>
+	
+		<resultMap type="PaymentGoods" 						id="PaymentGoodsResultMap">
+		<id column="payment_code" 							property="paymentCode"/> 
+		<result column="order_code" 						property="orderCode"/>
+		<result column="user_id_code" 						property="userIdCode"/>	
+		<result column="goods_code" 						property="goodsCode"/> 
+		<result column="payment_input_account_card_number"  property="paymentInputAccountCardNumber"/> 
+		<result column="payment_agency_type" 				property="paymentAgencyType"/>
+		<result column="payment_agency" 					property="paymentAgency"/>
+		<result column="payment_point" 						property="paymentPoint"/>
+		<result column="payment_realtime" 					property="paymentRealtime"/>
+		<result column="payment_virtual" 					property="paymentVirtual"/>
+		<result column="payment_seller_calculate_amount" 	property="paymentSellerCalculateAmount"/>
+		<result column="site_fee" 							property="siteFee"/> 
+		<result column="buyer_exp" 							property="buyerExp"/> 
+		<result column="seller_exp" 						property="sellerExp"/> 
+		<result column="payment_by_cash_time" 				property="paymentByCashTime"/>
+	</resultMap>
+	
+	<insert id="addPaymentGoods" parameterType="PaymentGoods">
+		/*주문>결제완료시 페이먼트 테이블로 인썰트되는정보*/
+		INSERT into tb_p_payment_goods
+		(	payment_code
+			,order_code
+			,user_id_code
+			,goods_code
+			,payment_input_account_card_number
+			,payment_agency_type
+			,payment_agency
+			,payment_point
+			,payment_realtime
+			,payment_virtual
+			,payment_seller_calculate_amount
+			,site_fee
+			,buyer_exp
+			,seller_exp
+			,payment_by_cash_time
+		)values(
+			date_format(NOW(),'pay_%y%m%d%H%i%s')
+			,#{orderCode}
+			,#{userIdCode}
+			,#{goodsCode}
+			,'352-1350-9141-22'
+			,'카카오결제'
+			,'카카오페이'
+			,0
+			,80000
+			,0
+			,80000
+			,2000
+			,100
+			,100
+			,CURDATE()
+		);
+	</insert>
 		
 	<insert id="addOrderStatusComplete" parameterType="OrderStatusComplete">
-		/*주문>결제완료시 15번 테이블로 인썰트되는정보*/
+		<selectKey resultType="string" keyProperty="orderStatusCode" order="AFTER">
+	     	SELECT 
+				order_status_code as orderStatusCode
+			FROM 
+				tb_o_order_status
+			WHERE
+				user_id_code =#{userIdCode}
+	    </selectKey> 
+		/*주문>결제완료시 15번 테이블로 인썰트되는정보*/                            
 		INSERT into tb_o_order_status
 		(	 order_status_code
 			,user_id_code
@@ -63,7 +127,7 @@
 			date_format(NOW(),'delc%y%m%d%H%i%s')
 			,#{userIdCode}
 			,#{goodsCode}
-			,s002
+			,'s002'
 			,CURDATE()
 		);
 	</insert>	
@@ -71,6 +135,7 @@
 		/*주문>결제완료시 셀렉터 13번 테이블정보꺼내*/
 		SELECT
 			 order_code
+			,order_status_code
 			,user_id_code
 			,goods_code
 			,order_receive_addr
@@ -80,14 +145,22 @@
 			,order_date
 		FROM
 			tb_o_order_current_status
-		WHERE 
-			order_code  = #{userIdCode}
-		
+		WHERE
+			order_code = #{orderCode};
 	</select>
 	<insert id="addOrderCurrent" parameterType="OrderCurrent">
+		<selectKey resultType="string" keyProperty="orderCode" order="AFTER">
+	     	SELECT 
+				order_code as orderCode
+			FROM 
+				tb_o_order_current_status
+			WHERE
+				order_status_code = #{orderStatusCode}
+	    </selectKey> 
 		/*주문>결제시 13번 테이블로 인썰트되는정보*/
 		INSERT into tb_o_order_current_status
 		(	order_code
+			,order_status_code
 			,user_id_code
 			,goods_code
 			,order_receive_addr
@@ -97,13 +170,14 @@
 			,order_date
 		)values(
 			date_format(NOW(),'o%y%m%d%H%i%s')
+			,#{orderStatusCode}
 			,#{userIdCode}
 			,#{goodsCode}
 			,#{orderReceiveAddr}
 			,#{orderReceiveContact}
 			,#{orderSendname}
 			,#{orderSendphone}
-			,CURDATE()
+			,NOW()
 		);
 	</insert>
 	
