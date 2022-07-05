@@ -30,6 +30,7 @@
 
     <!-- Custom Theme Style -->
     <link th:href="@{/admin/build/css/custom.min.css}" rel="stylesheet">
+   	    <script type="text/javascript" th:src="@{/Doc/js/jquery-3.6.0.min.js}"></script>
   </head>
 
   <body class="nav-md">
@@ -87,6 +88,7 @@
                     <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action" style="width:100%">
                       <thead>
                         <tr>
+                          <th></th>
                           <th hidden="pointBuySaveStandardGradeCode"></th>
                           <th hidden="gradeUser"></th>
                           <th hidden="pointStandardDetailsCode"></th>
@@ -139,10 +141,10 @@
 	                        </button>
 	                     </div>
 	                     <div class="modal-body">
-	                        	정말 포인트내역을 삭제하시겠습니까?
+	                        	정말 포인트 기준 내역을 삭제하시겠습니까?
 	                     </div>
 	                     <div class="modal-footer">
-                           <form action="/adminpage/pointDetails/pointGradeList" method="get">
+                           <form action="/adminpage/pointDetails/removeGradeList" method="get">
 								<input type="hidden" name="pointBuySaveStandardGradeCode" id="removePointBuySaveStandardGradeCode">
 	                       		<button type="button" class="btn btn-primary" data-dismiss="modal">취소</button>
 								<button type="submit" class="btn btn-danger">삭제</button>
@@ -152,7 +154,13 @@
 	               </div>
 	         </div>
               <!-- Modal -->
-
+			<script type="text/javascript">
+				var $removePointBuySaveStandardGradeCode = $('#removePointBuySaveStandardGradeCode');
+            	$('.removePointGradeModalBtn').on('click', function() {
+            	  $removePointBuySaveStandardGradeCode.val($(this).val());            	  
+            	})
+            	console.log($removePointBuySaveStandardGradeCode.val());
+           	 </script>
 		<!-- footer content -->
 		<div th:replace="adminpage/fragments/footer :: footerFragment"></div>
 		<!-- /footer content -->

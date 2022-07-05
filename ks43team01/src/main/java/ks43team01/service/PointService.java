@@ -1,5 +1,6 @@
 package ks43team01.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -23,21 +24,24 @@ public class PointService {
 		this.pointMapper = pointMapper;
 
 	}
-	/* 관리자 페이지 포인트 기준 등록*/
-	public int addPointGradeList(PointSaveByGrade pointSaveByGrade) {
-		
-		int result = pointMapper.addPointGradeList(pointSaveByGrade);
+	
+	/* 관리자 페이지 포인트 기준 내역 삭제 */
+	public int removeGradeList(String pointBuySaveStandardGradeCode) {
+		log.info("pointSaveByGrade: {}",pointBuySaveStandardGradeCode);
+		int result = pointMapper.removeGradeList(pointBuySaveStandardGradeCode);
 		
 		return result;
 	}
 	
-	/* 관리자 페이지 포인트 기준 삭제*/
-	public int removePointStandard(String pointDetailsCode) {
-		log.info("pointDetailsCode: {}",pointDetailsCode);
-		int result = pointMapper.removePointStandard(pointDetailsCode);
+	
+	/* 관리자 페이지 포인트 기준 등록*/
+	public int addPointGradeList(HashMap<String, Object> addGrade ) {
+	
+		int result = pointMapper.addPointGradeList(addGrade);
 		
 		return result;
 	}
+	
 	
 	/* 관리자 페이지 포인트 기준 조회 */
 	public List<PointSaveByGrade> getPointGradeList(){
@@ -47,6 +51,13 @@ public class PointService {
 		return pointGradeList;
 	}
 
+	/* 관리자 페이지 포인트 기준 삭제*/
+	public int removePointStandard(String pointDetailsCode) {
+		log.info("pointDetailsCode: {}",pointDetailsCode);
+		int result = pointMapper.removePointStandard(pointDetailsCode);
+		
+		return result;
+	}
 	
 	/*	관리자 페이지 회원 포인트 조회  */
 	 public List<Point> getPointList() {
