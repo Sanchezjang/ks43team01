@@ -120,8 +120,6 @@
 			g.goods_price 				AS goodsPrice
 		FROM
 			tb_g_goods AS g
-		WHERE
-			g.goods_sub_category_code = 'sub_category_14';	
 	</select>
     
 	<select id="getGoodsTopCategory" resultType="GoodsTopCategory">
@@ -222,8 +220,39 @@
 	
 	<update id="modifyGoodsSubCategory" parameterType="String">
 		/* 상품 하위 카테고리 수정 */
-		
+		UPDATE
+			tb_g_goods_sub_category
+		SET 
+			goods_top_category_code =
+			(
+			SELECT
+				goods_top_category_code
+			FROM
+				tb_g_goods_top_category
+			WHERE
+				goods_top_category_name = #{goodsTopCategoryName}
+			),
+			goods_top_category_name = #{goodsTopCategoryName},
+			goods_sub_category_name = #{goodsSubCategoryName},
+			goods_sub_category_reg_date = CURDATE()
+		WHERE
+			goods_sub_category_code = #{goodsSubCategoryCode};
 	</update>
+	
+	<select id="getModifyGoodsSubCategoryCode" parameterType="String" resultMap="GoodsResultMap">
+	  	/* 상품 하위 카테고리 수정화면 기존 데이터 조회 */	
+		SELECT
+			g.goods_sub_category_code 		AS goodsSubCategoryCode,
+			g.goods_top_category_code 		AS goodsTopCategoryCode,
+			g.goods_top_category_name 		AS goodsTopCategoryName,
+			g.goods_sub_category_name		AS goodsSubCategoryName,
+			g.user_id_code					AS userIdCode,
+			g.goods_sub_category_reg_date	AS goodsSubCategoryRegDate
+		FROM
+			tb_g_goods_sub_category AS g
+		WHERE
+			g.goods_sub_category_code = #{goodsSubCategoryCode};
+  	</select>
 	
 	<select id="getGoodsSubCategoryList" resultType="GoodsSubCategory">
 		/* 상품 하위 카테고리 리스트 조회 */
@@ -272,6 +301,8 @@
 		/* 상품 상위 카테고리 삭제 */
 		
 	</delete>
+	
+	
 	
 	<select id="getGoodsTopCategoryList" resultType="GoodsTopCategory">
 		/* 상품 상위 카테고리 리스트 조회 */

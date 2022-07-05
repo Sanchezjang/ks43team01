@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       lang="en">
+
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<!-- Meta, title, CSS, favicons, etc. -->
@@ -52,7 +53,7 @@
 			<div class="col-md-9 ">
 				<div class="x_panel">
 					<div class="x_title">
-					<h2>상품 하위 카테고리 등록</h2>
+					<h2>상품 하위 카테고리 수정</h2>
 						<ul class="nav navbar-right panel_toolbox">
 							<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
 							<li><a class="close-link"><i class="fa fa-close"></i></a></li>
@@ -61,7 +62,7 @@
 						<div class="clearfix"></div>
 					</div>
 					<div class="x_content"><br/>
-						<form name="agc" class="form-horizontal form-label-left" th:action="@{/adminpage/goods/addGoodsSubCategory}" method="post">
+						<form name="agc" class="form-horizontal form-label-left" th:action="@{/adminpage/goods/modifyGoodsSubCategory}" method="post">
 						<div class="form-group row">
 						<label class="control-label col-md-3 col-sm-3 " for="goodsTopCategoryName">상위 카테고리<span class="required">*</span></label>
 							<div class="col-md-9 col-sm-9 ">
@@ -77,12 +78,14 @@
 						<label class="control-label col-md-3 col-sm-3 " for="goodsSubCategoryName">상품 하위 카테고리명<span class="required">*</span></label>
 							<div class="col-md-9 col-sm-9 ">
 								<input type="text" name="goodsSubCategoryName" id="goodsSubCategoryName" required="required" class="form-control col-md-10" />
+								
+								<input name="goodsSubCategoryCode" id="goodsSubCategoryCode" type="hidden" th:value="${goodsSubCategoryCode}"></input>
 							</div>
 						</div>
 						<div class="ln_solid"></div>
 							<div class="form-group">
 								<div class="col-md-12">
-									<button style="float: right;" type="submit" class="btn btn-success">등록</button>
+									<button style="float: right;" type="submit" class="btn btn-success">수정</button>
 								</div>
 							</div>
 						</form>	

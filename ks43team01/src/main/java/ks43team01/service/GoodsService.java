@@ -1,6 +1,9 @@
 package ks43team01.service;
 
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +17,10 @@ import ks43team01.mapper.GoodsMapper;
 @Transactional
 public class GoodsService {
 
+	
+	private static final Logger log = LoggerFactory.getLogger(GoodsService.class);
+
+	
 	private final GoodsMapper goodsMapper;
 	
 	public GoodsService(GoodsMapper goodsMapper) {
@@ -31,6 +38,14 @@ public class GoodsService {
 		return result;
 	}
 	
+	// 상품 수정
+	public int modifyGoods(Goods goods) {
+		
+		int result = goodsMapper.modifyGoods(goods);
+		
+		return result;
+	}
+	
 	// 상품 수정화면에서 기존 데이터 불러오기
 	public Goods getModifyGoodsInfoCode(String goodsCode) {
 		
@@ -38,14 +53,6 @@ public class GoodsService {
 		
 		return goods;
 		
-	}
-	
-	// 상품 수정
-	public int modifyGoods(Goods goods) {
-		
-		int result = goodsMapper.modifyGoods(goods);
-		
-		return result;
 	}
 	
 	// 개별 상품 보기
@@ -115,7 +122,21 @@ public class GoodsService {
 	}
 	
 	// 상품 하위 카테고리 수정
+	public int modifyGoodsSubCategory(GoodsSubCategory goodsSubCategory) {
+		log.info("goodsSubCategory:{}",goodsSubCategory);
+		int result = goodsMapper.modifyGoodsSubCategory(goodsSubCategory);
+		
+		return result;
+	}
 	
+	//상품 하위 카테고리 수정 화면 기존 데이터 불러오기
+	public GoodsSubCategory getModifyGoodsSubCategoryCode(String goodsSubCategoryCode) {
+		
+		GoodsSubCategory goodsSubCategory = goodsMapper.getModifyGoodsSubCategoryCode(goodsSubCategoryCode);
+		
+		return goodsSubCategory;
+		
+	}
 	
 	// 상품 하위 카테고리 리스트
 	public List<GoodsSubCategory> getGoodsSubCategoryList(){
