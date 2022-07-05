@@ -81,7 +81,7 @@ public class UserGoodsController {
 	public String modifyGoods(@RequestParam(value="goodsCode", required= false)String goodsCode
 			,Model model) {
 		
-		log.info("123 {}", goodsCode);
+		//log.info("상품 {}", goodsCode);
 		Goods goods = goodsService.getModifyGoodsInfoCode(goodsCode);
 		List<GoodsTopCategory> goodsTopCategory = goodsService.getGoodsTopCategory();
 		
@@ -126,7 +126,7 @@ public class UserGoodsController {
 	@ResponseBody
 	public List<GoodsSubCategory> getGoodsSubCategory(@RequestParam(name="goodsTopCategoryName")String goodsTopCategory) {
 		
-		log.info("서브카테고리받아온값제이즌  :{}", goodsTopCategory);
+		//log.info("서브카테고리 받아온값  :{}", goodsTopCategory);
 		List<GoodsSubCategory> getGoodsSubCategory = goodsService.getGoodsSubCategory(goodsTopCategory);
 		return getGoodsSubCategory;
 	}

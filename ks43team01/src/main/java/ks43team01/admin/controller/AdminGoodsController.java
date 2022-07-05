@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks43team01.dto.Goods;
 import ks43team01.dto.GoodsSubCategory;
@@ -74,10 +75,32 @@ public class AdminGoodsController {
 	}
 	
 	//상품 하위 카테고리 수정
-	
+	@PostMapping("/modifyGoodsSubCategory")
+	public String modifyGoodsSubCategory(GoodsSubCategory goodsSubCategory
+			,RedirectAttributes reAttr) {
+		//log.info("goodsSubCategory: {}", goodsSubCategory);
+		
+		goodsService.modifyGoodsSubCategory(goodsSubCategory);
+		String goodsSubCategoryCode = goodsSubCategory.getGoodsSubCategoryCode();
+		reAttr.addAttribute("goodsSubCategoryCode", goodsSubCategoryCode);
+		return "redirect:/adminpage/goods/goodsSubCategoryList";
+	}
 	
 	//상품 하위 카테고리 수정
+	@GetMapping("/modifyGoodsSubCategory")
+	public String modifyGoodsSubCategory(@RequestParam(value="goodsSubCategoryCode", required= false)String goodsSubCategoryCode
+			,Model model) {
 		
+		GoodsSubCategory goodsSubCategory = goodsService.getModifyGoodsSubCategoryCode(goodsSubCategoryCode);
+		List<GoodsTopCategory> goodsTopCategoryList = goodsService.getGoodsTopCategoryList();
+		
+		log.info("goodsSubCategory : {}", goodsSubCategory);
+		model.addAttribute("goodsSubCategory", goodsSubCategory);
+		model.addAttribute("goodsTopCategoryList", goodsTopCategoryList);
+		model.addAttribute("goodsSubCategoryCode", goodsSubCategoryCode);
+		
+		return "adminpage/goods/modifyGoodsSubCategory";
+	}	
 
 	//상품 하위 카테고리 리스트
 	@GetMapping("/goodsSubCategoryList")
