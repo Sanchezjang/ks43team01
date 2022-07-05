@@ -16,11 +16,18 @@ public class RefundPayment{
 	private String refundRequestmoney;
 	private String refundBuyerSellerConsultationCode;
 	
+	private Goods goods;
 	
+	public Goods getGoods() {
+		return goods;
+	}
+	public void setGoods(Goods goods) {
+		this.goods = goods;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("PaymentRefund [refundRequestCode=");
+		builder.append("RefundPayment [refundRequestCode=");
 		builder.append(refundRequestCode);
 		builder.append(", paymentCode=");
 		builder.append(paymentCode);
@@ -42,6 +49,8 @@ public class RefundPayment{
 		builder.append(refundRequestmoney);
 		builder.append(", refundBuyerSellerConsultationCode=");
 		builder.append(refundBuyerSellerConsultationCode);
+		builder.append(", goods=");
+		builder.append(goods);
 		builder.append("]");
 		return builder.toString();
 	}
