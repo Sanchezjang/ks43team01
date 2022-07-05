@@ -19,7 +19,6 @@
 		<association property="pointSaveByGrade" javaType="PointSaveByGrade">
 			<id 	column="point_buy_save_standard_grade_code"	 	property="pointBuySaveStandardGradeCode"/>
 			<result column="grade_user_code" 						property="gradeUserCode"/>
-			<result column="grade_name" 							property="gradeName"/>
 			<result column="point_standard_details_code" 			property="pointStandardDetailsCode"/>
 			<result column="point_standard_details_name" 			property="pointStandardDetailsName"/>
 			<result column="point_save_by_grade_percent" 			property="pointSaveByGradePercent"/>
@@ -46,22 +45,32 @@
 		</association>
 	</resultMap>
 	
-	<insert id="addPointGradeList" parameterType="PointSaveByGrade">
+	<delete id="removeGradeList" parameterType="String">
+	/* 관리자 페이지 포인트 기준 내역 삭제 */
+	DELETE
+	FROM 
+		tb_pt_point_buy_save_by_grade
+	WHERE 
+		point_buy_save_standard_grade_code = #{pointBuySaveStandardGradeCode};
+	</delete>
+	
+	<insert id="addPointGradeList" parameterType="Map">
 	/* 관리자 페이지 포인트 기준 등록 */
 	INSERT INTO tb_pt_point_buy_save_by_grade
 		 (point_buy_save_standard_grade_code
 		,grade_user_code
 		,point_standard_details_code
-		,point_standard_details_name
 		,point_save_by_grade_percent
 		,point_save_by_grade_unit)
-		VALUES
-		('pbssgc09'
-		,'grade01'
-		,#{pointStandardDetailsCode}
-		,'자료구매(포인트 적립)'
-		,0.160
-		,#{pointSaveByGradeUnit}
+		VALUES(
+		(SELECT
+			CONCAT('pbssgc0',MAX(CAST(SUBSTRING(pp.point_buy_save_standard_grade_code,7)AS UNSIGNED)+1))
+		FROM 
+			tb_pt_point_buy_save_by_grade AS pp)
+		,#{gradeUserCode}
+		,#{pointSaveByGrade.pointStandardDetailsCode}
+		,#{pointSaveByGrade.pointSaveByGradePercent}
+		,#{pointSaveByGrade.pointSaveByGradeUnit}
 		);
 	</insert>
 	
