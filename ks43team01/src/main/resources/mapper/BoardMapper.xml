@@ -70,6 +70,7 @@
 			<id    column="board_m_category_code"			property="boardMediumCategoryCode"/>
 			<result column="user_id_code"					property="userIdCode"/>
 			<result column="board_l_category_code"			property="boardLargeCategoryCode"/>
+			<result column="board_l_category_name"			property="boardLargeCategoryName"/>
 			<result column="board_m_category_name"			property="boardMediumCategoryName"/>
 			<result column="board_m_category_reg_date"		property="boardMediumCategoryRegDate"/>
 			<result column="board_m_category_update_date"	property="boardMediumCategoryUpdateDate"/>
@@ -98,6 +99,7 @@
 			<result column="board_answer_update_date"		property="boardAnswerUpdateDate"/>   
 		</association>
 	</resultMap>
+
   
 	<update id="updatePageView" parameterType="int"> 
 	/*게시글 조회수 증가*/
@@ -303,6 +305,23 @@
 			, 'Y'
 		);
 	</insert>
+	
+	<select id="getBoardMediumCategory" resultType="BoardMediumCategory">
+	/*문의 게시판 2차 카테고리 조회 */
+	SELECT
+			board_m_category_code					AS boardMediumCategoryCode
+			,user_id_code							AS userIdCode
+			,board_l_category_code					AS boardLargeCategoryCode
+			,board_l_category_name					AS boardLargeCategoryName
+			,board_m_category_name					AS boardMediumCategoryName
+			,board_m_category_reg_date				AS boardMediumCategoryRegDate
+			,board_m_category_update_date			AS boardMediumCategoryUpdateDate
+			,board_m_category_use					AS boardMediumCategoryUse
+		FROM 
+			tb_b_board_m_category
+		WHERE
+			board_l_category_code = #{boardLargeCategoryName};
+	</select>
 
 	<select id="getBoardMediumCategoryList" resultType="BoardMediumCategory">
 	/*문의 게시판 2차 카테고리 조회 */

@@ -20,12 +20,8 @@ import ks43team01.dto.QnaBoard;
 public interface BoardMapper {
 	
 	//1:1 문의 2차 카테고리
-	public List<BoardMediumCategory> getBoardMediumCategory(String boardLargeCategory);
+	public List<BoardMediumCategory> getBoardMediumCategory(String boardLargeCategoryList);
 		
-	//1:1 문의 1차 카테고리
-	public List<BoardLargeCategory> getBoardLargeCategory();
-	
-	
 	//1:1 문의 게시글 상세 조회
 	public QnaBoard getQnaBoardByCode(String boardQuestionCode);
 	
@@ -65,11 +61,6 @@ public interface BoardMapper {
 	//7. 문의 게시판 1차 카테고리 조회 
 	public List<BoardLargeCategory> getBoardLargeCategoryList();
 	
-	//6-2. 게시판 대분류 카테고리 등록
-	public int addBoardCategory(BoardCategory boardCategory);
-	//6. 게시판 대분류 카테고리 조회
-	public List<BoardCategory> getBoardCategoryList();
-	
 	//5-2. 1:1 게시글 등록
 	public int addQnaBoard(QnaBoard qnaBoard);
 	//5. 1:1 게시글 목록 조회
@@ -94,13 +85,21 @@ public interface BoardMapper {
 	public List<Board> getNoticeBoardList();
 	
 	
+	/*
+	 * 관리자 화면
+	 * */
 	
-	//관리자용 게시글 답변 모음 목록 조회
+	//게시판 대분류 카테고리 등록
+	public int addBoardCategory(BoardCategory boardCategory);
+	//게시판 대분류 카테고리 조회
+	public List<BoardCategory> getBoardCategoryList();
+	
+	//게시글 답변 모음 목록 조회
 	public List<BoardAnswer> getBoardAnswerList();
 	
-	//관리자용 게시글 첨부파일 목록 조회
+	//게시글 첨부파일 목록 조회
 	public List<BoardPostFile> getBoardPostFileList();
 	
-	//관리자용 전체 게시글 목록 조회
+	//전체 게시글 목록 조회
 	public List<Board> getBoardList();
 }

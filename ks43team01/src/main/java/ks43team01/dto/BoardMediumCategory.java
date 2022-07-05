@@ -4,11 +4,11 @@ public class BoardMediumCategory {
 	private String boardMediumCategoryCode;
 	private String userIdCode;
 	private String boardLargeCategoryCode;
+	private String boardLargeCategoryName;
 	private String boardMediumCategoryName;
 	private String boardMediumCategoryRegDate;
 	private String boardMediumCategoryUpdateDate;
 	private String boardMediumCategoryUse;
-	
 	public String getBoardMediumCategoryCode() {
 		return boardMediumCategoryCode;
 	}
@@ -26,6 +26,12 @@ public class BoardMediumCategory {
 	}
 	public void setBoardLargeCategoryCode(String boardLargeCategoryCode) {
 		this.boardLargeCategoryCode = boardLargeCategoryCode;
+	}
+	public String getBoardLargeCategoryName() {
+		return boardLargeCategoryName;
+	}
+	public void setBoardLargeCategoryName(String boardLargeCategoryName) {
+		this.boardLargeCategoryName = boardLargeCategoryName;
 	}
 	public String getBoardMediumCategoryName() {
 		return boardMediumCategoryName;
@@ -60,6 +66,8 @@ public class BoardMediumCategory {
 		builder.append(userIdCode);
 		builder.append(", boardLargeCategoryCode=");
 		builder.append(boardLargeCategoryCode);
+		builder.append(", boardLargeCategoryName=");
+		builder.append(boardLargeCategoryName);
 		builder.append(", boardMediumCategoryName=");
 		builder.append(boardMediumCategoryName);
 		builder.append(", boardMediumCategoryRegDate=");
@@ -71,6 +79,8 @@ public class BoardMediumCategory {
 		builder.append("]");
 		return builder.toString();
 	}
+	
+
 
 	
 }

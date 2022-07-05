@@ -33,19 +33,10 @@ public class BoardService {
 	
 	
 	// 1:1 문의 2차 카테고리
-	public List<BoardMediumCategory> getBoardMediumCategory(String boardLargeCategory) {
-		
-		List<BoardMediumCategory> boardMediumCategory = boardMapper.getBoardMediumCategory(boardLargeCategory);
-		
+	public List<BoardMediumCategory> getBoardMediumCategory(String boardLargeCategoryList) {
+		List<BoardMediumCategory> boardMediumCategory = boardMapper.getBoardMediumCategory(boardLargeCategoryList);
+		log.info("선택시 가져오는 값", boardMediumCategory);
 		return boardMediumCategory;
-	}
-	
-	//1:1 문의 1차 카테고리
-	public List<BoardLargeCategory> getBoardLargeCategory() {
-		
-		List<BoardLargeCategory> boardLargeCategory =boardMapper.getBoardLargeCategory();
-		
-		return boardLargeCategory;
 	}
 	
 	
