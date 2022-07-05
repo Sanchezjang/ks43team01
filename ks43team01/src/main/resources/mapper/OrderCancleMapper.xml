@@ -2,26 +2,127 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="ks43team01.mapper.GoodsReg">
+  <mapper namespace="ks43team01.mapper.PaymentRefundMapper">
 
-		<resultMap type="ks43team01.dto.Goods" id="Goods">
-		<id 	column="goods_code"			property="goodsCode"/>
-		<result column="goods_sub_category_code" 		property="goodsSubCategoryCode"/>
-		<result column="goods_name" 			property="goodsName"/>
-		<result column="goods_description" 			property="goodsDescription"/>
-		<result column="goods_price" 			property="goodsPrice"/>
-		<result column="goods_working_period" 		property="goodsWorkingPeriod"/>
-		<result column="goods_modified_possibility_count"	property="goodsModifiedPossibilityCount"/>
-		<result column="goods_image_reg" 			property="goodsImageReg"/>
-		<result column="goods_pre_requests_answer_type" 	property="goodsPreRequestsAnswerType"/>
-		<result column="goods_pre_request" 			property="goodsPreRequest"/>
-		<result column="user_id_code" 			property="userIdCode"/>
-		<result column="goods_reg_date" 			property="goodsRegDate"/>
+	  	
+	<resultMap type="RefundReason"    			id="RefundReason">
+		<id 	column="refund_request_reason_code"				property="refundRequestReasonCode"/>
+		<result column="refund_request_reason_code_name" 		property="refundRequestReasonCodeName"/>
+		<result column="refund_buyer_request_details" 			property="refundBuyerRequestDetails"/>
+		<result column="user_id_code" 			     			property="userIdCode"/>
+		<result column="refund_request_reason_registration_date" 	property="refundRequestReasonRegistrationDate"/>
+		<result column="refund_request_reason_disposal_date" 	property="refundRequestReasonDisposalDate"/>
 	</resultMap>
-	  		
-	  <select id="">
-	 	
+
+	<resultMap type="PaymentGoods" 			id="PaymentGoodsResultMap">
+		<id column="payment_code" 							property="paymentCode"/> 
+		<result column="order_code" 						property="orderCode"/>
+		<result column="user_id_code" 						property="userIdCode"/>	
+		<result column="goods_code" 						property="goodsCode"/> 
+		<result column="payment_input_account_card_number"  property="paymentInputAccountCardNumber"/> 
+		<result column="payment_agency_type" 				property="paymentAgencyType"/>
+		<result column="payment_agency" 					property="paymentAgency"/>
+		<result column="payment_point" 						property="paymentPoint"/>
+		<result column="payment_realtime" 					property="paymentRealtime"/>
+		<result column="payment_virtual" 					property="paymentVirtual"/>
+		<result column="payment_seller_calculate_amount" 	property="paymentSellerCalculateAmount"/>
+		<result column="site_fee" 							property="siteFee"/> 
+		<result column="buyer_exp" 							property="buyerExp"/> 
+		<result column="seller_exp" 						property="sellerExp"/> 
+		<result column="payment_by_cash_time" 				property="paymentByCashTime"/>
+		
+		<association property="goods" javaType="Goods">
+			<id 	column="goods_code"			property="goodsCode"/>
+			<result column="goods_sub_category_code" 		property="goodsSubCategoryCode"/>
+			<result column="goods_name" 			property="goodsName"/>
+			<result column="goods_description" 			property="goodsDescription"/>
+			<result column="goods_price" 			property="goodsPrice"/>
+			<result column="goods_working_period" 		property="goodsWorkingPeriod"/>
+			<result column="goods_modified_possibility_count"	property="goodsModifiedPossibilityCount"/>
+			<result column="goods_image_reg" 			property="goodsImageReg"/>
+			<result column="goods_pre_requests_answer_type" 	property="goodsPreRequestsAnswerType"/>
+			<result column="goods_pre_request" 			property="goodsPreRequest"/>
+			<result column="user_id_code" 			property="userIdCode"/>
+			<result column="goods_reg_date" 			property="goodsRegDate"/>
+		</association>
+	</resultMap>
+	<resultMap type="RefundPayment"  id="RefundPaymentResultMap">
+			<id 	column="refund_request_code"			property="refundRequestCode"/>
+			<result column="payment_code" 		property="paymentCode"/>
+			<result column="goods_code" 			property="goodsCode"/>
+			<result column="order_code" 			property="orderCode"/>
+			<result column="refund_request_reason_code" 		property="refundRequestReasonCode"/>
+			<result column="refund_buyer_work_status_completion_rate"	property="refundBuyerWorkStatusCompletionRate"/>
+			<result column="payment_by_cash_time" 			property="paymentByCashTime"/>
+			<result column="refund_request_datetime" 	property="refundRequestDatetime"/>
+			<result column="refund_request_check" 			property="refundRequestCheck"/>
+			<result column="refund_request_money" 			property="refundRequestmoney"/>
+			<result column="refund_buyer_seller_consultation_code" 			property="refundBuyerSellerConsultationCode"/>
+	</resultMap>
+		<insert id="addRefundRequest" parameterType="RefundPayment">
+		/*환불테이블 1번 입력값*/
+			INSERT INTO tb_rf_refund_request
+	       (     refund_request_code
+				,payment_code
+				,goods_code
+				,order_code
+				,refund_request_reason_code
+				,payment_by_cash_time
+				,refund_request_datetime
+				,refund_request_check
+				,refund_request_money
+				,refund_buyer_seller_consultation_code
+	      )VALUES (
+				date_format(NOW(),'refund_request_re_%i%s')
+				,#{paymentCode}
+				,#{goodsCode}
+				,#{orderCode}
+				,#{refundRequestReasonCode}
+				,#{paymentByCashTime}
+				,CURDATE()
+				,'Y'
+				,#{refundRequestmoney}
+				,#{refundBuyerSellerConsultationCode}
+	      );
+		</insert>
+			
+		<select id="getReasonRequest" resultType="Map" parameterType="String">
+			/*환불요청시에 상품 기본정보불러오기*/
+			SELECT 
+				ppg.payment_code as paymentCode
+				,ppg.goods_code as goodsCode
+				,ppg.order_code as orderCode
+				,ppg.user_id_code as buyerId
+				,ppg.payment_by_cash_time as paymentByCashTime
+				,ppg.payment_realtime as refundRequestmoney
+				,gg.user_id_code as sellerId
+				,gg.goods_name as goodsName
+			FROM 
+				tb_p_payment_goods as ppg
+				inner join
+				tb_o_order_current_status as oocs
+				on
+				ppg.user_id_code = oocs.user_id_code 
+				inner join
+				tb_g_goods as gg 
+				on
+				oocs.goods_code = gg.goods_code 
+			Where
+				ppg.user_id_code = 'id009'
+		</select>	
+	  
+	  <select id="getReasonList" resultType="RefundReason">
+	 		/*환불사유 선택 카테고리*/
+	 		SELECT 
+				refund_request_reason_code as refundRequestReasonCode
+				,refund_request_reason_code_name as refundRequestReasonCodeName
+				,refund_buyer_request_details as refundBuyerRequestDetails
+				,user_id_code as userIdCode
+				,refund_request_reason_registration_date as refundRequestReasonRegistrationDate
+				,refund_request_reason_disposal_date as refundRequestReasonDisposalDate
+			FROM 
+				tb_rf_refund_request_reason ;
 	  </select>
-  
+		  		
   </mapper>
 
