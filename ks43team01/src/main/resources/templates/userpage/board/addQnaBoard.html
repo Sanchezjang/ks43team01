@@ -12,24 +12,24 @@ layout:decorate="~{userpage/layout/userdefault}">
 					var $boardLargeCategoryName = $("#boardLargeCategoryName").val()
 					console.log($boardLargeCategoryName);
 					var request = $.ajax({
-						url: "/userpage/board/getGoodsSubCategory",
+						url: "/userpage/board/getBoardMediumCategory",
 						method: "GET",
-						data: { 'goodsTopCategoryName' : $goodsTopCategoryName},
+						data: { 'boardLargeCategoryName' : $boardLargeCategoryName},
 						dataType: "json"
 					});
 			 		
 					request.done(function( data ) {
 					console.log(data)
-					var html = '', $goodsSubCategory = $('#goodsSubCategoryCode');
+					var html = '', boardMediumCategory = $('#boardMediumCategoryCode');
 					if(data.length == 0){
-						html += '<option value=""> :: 하위 카테고리 :: </option>';
+						html += '<option value=""> :: 문의 1차 카테고리 :: </option>';
 					}else{ 								
 						for(var i=0; i < data.length; i++){
-							html += '<option value="'+data[i].goodsSubCategoryCode+'"> ' + data[i].goodsSubCategoryName + ' </option>';
+							html += '<option value="'+data[i].boardMediumCategoryCode+'"> ' + data[i].boardMediumCategoryName + ' </option>';
 						}
 					}
-						$goodsSubCategory.html(html);
-						$goodsSubCategory.niceSelect('update');
+						$boardMediumCategory.html(html);
+						$boardMediumCategory.niceSelect('update');
 					});
 					 
 						request.fail(function( jqXHR, textStatus ) {
@@ -106,12 +106,11 @@ layout:decorate="~{userpage/layout/userdefault}">
 					</ul>
 				<div class="clearfix"></div>
 			</div>
-
 			<!-- start form for validation -->
 			<form th:action="@{/userpage/board/addQnaBoard}" method="post" id="demo-form" data-parsley-validate>
-				<div class="orderer form-group">
+				<div class="writer form-group">
 					<div class="form-group">
-					<label for=boardLargeCategoryName" class="col-12 mainExplanation required">1차 문의 카테고리</label>
+					<label for="boardLargeCategoryName" class="col-12 mainExplanation required">1차 문의 카테고리</label>
 						<select id="boardLargeCategoryName" name="boardLargeCategoryName" class="wide col-6 select1">
 							<option value="" disabled selected> :: 1차 문의 카테고리 :: </option>
 							<th:block th:if="${not #lists.isEmpty(boardLargeCategory)}" th:each="l:${boardLargeCategory}">
@@ -134,28 +133,21 @@ layout:decorate="~{userpage/layout/userdefault}">
 					</div>
 					<div class="col-6 goods">
 						<label for="userName" class="mainExplanation">이름</label>
-						<textarea class="form-control col-6" rows="5" cols="5" name="userName" id="userName"></textarea>
+						<input type="text" id="userName" class="form-control col-6" name="userName" required />
 					</div>
 					<div class="col-6 goods">
 						<label for="boardQuestionContent" class="mainExplanation">본문</label>
-						<input type="text" id="boardQuestionContent" class="form-control col-6" name="boardQuestionContent" required />
-					</div>
-					<div class="col-6 goods">
-						<label for="goodsWorkingPeriod" class="mainExplanation">답변방법</label>
-						<input type="text" id="goodsWorkingPeriod" class="form-control col-6" name="goodsWorkingPeriod" required/>
-					</div>
-					<div class="col-6 goods">
-					<label for="goodsModifiedPossibilityCount" class="mainExplanation col-11" >비밀번호</label>
-						<input type="text" id="goodsModifiedPossibilityCount" class="form-control col-6" name="goodsModifiedPossibilityCount" required/>
-					</div>
+						<textarea class="form-control col-6" rows="5" cols="10" name="boardQuestionContent" id="boardQuestionContent"></textarea>
+			
 					<div class="col-6 goods">
 						<label for="boardPostFileCode" class="mainExplanation">상품이미지</label>
-						<input type="file" id="goodsImageReg" class="form-control col-6" name="boardPostFileCode" required />
+						<input type="file" id="boardPostFileCode" class="form-control col-12" name="boardPostFileCode" />
 						<div class="explanation">첨부파일을 입력해주세요.</div>
 					</div>
 					<div class="totalOrder">
-						<button type="submit" class="genric-btn primary btn-sm" id="addGoods">등록</button>
+						<button type="submit" class="genric-btn primary btn-sm" id="addQnaBoard">등록</button>
 					</div>
+				</div>
 				</div>
 			</form>
 		</div>

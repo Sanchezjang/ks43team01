@@ -40,10 +40,10 @@ public class BoardController {
 	//1차 카테고리 선택 시 2차 카테고리 응답
 	@GetMapping("/getBoardMediumCategory")
 	@ResponseBody
-	public List<BoardMediumCategory> getBoardMediumCategory(@RequestParam(name="boardLargeCategoryName")String boardLargeCategory) {
+	public List<BoardMediumCategory> getBoardMediumCategory(@RequestParam(name="boardLargeCategoryName")String boardLargeCategoryList) {
 	
-		log.info("2차 카테고리에서 받아온 값 : {}",boardLargeCategory);
-		List<BoardMediumCategory> getBoardMediumCategory = boardService.getBoardMediumCategory(boardLargeCategory);
+		log.info("2차 카테고리에서 받아온 값 : {}",boardLargeCategoryList);
+		List<BoardMediumCategory> getBoardMediumCategory = boardService.getBoardMediumCategory(boardLargeCategoryList);
 		return getBoardMediumCategory;
 	}
 
@@ -273,7 +273,7 @@ public class BoardController {
     @GetMapping("/addQnaBoard")
     public String addQnaBoard(Model model) {
     	List<QnaBoard> qnaBoardList = boardService.getQnaBoardList();
-    	List<BoardLargeCategory> boardLargeCategory = boardService.getBoardLargeCategory();
+    	List<BoardLargeCategory> boardLargeCategory = boardService.getBoardLargeCategoryList();
 		
 		model.addAttribute("qnaBoardList", qnaBoardList);
 		model.addAttribute("boardLargeCategory", boardLargeCategory);
