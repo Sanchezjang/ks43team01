@@ -40,10 +40,11 @@ public class BoardController {
 	//1차 카테고리 선택 시 2차 카테고리 응답
 	@GetMapping("/getBoardMediumCategory")
 	@ResponseBody
-	public List<BoardMediumCategory> getBoardMediumCategory(@RequestParam(name="boardLargeCategoryName")String boardLargeCategoryList) {
+	public List<BoardMediumCategory> getBoardMediumCategory(@RequestParam(name="boardLargeCategoryName")String boardLargeCategory) {
 	
-		log.info("2차 카테고리에서 받아온 값 : {}",boardLargeCategoryList);
-		List<BoardMediumCategory> getBoardMediumCategory = boardService.getBoardMediumCategory(boardLargeCategoryList);
+		log.info("2차 카테고리에서 받아온 값 : {}",boardLargeCategory);
+		List<BoardMediumCategory> getBoardMediumCategory = boardService.getBoardMediumCategory(boardLargeCategory);
+		
 		return getBoardMediumCategory;
 	}
 
@@ -263,9 +264,8 @@ public class BoardController {
 							, HttpSession session
 							, HttpServletRequest request) {
 		String sessionId = (String) session.getAttribute("UID");
-		String sessionName = (String) session.getAttribute("UName");
 
-		boardService.addQnaBoard(sessionId, sessionName, qnaBoard);
+		boardService.addQnaBoard(sessionId, qnaBoard);
        
 		return "redirect:/userpage/board/qnaBoardList";
     }
@@ -273,7 +273,7 @@ public class BoardController {
     @GetMapping("/addQnaBoard")
     public String addQnaBoard(Model model) {
     	List<QnaBoard> qnaBoardList = boardService.getQnaBoardList();
-    	List<BoardLargeCategory> boardLargeCategory = boardService.getBoardLargeCategoryList();
+    	List<BoardLargeCategory> boardLargeCategory = boardService.getBoardLargeCategory();
 		
 		model.addAttribute("qnaBoardList", qnaBoardList);
 		model.addAttribute("boardLargeCategory", boardLargeCategory);

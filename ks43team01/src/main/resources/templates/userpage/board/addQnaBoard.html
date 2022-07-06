@@ -20,9 +20,9 @@ layout:decorate="~{userpage/layout/userdefault}">
 			 		
 					request.done(function( data ) {
 					console.log(data)
-					var html = '', boardMediumCategory = $('#boardMediumCategoryCode');
+					var html = '', $boardMediumCategory = $('#boardMediumCategoryCode');
 					if(data.length == 0){
-						html += '<option value=""> :: 문의 1차 카테고리 :: </option>';
+						html += '<option value=""> :: 문의 2차 카테고리 :: </option>';
 					}else{ 								
 						for(var i=0; i < data.length; i++){
 							html += '<option value="'+data[i].boardMediumCategoryCode+'"> ' + data[i].boardMediumCategoryName + ' </option>';
@@ -53,13 +53,14 @@ layout:decorate="~{userpage/layout/userdefault}">
 	    width: 1200px;
     	height: 150px;
 	}
+	
 	.x_panel{
 	width: 1200px;
     margin: 0 auto;
     padding-top: 80px;
     padding-bottom: 80px;
 	}
-	.orderer{
+	.writer{
 	}
 	.col-6{
 		padding-bottom: 20px;
@@ -94,9 +95,10 @@ layout:decorate="~{userpage/layout/userdefault}">
 		text-align: center;
 		margin-top: 20px;
 	}
+	
 	</style>
 	
-	<div style=" margin-left: 220px;">
+	<div class="qnaBoard">
 		<div class="x_panel">
 			<div class="x_title">
 				<h2>1:1 문의 등록</h2>
@@ -137,10 +139,27 @@ layout:decorate="~{userpage/layout/userdefault}">
 					</div>
 					<div class="col-6 goods">
 						<label for="boardQuestionContent" class="mainExplanation">본문</label>
-						<textarea class="form-control col-6" rows="5" cols="10" name="boardQuestionContent" id="boardQuestionContent"></textarea>
-			
+						<textarea class="form-control col-12" rows="5"cols="10" name="boardQuestionContent" id="boardQuestionContent"></textarea>
 					<div class="col-6 goods">
-						<label for="boardPostFileCode" class="mainExplanation">상품이미지</label>
+						<label for="boardQuestionAnswerMethod" class="mainExplanation">답변 방법</label>
+						<input type="radio" id="boardQuestionAnswerMethod" class="form-control col-6" name="boardQuestionAnswerMethod" value="댓글" checked="checked"/>댓글
+						<input type="radio" id="boardQuestionAnswerMethod" class="form-control col-6" name="boardQuestionAnswerMethod" value="이메일"/>이메일
+					</div>
+					<div class="col-6 goods">
+						<label for="userEmail" class="mainExplanation">이메일</label>
+						<input type="email" id="userName" class="form-control col-6" name="userEmail" required />
+					</div>
+					<div class="col-6 goods">
+						<label for="boardQuestionLock" class="mainExplanation">공개여부</label>
+						<input type="radio" id="boardQuestionLock" class="form-control col-6" name="boardQuestionLock" value="공개글" checked="checked"/>공개글
+						<input type="radio" id="boardQuestionLock" class="form-control col-6" name="boardQuestionLock" value="비밀글"/>비밀글
+					</div>
+					<div class="col-6 goods">
+						<label for="boardQuestionPw" class="mainExplanation">비밀번호</label>
+						<input type="password" id="boardQuestionPw" class="form-control col-6" name="boardQuestionPw" required />
+					</div>
+					<div class="col-6 goods">
+						<label for="boardPostFileCode" class="mainExplanation">첨부파일</label>
 						<input type="file" id="boardPostFileCode" class="form-control col-12" name="boardPostFileCode" />
 						<div class="explanation">첨부파일을 입력해주세요.</div>
 					</div>

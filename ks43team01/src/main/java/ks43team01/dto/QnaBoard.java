@@ -6,7 +6,6 @@ public class QnaBoard {
 	private String boardCategoryCode;
 	private String boardLargeCategoryCode;
 	private String boardMediumCategoryCode;
-	private int boardQuestionNum;
 	private String boardQuestionTitle;
 	private String userName;
 	private String boardQuestionContent;
@@ -61,12 +60,6 @@ public class QnaBoard {
 	}
 	public void setBoardMediumCategoryCode(String boardMediumCategoryCode) {
 		this.boardMediumCategoryCode = boardMediumCategoryCode;
-	}
-	public int getBoardQuestionNum() {
-		return boardQuestionNum;
-	}
-	public void setBoardQuestionNum(int boardQuestionNum) {
-		this.boardQuestionNum = boardQuestionNum;
 	}
 	public String getBoardQuestionTitle() {
 		return boardQuestionTitle;
@@ -177,8 +170,6 @@ public class QnaBoard {
 		builder.append(boardLargeCategoryCode);
 		builder.append(", boardMediumCategoryCode=");
 		builder.append(boardMediumCategoryCode);
-		builder.append(", boardQuestionNum=");
-		builder.append(boardQuestionNum);
 		builder.append(", boardQuestionTitle=");
 		builder.append(boardQuestionTitle);
 		builder.append(", userName=");
