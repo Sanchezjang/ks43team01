@@ -13,6 +13,9 @@ import ks43team01.dto.PointStandardDetails;
 @Mapper
 public interface PointMapper {
 	
+	/* 관리자 페이지 포인트 기준 내역 수정 */
+	public int modifyGradeList(PointSaveByGrade pointSaveByGrade);
+	
 	/* 관리자 페이지 포인트 기준 내역 삭제*/
 	public int removeGradeList(String pointBuySaveStandardGradeCode);
 	

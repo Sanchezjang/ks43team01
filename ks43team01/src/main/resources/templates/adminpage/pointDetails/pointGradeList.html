@@ -113,7 +113,7 @@
                      	<td th:text="${p.gradeName}"></td>
                         <td th:text="${p.pointSaveByGradePercent}"></td>
 		                <td th:text="${p.pointSaveByGradeUnit}"></td>
-              			<td><a type="button" class="btn btn-primary" style="font-size: 10px" th:href="@{/adminpage/pointDetails/pointGradeList}">수정</a></td>
+              			<td><a type="button" class="btn btn-primary" style="font-size: 10px" th:href="@{/adminpage/pointDetails/modifyGradeList(pointBuySaveStandardGradeCode=${p.pointBuySaveStandardGradeCode})}">수정</a></td>
 						<td><button type="button" class="btn btn-danger removePointGradeModalBtn" data-toggle="modal" data-target="#removePointGradeModal" style="font-size: 10px" th:value="${p.pointBuySaveStandardGradeCode}">삭제</button></td>
                      </tr>
                   </tbody>

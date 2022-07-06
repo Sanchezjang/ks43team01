@@ -197,9 +197,9 @@
 				CONCAT(LPAD(MAX(CAST(SUBSTRING(rr.review_code,1) AS UNSIGNED))+1,2,0))
 			FROM
 				   tb_r_review_contents AS rr)
-			 ,'goods_01'
+			 ,#{goodsCode}
 			 ,#{userIdCode}
-			 ,'rssc01'
+			 ,#{reviewScoreStandardCode}
 			 ,#{reviewContent}
 			 ,0
 			 ,0
