@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ks43team01.dto.User;
+import ks43team01.dto.UserAgree;
 import ks43team01.dto.UserAgreeDetails;
 import ks43team01.dto.UserLog;
 import ks43team01.service.UserService;
@@ -51,5 +52,11 @@ public class AdminUserController {
 		model.addAttribute("agreeDetailsList", agreeDetailsList);
 		return "/adminpage/user/userAgreeDetails";
 	}
-	
+	@GetMapping("/userAgreeCheck")/*동의한회원별 동의로그남김*/
+	public String getUserAgreeCheck(Model model){
+		List<UserAgree> agreeCheckList = userService.getUserAgreeCheck();
+		log.info("AgreeCheckList  :  {}",agreeCheckList);
+		model.addAttribute("agreeCheckList", agreeCheckList);
+		return "/adminpage/user/userAgreeCheck";
+	}
 }

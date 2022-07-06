@@ -49,24 +49,26 @@
 						                          <th>약관동의테이블코드</th>
 						                          <th>회원코드</th>
 						                          <th>약관종류</th>
+						                          <th>약관동의내용코드</th>
 						                          <th>동의체크값</th>
-						                          <th>동의시간</th>
+						                          <th>동의날짜</th>
 						                          <th>필수입력사항여부</th>
 						                        </tr>
 						                    </thead>
 	                       					<tbody>
-	                    						 <tr th:if="${not #lists.isEmpty(userLogDate)}" th:each="l:${userLogDate}">
+	                    						 <tr th:if="${not #lists.isEmpty(agreeCheckList)}" th:each="a:${agreeCheckList}">
 		                     						<td>
 		                        						<input type="checkbox" id="check-all" >
 		                     						</td>
-							                     	<td th:text="${l.loginNum}"></td>
-							                        <td th:text="${l.loginDate}"></td>
-									                <td th:text="${l.loginIp}"></td>
-									                <td th:text="${l.userIdCode}"></td>
-							              			<td th:text="${l.buyerExp}"></td>
-							              			<td th:text="${l.sellerExp}"></td>
-							              			<td>
-		              								</td>
+							                     	<td th:text="${a.userTermsAgreementCheckCode}"></td>
+							                        <td th:text="${a.userIdCode}"></td>
+									                <td th:text="${a.userTermsKind}"></td>
+									                <td th:text="${a.userTermsAgreementDetailsCode}"></td>
+							              			<td th:text="${a.userAgreeCheck}"></td>
+							              			<td th:text="${a.userAgreeDate}"></td>
+							              			<td th:text="${a.userRequiredInput}"></td>
+							              			<td><button type="button" class="btn btn-primary" style="font-size: 10px">수정</button></td>
+													<td><button type="button" class="btn btn-danger" style="font-size: 10px">삭제</button></td>
 												</tr>
 											</tbody>
 										</table>

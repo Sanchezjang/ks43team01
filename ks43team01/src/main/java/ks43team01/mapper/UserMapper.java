@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import ks43team01.dto.SellerBusiness;
 import ks43team01.dto.User;
+import ks43team01.dto.UserAgree;
 import ks43team01.dto.UserAgreeDetails;
 import ks43team01.dto.UserLevelExp;
 import ks43team01.dto.UserLog;
@@ -74,5 +75,6 @@ public interface UserMapper {
 	/*동의항목동의상세테이블*/
 	public List<UserAgreeDetails> getUserAgreeDetails();
 	
-	
+	/*동의한회원별 동의로그남김*/
+	public List<UserAgree> getUserAgreeCheck();
 }
