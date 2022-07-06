@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks43team01.dto.Point;
 import ks43team01.dto.PointSaveByGrade;
@@ -31,6 +32,31 @@ public class AdminPointController {
 	
 	public AdminPointController(PointService pointService) {
 		this.pointService = pointService;
+	}
+	
+	/* 관리자 페이지 포인트 기준 내역 수정(post) */
+	@PostMapping("/modifyGradeList")
+	public String modifyGradeList(PointSaveByGrade pointSaveByGrade
+								 ,RedirectAttributes reAttr) {
+		
+		log.info("pointSaveByGrade:{}",pointSaveByGrade);
+		pointService.modifyGradeList(pointSaveByGrade);
+		String pointBuySaveStandardGradeCode = pointSaveByGrade.getPointBuySaveStandardGradeCode();
+		reAttr.addAttribute("pointBuySaveStandardGradeCode",pointBuySaveStandardGradeCode);
+		
+		return "redirect:/adminpage/pointDetails/pointGradeList";
+	}
+	
+	/* 관리자 페이지 포인트 기준 내역 수정(get) */
+	@GetMapping("/modifyGradeList")
+	public String modifyGradeList(@RequestParam(name="pointBuySaveStandardGradeCode", required= false)String pointBuySaveStandardGradeCode
+								 ,Model model) {
+		
+		List<PointSaveByGrade> pointSaveByGrade = pointService.getPointGradeList();
+		log.info("pointSaveByGrade:{}",pointSaveByGrade);
+		model.addAttribute("pointSaveByGrade",pointSaveByGrade);
+		model.addAttribute("pointBuySaveStandardGradeCode",pointBuySaveStandardGradeCode);
+		return "/adminpage/pointDetails/modifyGradeList";
 	}
 	
 	/* 관리자 페이지 포인트 기준 내역 삭제 */

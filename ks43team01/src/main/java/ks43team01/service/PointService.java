@@ -25,9 +25,17 @@ public class PointService {
 
 	}
 	
+	/* 관리자 페이지 포인트 기준 내역 수정 */
+	public int modifyGradeList(PointSaveByGrade pointSaveByGrade) {
+		log.info("pointSaveByGrade:{}",pointSaveByGrade);
+		int result = pointMapper.modifyGradeList(pointSaveByGrade);
+		
+		return result;
+	}
+	
 	/* 관리자 페이지 포인트 기준 내역 삭제 */
 	public int removeGradeList(String pointBuySaveStandardGradeCode) {
-		log.info("pointSaveByGrade: {}",pointBuySaveStandardGradeCode);
+		log.info("pointBuySaveStandardGradeCode: {}",pointBuySaveStandardGradeCode);
 		int result = pointMapper.removeGradeList(pointBuySaveStandardGradeCode);
 		
 		return result;

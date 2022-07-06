@@ -106,6 +106,7 @@ public class UserReviewController {
 	public String addReview(Model model
 						   ,@RequestParam(name = "reviewStarScore" , required = false)String reviewStarScore
 						   ,@RequestParam(name = "userIdCode", required = false)String usedIdCode) {
+						
 		
 		List<ReviewContentsReg> reviewUserList = reviewService.getReviewUserList();
 		model.addAttribute("reviewUserList", reviewUserList);

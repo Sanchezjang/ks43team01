@@ -229,7 +229,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 											<input type="hidden" name="orderCartCode" id="orderCartCode" th:value="${o.userIdCode}">
 											<p th:text="${o.goodsName}">1</p>
 											<i th:text="${o.goodsPrice+'원'}">1</i>
-											<input type th:value="${o.goodsCode}">
+											<input type="hidden" th:value="${o.goodsCode}">
 											<p th:text="${o.goodsDetails}">1</p>
 										</div>
 										<div class="col-xs-6 col-sm-3"  style="width: 25%;" >

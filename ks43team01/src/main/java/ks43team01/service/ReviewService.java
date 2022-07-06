@@ -34,7 +34,7 @@ public class ReviewService {
 			return result;
 		}
 		
-		/* 회원페이지 리뷰 수정 */
+		/* 유저페이지 리뷰 수정 */
 		public int modifyReview(ReviewContentsReg reviewContentsReg) {
 			
 			int result = reviewMapper.modifyReview(reviewContentsReg);
@@ -42,7 +42,7 @@ public class ReviewService {
 			return result;
 		}
 		
-		/* 회원페이지 리뷰 삭제 */
+		/* 유저페이지 리뷰 삭제 */
 		public int removeReview(String reviewCode) {
 			
 			int result = reviewMapper.removeReview(reviewCode);
@@ -76,7 +76,7 @@ public class ReviewService {
 			return result;
 		}
 		
-		/* 회원페이지 회원 리뷰 조회 */
+		/* 회원페이지 회원 상세 리뷰 조회 */
 		public ReviewContentsReg getReviewByCode(String reviewCode) {
 			System.out.println("___________getReviewByCode_________");
 			return  reviewMapper.getReviewByCode(reviewCode);

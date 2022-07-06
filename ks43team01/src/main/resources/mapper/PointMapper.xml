@@ -45,6 +45,17 @@
 		</association>
 	</resultMap>
 	
+	<update id="modifyGradeList" parameterType="PointSaveByGrade">
+	/* 관리자 페이지 포인트 기준 수정 */
+	UPDATE 
+		tb_pt_point_buy_save_by_grade 
+	SET 
+		point_save_by_grade_percent = #{pointSaveByGradePercent}
+	   ,point_save_by_grade_unit = #{pointSaveByGradeUnit}
+	WHERE 
+		point_buy_save_standard_grade_code = #{pointBuySaveStandardGradeCode};
+	</update>
+	
 	<delete id="removeGradeList" parameterType="String">
 	/* 관리자 페이지 포인트 기준 내역 삭제 */
 	DELETE
