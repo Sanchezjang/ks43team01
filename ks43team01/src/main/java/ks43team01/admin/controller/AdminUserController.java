@@ -51,4 +51,5 @@ public class AdminUserController {
 		model.addAttribute("agreeDetailsList", agreeDetailsList);
 		return "/adminpage/user/userAgreeDetails";
 	}
+	
 }

@@ -101,17 +101,6 @@
 	  		<result column="user_use" property="userUse"/>
 		</resultMap>
 		
-		 <resultMap type="ks43team01.dto.UserAgreeDetails" id="UserAgreeDetails">
-	  		<id column="user_terms_agreement_details_code" property="userTermsAgreementDetailsCode"/>
-	  		<result column="user_terms_agreement_check_code" property="userTermsAgreementCheckCode"/>
-	  		<result column="user_agree_terms_kind" property="userAgreeTermsKind"/>
-	  		<result column="user_reg_id" property="userRegId"/>
-	  		<result column="user_reg_date" property="userRegDate"/>
-	  		<result column="user_aplct_year" property="userAplctYear"/>
-	  		<result column="user_aplct_start_day" property="userAplctStartDay"/>
-	  		<result column="user_aplct_end_day" property="userAplctEndDay"/>
-	  		<result column="user_use" property="userUse"/>
-		</resultMap>
   	   
   	<select id="getUserAgreeDetails" resultType="UserAgreeDetails">
   		/*동의항목동의상세테이블*/
