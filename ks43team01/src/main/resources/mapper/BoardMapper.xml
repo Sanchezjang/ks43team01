@@ -44,7 +44,6 @@
 		<result column="board_l_category_code"				property="boardLargeCategoryCode"/>
 		<result column="board_m_category_code"				property="boardMediumCategoryCode"/>
 		<result column="board_post_file_code"				property="boardPostFileCode"/>
-		<result column="board_question_num"					property="boardQuestionNum"/>
 		<result column="board_question_title"				property="boardQuestionTitle"/>
 		<result column="user_name"							property="userName"/>
 		<result column="board_question_content"				property="boardQuestionContent"/>
@@ -286,6 +285,54 @@
 			tb_b_board_post_file;
    </select>
    
+   	<insert id="addQnaBoard" parameterType="QnaBoard">
+	/* 1:1 문의 게시글 등록*/
+		INSERT INTO tb_b_board_question
+		(	board_question_code
+			, user_id_code
+			, board_category_code
+			, board_l_category_code
+			, board_m_category_code
+			, board_post_file_code
+			, board_question_title
+			, user_name
+			, board_question_content
+			, board_question_reg_date
+			, user_email
+			, board_question_answer_method
+			, board_question_lock
+			, board_question_pw
+			, board_question_update_date
+			, board_question_page_view
+			, board_question_use	
+		)VALUES (
+			(select date_format(NOW(),'question%y%m%d%H%i%s')AS board_question_code)
+			, #{userIdCode}
+			, 'board03'
+			, (
+			SELECT
+				m.board_l_category_code
+			FROM
+				tb_b_board_m_category AS m
+			WHERE
+				m.board_m_category_code = #{boardMediumCategoryCode}
+			)	
+			, #{boardMediumCategoryCode}
+			, #{boardPostFileCode}
+			, #{boardQuestionTitle}
+			, #{userName}
+			, #{boardQuestionContent} 
+			, CURDATE()
+			, #{userEmail}
+			, #{boardQuestionAnswerMethod}
+			, #{boardQuestionLock}
+			, #{boardQuestionPw}
+			, CURDATE() 
+			, #{boardQuestionPageView}
+			, 'Y'
+		);
+	</insert>
+   
 	<insert id="addBoardMediumCategory" parameterType="BoardMediumCategory">
 	/*문의 게시판 2차 카테고리 등록*/
 		INSERT INTO tb_b_board_m_category
@@ -306,7 +353,7 @@
 		);
 	</insert>
 	
-	<select id="getBoardMediumCategory" resultType="BoardMediumCategory">
+	<select id="getBoardMediumCategory" parameterType="String" resultType="BoardMediumCategory">
 	/*문의 게시판 2차 카테고리 조회 */
 	SELECT
 			board_m_category_code					AS boardMediumCategoryCode
@@ -322,6 +369,7 @@
 		WHERE
 			board_l_category_code = #{boardLargeCategoryName};
 	</select>
+
 
 	<select id="getBoardMediumCategoryList" resultType="BoardMediumCategory">
 	/*문의 게시판 2차 카테고리 조회 */
@@ -356,6 +404,18 @@
 		);
 	</insert>
     
+	<select id="getBoardLargeCategory" resultType="BoardLargeCategory">
+	/*문의 게시판 1차 카테고리 조회 */
+		SELECT
+			board_l_category_code					AS boardLargeCategoryCode
+			,user_id_code							AS userIdCode
+			,board_l_category_name					AS boardLargeCategoryName
+			,board_l_category_reg_date				AS boardLargeCategoryRegDate
+			,board_l_category_update_date			AS boardLargeCategoryUpdateDate
+			,board_l_category_use					AS boardLargeCategoryUse
+		FROM 
+			tb_b_board_l_category;
+	</select>
 	<select id="getBoardLargeCategoryList" resultType="BoardLargeCategory">
 	/*문의 게시판 1차 카테고리 조회 */
 		SELECT
@@ -409,7 +469,6 @@
 			, board_category_code					AS boardCategoryCode
 			, board_l_category_code					AS boardLargeCategoryCode
 			, board_m_category_code					AS boardMediumCategoryCode
-			, board_question_num 					AS boardQuestionNum
 			, board_question_title					AS boardQuestionTitle
 			, user_name								AS userName
 			, board_question_lock					AS boardQuestionLock
