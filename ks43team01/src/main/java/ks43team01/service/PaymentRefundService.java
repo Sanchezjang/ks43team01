@@ -34,5 +34,10 @@ public class PaymentRefundService {
 		int result = paymentRefundMapper.addRefundRequest(refundPayment);
 		return result;
 	}
+	/*어드민페이지 환불 내역 총 들어온거 셀렉트*/
+	public List<RefundPayment> getRefundRequestList(){
+		List<RefundPayment> refundRequestList = paymentRefundMapper.getRefundRequestList();
+		 return refundRequestList;
+	}
 	
 }

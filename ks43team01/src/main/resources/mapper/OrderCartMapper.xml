@@ -70,6 +70,24 @@
 		<result column="payment_by_cash_time" 				property="paymentByCashTime"/>
 	</resultMap>
 	
+	<resultMap type="ks43team01.dto.User" id="userResultMap">
+	  		<id column="user_id_code" property="userIdCode"/>
+	  		<result column="user_pw" property="userPw"/>
+	  		<result column="user_name" property="userName"/>
+	  		<result column="user_contact" property="userContact"/>
+	  		<result column="user_email" property="userEmail"/>
+	  		<result column="user_withdraw_status" property="userStatus"/>
+	  		<result column="user_activity_area" property="userArea"/>
+	  		<result column="user_retention_Points" property="userPoint"/>
+	  		<result column="user_rating_buyer" property="userRatingBuyer"/>
+	  		<result column="user_rating_seller" property="userRatingSeller"/>
+	  		<result column="user_rating" property="userRating"/>
+	  		<result column="user_reg_date" property="userRreDate"/>
+	  		<result column="user_update_date" property="userUpDate"/>
+	  		<result column="level_num_code" property="userLevel"/>
+  		</resultMap>
+	
+	
 	<insert id="addPaymentGoods" parameterType="PaymentGoods">
 		/*주문>결제완료시 페이먼트 테이블로 인썰트되는정보*/
 		INSERT into tb_p_payment_goods

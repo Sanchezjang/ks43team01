@@ -17,7 +17,15 @@ public class RefundPayment{
 	private String refundBuyerSellerConsultationCode;
 	
 	private Goods goods;
+	private RefundReason refundReason;
 	
+	
+	public RefundReason getRefundReason() {
+		return refundReason;
+	}
+	public void setRefundReason(RefundReason refundReason) {
+		this.refundReason = refundReason;
+	}
 	public Goods getGoods() {
 		return goods;
 	}

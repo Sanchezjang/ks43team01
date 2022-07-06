@@ -11,6 +11,7 @@ import ks43team01.dto.SellerBusiness;
 import ks43team01.dto.SellerCareer;
 import ks43team01.dto.SellerEducation;
 import ks43team01.dto.User;
+import ks43team01.dto.UserAgreeDetails;
 import ks43team01.dto.UserLevelExp;
 import ks43team01.dto.UserLog;
 import ks43team01.dto.GoodsSubCategory;
@@ -146,10 +147,13 @@ public class UserService {
 		
 		//로그인하는 모든 유저의 로그 테이블 쌓기//
 		public int addUserLog(UserLog userLog) {
-			
 			int result = userMapper.addUserLog(userLog);
-			
 			return result;
+		}
+		/*동의항목동의상세테이블*/
+		public List<UserAgreeDetails> getUserAgreeDetails(){
+			List<UserAgreeDetails> agreeDetailsList = userMapper.getUserAgreeDetails();
+			return agreeDetailsList;
 		}
 }
 

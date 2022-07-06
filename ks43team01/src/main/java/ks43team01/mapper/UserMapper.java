@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import ks43team01.dto.SellerBusiness;
 import ks43team01.dto.User;
+import ks43team01.dto.UserAgreeDetails;
 import ks43team01.dto.UserLevelExp;
 import ks43team01.dto.UserLog;
 import ks43team01.dto.GoodsSubCategory;
@@ -70,7 +71,8 @@ public interface UserMapper {
 	//로그인하는 모든 유저의 로그 테이블 쌓기
 	public int addUserLog(UserLog userLog);
 
-	
+	/*동의항목동의상세테이블*/
+	public List<UserAgreeDetails> getUserAgreeDetails();
 	
 	
 }

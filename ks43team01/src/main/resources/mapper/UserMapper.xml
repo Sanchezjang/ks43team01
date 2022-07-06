@@ -88,8 +88,46 @@
 	  		<result column="user_id_code" property="userIdCode"/>
 	  		<result column="level_up_buyer_standard_reg_date" property="levelUpBuyerStandardRegDate"/>
 		</resultMap>
-  	  
-  
+  	   
+  	    <resultMap type="ks43team01.dto.UserAgreeDetails" id="UserAgreeDetails">
+	  		<id column="user_terms_agreement_details_code" property="userTermsAgreementDetailsCode"/>
+	  		<result column="user_terms_agreement_check_code" property="userTermsAgreementCheckCode"/>
+	  		<result column="user_agree_terms_kind" property="userAgreeTermsKind"/>
+	  		<result column="user_reg_id" property="userRegId"/>
+	  		<result column="user_reg_date" property="userRegDate"/>
+	  		<result column="user_aplct_year" property="userAplctYear"/>
+	  		<result column="user_aplct_start_day" property="userAplctStartDay"/>
+	  		<result column="user_aplct_end_day" property="userAplctEndDay"/>
+	  		<result column="user_use" property="userUse"/>
+		</resultMap>
+		
+		 <resultMap type="ks43team01.dto.UserAgreeDetails" id="UserAgreeDetails">
+	  		<id column="user_terms_agreement_details_code" property="userTermsAgreementDetailsCode"/>
+	  		<result column="user_terms_agreement_check_code" property="userTermsAgreementCheckCode"/>
+	  		<result column="user_agree_terms_kind" property="userAgreeTermsKind"/>
+	  		<result column="user_reg_id" property="userRegId"/>
+	  		<result column="user_reg_date" property="userRegDate"/>
+	  		<result column="user_aplct_year" property="userAplctYear"/>
+	  		<result column="user_aplct_start_day" property="userAplctStartDay"/>
+	  		<result column="user_aplct_end_day" property="userAplctEndDay"/>
+	  		<result column="user_use" property="userUse"/>
+		</resultMap>
+  	   
+  	<select id="getUserAgreeDetails" resultType="UserAgreeDetails">
+  		/*동의항목동의상세테이블*/
+  		SELECT 
+			user_terms_agreement_details_code as userTermsAgreementDetailsCode
+			,user_terms_agreement_check_code as userTermsAgreementCheckCode
+			,user_agree_terms_kind as userAgreeTermsKind
+			,user_reg_id as userRegId
+			,user_reg_date as userRegDate
+			,user_aplct_year as userAplctYear
+			,user_aplct_start_day as userAplctStartDay
+			,user_aplct_end_day as userAplctEndDay
+			,user_use as userUse
+		FROM 
+			tb_u_all_terms_agreement_details;
+  	</select>
   	
   	<update id="modifyBusiness" parameterType="SellerBusiness">
   		/*판매자 비지니스수정처리*/  		
