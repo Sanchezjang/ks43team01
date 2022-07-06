@@ -101,7 +101,30 @@
 	  		<result column="user_use" property="userUse"/>
 		</resultMap>
 		
-  	   
+		<resultMap type="ks43team01.dto.UserAgree" id="UserAgree">
+	  		<id column="user_terms_agreement_check_code" property="userTermsAgreementCheckCode"/>
+	  		<result column="user_id_code" property="userIdCode"/>
+	  		<result column="user_terms_kind" property="userTermsKind"/>
+	  		<result column="user_terms_agreement_details_code" property="userTermsAgreementDetailsCode"/>
+	  		<result column="user_agree_check" property="userAgreeCheck"/>
+	  		<result column="user_agree_date" property="userAgreeDate"/>
+	  		<result column="user_aplct_user_required_input" property="userRequiredInput"/>
+		</resultMap>
+	
+	<select id="getUserAgreeCheck" resultType="UserAgree">
+		/*동의한회원별 동의로그남김*/
+		SELECT 
+			user_terms_agreement_check_code as userTermsAgreementCheckCode
+			,user_id_code as userIdCode
+			,user_terms_kind as userTermsKind
+			,user_terms_agreement_details_code as userTermsAgreementDetailsCode
+			,user_agree_check as userAgreeCheck 
+			,user_agree_date as userAgreeDate
+			,user_required_input as userRequiredInput
+		FROM 	
+			tb_u_all_terms_agreement_check 
+	</select>
+	
   	<select id="getUserAgreeDetails" resultType="UserAgreeDetails">
   		/*동의항목동의상세테이블*/
   		SELECT 

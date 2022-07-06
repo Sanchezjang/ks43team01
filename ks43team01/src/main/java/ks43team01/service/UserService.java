@@ -11,6 +11,7 @@ import ks43team01.dto.SellerBusiness;
 import ks43team01.dto.SellerCareer;
 import ks43team01.dto.SellerEducation;
 import ks43team01.dto.User;
+import ks43team01.dto.UserAgree;
 import ks43team01.dto.UserAgreeDetails;
 import ks43team01.dto.UserLevelExp;
 import ks43team01.dto.UserLog;
@@ -155,8 +156,12 @@ public class UserService {
 			List<UserAgreeDetails> agreeDetailsList = userMapper.getUserAgreeDetails();
 			return agreeDetailsList;
 		}
+		/*동의한회원별 동의로그남김*/
+		public List<UserAgree> getUserAgreeCheck(){
+			List<UserAgree> AgreeCheckList = userMapper.getUserAgreeCheck();
+			return AgreeCheckList;
+		}
 }
-
 
 
 
