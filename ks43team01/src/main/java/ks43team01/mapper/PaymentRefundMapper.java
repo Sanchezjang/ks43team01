@@ -16,4 +16,6 @@ public interface PaymentRefundMapper {
 	public List<PaymentGoods> getReasonRequest();
 	/*환불테이블 1번 입력값*/
 	public int addRefundRequest(RefundPayment refundPayment);
+	/*어드민페이지 환불 내역 총 들어온거 셀렉트*/
+	public List<RefundPayment> getRefundRequestList();
 }

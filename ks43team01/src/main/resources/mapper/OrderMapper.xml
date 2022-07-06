@@ -20,8 +20,8 @@
 			<result column="user_id_code"								property="userIdCode"/>
 			<result column="order_status_standard_registration_date"	property="orderStatusStandardRegDate"/>
 		</association>
-		
 	</resultMap>
+	
 	
 		<select id="getOrderCurrentStatusInfoCode" parameterType="String" resultMap="orderCurrentStatusResultMap">
 		/* 현재 주문 상태 상세보기 */

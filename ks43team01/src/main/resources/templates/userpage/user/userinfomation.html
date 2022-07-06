@@ -51,6 +51,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 							    <a class="nav-link taps" id="v-pills-profile-tab2" data-toggle="pill" href="#v-pills-profile2" role="tab" aria-controls="v-pills-profile2" aria-selected="false">학력사항</a>
 							    <a class="nav-link taps" id="v-pills-profile-tab3" data-toggle="pill" href="#v-pills-profile3" role="tab" aria-controls="v-pills-profile3" aria-selected="false">구매내역</a>
 							    <a class="nav-link taps" id="v-pills-profile-tab4" data-toggle="pill" href="#v-pills-profile4" role="tab" aria-controls="v-pills-profile4" aria-selected="false">판매내역</a>
+							    <a class="nav-link taps" id="v-pills-profile-tab5" data-toggle="pill" href="#v-pills-profile5" role="tab" aria-controls="v-pills-profile5" aria-selected="false">취소/환불</a>
     						</div>
   						</div>
   						<div class="col-9">
@@ -211,6 +212,36 @@ layout:decorate="~{userpage/layout/userdefault}">
 											</div>
 											<div class="col-12" style="display: inline-block; justify-content: center;margin-top:20%;">
 												<a  th:href="@{userpage/order/orderCancel}" class="btn-danger btn-sm" style="display: center;">환불요청</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane fade" id="v-pills-profile5" role="tabpanel" aria-labelledby="v-pills-settings-tab5">
+									<div class="row" style="border-bottom: 1px solid grey;">
+										<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
+											<div class="col-12" style="display: inline-block;">
+												<img  class="img-responsive" style="width: 80%" src="https://t1.daumcdn.net/cfile/tistory/25367D465817198104">
+											</div>
+										</div>
+										<th:block th:if="${not #lists.isEmpty(orderCartList)}" th:each="o : ${orderCartList}">
+										<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
+											<input type="hidden" name="userIdCode" id="userIdCode" th:value="${o.userIdCode}">
+											<input type="hidden" name="orderCartCode" id="orderCartCode" th:value="${o.userIdCode}">
+											<p th:text="${o.goodsName}">1</p>
+											<i th:text="${o.goodsPrice+'원'}">1</i>
+											<input type th:value="${o.goodsCode}">
+											<p th:text="${o.goodsDetails}">1</p>
+										</div>
+										<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
+											<div class="col-12" style="display: inline-block;">
+												<p th:text="|판매자 : ${o.sellerIdCode}|">₩</p>
+												<p th:text="|판매자번호 ${o.sellerPhoneNumber}|">1</p>
+										</div>
+										</div>
+										</th:block>
+										<div class="col-xs-6 col-sm-3" style="text-align:center;  width: 25%;" >
+											<div class="col-12" style="display: inline-block; justify-content: center;margin-top:20%;">
+												<a  class="btn-danger btn-sm"  style="display: center;">환불심사중</a>
 											</div>
 										</div>
 									</div>

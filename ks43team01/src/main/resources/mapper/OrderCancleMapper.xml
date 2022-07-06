@@ -58,7 +58,47 @@
 			<result column="refund_request_check" 			property="refundRequestCheck"/>
 			<result column="refund_request_money" 			property="refundRequestmoney"/>
 			<result column="refund_buyer_seller_consultation_code" 			property="refundBuyerSellerConsultationCode"/>
+		<association property="RefundReason" javaType="RefundReason">
+			<id column="refund_request_reason_code_name" 		property="refundRequestReasonCodeName"/>
+		</association>
+		<association property="goods" javaType="goods">
+			<id column="goods_name" 		property="goodsName"/>
+		</association>
 	</resultMap>
+	
+		<select id="getRefundRequestList" resultType="Map">
+			/*어드민페이지 환불 내역 총 들어온거 셀렉트*/
+			SELECT 
+			 	rrr.refund_request_code as refundRequestCode
+			 	,rrr.refund_request_money as refundRequestmoney
+			 	,rrr.refund_request_datetime as refundRequestDatetime
+			 	,oocs.user_id_code as userIdCode
+			 	,gg.goods_name as goodsName
+			 	,rrrr.refund_request_reason_code_name as refundRequestReasonCodeName
+			 	,rrbs.buyer_seller_consultation_refund_work_progress as buyerSellerConsultatioRefundWorkProgress
+			FROM 
+				tb_rf_refund_request as rrr
+				inner join
+				tb_o_order_current_status  as oocs
+				on
+				rrr.order_code = oocs.order_code 
+				INNER  JOIN 
+				tb_g_goods as gg 
+				on
+				oocs.goods_code = gg.goods_code 
+				INNER  JOIN 
+				tb_rf_refund_request_reason as rrrr 
+				on
+				rrr.refund_request_reason_code = rrrr.refund_request_reason_code 
+				INNER  JOIN 
+				tb_rf_refund_buyer_seller_consultation_standard as rrbs 
+				on
+				rrr.refund_buyer_seller_consultation_code = rrbs.refund_buyer_seller_consultation_code 
+	
+		
+		</select>
+
+
 		<insert id="addRefundRequest" parameterType="RefundPayment">
 		/*환불테이블 1번 입력값*/
 			INSERT INTO tb_rf_refund_request
@@ -108,7 +148,7 @@
 				on
 				oocs.goods_code = gg.goods_code 
 			Where
-				ppg.user_id_code = 'id009'
+				ppg.user_id_code = 'id009';
 		</select>	
 	  
 	  <select id="getReasonList" resultType="RefundReason">
