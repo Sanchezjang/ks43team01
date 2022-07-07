@@ -205,15 +205,15 @@ layout:decorate="~{userpage/layout/userdefault}">
 												<p th:text="|판매자번호 ${o.sellerPhoneNumber}|">1</p>
 											</div>
 										</div>
-										</th:block>
 										<div class="col-xs-6 col-sm-3" style="text-align:center;  width: 25%;" >
 											<div class="col-12" style="display: inline-block; justify-content: center;margin-top:20%;">
-												<a  class="btn-warning btn-sm" th:href="@{/userpage/reviewUser/addReview}" style="display: center;">리뷰쓰기</a>
+												<a  class="btn-warning btn-sm" th:href="@{/userpage/reviewUser/addReview(goodsCode=${o.goodsCode})}" style="display: center;">리뷰쓰기</a>
 											</div>
 											<div class="col-12" style="display: inline-block; justify-content: center;margin-top:20%;">
 												<a  th:href="@{userpage/order/orderCancel}" class="btn-danger btn-sm" style="display: center;">환불요청</a>
 											</div>
 										</div>
+										</th:block>
 									</div>
 								</div>
 								<div class="tab-pane fade" id="v-pills-profile5" role="tabpanel" aria-labelledby="v-pills-settings-tab5">

@@ -104,6 +104,8 @@ layout:decorate="~{userpage/layout/userdefault}">
 					<div class="col-12">
 						<div class="form-group">
 						<h4>내용</h4>
+							<input type="hidden" name="goodsCode" id="goodsCode" th:value=${goodsCode}>
+							<input type="hidden" name="reviewScoreStandardCode" id="reviewScoreStandardCode" th:value=${reviewScoreStandardCode}>
 							<textarea class="form-control w-100" name="reviewContent" id="reviewContent" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = '본문을 입력하세요.'" placeholder="본문을 입력하세요."  required></textarea>
 						</div>
 					</div>
