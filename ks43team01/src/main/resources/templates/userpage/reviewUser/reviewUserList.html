@@ -186,7 +186,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 						</div>
 					</div>
 					<div class="x_panel">
-						<div class="reviewForm"  th:each="r : ${reviewUserList}"> <!-- th:if="${session.GoodsCode == r.goodsCode}" --> 
+						<div class="reviewForm"  th:each="r : ${reviewUserList}">  
 							<div style="position: absolute;  left: 10%;  transform: translateX(-50%);  transform: translateY(-30px);">
 								<span th:text="${r.userIdCode}">작성자</span>
 							</div>
