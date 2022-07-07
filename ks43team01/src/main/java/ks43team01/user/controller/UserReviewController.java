@@ -79,17 +79,15 @@ public class UserReviewController {
 	@PostMapping("/addReview")
 	public String addReview(ReviewContentsReg reviewContentsReg
 						   ,HttpServletRequest request
-						   ,HttpSession session) {
+						   ,HttpSession session
+						   ,RedirectAttributes reAttr) {
 		
 		String ip = (String)request.getRemoteAddr();
 		String userIdCode =(String) session.getAttribute("UID");
-		String goodsCode = (String)session.getAttribute("GoodsCode");
 		reviewContentsReg.setReviewRegIp(ip);
 		reviewContentsReg.setUserIdCode(userIdCode);
-		reviewContentsReg.setGoodsCode(goodsCode);
 		log.info("아이피 가저오는지   :  {}",ip);
 		log.info("아이디 값 가져오는지 : {}", userIdCode);
-		log.info("상품기본정보 값 가져오는지 : {}", goodsCode);
 		log.info("들어오는 값 :{} ", reviewContentsReg);
 		reviewService.addReview(reviewContentsReg);
 		reviewService.reviewSavePoint(userIdCode);
@@ -105,12 +103,13 @@ public class UserReviewController {
 	@GetMapping("/addReview")
 	public String addReview(Model model
 						   ,@RequestParam(name = "reviewStarScore" , required = false)String reviewStarScore
-						   ,@RequestParam(name = "userIdCode", required = false)String usedIdCode) {
-						
-		
+						   ,@RequestParam(name = "userIdCode", required = false)String usedIdCode
+						   ,@RequestParam(name = "goodsCode", required = false)String goodsCode
+						   ,@RequestParam(name = "reviewScoreStandardCode", required = false)String reviewScoreStandardCode){
 		List<ReviewContentsReg> reviewUserList = reviewService.getReviewUserList();
 		model.addAttribute("reviewUserList", reviewUserList);
-		
+		model.addAttribute("goodsCode",goodsCode);
+		model.addAttribute("reviewScoreStandardCode",reviewScoreStandardCode);
 		return "/userpage/reviewUser/addReview";
 	}
 	

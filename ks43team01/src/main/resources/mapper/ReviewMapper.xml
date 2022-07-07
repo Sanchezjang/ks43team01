@@ -199,7 +199,12 @@
 				   tb_r_review_contents AS rr)
 			 ,#{goodsCode}
 			 ,#{userIdCode}
-			 ,#{reviewScoreStandardCode}
+			 ,(SELECT 
+					review_score_standard_code
+				FROM 
+					tb_r_based_on_score_by_review 
+				WHERE 
+					review_star_score = #{reviewStarScore})
 			 ,#{reviewContent}
 			 ,0
 			 ,0
