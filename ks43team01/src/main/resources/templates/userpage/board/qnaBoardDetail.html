@@ -53,6 +53,10 @@ layout:decorate="~{userpage/layout/userdefault}">
 	.returnPage{
 		padding-bottom: 30px;
 	}
+	
+	.postFile{
+		border: none;
+	}
 
 </style>
 
@@ -111,6 +115,9 @@ layout:decorate="~{userpage/layout/userdefault}">
                      <tr>
                         <td class="detailContent" colspan="4" th:text="${qnaBoard.boardQuestionContent}"></td>
                      </tr>
+                     <tr class="postFile">
+                        <td class="postFile"th:text="${qnaBoard.boardQuestionFile}" colspan="4"></td>
+                     </tr>
                       <tr>
                         <th>답변 방법</th>
                         <td th:text="${qnaBoard.boardQuestionAnswerMethod}"></td>
@@ -119,9 +126,9 @@ layout:decorate="~{userpage/layout/userdefault}">
                        </tr>
                       <tr>
                         <th>공개 여부</th>
-                        <td th:text="${qnaBoard.boardQuestionLock}"></td>
-                        <th>첨부파일</th>
-                        <td th:text="${qnaBoard.boardPostFileCode}"></td>
+                        <td th:text="${qnaBoard.boardQuestionLock}" colspan="4"></td>
+                       
+                      
                        </tr>
     
                   </tbody>

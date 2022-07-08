@@ -1,5 +1,9 @@
 package ks43team01.dto;
 
+import java.util.List;
+import java.util.Map;
+
+
 public class QnaBoard {
 	private String boardQuestionCode;
 	private String userIdCode;
@@ -9,6 +13,7 @@ public class QnaBoard {
 	private String boardQuestionTitle;
 	private String userName;
 	private String boardQuestionContent;
+	private String boardQuestionFile;
 	private String boardQuestionRegDate;
 	private String userEmail;
 	private String boardQuestionAnswerMethod;
@@ -22,15 +27,11 @@ public class QnaBoard {
 	private BoardCategory boardCategory;
 	private BoardLargeCategory boardLargeCategory;
 	private BoardMediumCategory boardMediumCategory;
-	private BoardPostFile boardPostFile;
 	private BoardAnswer boardAnswer;
 	
-	public String getBoardPostFileCode() {
-		return boardPostFileCode;
-	}
-	public void setBoardPostFileCode(String boardPostFileCode) {
-		this.boardPostFileCode = boardPostFileCode;
-	}
+	private List<Map<String, String>> 	relFileWithQnaBoard;
+	private List<File> 				File;
+	
 	public String getBoardQuestionCode() {
 		return boardQuestionCode;
 	}
@@ -78,6 +79,12 @@ public class QnaBoard {
 	}
 	public void setBoardQuestionContent(String boardQuestionContent) {
 		this.boardQuestionContent = boardQuestionContent;
+	}
+	public String getBoardQuestionFile() {
+		return boardQuestionFile;
+	}
+	public void setBoardQuestionFile(String boardQuestionFile) {
+		this.boardQuestionFile = boardQuestionFile;
 	}
 	public String getBoardQuestionRegDate() {
 		return boardQuestionRegDate;
@@ -127,6 +134,12 @@ public class QnaBoard {
 	public void setBoardQuestionUse(String boardQuestionUse) {
 		this.boardQuestionUse = boardQuestionUse;
 	}
+	public String getBoardPostFileCode() {
+		return boardPostFileCode;
+	}
+	public void setBoardPostFileCode(String boardPostFileCode) {
+		this.boardPostFileCode = boardPostFileCode;
+	}
 	public BoardCategory getBoardCategory() {
 		return boardCategory;
 	}
@@ -145,17 +158,23 @@ public class QnaBoard {
 	public void setBoardMediumCategory(BoardMediumCategory boardMediumCategory) {
 		this.boardMediumCategory = boardMediumCategory;
 	}
-	public BoardPostFile getBoardPostFile() {
-		return boardPostFile;
-	}
-	public void setBoardPostFile(BoardPostFile boardPostFile) {
-		this.boardPostFile = boardPostFile;
-	}
 	public BoardAnswer getBoardAnswer() {
 		return boardAnswer;
 	}
 	public void setBoardAnswer(BoardAnswer boardAnswer) {
 		this.boardAnswer = boardAnswer;
+	}
+	public List<Map<String, String>> getRelFileWithQnaBoard() {
+		return relFileWithQnaBoard;
+	}
+	public void setRelFileWithQnaBoard(List<Map<String, String>> relFileWithQnaBoard) {
+		this.relFileWithQnaBoard = relFileWithQnaBoard;
+	}
+	public List<File> getFile() {
+		return File;
+	}
+	public void setFile(List<File> file) {
+		File = file;
 	}
 	@Override
 	public String toString() {
@@ -176,6 +195,8 @@ public class QnaBoard {
 		builder.append(userName);
 		builder.append(", boardQuestionContent=");
 		builder.append(boardQuestionContent);
+		builder.append(", boardQuestionFile=");
+		builder.append(boardQuestionFile);
 		builder.append(", boardQuestionRegDate=");
 		builder.append(boardQuestionRegDate);
 		builder.append(", userEmail=");
@@ -200,13 +221,16 @@ public class QnaBoard {
 		builder.append(boardLargeCategory);
 		builder.append(", boardMediumCategory=");
 		builder.append(boardMediumCategory);
-		builder.append(", boardPostFile=");
-		builder.append(boardPostFile);
 		builder.append(", boardAnswer=");
 		builder.append(boardAnswer);
+		builder.append(", relFileWithQnaBoard=");
+		builder.append(relFileWithQnaBoard);
+		builder.append(", File=");
+		builder.append(File);
 		builder.append("]");
 		return builder.toString();
 	}
-
+	
+	
 
 }

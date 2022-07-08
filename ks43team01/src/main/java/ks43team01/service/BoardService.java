@@ -1,32 +1,36 @@
 package ks43team01.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import ks43team01.common.FileUtils;
 import ks43team01.dto.Board;
 import ks43team01.dto.BoardAnswer;
 import ks43team01.dto.BoardCategory;
 import ks43team01.dto.BoardComment;
 import ks43team01.dto.BoardLargeCategory;
 import ks43team01.dto.BoardMediumCategory;
-import ks43team01.dto.BoardPostFile;
-import ks43team01.dto.GoodsSubCategory;
-import ks43team01.dto.GoodsTopCategory;
 import ks43team01.dto.QnaBoard;
 import ks43team01.mapper.BoardMapper;
+import ks43team01.mapper.FileMapper;
 
 @Service
 @Transactional
 public class BoardService {
 	
 	private final BoardMapper boardMapper;
+	private final FileMapper fileMapper;
 	
-	public BoardService(BoardMapper boardMapper) {
+	public BoardService(BoardMapper boardMapper, FileMapper fileMapper) {
 		this.boardMapper = boardMapper;
+		this.fileMapper = fileMapper;
 	}
 	
 	private static final Logger log = LoggerFactory.getLogger(BoardService.class);
@@ -36,11 +40,39 @@ public class BoardService {
 	 * */
 	
 	/* 1:1 게시글 등록 */
-	public int addQnaBoard(String sessionId, QnaBoard qnaBoard) {
+	public String addQnaBoard(String sessionId, QnaBoard qnaBoard, MultipartFile[] boardImgFile, String fileRealPath) {
 		qnaBoard.setUserIdCode(sessionId);
-		int result = boardMapper.addQnaBoard(qnaBoard);
 		
-		return result;
+		// 1. 1:1 문의 게시글 첨부파일 업로드
+		// 2. 파일 업로드 시 파일 DB insert
+		// 3. 게시글 insert
+		// 4. 결과값 return
+		
+		//파일 업로드 객체 생성
+		FileUtils fu = new FileUtils(boardImgFile, qnaBoard.getUserIdCode(), fileRealPath);
+		List<Map<String, String>> dtoFileList = fu.parseFileInfo();
+		
+		//tb_f_file 테이블에 데이터 삽입
+		System.out.println(dtoFileList + "BoardService/addQnaBoard");
+		fileMapper.uploadFile(dtoFileList);
+		
+		//게시글 등록 - 게시글 코드를 selectKey값으로 담기
+		boardMapper.addQnaBoard(qnaBoard);
+		log.info("추가 후 qnaBoard : {}", qnaBoard);
+		
+		String boardQuestionCode = qnaBoard.getBoardQuestionCode();
+		log.info("boardQuestionCode : {}", qnaBoard);
+		
+		//릴레이션 테이블에 삽입
+		List<Map<String, String>> relationFileList = new ArrayList<>();
+		for(Map<String, String> m : dtoFileList) {
+			m.put(boardQuestionCode, boardQuestionCode);
+			relationFileList.add(m);
+		}
+		System.out.println(relationFileList);
+		fileMapper.uploadRelationFileWithQnaBoard(relationFileList);
+		
+		return boardQuestionCode;
 	}
 	
 	/* 1:1 게시판 게시글 조회*/
@@ -178,11 +210,6 @@ public class BoardService {
 		return boardCommentList;
 	}
 	
-	/*게시글 첨부파일 목록 조회*/
-	public List<BoardPostFile> getBoardPostFileList(){
-		List<BoardPostFile> boardPostFileList = boardMapper.getBoardPostFileList();
-		return boardPostFileList;
-	}
 	
 	/*문의 게시판 2차 카테고리 등록*/
 	public int addBoardMediumCategory(String sessionId, BoardMediumCategory boardMediumCategory) {
