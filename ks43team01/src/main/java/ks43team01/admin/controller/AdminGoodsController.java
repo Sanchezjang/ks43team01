@@ -145,7 +145,30 @@ public class AdminGoodsController {
 	
 	
 	//상품 상위 카테고리 수정
+	@PostMapping("/modifyGoodsTopCategory")
+	public String modifyGoodsTopCategory(GoodsTopCategory goodsTopCategory
+			,RedirectAttributes reAttr) {
+		//log.info("goodsTopCategory: {}", goodsTopCategory);
+		
+		goodsService.modifyGoodsTopCategory(goodsTopCategory);
+		String goodsTopCategoryCode = goodsTopCategory.getGoodsTopCategoryCode();
+		reAttr.addAttribute("goodsTopCategoryCode", goodsTopCategoryCode);
+		return "redirect:/adminpage/goods/goodsTopCategoryList";
+	}
 	
+	//상품 상위 카테고리 수정
+	@GetMapping("/modifyGoodsTopCategory")
+	public String modifyGoodsTopCategory(@RequestParam(value="goodsTopCategoryCode", required= false)String goodsTopCategoryCode
+			,Model model) {
+		
+		GoodsTopCategory goodsTopCategory = goodsService.getModifyGoodsTopCategoryCode(goodsTopCategoryCode);
+		
+		log.info("goodsTopCategory : {}", goodsTopCategory);
+		model.addAttribute("goodsTopCategory", goodsTopCategory);
+		model.addAttribute("goodsTopCategoryCode", goodsTopCategoryCode);
+		
+		return "adminpage/goods/modifyGoodsTopCategory";
+	}	
 	
 	//상품 상위 카테고리 리스트
 	@GetMapping("/goodsTopCategoryList")
