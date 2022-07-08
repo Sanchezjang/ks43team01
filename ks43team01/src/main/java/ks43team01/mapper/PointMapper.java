@@ -13,6 +13,9 @@ import ks43team01.dto.PointStandardDetails;
 @Mapper
 public interface PointMapper {
 	
+	/* 관리자 페이지 포인트 내역 날짜 별 조회 */
+	public List<Point> searchDatePointList(String startDate, String endDate);
+	
 	/* 관리자 페이지 포인트 기준 내역 수정 */
 	public int modifyGradeList(PointSaveByGrade pointSaveByGrade);
 	

@@ -25,6 +25,16 @@ public class PointService {
 
 	}
 	
+	/* 관리자 페이지 포인트 내역 날짜 별 조회 */
+	public List<Point> searchDatePointList(String startDate, String endDate) {
+		log.info("startDate:{}",startDate);
+		log.info("endDate:{}",endDate);
+		List<Point> pointList = pointMapper.searchDatePointList(startDate, endDate);
+		
+		return pointList;
+		
+	}
+	
 	/* 관리자 페이지 포인트 기준 내역 수정 */
 	public int modifyGradeList(PointSaveByGrade pointSaveByGrade) {
 		log.info("pointSaveByGrade:{}",pointSaveByGrade);

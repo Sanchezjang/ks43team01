@@ -4,20 +4,22 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import ks43team01.dto.Point;
 import ks43team01.dto.ReviewContentsReg;
 
 @Mapper
 public interface ReviewMapper {
 	
-	
+	/* 리뷰 등록 후 포인트 내역 추가 */
+	public List<Point> accumReviewPoint();
 	
 	/* 관리자페이지 리뷰 삭제 처리 */
 	public int removeAdminReview(String reviewCode);
 	
-	/* 회원페이지 리뷰 수정 처리 */
+	/* 유저페이지 리뷰 수정 처리 */
 	public int modifyReview(ReviewContentsReg reviewContentsReg);
 	
-	/* 회원페이지 리뷰 삭제 처리 */
+	/* 유저페이지 리뷰 삭제 처리 */
 	public int removeReview(String reviewCode);
 	
 	/* 리뷰 등록시 회원 테이블에 포인트 적립*/

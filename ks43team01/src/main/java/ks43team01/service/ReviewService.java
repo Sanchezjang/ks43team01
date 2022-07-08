@@ -10,21 +10,33 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ks43team01.dto.Point;
 import ks43team01.dto.ReviewContentsReg;
+import ks43team01.mapper.PointMapper;
 import ks43team01.mapper.ReviewMapper;
 
 
 @Service
 @Transactional
 public class ReviewService {
-		private final ReviewMapper reviewMapper ;
+		private final ReviewMapper reviewMapper;
+		private final PointMapper pointMapper;
 			
-		public ReviewService(ReviewMapper reviewMapper) {
+		public ReviewService(ReviewMapper reviewMapper, PointMapper pointMapper) {
 			this.reviewMapper = reviewMapper;
+			this.pointMapper =pointMapper;
+		
+		
 		}
 		private static final Logger log = LoggerFactory.getLogger(ReviewService.class);
 		
-		
+		/* 리뷰등록 후 포인트 내역에 추가 */
+		public List<Point> accumReviewPoint(){
+			
+			List<Point> accumReviewPointList = pointMapper.getPointList();
+			log.info("accumReviewPointList",accumReviewPointList);
+			return accumReviewPointList;
+		}
 		
 		/* 관리자페이지 리뷰 삭제 */
 		public int removeAdminReview(String reviewCode) {

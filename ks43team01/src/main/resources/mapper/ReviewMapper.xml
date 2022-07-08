@@ -51,7 +51,35 @@
 	  		<result column="user_update_date"			    property="userUpDate"/>
 	  		<result column="level_num_code" 				property="userLevel"/>
 		</association>
+		<association property="point" javaType="Point">
+			<id 	column="point_details_code"	 					property="pointDetailsCode"/>
+			<result column="user_id_code" 							property="userIdCode"/>
+			<result column="point_standard_details_code" 			property="pointStandardDetailsCode"/>
+			<result column="point_amount"				   		 	property="pointAmount"/>
+			<result column="user_email" 							property="userEmail"/>
+			<result column="point_history_reg_date" 				property="pointHistoryRegDate"/>
+		</association>
 	</resultMap>
+	
+	<insert id="addreview" parameterType="String">
+	/* 리뷰 등록 후 포인트 내역 추가 */
+	INSERT INTO tb_pt_point_accumulation_details
+		(Point_details_code							AS pointDetailsCode
+		,user_id_code								AS userIdCode
+		,point_standard_details_code				AS pointStandardDetailsCode
+		,point_amount								AS pointAmount
+		,user_email									AS userEmail
+		,point_history_reg_date						AS pointHistoryRegDate
+		)
+	VALUES 
+		(#{pointDetailsCode}
+		,#{userIdCode}
+		,#{pointStandardDetailsCode}
+		,#{pointAmount}
+		,#{userEmail}
+		,CURDATE()
+		);
+	</insert>
 	
 	
 	<select id="getReviewAdminList" resultType="Map">

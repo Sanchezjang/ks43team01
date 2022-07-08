@@ -128,6 +128,19 @@ public class AdminPointController {
 		return "adminpage/pointDetails/pointGradeList";
 	}
 	
+	/* 관리자 페이지 포인트 내역 날짜 별 조회 */
+	@GetMapping("/searchDatePointList")
+	public String searchDatePointList(Model model
+								,@RequestParam(name ="startDate", required = false)String startDate
+								,@RequestParam(name = "endDate", required = false)String endDate){
+		log.info("startDate",startDate);
+		log.info("endDate",endDate);
+		List<Point> searchDatePointList = pointService.searchDatePointList(startDate, endDate);
+		model.addAttribute("pointList:{}",searchDatePointList);
+		
+		return "adminpage/pointDetails/pointList";
+	}
+	
 	/* 관리자 페이지 포인트  내역 삭제 */
 	@GetMapping("/removePointStandard")
 	public String removePointStandard(String pointDetailsCode) {
