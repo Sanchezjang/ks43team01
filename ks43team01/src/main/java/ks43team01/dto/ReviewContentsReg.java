@@ -17,6 +17,7 @@ public class ReviewContentsReg {
 	private ReviewByScore scoreByReview; 
 	private User user;
 	private PointSaveByReview pointSaveByReview;
+	private Point point;
 	
 	@Override
 	public String toString() {
@@ -26,7 +27,7 @@ public class ReviewContentsReg {
 				+ reviewDecommendationsCount + ", reviewRegDate=" + reviewRegDate + ", reviewRegBuyerExp="
 				+ reviewRegBuyerExp + ", reviewRegIp=" + reviewRegIp + ", reviewStarScore=" + reviewStarScore
 				+ ", goods=" + goods + ", scoreByReview=" + scoreByReview + ", user=" + user + ", pointSaveByReview="
-				+ pointSaveByReview + "]";
+				+ pointSaveByReview + ", point=" + point + "]";
 	}
 	public String getReviewCode() {
 		return reviewCode;
@@ -117,5 +118,11 @@ public class ReviewContentsReg {
 	}
 	public void setPointSaveByReview(PointSaveByReview pointSaveByReview) {
 		this.pointSaveByReview = pointSaveByReview;
+	}
+	public Point getPoint() {
+		return point;
+	}
+	public void setPoint(Point point) {
+		this.point = point;
 	}
 }
