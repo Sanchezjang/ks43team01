@@ -65,7 +65,10 @@ public interface GoodsMapper {
 	
 	
 	//상품 상위 카테고리 수정
+	public int modifyGoodsTopCategory(GoodsTopCategory goodsTopCategory);
 	
+	//상품 상위 카테고리 수정 화면 기존 데이터 불러오기
+	public GoodsTopCategory getModifyGoodsTopCategoryCode(String goodsTopCategoryCode);	
 	
 	//상품 상위 카테고리 리스트
 	public List<GoodsTopCategory> getGoodsTopCategoryList();

@@ -57,7 +57,7 @@
 	</delete>
 	
 	<select id="getModifyGoodsInfoCode" parameterType="String" resultMap="GoodsResultMap">
-	  	/* 수정화면 기존 데이터 조회 */	
+	  	/* 상품 수정화면 기존 데이터 조회 */	
 		SELECT
 			c.goods_top_category_name,
 			c.goods_sub_category_name,
@@ -259,7 +259,14 @@
 		SELECT
 			g.goods_sub_category_code 		AS goodsSubCategoryCode,
 			g.goods_top_category_code 		AS goodsTopCategoryCode,
-			g.goods_top_category_name 		AS goodsTopCategoryName,
+			(
+			SELECT
+				t.goods_top_category_name
+			FROM
+				tb_g_goods_top_category AS t
+			WHERE
+				t.goods_top_category_code = g.goods_top_category_code
+			) AS goodsTopCategoryName,
 			g.goods_sub_category_name		AS goodsSubCategoryName,
 			g.user_id_code					AS userIdCode,
 			g.goods_sub_category_reg_date	AS goodsSubCategoryRegDate
@@ -301,8 +308,30 @@
 		/* 상품 상위 카테고리 삭제 */
 		
 	</delete>
+
+	<update id="modifyGoodsTopCategory" parameterType="String">
+		/* 상품 상위 카테고리 수정 */
+		UPDATE
+			tb_g_goods_top_category
+		SET
+			goods_top_category_name = #{goodsTopCategoryName},
+			goods_top_category_reg_date = CURDATE()
+		WHERE
+			goods_top_category_code = #{goodsTopCategoryCode};
+	</update>
 	
-	
+	<select id="getModifyGoodsTopCategoryCode" parameterType="String" resultMap="GoodsResultMap">
+	  	/* 상품 상위 카테고리 수정화면 기존 데이터 조회 */	
+		SELECT
+			g.goods_top_category_code		AS goodsTopCategoryCode,
+			g.goods_top_category_name		AS goodsTopCategoryName,
+			g.user_id_code					AS userIdCode,
+			g.goods_top_category_reg_date	AS goodsTopCategoryRegDate
+		FROM
+			tb_g_goods_top_category AS g
+		WHERE
+			g.goods_top_category_code = #{goodsTopCategoryCode};
+  	</select>
 	
 	<select id="getGoodsTopCategoryList" resultType="GoodsTopCategory">
 		/* 상품 상위 카테고리 리스트 조회 */
