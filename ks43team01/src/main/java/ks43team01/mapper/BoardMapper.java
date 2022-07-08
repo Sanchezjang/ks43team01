@@ -124,8 +124,6 @@ public interface BoardMapper {
 	//게시글 답변 모음 목록 조회
 	public List<BoardAnswer> getBoardAnswerList();
 	
-	//게시글 첨부파일 목록 조회
-	public List<BoardPostFile> getBoardPostFileList();
 	
 	//전체 게시글 목록 조회
 	public List<Board> getBoardList();

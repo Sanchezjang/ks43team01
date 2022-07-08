@@ -47,6 +47,7 @@
 		<result column="board_question_title"				property="boardQuestionTitle"/>
 		<result column="user_name"							property="userName"/>
 		<result column="board_question_content"				property="boardQuestionContent"/>
+		<result column="board_question_file"				property="boardQuestionFile"/>
 		<result column="board_question_reg_date"			property="boardQuestionRegDate"/>
 		<result column="user_email"							property="userEmail"/>
 		<result column="board_question_answer_method"		property="boardQuestionAnswerMethod"/>
@@ -55,7 +56,7 @@
 		<result column="board_question_update_date"			property="boardQuestionUpdateDate"/>
 		<result column="board_question_page_view"			property="boardQuestionPageView"/>
 		<result column="board_question_use"					property="boardQuestionUse"/>
-      
+		
 		<association property="boardLargeCategory" javaType="BoardLargeCategory">
 			<id    column="board_l_category_code"			property="boardLargeCategoryCode"/>
 			<result column="user_id_code"					property="userIdCode"/>
@@ -76,17 +77,6 @@
 			<result column="board_m_category_use"			property="boardMediumCategoryUse"/>
 		</association>
   
-		<association property="boardPostFile" javaType="BoardPostFile">
-			<id    column="board_post_file_code"			property="boardPostFileCode"/>
-			<result column="user_id_code"					property="userIdCode"/>
-			<result column="board_question_code"			property="boardQuestionCode"/>
-			<result column="board_post_file_name"			property="boardPostFileName"/>
-			<result column="board_post_file_extension"		property="boardPostFileExtension"/>
-			<result column="board_post_file_size"			property="boardPostFileSize"/>
-			<result column="board_post_file_reg_date"		property="boardPostFileRegDate"/>
-			<result column="board_post_file_use"			property="boardPostFileUse"/>   
-		</association>
-		
 		<association property="boardAnswer" javaType="BoardAnswer">
 			<id    column="board_answer_code"				property="boardAnswerCode"/>
 			<result column="user_id_code"					property="userIdCode"/>
@@ -97,6 +87,19 @@
 			<result column="board_answer_reg_date"			property="boardAnswerRegDate"/>
 			<result column="board_answer_update_date"		property="boardAnswerUpdateDate"/>   
 		</association>
+		
+		<collection property="file" ofType="File">
+			<id    column="file_code"						property="fileCode"/>
+			<result column="user_id_code"					property="userIdCode"/>
+			<result column="file_orginal_name"				property="fileOriginalName"/>
+			<result column="file_re_name"					property="fileReName"/>
+			<result column="file_main_image"				property="fileMainImage"/>
+			<result column="file_location"					property="fileLocation"/>
+			<result column="file_size"						property="fileSize"/>
+			<result column="file_reg_date"					property="fileRegDate"/>
+			<result column="file_update_date"				property="fileUpdateDate"/>
+			<result column="file_use"						property="fileUse"/>	
+		</collection>
 	</resultMap>
 
   
@@ -222,36 +225,46 @@
 			board_post_code = #{boardPostCode};
 	</update>
 
-	<select id="getQnaBoardByCode" parameterType="String" resultType="QnaBoard">
+	<select id="getQnaBoardByCode" parameterType="String" resultMap="qnaBoardResultMap">
 	/*1:1 문의 게시글 상세 페이지 조회*/
 		SELECT
-			q.board_question_code 					AS boardQuestionCode
-			, q.user_id_code 						AS userIdCode
-			, q.board_category_code					AS boardCategoryCode
-			, q.board_l_category_code				AS boardLargeCategoryCode
-			, q.board_m_category_code				AS boardMediumCategoryCode
-			, l.board_l_category_name 				AS boardLargeCategoryName
-			, m.board_m_category_name 				AS boardMediumCategoryName
-			, q.board_question_title 				AS boardQuestionTitle
-			, q.user_name 							AS userName
-			, q.board_question_content 				AS boardQuestionContent
-			, q.board_question_reg_date				AS boardQuestionRegDate
-			, q.user_email 							AS userEmail
-			, q.board_question_answer_method 		AS boardQuestionAnswerMethod
-			, q.board_question_lock 				AS boardQuestionLock
-			, q.board_post_file_code				AS boardPostFileCode
+			bq.board_question_code
+			,bq.user_id_code
+			,bq.board_category_code
+			,bq.board_l_category_code
+			,bq.board_m_category_code
+			,bq.board_question_title
+			,bq.user_name
+			,bq.board_question_content
+			,bq.board_question_file
+			,bq.board_question_reg_date
+			,bq.user_email
+			,bq.board_question_answer_method
 		FROM
-			tb_b_board_question AS q
-			INNER JOIN
-				tb_b_board_l_category AS l
-			ON
-				q.board_l_category_code = l.board_l_category_code
+			tb_b_board_question AS bq
 			INNER join
-				tb_b_board_m_category AS m
+				(SELECT
+					f.file_code 
+					,f.user_id_code
+					,f.file_orginal_name
+					,f.file_re_name
+					,f.file_main_image
+					,f.file_location
+					,f.file_size
+					,f.file_reg_date
+					,f.file_update_date
+					,f.file_use
+					,re.board_question_code
+				FROM
+					tb_f_file AS f
+					INNER join
+						tb_b_rel_file_with_QnaBoard AS re
+					on
+						f.file_code = re.file_code) AS sub
 			ON
-				q.board_m_category_code = m.board_m_category_code
-		WHERE
-			q.board_question_code = #{boardQuestionCode};
+				sub.board_question_code = bq.board_question_code
+			where
+				bq.board_question_code = #{boardQuestionCode};
 	</select>
    
 	<select id="getBoardByCode" parameterType="String" resultType="Board">
@@ -270,21 +283,6 @@
 			board_post_code = #{boardPostCode};
    </select>
       
-	<select id="getBoardPostFileList" resultType="BoardPostFile">
-	/*게시글 첨부파일 목록 조회 */
-		SELECT
-			board_post_file_code					AS boardPostFileCode
-			, user_id_code							AS userIdCode
-			, board_question_code					AS boardQuestionCode
-			, board_post_file_name					AS boardPostFileName
-			, board_post_file_extension				AS boardPostFileExtension
-			, board_post_file_size					AS boardPostFileSize
-			, board_post_file_reg_date				AS boardPostFileRegDate
-			, board_post_file_use					AS boardPostFileUse
-		FROM   
-			tb_b_board_post_file;
-   </select>
-   
    	<insert id="addQnaBoard" parameterType="QnaBoard">
 	/* 1:1 문의 게시글 등록*/
 		INSERT INTO tb_b_board_question
@@ -293,10 +291,10 @@
 			, board_category_code
 			, board_l_category_code
 			, board_m_category_code
-			, board_post_file_code
 			, board_question_title
 			, user_name
 			, board_question_content
+			, board_question_file
 			, board_question_reg_date
 			, user_email
 			, board_question_answer_method
@@ -318,10 +316,10 @@
 				m.board_m_category_code = #{boardMediumCategoryCode}
 			)	
 			, #{boardMediumCategoryCode}
-			, #{boardPostFileCode}
 			, #{boardQuestionTitle}
 			, #{userName}
 			, #{boardQuestionContent} 
+			, #{boardQuestionFile}
 			, CURDATE()
 			, #{userEmail}
 			, #{boardQuestionAnswerMethod}

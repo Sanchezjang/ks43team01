@@ -57,15 +57,6 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 		return "adminpage/boardAdmin/boardCommentList";
 	}
 	
-	/* 게시글 첨부파일 목록 조회 */
-	@GetMapping("/boardPostFileList")
-	public String getBoardPostFileList(Model model) {
-		List<BoardPostFile> boardPostFileList = boardService.getBoardPostFileList();
-		log.info("게시글 첨부파일 목록: {}", boardPostFileList);
-		model.addAttribute("boardPostFileList", boardPostFileList);
-		
-		return "adminpage/boardAdmin/boardPostFileList";
-	}
 	
 	/* 3-2.문의게시판 2차 카테고리 등록 (post) */
 	@PostMapping("/addBoardMediumCategory")

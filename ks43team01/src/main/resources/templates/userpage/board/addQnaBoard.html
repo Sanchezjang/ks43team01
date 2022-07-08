@@ -109,7 +109,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 				<div class="clearfix"></div>
 			</div>
 			<!-- start form for validation -->
-			<form th:action="@{/userpage/board/addQnaBoard}" method="post" id="demo-form" data-parsley-validate>
+			<form th:action="@{/userpage/board/addQnaBoard}" method="post" id="demo-form" data-parsley-validate enctype="multipart/form-data" name="multipart">
 				<div class="writer form-group">
 					<div class="form-group">
 					<label for="boardLargeCategoryName" class="col-12 mainExplanation required">1차 문의 카테고리</label>
@@ -147,7 +147,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 					</div>
 					<div class="col-6 goods">
 						<label for="userEmail" class="mainExplanation">이메일</label>
-						<input type="email" id="userName" class="form-control col-6" name="userEmail" required />
+						<input type="email" id="userName" class="form-control col-6" name="userEmail" />
 					</div>
 					<div class="col-6 goods">
 						<label for="boardQuestionLock" class="mainExplanation">공개여부</label>
@@ -156,11 +156,11 @@ layout:decorate="~{userpage/layout/userdefault}">
 					</div>
 					<div class="col-6 goods">
 						<label for="boardQuestionPw" class="mainExplanation">비밀번호</label>
-						<input type="password" id="boardQuestionPw" class="form-control col-6" name="boardQuestionPw" required />
+						<input type="password" id="boardQuestionPw" class="form-control col-6" name="boardQuestionPw"/>
 					</div>
 					<div class="col-6 goods">
 						<label for="boardPostFileCode" class="mainExplanation">첨부파일</label>
-						<input type="file" id="boardPostFileCode" class="form-control col-12" name="boardPostFileCode" />
+						<input type="file" id="boardPostFileCode" class="form-control col-12" name="boardImgFile" />
 						<div class="explanation">첨부파일을 입력해주세요.</div>
 					</div>
 					<div class="totalOrder">
