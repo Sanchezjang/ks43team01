@@ -5,21 +5,22 @@
   <mapper namespace="ks43team01.mapper.UserMapper">
 
 	  <resultMap type="ks43team01.dto.User" id="userResultMap">
-	  		<id column="user_id_code" property="userIdCode"/>
-	  		<result column="user_pw" property="userPw"/>
-	  		<result column="user_name" property="userName"/>
-	  		<result column="user_contact" property="userContact"/>
-	  		<result column="user_email" property="userEmail"/>
-	  		<result column="user_withdraw_status" property="userStatus"/>
-	  		<result column="user_activity_area" property="userArea"/>
-	  		<result column="user_retention_Points" property="userPoint"/>
-	  		<result column="user_rating_buyer" property="userRatingBuyer"/>
-	  		<result column="user_rating_seller" property="userRatingSeller"/>
-	  		<result column="user_rating" property="userRating"/>
-	  		<result column="user_reg_date" property="userRreDate"/>
-	  		<result column="user_update_date" property="userUpDate"/>
-	  		<result column="level_num_code" property="userLevel"/>
-  		</resultMap>
+		  		<id column="user_id_code" property="userIdCode"/>
+		  		<result column="user_pw" property="userPw"/>
+		  		<result column="user_name" property="userName"/>
+		  		<result column="user_contact" property="userContact"/>
+		  		<result column="user_email" property="userEmail"/>
+		  		<result column="user_withdraw_status" property="userStatus"/>
+		  		<result column="user_activity_area" property="userArea"/>
+		  		<result column="user_retention_Points" property="userPoint"/>
+		  		<result column="user_rating_buyer" property="userRatingBuyer"/>
+		  		<result column="user_rating_seller" property="userRatingSeller"/>
+		  		<result column="user_rating" property="userRating"/>
+		  		<result column="user_reg_date" property="userRreDate"/>
+		  		<result column="user_update_date" property="userUpDate"/>
+		  		<result column="level_num_code" property="userLevel"/>
+	  		
+  	  </resultMap>
 	  		<resultMap type="ks43team01.dto.GoodsTopCategory" id="GoodsTopCategoryResultMap">
 	  			<id column="goods_top_category_name" property="goodsTopCategoryName"/>
 	  			<result column="goods_top_category_code" property="goodsTopCategoryCode"/>
@@ -110,6 +111,8 @@
 	  		<result column="user_agree_date" property="userAgreeDate"/>
 	  		<result column="user_aplct_user_required_input" property="userRequiredInput"/>
 		</resultMap>
+	
+	
 	
 	<select id="getUserAgreeCheck" resultType="UserAgree">
 		/*동의한회원별 동의로그남김*/

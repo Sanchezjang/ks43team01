@@ -35,5 +35,12 @@ public class AdminOrderCancelController {
 		model.addAttribute("refundRequestList", refundRequestList);
 		return "adminpage/orderCancel/orderCancel";
 	}
-	
+	@GetMapping("/orderCancelSuccess")
+	public String orderCancelSuccess() {
+		return "redirect:/adminpage/orderCancel/orderCancel";
+	}
+	@GetMapping("/orderCancelFail")
+	public String orderCancelFail() {
+		return "redirect:/adminpage/orderCancel/orderCancel";
+	}
 }
