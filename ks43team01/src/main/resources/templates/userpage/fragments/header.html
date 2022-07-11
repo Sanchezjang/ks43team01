@@ -34,17 +34,15 @@
 							<div class="header-info-left">
 								<ul th:if="${session.UID != null}" style="text-align: right;">     
 									<input type="hidden" th:value="${session.UNAME}">
-									<li >[[${session.UID}]]님 로그인중입니다.</li>
-									<li>언제나 환영합니다^^</li>
+									<li >[[${session.UNAME}]]님 환영합니다.</li>
 								</ul>
 								<ul th:unless="${session.UID != null}" style="text-align: right;">     
 									<li >로그인을 해주세요~!</li>
-									<li>언제나 환영합니다^^</li>
 								</ul>
 							</div>
 							<div class="header-info-right">
 								<ul>
-	                            	<li><a th:href="@{/default}">!관리자화면전환 임시버튼</a></li>
+	                            	<li><a th:href="@{/default}">!관리자</a></li>
 	                               	<li th:unless="${session.UID == null}"><a th:href="@{/sellerjoin}"><i class="ti-user"></i>전문가 등록</a></li>
 	                               	<li th:unless="${session.UID == null}"><a th:href="@{/userpage/login/logout}"><i class="ti-user"></i>로그아웃</a></li>
 	                               	<li th:unless="${session.UID == null}"><a th:href="@{/userinfomation}"><i class="ti-user"></i>내정보</a></li>

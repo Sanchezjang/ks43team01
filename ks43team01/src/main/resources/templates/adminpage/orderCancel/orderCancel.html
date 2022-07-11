@@ -44,6 +44,7 @@
 					                          <th>협의진행율</th>
 					                          <th>환불요청일자</th>
 					                          <th>환불신청금액</th>
+					                          <th>환불현황</th>
 					                          <th>승인</th>
 					                          <th>미승인</th>
                         					</tr>
@@ -59,6 +60,7 @@
 								                <td th:text="${r.refundRequestReasonCodeName}"></td>
 						              			<td th:text="${r.buyerSellerConsultatioRefundWorkProgress}"></td>
 						              			<td th:text="${r.refundRequestDatetime}"></td>
+						              			<td th:text="${r.refundRequestmoney}"></td>
 						              			<td th:text="${r.refundRequestmoney}"></td>
 						              			<td><a type="button" th:href="@{orderCancelSuccess(userIdCode=${r.userIdCode})}" class="btn btn-primary" id="refundBtn">승인</a></td>
 												<td><a type="button" th:href="@{orderCancelFail(userIdCode=${r.userIdCode})}" class="btn btn-danger" id="refundBtn1">미승인</a></td>
