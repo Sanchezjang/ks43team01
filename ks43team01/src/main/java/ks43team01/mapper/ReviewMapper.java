@@ -10,8 +10,8 @@ import ks43team01.dto.ReviewContentsReg;
 @Mapper
 public interface ReviewMapper {
 	
-	/* 리뷰 등록 후 포인트 내역 추가 */
-	public List<Point> accumReviewPoint();
+	/* 리뷰등록 후 포인트 내역에 추가 */
+	public List<Point> accumReviewPoint(Point point);
 	
 	/* 관리자페이지 리뷰 삭제 처리 */
 	public int removeAdminReview(String reviewCode);
