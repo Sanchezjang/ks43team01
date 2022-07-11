@@ -59,14 +59,14 @@ public class BoardService {
 		//게시글 등록 - 게시글 코드를 selectKey값으로 담기
 		boardMapper.addQnaBoard(qnaBoard);
 		log.info("추가 후 qnaBoard : {}", qnaBoard);
-		
+		log.info(qnaBoard.getBoardQuestionCode() + "boardQuestionCode!!!");
 		String boardQuestionCode = qnaBoard.getBoardQuestionCode();
-		log.info("boardQuestionCode : {}", qnaBoard);
+		log.info("boardQuestionCode : {}", boardQuestionCode);
 		
 		//릴레이션 테이블에 삽입
 		List<Map<String, String>> relationFileList = new ArrayList<>();
 		for(Map<String, String> m : dtoFileList) {
-			m.put(boardQuestionCode, boardQuestionCode);
+			m.put("boardQuestionCode", boardQuestionCode);
 			relationFileList.add(m);
 		}
 		System.out.println(relationFileList);
@@ -84,7 +84,7 @@ public class BoardService {
 	// 1:1 문의 2차 카테고리
 	public List<BoardMediumCategory> getBoardMediumCategory(String boardLargeCategory) {
 		List<BoardMediumCategory> boardMediumCategory = boardMapper.getBoardMediumCategory(boardLargeCategory);
-		log.info("선택시 가져오는 값", boardMediumCategory);
+		log.info("선택시 가져오는 값 : {}", boardMediumCategory);
 		
 		return boardMediumCategory;
 	}
@@ -99,7 +99,11 @@ public class BoardService {
 	      System.out.println("___________getQnaBoardByCode____________");
 	      return boardMapper.getQnaBoardByCode(boardQuestionCode);
 	  }
-	
+	/*1:1 문의 게시글 아이디별정보추출.. */
+	public List<QnaBoard> getQnaBoard(String userIdCode) {
+		List<QnaBoard> resultList = boardMapper.getQnaBoard(userIdCode);
+		return resultList;
+	}
 	/*게시글 댓글 삭제*/
 	public int removeComment(String boardCommentCode) {
 		int result = boardMapper.removeComment(boardCommentCode);

@@ -22,7 +22,7 @@
 			, #{item.userIdCode}
 			, #{item.fileOriginalName}
 			, #{item.fileReName}
-			, 'N'
+			, 'Y'
 			, #{item.fileLocation}
 			, #{item.fileSize}
 			, NOW()

@@ -74,7 +74,8 @@ public interface BoardMapper {
 	
 	//게시글 상세 조회
 	public Board getBoardByCode(String boardPostCode);	
-	
+	//1:1문의 아이디별 검색
+	public List<QnaBoard> getQnaBoard(String userIdCode);
 	//자유게시판 게시글 등록
 	public int addFreeBoard(Board board);
 	//자유게시판 목록 조회
@@ -89,6 +90,9 @@ public interface BoardMapper {
 	public int addNoticeBoard(Board board);
 	//공지사항 목록 조회
 	public List<Board> getNoticeBoardList();
+	
+	//1:1 게시글 테이블 수
+	public int getQnaBoardRow();
 	
 	
 	/*
