@@ -21,21 +21,21 @@ import ks43team01.mapper.ReviewMapper;
 public class ReviewService {
 		private final ReviewMapper reviewMapper;
 		private final PointMapper pointMapper;
-			
-		public ReviewService(ReviewMapper reviewMapper, PointMapper pointMapper) {
+		
+		public ReviewService(ReviewMapper reviewMapper,PointMapper pointMapper) {
 			this.reviewMapper = reviewMapper;
-			this.pointMapper =pointMapper;
-		
-		
-		}
+			this.pointMapper = pointMapper;
+
+		}	
+			
 		private static final Logger log = LoggerFactory.getLogger(ReviewService.class);
 		
-		/* 리뷰등록 후 포인트 내역에 추가 */
+		/* 리뷰쓸 떄 포인트 내역에 추가 */
 		public List<Point> accumReviewPoint(){
 			
-			List<Point> accumReviewPointList = pointMapper.getPointList();
-			log.info("accumReviewPointList",accumReviewPointList);
-			return accumReviewPointList;
+			List<Point> pointList = pointMapper.getPointList();
+			
+			return pointList;
 		}
 		
 		/* 관리자페이지 리뷰 삭제 */
@@ -61,6 +61,7 @@ public class ReviewService {
 			
 			return result;
 		}
+		
 		/* 리뷰 등록시 회원 테이블에 포인트 적립*/
 		public int userSavePoint(String userIdCode) {
 			

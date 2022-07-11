@@ -61,15 +61,15 @@
 		</association>
 	</resultMap>
 	
-	<insert id="addreview" parameterType="String">
+	<insert id="addreview" parameterType="Point">
 	/* 리뷰 등록 후 포인트 내역 추가 */
 	INSERT INTO tb_pt_point_accumulation_details
-		(Point_details_code							AS pointDetailsCode
-		,user_id_code								AS userIdCode
-		,point_standard_details_code				AS pointStandardDetailsCode
-		,point_amount								AS pointAmount
-		,user_email									AS userEmail
-		,point_history_reg_date						AS pointHistoryRegDate
+		(Point_details_code							
+		,user_id_code								
+		,point_standard_details_code				
+		,point_amount								
+		,user_email									
+		,point_history_reg_date						
 		)
 	VALUES 
 		(#{pointDetailsCode}
