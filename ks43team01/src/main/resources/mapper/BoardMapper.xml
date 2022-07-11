@@ -43,7 +43,6 @@
 		<result column="board_category_code"				property="boardCategoryCode"/>
 		<result column="board_l_category_code"				property="boardLargeCategoryCode"/>
 		<result column="board_m_category_code"				property="boardMediumCategoryCode"/>
-		<result column="board_post_file_code"				property="boardPostFileCode"/>
 		<result column="board_question_title"				property="boardQuestionTitle"/>
 		<result column="user_name"							property="userName"/>
 		<result column="board_question_content"				property="boardQuestionContent"/>
@@ -227,7 +226,7 @@
 
 	<select id="getQnaBoardByCode" parameterType="String" resultMap="qnaBoardResultMap">
 	/*1:1 문의 게시글 상세 페이지 조회*/
-		SELECT
+			SELECT
 			bq.board_question_code
 			,bq.user_id_code
 			,bq.board_category_code
@@ -240,9 +239,20 @@
 			,bq.board_question_reg_date
 			,bq.user_email
 			,bq.board_question_answer_method
+			,sub.file_code 
+			,sub.user_id_code
+			,sub.file_orginal_name
+			,sub.file_re_name
+			,sub.file_main_image
+			,sub.file_location
+			,sub.file_size
+			,sub.file_reg_date
+			,sub.file_update_date
+			,sub.file_use
+			,sub.board_question_code
 		FROM
 			tb_b_board_question AS bq
-			INNER join
+			    LEFT JOIN
 				(SELECT
 					f.file_code 
 					,f.user_id_code
@@ -303,32 +313,33 @@
 			, board_question_update_date
 			, board_question_page_view
 			, board_question_use	
-		)VALUES (
-			(select date_format(NOW(),'question%y%m%d%H%i%s')AS board_question_code)
-			, #{userIdCode}
-			, 'board03'
-			, (
-			SELECT
-				m.board_l_category_code
-			FROM
-				tb_b_board_m_category AS m
-			WHERE
-				m.board_m_category_code = #{boardMediumCategoryCode}
-			)	
-			, #{boardMediumCategoryCode}
-			, #{boardQuestionTitle}
-			, #{userName}
-			, #{boardQuestionContent} 
-			, #{boardQuestionFile}
-			, CURDATE()
-			, #{userEmail}
-			, #{boardQuestionAnswerMethod}
-			, #{boardQuestionLock}
-			, #{boardQuestionPw}
-			, CURDATE() 
-			, #{boardQuestionPageView}
-			, 'Y'
-		);
+		)VALUES 
+		(
+					(select date_format(NOW(),'question%y%m%d%H%i%s')AS board_question_code)
+					,#{userIdCode}
+					,'board03'
+					, (
+						SELECT
+							m.board_l_category_code
+						FROM
+							tb_b_board_m_category AS m
+						WHERE
+							m.board_m_category_code = #{boardMediumCategoryCode}
+						)	
+					,#{boardMediumCategoryCode}
+					,#{boardQuestionTitle}
+					,#{userName}
+					,#{boardQuestionContent}
+					,#{boardQuestionFile}
+					, CURDATE()
+					,#{userEmail}
+					,#{boardQuestionAnswerMethod}
+					,#{boardQuestionLock}
+					,#{boardQuestionPw}
+					,CURDATE()
+					,#{boardQuestionPageView}
+					, 'Y');
+
 	</insert>
    
 	<insert id="addBoardMediumCategory" parameterType="BoardMediumCategory">
