@@ -99,18 +99,19 @@ layout:decorate="~{userpage/layout/userdefault}">
 							<th class="pageView">조회수</th>
 					</tr>
 				</thead>	
-				<tbody th:if="${not #lists.isEmpty(qnaBoardList)}" th:each="l : ${qnaBoardList}">
+				<tbody th:if="${not #lists.isEmpty(getQnaBoardList)}" th:each="l, status : ${getQnaBoardList}">
 					<tr class="table-row">
+						<td class="serial" th:text="${#numbers.formatInteger((rowCount - status.index) - ((currentPage - 1)*7),0)}"></td>
 						<td class="title"><a th:href="@{/userpage/board/qnaBoardDetail(boardQuestionCode=${l.boardQuestionCode})}" th:value="${l.boardQuestionCode}" th:text="${l.boardQuestionTitle}" style="color: #212529;"></a></td>
 						<td class="writer"  th:text="${l.userName}"></td>
 						<td class="lock"  th:text="${l.boardQuestionLock}"></td>
 						<td class="regDate" th:text="${l.boardQuestionRegDate}"> </td>
 						<td class="pageView" th:text="${l.boardQuestionPageView}"> </td>
 					</tr>
-					<tr th:unless="${not #lists.isEmpty(qnaBoardList)}">
-						<td colspan="5">조회된 내용이 없습니다.</td>
+					<tr th:unless="${not #lists.isEmpty(getQnaBoardList)}">
+						<td colspan="6">조회된 내용이 없습니다.</td>
 					</tr>
-				</tbody>	
+				</tbody>
 			</table>
 				<div style="text-align:right; margin-top:20px;"><a th:href="@{/userpage/board/addQnaBoard}" class="genric-btn primary" >글쓰기</a></div>	
 		</div>
