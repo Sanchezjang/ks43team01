@@ -64,7 +64,63 @@
 		<association property="goods" javaType="goods">
 			<id column="goods_name" 		property="goodsName"/>
 		</association>
+		<association property="refundCompaleted" javaType="RefundCompaleted">
+			<id column="refund_code" 		property="refundCode"/>
+		</association>
+		<association property="user" javaType="User">
+			<id column="user_id_code" 		property="userIdCode"/>
+		</association>
 	</resultMap>
+	
+		<update id="modifyrefundSucces" parameterType="String">
+			/*환불승인시 로직*/
+			UPDATE 
+				tb_rf_refund_completed 
+			SET 
+				refund_progress_status = '환불완료'
+			WHERE 
+				user_id_code = #{userIdcode};
+		</update>
+		
+		<update id="modifyrefundFail" parameterType="String">
+			/*환불불가시 로직*/
+			UPDATE 
+				tb_rf_refund_completed 
+			SET 
+				refund_progress_status = '환불불가'
+			WHERE 
+				user_id_code = #{userIdcode};
+		</update>
+	
+		<select id="getRefundPayList" resultType="Map">
+			SELECT 
+			  trrc.user_id_code as userIdCode
+			  ,trrr.order_code as orderCode
+			  ,trrr.goods_code as goodsCode
+			  ,tgg.goods_name as goodsName
+			  ,tgg.user_id_code as sellerIdCode
+			  ,tgg.goods_price as goodsPrice
+			  ,tuau.user_contact as	sellerPhoneNumber
+			  ,trrc.refund_progress_status as refundProgressStatus
+			FROM 
+				tb_rf_refund_request as trrr
+				inner join
+				tb_rf_refund_completed as trrc 
+				on
+				trrr.refund_request_code = trrc.refund_request_code
+				INNER JOIN 
+				tb_g_goods as tgg 
+				ON
+				trrr.goods_code = tgg.goods_code 
+				INNER JOIN 
+				tb_u_all_user as tuau
+				on 
+				tgg.user_id_code = tuau.user_id_code
+			WHERE
+				trrc.user_id_code = 'id012';
+	
+
+		</select>
 	
 		<select id="getRefundRequestList" resultType="Map">
 			/*어드민페이지 환불 내역 총 들어온거 셀렉트*/

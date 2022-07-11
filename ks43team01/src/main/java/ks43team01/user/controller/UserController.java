@@ -20,7 +20,9 @@ import ks43team01.dto.User;
 import ks43team01.dto.GoodsSubCategory;
 import ks43team01.dto.GoodsTopCategory;
 import ks43team01.dto.OrderCart;
+import ks43team01.dto.RefundPayment;
 import ks43team01.service.OrderCartService;
+import ks43team01.service.PaymentRefundService;
 import ks43team01.service.UserService;
 
 @Controller
@@ -33,9 +35,11 @@ public class UserController {
 	//DI//
 	private final UserService userService;
 	private final OrderCartService orderCartService;
-	public UserController(UserService userService,OrderCartService orderCartService) {
+	private final PaymentRefundService paymentRefundService;
+	public UserController(UserService userService,OrderCartService orderCartService,PaymentRefundService paymentRefundService) {
 		this.userService = userService;
 		this.orderCartService = orderCartService;
+		this.paymentRefundService = paymentRefundService;
 	}
 	@GetMapping("/user/main")
 	public String userMain() {
@@ -148,7 +152,7 @@ public class UserController {
 		return "userpage/user/login";
 	}
 	@GetMapping("/userinfomation")//회원정보수정//
-	public String getUserInfomation(HttpSession session,Model model,User user,GoodsTopCategory goodsTopCategory,OrderCart orderCart){
+	public String getUserInfomation(HttpSession session,Model model,User user,GoodsTopCategory goodsTopCategory,OrderCart orderCart,RefundPayment refundPayment){
 	
 		List<GoodsTopCategory> expertBusinessField = userService.getTopCategory();
 		model.addAttribute("topcategory",expertBusinessField);//탑카테고리 받아옴
@@ -161,6 +165,9 @@ public class UserController {
 		log.info("주문값 들어오는지 확인!!   :   {}",orderCartList);
 		model.addAttribute("userList", userList);
 		log.info("user값 ::::::: {}", userList);
+		List<RefundPayment> refundPayList = paymentRefundService.getRefundPayList();
+		model.addAttribute("refundPayList", refundPayList);
+		log.info("refundPayList넘어오나  :   {}",refundPayList);
 		return "userpage/user/userinfomation";
 	}
 	@PostMapping("/idCheck")////아이디 중복체크!!!!!

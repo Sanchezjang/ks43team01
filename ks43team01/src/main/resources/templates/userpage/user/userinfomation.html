@@ -223,25 +223,25 @@ layout:decorate="~{userpage/layout/userdefault}">
 												<img  class="img-responsive" style="width: 80%" src="https://t1.daumcdn.net/cfile/tistory/25367D465817198104">
 											</div>
 										</div>
-										<th:block th:if="${not #lists.isEmpty(orderCartList)}" th:each="o : ${orderCartList}">
+										<th:block th:if="${not #lists.isEmpty(refundPayList)}" th:each="r : ${refundPayList}">
 										<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
-											<input type="hidden" name="userIdCode" id="userIdCode" th:value="${o.userIdCode}">
-											<input type="hidden" name="orderCartCode" id="orderCartCode" th:value="${o.userIdCode}">
-											<p th:text="|상품이름 : ${o.goodsName}|">1</p>
-											<i th:text="|환불가격 : ${o.goodsPrice+'원'}|">1</i>
-											<input type="hidden" th:value="${o.goodsCode}">
+											<input type="hidden" name="userIdCode" id="userIdCode" th:value="${r.userIdCode}">
+											<input type="hidden" name="orderCode" id="orderCode" th:value="${r.orderCode}">
+											<p th:text="|상품이름 : ${r.goodsName}|">1</p>
+											<i th:text="|환불요청가격 : ${r.goodsPrice+'원'}|">1</i>
+											<input type="hidden" th:value="${r.goodsCode}">
 										</div>
 										<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
 											<div class="col-12" style="display: inline-block;">
-												<p th:text="|판매자 : ${o.sellerIdCode}|">₩</p>
-												<p th:text="|판매자번호 ${o.sellerPhoneNumber}|">1</p>
+												<p th:text="|판매자 : ${r.sellerIdCode}|">₩</p>
+												<p th:text="|판매자번호 : ${r.sellerPhoneNumber}|">1</p>
 										</div>
 										</div>
-										</th:block>
 										<div class="col-xs-6 col-sm-3" style="text-align:center;  width: 25%;" >
 											<div class="col-12" style="display: inline-block; justify-content: center;margin-top:20%;">
-												<a  class="btn-danger btn-sm"  style="display: center;" value=""></a>
+												<a  class="btn-danger btn-sm"  style="display: center;" th:text="${r.refundProgressStatus}"></a>
 											</div>
+										</th:block>
 										</div>
 									</div>
 								</div>
