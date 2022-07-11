@@ -54,10 +54,13 @@ layout:decorate="~{userpage/layout/userdefault}">
 		padding-bottom: 30px;
 	}
 	
-	.postFile{
+	.qna-image{
 		border: none;
 	}
-
+	.detailContent{
+		border-bottom: none;
+	}
+	
 </style>
 
 <div class="slider-area">
@@ -114,9 +117,31 @@ layout:decorate="~{userpage/layout/userdefault}">
                      </tr>
                      <tr>
                         <td class="detailContent" colspan="4" th:text="${qnaBoard.boardQuestionContent}"></td>
+                        
                      </tr>
-                     <tr class="postFile">
-                        <td class="postFile"th:text="${qnaBoard.boardQuestionFile}" colspan="4"></td>
+                     <tr class="postFile" >
+                        <td class="qna-image" colspan="4">
+							<div class="col-md-7 col-sm-7 " >
+							<!-- db에서 저장된 사진 불러오기 -->
+							<div th:if="${not #lists.isEmpty(qnaBoard.file)}" th:each="l : ${qnaBoard.file}">
+								<div class="board-image" th:if="${l.fileMainImage eq 'Y'}">
+									<img th:src="@{'/' + ${#strings.replace(l.fileLocation,'\','/')}}" alt="..." />
+								</div>
+								<div class="board_gallery" th:unless="${l.fileMainImage eq 'Y'}">
+									<a><img th:src="@{'/' + ${#strings.replace(l.fileLocation,'\','/')}}" alt="..." /></a>
+							<!-- @{${#strings.replace(t.storedFilePath,'\','/')}} -->
+								</div>
+
+							<!-- db에서 저장된 사진 불러오기 -->
+							</div>
+							<div th:unless="${not #lists.isEmpty(qnaBoard.file)}">
+								<!-- 저장된 사진 없음 -->
+								<a><img th:src="@{/images/notImage.jfif}" alt="..." /></a>
+							</div>
+						</div>
+						
+				
+						</td>
                      </tr>
                       <tr>
                         <th>답변 방법</th>

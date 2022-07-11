@@ -308,8 +308,14 @@ public class BoardController {
 		
 		String serverName = request.getServerName();
 		String sessionId = (String) session.getAttribute("UID");
+		qnaBoard.setUserIdCode(sessionId);
+		String userIdCode = qnaBoard.getUserIdCode();
+		List<QnaBoard> resultList = boardService.getQnaBoard(userIdCode);
+		log.info("아이디 넣고 리스트로 정보 출력가능한지  :  {} ",resultList);
+		log.info("아이디 가져오는지 세션아이디!! : {}", qnaBoard.getUserIdCode());
+		
 		String fileRealPath = "";
-		log.info("작성 게시글 내용 : {}", qnaBoard);
+		log.info("작성 게시글 내용 : {}", resultList);
 		
 		if("localhost".equals(serverName)) {
 			// server 가 localhost 일때 접근
