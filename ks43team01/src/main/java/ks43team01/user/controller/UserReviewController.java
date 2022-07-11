@@ -33,7 +33,6 @@ public class UserReviewController {
 	public UserReviewController(ReviewService reviewService, PointService pointService) {
 		this.reviewService = reviewService;
 		this.pointService = pointService;
-
 	}
 
 	/* 리뷰 수정 (post) */
@@ -77,26 +76,6 @@ public class UserReviewController {
 		return "/userpage/reviewUser/reviewDetail";
 
 	}
-
-	/*
-	 * 리뷰 등록 시에 포인트 내역 추가(get)
-	 * 
-	 * @PostMapping("/accumReviewPoint") public String accumReviewPoint(Point point)
-	 * {
-	 * 
-	 * pointService.getPointList(); return "/adminpage/pointDetails/pointList"; }
-	 * 
-	 * 리뷰 등록후에 포인트 내역 추가(get)
-	 * 
-	 * @GetMapping("/accumReviewPoint") public String accumReviewPoint(Model model)
-	 * {
-	 * 
-	 * List<Point> accumReviewPointList = pointService.getPointList();
-	 * log.info("accumReviewPointList:{}",accumReviewPointList);
-	 * model.addAttribute("accumReviewPointList",accumReviewPointList);
-	 * 
-	 * return "/adminpage/pointDetails/accumReviewPoint"; }
-	 */
 
 	/* 리뷰 등록-포인트 적립 (post), */
 	@PostMapping("/addReview")
