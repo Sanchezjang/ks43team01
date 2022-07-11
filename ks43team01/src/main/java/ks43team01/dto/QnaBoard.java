@@ -22,7 +22,6 @@ public class QnaBoard {
 	private String boardQuestionUpdateDate;
 	private int boardQuestionPageView;
 	private String boardQuestionUse;
-	private String boardPostFileCode;
 	
 	private BoardCategory boardCategory;
 	private BoardLargeCategory boardLargeCategory;
@@ -30,7 +29,7 @@ public class QnaBoard {
 	private BoardAnswer boardAnswer;
 	
 	private List<Map<String, String>> 	relFileWithQnaBoard;
-	private List<File> 				File;
+	private List<File> 				file;
 	
 	public String getBoardQuestionCode() {
 		return boardQuestionCode;
@@ -134,12 +133,6 @@ public class QnaBoard {
 	public void setBoardQuestionUse(String boardQuestionUse) {
 		this.boardQuestionUse = boardQuestionUse;
 	}
-	public String getBoardPostFileCode() {
-		return boardPostFileCode;
-	}
-	public void setBoardPostFileCode(String boardPostFileCode) {
-		this.boardPostFileCode = boardPostFileCode;
-	}
 	public BoardCategory getBoardCategory() {
 		return boardCategory;
 	}
@@ -171,10 +164,10 @@ public class QnaBoard {
 		this.relFileWithQnaBoard = relFileWithQnaBoard;
 	}
 	public List<File> getFile() {
-		return File;
+		return file;
 	}
 	public void setFile(List<File> file) {
-		File = file;
+		this.file = file;
 	}
 	@Override
 	public String toString() {
@@ -213,8 +206,6 @@ public class QnaBoard {
 		builder.append(boardQuestionPageView);
 		builder.append(", boardQuestionUse=");
 		builder.append(boardQuestionUse);
-		builder.append(", boardPostFileCode=");
-		builder.append(boardPostFileCode);
 		builder.append(", boardCategory=");
 		builder.append(boardCategory);
 		builder.append(", boardLargeCategory=");
@@ -225,11 +216,13 @@ public class QnaBoard {
 		builder.append(boardAnswer);
 		builder.append(", relFileWithQnaBoard=");
 		builder.append(relFileWithQnaBoard);
-		builder.append(", File=");
-		builder.append(File);
+		builder.append(", file=");
+		builder.append(file);
 		builder.append("]");
 		return builder.toString();
 	}
+	
+
 	
 	
 

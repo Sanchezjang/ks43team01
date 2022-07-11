@@ -336,6 +336,7 @@ public class BoardController {
     	List<QnaBoard> qnaBoardList = boardService.getQnaBoardList();
     	List<BoardLargeCategory> boardLargeCategory = boardService.getBoardLargeCategory();
 		
+    	
 		model.addAttribute("qnaBoardList", qnaBoardList);
 		model.addAttribute("boardLargeCategory", boardLargeCategory);
 		
