@@ -11,6 +11,8 @@ public class Board {
 	private String boardPostUpdateDate;
 	private int boardPostView;
 	private String boardPostUse;
+	private String boardPostGroupNum;
+	private String boardPostOrderNum;
 	
 	private BoardComment boardComment;
 	private BoardCategory boardCategory;
@@ -87,6 +89,19 @@ public class Board {
 	public void setBoardPostUse(String boardPostUse) {
 		this.boardPostUse = boardPostUse;
 	}
+
+	public String getBoardPostGroupNum() {
+		return boardPostGroupNum;
+	}
+	public void setBoardPostGroupNum(String boardPostGroupNum) {
+		this.boardPostGroupNum = boardPostGroupNum;
+	}
+	public String getBoardPostOrderNum() {
+		return boardPostOrderNum;
+	}
+	public void setBoardPostOrderNum(String boardPostOrderNum) {
+		this.boardPostOrderNum = boardPostOrderNum;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -110,6 +125,10 @@ public class Board {
 		builder.append(boardPostView);
 		builder.append(", boardPostUse=");
 		builder.append(boardPostUse);
+		builder.append(", boardPostGroupNum=");
+		builder.append(boardPostGroupNum);
+		builder.append(", boardPostOrderNum=");
+		builder.append(boardPostOrderNum);
 		builder.append(", boardComment=");
 		builder.append(boardComment);
 		builder.append(", boardCategory=");

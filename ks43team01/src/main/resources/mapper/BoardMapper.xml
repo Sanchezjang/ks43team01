@@ -15,6 +15,8 @@
 		<result column="board_post_update_date"				property="boardPostUpdateDate"/>
 		<result column="board_post_view"					property="boardPostView"/>
 		<result column="board_post_use"						property="boardPostUse"/>
+		<result column="board_post_group_num"				property="boardPostGroupNum"/>
+		<result column="board_post_order_num"				property="boardPostOrderNum"/>
          
 		<association property="boardCategory" javaType="BoardCategory">
 			<id    column="board_category_code"				property="boardCategoryCode"/>
@@ -101,13 +103,6 @@
 		</collection>
 	</resultMap>
 
-	<select id="getQnaBoardRow" resultType="int">
-	/*qna 게시글 행*/
-		SELECT
-			COUNT(*)
-		FROM
-			tb_b_board_question;
-	</select>
 
 	<update id="updatePageView" parameterType="int"> 
 	/*게시글 조회수 증가*/
@@ -668,6 +663,14 @@
 			, board_post_use						AS boardPostUse
 		FROM
 			tb_b_board_post;
+  </select>
+  
+  <select id="getQnaRowCount" resultType="int">
+  	/*1:1 목록 row 수*/
+	SELECT
+		COUNT(q.board_question_code)
+	FROM
+		tb_b_board_question AS q;
   </select>
   
 </mapper>
