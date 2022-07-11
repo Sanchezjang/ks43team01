@@ -109,6 +109,8 @@
 			g.goods_code = #{goodsCode};
 	</select>
 	
+	
+	
 	<select id="getUserGoodsList" resultType="Map">
 		/* 사용자화면 상품리스트 */
 		SELECT
