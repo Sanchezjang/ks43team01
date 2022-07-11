@@ -35,7 +35,7 @@ public class LoginController {
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "index";
+		return "redirect:/";
 	}
 	@GetMapping("/login")
 
@@ -66,7 +66,7 @@ public class LoginController {
 				return "redirect:/";
 		}
 	}
-	return "redirect:/login";
+	return "redirect:/";
 	}
 	
 }
