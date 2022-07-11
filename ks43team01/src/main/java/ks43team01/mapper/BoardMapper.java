@@ -48,6 +48,12 @@ public interface BoardMapper {
 	//게시글 등록
 	public int addQnaBoard(QnaBoard qnaBoard);
 	
+	//게시글 목록 조회(페이징)
+	public List<QnaBoard> getQnaBoardList(Map<String, Object> paramMap);
+	
+	//1:1 문의 게시글 목록 row 수
+	public int getQnaBoardListCount();
+	
 	//게시글 목록 조회
 	public List<QnaBoard> getQnaBoardList();
 	
@@ -93,7 +99,6 @@ public interface BoardMapper {
 	
 	//1:1 게시글 테이블 수
 	public int getQnaBoardRow();
-	
 	
 	/*
 	 * 관리자 화면

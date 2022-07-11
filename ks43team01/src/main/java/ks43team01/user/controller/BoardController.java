@@ -3,6 +3,7 @@ package ks43team01.user.controller;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Map;
 
 import javax.print.DocFlavor.STRING;
 import javax.servlet.http.HttpServletRequest;
@@ -406,33 +407,46 @@ public class BoardController {
 		return "/userpage/board/addNoticeBoard";
     }
 
-		
-	/* 1. 사용자 게시글 목록 조회 */
-	@GetMapping("/{boardCategory}")
-	public String getBoardList(@PathVariable(value="boardCategory", required = false) String boardCategory
-							   ,Model model) {
-		
-		if(boardCategory.equals("noticeBoardList")) {
-			List<Board> noticeBoardList = boardService.getNoticeBoardList();
-			log.info("공지사항 게시글 목록: {}", noticeBoardList);
-			model.addAttribute("noticeBoardList", noticeBoardList);
-		}else if(boardCategory.equals("faqBoardList")){
-			List<Board> faqBoardList = boardService.getFaqBoardList();
-			log.info("자주묻는 질문 게시글 목록: {}", faqBoardList);
-			model.addAttribute("faqBoardList", faqBoardList);
-		}else if(boardCategory.equals("qnaBoardList")){
-			List<QnaBoard> qnaBoardList = boardService.getQnaBoardList();
-			log.info("1:1 게시판 게시글 목록: {}", qnaBoardList);
-			model.addAttribute("qnaBoardList", qnaBoardList);
-		}else {
-			List<Board> freeBoardList = boardService.getFreeBoardList();
-			log.info("자유게시판 게시글 목록: {}", freeBoardList);
-			model.addAttribute("freeBoardList", freeBoardList);
-		}
-		
-		return "/userpage/board/"+boardCategory;
-	}
-	
-	
+	/*1:1 게시글 목록 조회*/
+	   @GetMapping("/qnaBoardList")
+	   public String getqnaBoardList(@RequestParam(name = "currentPage", required = false, defaultValue = "1")int currentPage
+	                           , Model model) {
+	      
+	      Map<String, Object> resultMap = boardService.getQnaBoardList(currentPage);
+	      model.addAttribute("getQnaBoardList", resultMap.get("getQnaBoardList"));
+	      model.addAttribute("resultMap", resultMap);
+	      model.addAttribute("currentPage", currentPage);
+	      model.addAttribute("lastPage", resultMap.get("lastPage"));
+	      model.addAttribute("startPageNum", resultMap.get("startPageNum"));
+	      model.addAttribute("endPageNum", resultMap.get("endPageNum"));
+	      model.addAttribute("rowCount", resultMap.get("rowCount"));
+	      System.out.println("getQnaBoardList resultMap-----------"+resultMap);
+	      
+	      return "/userpage/board/qnaBoardList";
+	      
+	   }
+	      
+	   /* 1. 사용자 게시글 목록 조회 */
+	   @GetMapping("/{boardCategory}")
+	   public String getBoardList(@PathVariable(value="boardCategory", required = false) String boardCategory
+	                        ,Model model) {
+	      
+	      if(boardCategory.equals("noticeBoardList")) {
+	         List<Board> noticeBoardList = boardService.getNoticeBoardList();
+	         log.info("공지사항 게시글 목록: {}", noticeBoardList);
+	         model.addAttribute("noticeBoardList", noticeBoardList);
+	      }else if(boardCategory.equals("faqBoardList")){
+	         List<Board> faqBoardList = boardService.getFaqBoardList();
+	         log.info("자주묻는 질문 게시글 목록: {}", faqBoardList);
+	         model.addAttribute("faqBoardList", faqBoardList);
+	      }else {
+	         List<Board> freeBoardList = boardService.getFreeBoardList();
+	         log.info("자유게시판 게시글 목록: {}", freeBoardList);
+	         model.addAttribute("freeBoardList", freeBoardList);
+	      }
+	      
+	      return "/userpage/board/"+boardCategory;
+	   }
+	   
 	
 }
