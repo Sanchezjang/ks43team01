@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ks43team01.dto.RefundPayment;
 import ks43team01.service.PaymentRefundService;
@@ -36,11 +37,14 @@ public class AdminOrderCancelController {
 		return "adminpage/orderCancel/orderCancel";
 	}
 	@GetMapping("/orderCancelSuccess")
-	public String orderCancelSuccess() {
+	public String orderCancelSuccess(@RequestParam(name="userIdCode")String userIdcode) {
+		paymentRefundService.modifyrefundSucces(userIdcode);
+		log.info("-----------환불아이디 가져오는지 확인!!!   :  {}",userIdcode);
 		return "redirect:/adminpage/orderCancel/orderCancel";
 	}
 	@GetMapping("/orderCancelFail")
-	public String orderCancelFail() {
+	public String orderCancelFail(@RequestParam(name="userIdCode")String userIdcode) {
+		paymentRefundService.modifyrefundFail(userIdcode);
 		return "redirect:/adminpage/orderCancel/orderCancel";
 	}
 }

@@ -39,5 +39,20 @@ public class PaymentRefundService {
 		List<RefundPayment> refundRequestList = paymentRefundMapper.getRefundRequestList();
 		 return refundRequestList;
 	}
+	/*환불신청내역출력*/
+	public List<RefundPayment> getRefundPayList(){
+		List<RefundPayment> refundPayList = paymentRefundMapper.getRefundPayList();
+		return refundPayList;
+	}
+	/*환불승인시 로직*/
+	public int modifyrefundSucces(String userIdcode) {
+		int result = paymentRefundMapper.modifyrefundSucces(userIdcode);
+		return result;
+	}
+	/*환불불가시 로직*/
+	public int modifyrefundFail(String userIdcode) {
+		int result = paymentRefundMapper.modifyrefundFail(userIdcode);
+		return result;
+	}
 	
 }

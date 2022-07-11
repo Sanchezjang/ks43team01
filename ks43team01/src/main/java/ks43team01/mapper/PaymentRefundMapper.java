@@ -18,4 +18,10 @@ public interface PaymentRefundMapper {
 	public int addRefundRequest(RefundPayment refundPayment);
 	/*어드민페이지 환불 내역 총 들어온거 셀렉트*/
 	public List<RefundPayment> getRefundRequestList();
+	/*환불신청내역출력*/
+	public List<RefundPayment> getRefundPayList();
+	/*환불승인시 로직*/
+	public int modifyrefundSucces(String userIdcode);
+	/*환불불가시 로직*/
+	public int modifyrefundFail(String userIdcode);
 }

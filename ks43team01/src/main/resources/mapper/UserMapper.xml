@@ -19,66 +19,65 @@
 		  		<result column="user_reg_date" property="userRreDate"/>
 		  		<result column="user_update_date" property="userUpDate"/>
 		  		<result column="level_num_code" property="userLevel"/>
-	  		
   	  </resultMap>
-	  		<resultMap type="ks43team01.dto.GoodsTopCategory" id="GoodsTopCategoryResultMap">
-	  			<id column="goods_top_category_name" property="goodsTopCategoryName"/>
-	  			<result column="goods_top_category_code" property="goodsTopCategoryCode"/>
-	  			<result column="user_id_code " property="userIdCode"/>
-	  			<result column="goods_top_category_reg_date" property="goodsTopCategoryRegDate"/>
-	  		</resultMap>
-	  		
-	  		<resultMap type="ks43team01.dto.GoodsSubCategory" id="GoodsSubCategoryResultMap">
-	  			<id column="goods_sub_category_code" property="goodsSubCategoryCode"/>
-	  			<result column="goods_sub_category_name" property="goodsSubCategoryName"/>
-	  			<result column="goods_sub_category_reg_date " property="goodsSubCategoryRegDate"/>
-	  			<result column="goods_top_category_code" property="goodsTopCategoryCode"/>
-	  			<result column="goods_top_category_name" property="goodsTopCategoryName"/>
-	  		</resultMap>
-	  		
-	  		<resultMap type="ks43team01.dto.SellerBusiness" id="SellerBusinessResultMap">
-	  			<id column="expert_business_code" property="expertBusinessCode"/>
-	  			<result column="user_id_code" property="userIdCode"/>
-	  			<result column="expert_business_field " property="expertBusinessField"/>
-	  			<result column="expert_detailed_business" property="expertDetailedBusiness"/>
-	  			<result column="expert_retention_technology" property="expertRetentionTechnology"/>
-	  			<result column="expert_introduction" property="expertIntroduction"/>
-	  			<result column="expert_reg_date" property="expertRegDate"/>
-	  			<result column="expert_update_date" property="expertUpdateDate"/>
-	  		</resultMap>		
+	  <resultMap type="ks43team01.dto.GoodsTopCategory" id="GoodsTopCategoryResultMap">
+			<id column="goods_top_category_name" property="goodsTopCategoryName"/>
+			<result column="goods_top_category_code" property="goodsTopCategoryCode"/>
+			<result column="user_id_code " property="userIdCode"/>
+			<result column="goods_top_category_reg_date" property="goodsTopCategoryRegDate"/>
+	  </resultMap>
+		
+		<resultMap type="ks43team01.dto.GoodsSubCategory" id="GoodsSubCategoryResultMap">
+			<id column="goods_sub_category_code" property="goodsSubCategoryCode"/>
+			<result column="goods_sub_category_name" property="goodsSubCategoryName"/>
+			<result column="goods_sub_category_reg_date " property="goodsSubCategoryRegDate"/>
+			<result column="goods_top_category_code" property="goodsTopCategoryCode"/>
+			<result column="goods_top_category_name" property="goodsTopCategoryName"/>
+		</resultMap>
+		
+		<resultMap type="ks43team01.dto.SellerBusiness" id="SellerBusinessResultMap">
+			<id column="expert_business_code" property="expertBusinessCode"/>
+			<result column="user_id_code" property="userIdCode"/>
+			<result column="expert_business_field " property="expertBusinessField"/>
+			<result column="expert_detailed_business" property="expertDetailedBusiness"/>
+			<result column="expert_retention_technology" property="expertRetentionTechnology"/>
+			<result column="expert_introduction" property="expertIntroduction"/>
+			<result column="expert_reg_date" property="expertRegDate"/>
+			<result column="expert_update_date" property="expertUpdateDate"/>
+		</resultMap>		
 
-	  		<resultMap type="ks43team01.dto.SellerEducation" id="SellerEducationResultMap">
-  	  			<id column="expert_business_code" property="expertFinalEducationCode"/>
-  	  			<result column="expert_final_education_code" property="userIdCode"/>
-  	  			<result column="user_id_code" property="expertSchoolName"/>
-  	  			<result column="expert_school_name" property="expertMajor"/>
-  	  			<result column="expert_major" property="expertFinalState"/>
-  	  			<result column="expert_final_state" property="expertAcademicDocument"/>
-  	  			<result column="expert_academic_document" property="expertRegDate"/>
-  	  			<result column="expert_update_date" property="expertUpdateDate"/>
-  	  	 	</resultMap>
-  	  	 	
-  	  	 	<resultMap type="ks43team01.dto.UserLog" id="UserLogResultMap">
-  	  			<id column="login_date" property="loginNum"/>
-  	  			<result column="login_date" property="loginDate"/>
-  	  			<result column="login_ip" property="loginIp"/>
-  	  			<result column="user_id_code" property="userIdCode"/>
-  	  			<result column="buyer_exp" property="buyerExp"/>
-  	  			<result column="seller_exp" property="sellerExp"/>
-  	  	 	</resultMap>
-  	  	 	
-  	  	 	<resultMap type="ks43team01.dto.SellerCareer" id="SellerCareerResultMap">
-  	  			<id column="expert_career_details_code" property="expertCareerDetailsCode"/>
-  	  			<result column="user_id_code" property="userIdCode"/>
-  	  			<result column="expert_company_name" property="expertCompanyName"/>
-  	  			<result column="expert_work_department" property="expertWorkDepartment"/>
-  	  			<result column="expert_position" property="expertPosition"/>
-  	  			<result column="expert_work_place" property="expertWorkPlace"/>
-  	  			<result column="expert_work_date" property="expertWorkDate"/>
-  	  			<result column="expert_etc" property="expertEtc"/>
-  	  			<result column="expert_stay_use" property="expertStayUse"/>
-  	  			<result column="expert_career_proof_matters_attachments" property="expertCareerProofMattersAttachments"/>
-  	  	 	</resultMap>
+		<resultMap type="ks43team01.dto.SellerEducation" id="SellerEducationResultMap">
+  			<id column="expert_business_code" property="expertFinalEducationCode"/>
+  			<result column="expert_final_education_code" property="userIdCode"/>
+  			<result column="user_id_code" property="expertSchoolName"/>
+  			<result column="expert_school_name" property="expertMajor"/>
+  			<result column="expert_major" property="expertFinalState"/>
+  			<result column="expert_final_state" property="expertAcademicDocument"/>
+  			<result column="expert_academic_document" property="expertRegDate"/>
+  			<result column="expert_update_date" property="expertUpdateDate"/>
+  	 	</resultMap>
+  	 	
+ 	 	<resultMap type="ks43team01.dto.UserLog" id="UserLogResultMap">
+ 			<id column="login_date" property="loginNum"/>
+ 			<result column="login_date" property="loginDate"/>
+ 			<result column="login_ip" property="loginIp"/>
+ 			<result column="user_id_code" property="userIdCode"/>
+ 			<result column="buyer_exp" property="buyerExp"/>
+ 			<result column="seller_exp" property="sellerExp"/>
+ 	 	</resultMap>
+ 	 	
+ 	 	<resultMap type="ks43team01.dto.SellerCareer" id="SellerCareerResultMap">
+ 			<id column="expert_career_details_code" property="expertCareerDetailsCode"/>
+ 			<result column="user_id_code" property="userIdCode"/>
+ 			<result column="expert_company_name" property="expertCompanyName"/>
+ 			<result column="expert_work_department" property="expertWorkDepartment"/>
+ 			<result column="expert_position" property="expertPosition"/>
+ 			<result column="expert_work_place" property="expertWorkPlace"/>
+ 			<result column="expert_work_date" property="expertWorkDate"/>
+ 			<result column="expert_etc" property="expertEtc"/>
+ 			<result column="expert_stay_use" property="expertStayUse"/>
+ 			<result column="expert_career_proof_matters_attachments" property="expertCareerProofMattersAttachments"/>
+ 	 	</resultMap>
   	  	 	
  	    <resultMap type="ks43team01.dto.UserLevelExp" id="UserLevelExpResultMap">
 	  		<id column="level_up_buyer_standard_details_code" property="levelUpBuyeyStandardDetailsCode"/>
@@ -111,8 +110,6 @@
 	  		<result column="user_agree_date" property="userAgreeDate"/>
 	  		<result column="user_aplct_user_required_input" property="userRequiredInput"/>
 		</resultMap>
-	
-	
 	
 	<select id="getUserAgreeCheck" resultType="UserAgree">
 		/*동의한회원별 동의로그남김*/

@@ -18,8 +18,22 @@ public class RefundPayment{
 	
 	private Goods goods;
 	private RefundReason refundReason;
+	private RefundCompaleted refundCompaleted;
+	private User user;
 	
 	
+	public RefundCompaleted getRefundCompaleted() {
+		return refundCompaleted;
+	}
+	public void setRefundCompaleted(RefundCompaleted refundCompaleted) {
+		this.refundCompaleted = refundCompaleted;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public RefundReason getRefundReason() {
 		return refundReason;
 	}
