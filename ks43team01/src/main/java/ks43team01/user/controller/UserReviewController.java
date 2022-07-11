@@ -1,6 +1,8 @@
 package ks43team01.user.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,11 +31,11 @@ public class UserReviewController {
 	private static final Logger log = LoggerFactory.getLogger(UserReviewController.class);
 
 	private final ReviewService reviewService;
-	private final PointService pointService;
 
-	public UserReviewController(ReviewService reviewService, PointService pointService) {
+	
+	public UserReviewController(ReviewService reviewService) {
 		this.reviewService = reviewService;
-		this.pointService = pointService;
+		
 	}
 
 	/* 리뷰 수정 (post) */
@@ -79,36 +82,45 @@ public class UserReviewController {
 
 	/* 리뷰 등록-포인트 적립 (post), */
 	@PostMapping("/addReview")
-	public String addReview(ReviewContentsReg reviewContentsReg, HttpServletRequest request, HttpSession session,
-			RedirectAttributes reAttr) {
-
+	public String addReview(ReviewContentsReg reviewContentsReg
+						   ,Point point
+						   ,HttpServletRequest request
+						   ,HttpSession session
+						   ,RedirectAttributes reAttr) {
+		
 		String ip = (String) request.getRemoteAddr();
-		String userIdCode = (String) session.getAttribute("UID");
+		String userId = (String) session.getAttribute("UID");
 		reviewContentsReg.setReviewRegIp(ip);
-		reviewContentsReg.setUserIdCode(userIdCode);
+		reviewContentsReg.setUserIdCode(userId);
 		log.info("아이피 가저오는지   :  {}", ip);
-		log.info("아이디 값 가져오는지 : {}", userIdCode);
+		log.info("아이디 값 가져오는지 : {}", userId);
 		log.info("들어오는 값 :{} ", reviewContentsReg);
+		log.info("들어오는 값 :{} ", point);
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("reviewContentsReg", reviewContentsReg);
+		paramMap.put("point", point);
+		reviewService.reviewSavePoint(userId);
+		reviewService.userSavePoint(userId);
 		reviewService.addReview(reviewContentsReg);
-		reviewService.reviewSavePoint(userIdCode);
-		reviewService.userSavePoint(userIdCode);
-
+		reviewService.accumReviewPoint(point);
+		 
 		return "redirect:/userpage/reviewUser/reviewUserList";
 	}
 
 	/* 리뷰 등록(get) */
 	@GetMapping("/addReview")
 	public String addReview(Model model,
-			@RequestParam(name = "reviewStarScore", required = false) String reviewStarScore,
-			@RequestParam(name = "userIdCode", required = false) String usedIdCode,
-			@RequestParam(name = "goodsCode", required = false) String goodsCode,
-			@RequestParam(name = "reviewScoreStandardCode", required = false) String reviewScoreStandardCode) {
+							@RequestParam(name = "reviewStarScore", required = false) String reviewStarScore,
+							@RequestParam(name = "userIdCode", required = false) String usedIdCode,
+							@RequestParam(name = "goodsCode", required = false) String goodsCode,
+							@RequestParam(name = "reviewScoreStandardCode", required = false) String reviewScoreStandardCode) {
+		
 		List<ReviewContentsReg> reviewUserList = reviewService.getReviewUserList();
-		List<Point> pointList = pointService.getPointList();
-		model.addAttribute("pointList",pointList);
-		model.addAttribute("reviewUserList", reviewUserList);
+		
+		model.addAttribute("reviewUserList",reviewUserList);
 		model.addAttribute("goodsCode", goodsCode);
 		model.addAttribute("reviewScoreStandardCode", reviewScoreStandardCode);
+		
 		return "/userpage/reviewUser/addReview";
 	}
 

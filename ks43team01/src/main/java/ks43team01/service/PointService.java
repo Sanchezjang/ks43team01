@@ -25,6 +25,8 @@ public class PointService {
 
 	}
 	
+	
+	
 	/* 관리자 페이지 포인트 내역 날짜 별 조회 */
 	public List<Point> searchDatePointList(String startDate, String endDate) {
 		log.info("startDate:{}",startDate);
@@ -76,6 +78,7 @@ public class PointService {
 		
 		return result;
 	}
+	
 	
 	/*	관리자 페이지 회원 포인트 조회  */
 	 public List<Point> getPointList() {

@@ -20,21 +20,19 @@ import ks43team01.mapper.ReviewMapper;
 @Transactional
 public class ReviewService {
 		private final ReviewMapper reviewMapper;
-		private final PointMapper pointMapper;
 		
-		public ReviewService(ReviewMapper reviewMapper,PointMapper pointMapper) {
+		public ReviewService(ReviewMapper reviewMapper) {
 			this.reviewMapper = reviewMapper;
-			this.pointMapper = pointMapper;
-
 		}	
 			
 		private static final Logger log = LoggerFactory.getLogger(ReviewService.class);
 		
-		/* 리뷰쓸 떄 포인트 내역에 추가 */
-		public List<Point> accumReviewPoint(){
+		
+		/* 리뷰등록 후 포인트 내역에 추가 */
+		public List<Point> accumReviewPoint(Point point) {
 			
-			List<Point> pointList = pointMapper.getPointList();
-			
+			List<Point> pointList = reviewMapper.accumReviewPoint(point);
+			log.info("point:{}", pointList);
 			return pointList;
 		}
 		

@@ -2,12 +2,12 @@ package ks43team01.dto;
 
 
 public class Point {
+	private String pointDetailsCode;
 	private String userIdCode;
 	private String pointStandardDetailsCode;
 	private int pointAmount;
 	private String userEmail;	
 	private String pointHistoryRegDate;
-	private String pointDetailsCode;
 	
 	private PointStandardDetails pointStandardDetails;
 	private PointSaveByGrade PointSaveByGrade;

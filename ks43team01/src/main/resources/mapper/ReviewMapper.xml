@@ -61,7 +61,7 @@
 		</association>
 	</resultMap>
 	
-	<insert id="addreview" parameterType="Point">
+	<insert id="accumReviewPoint" parameterType="Map">
 	/* 리뷰 등록 후 포인트 내역 추가 */
 	INSERT INTO tb_pt_point_accumulation_details
 		(Point_details_code							
@@ -76,7 +76,7 @@
 		,#{userIdCode}
 		,#{pointStandardDetailsCode}
 		,#{pointAmount}
-		,#{userEmail}
+		,#{point.userEmail}
 		,CURDATE()
 		);
 	</insert>
@@ -205,7 +205,7 @@
 			review_code = #{reviewCode};
 	</update>
 	
-	<insert id="addReview" parameterType="ReviewContentsReg">
+	<insert id="addReview" parameterType="Map">
 	/* 리뷰 등록 */
 		INSERT INTO tb_r_review_contents 
 			( review_code
@@ -225,21 +225,21 @@
 				CONCAT(LPAD(MAX(CAST(SUBSTRING(rr.review_code,1) AS UNSIGNED))+1,2,0))
 			FROM
 				   tb_r_review_contents AS rr)
-			 ,#{goodsCode}
-			 ,#{userIdCode}
+			 ,#{reviewContentsReg.goodsCode}
+			 ,#{reviewContentsReg.userIdCode}
 			 ,(SELECT 
 					review_score_standard_code
 				FROM 
 					tb_r_based_on_score_by_review 
 				WHERE 
-					review_star_score = #{reviewStarScore})
-			 ,#{reviewContent}
+					review_star_score = #{reviewContentsReg.reviewStarScore})
+			 ,#{reviewContentsReg.reviewContent}
 			 ,0
 			 ,0
 			 ,CURDATE()
 			 ,50
-			 ,#{reviewRegIp}
-			 ,#{reviewStarScore}
+			 ,#{reviewContentsReg.reviewRegIp}
+			 ,#{reviewContentsReg.reviewStarScore}
 			 );
 	</insert>
 </mapper>
