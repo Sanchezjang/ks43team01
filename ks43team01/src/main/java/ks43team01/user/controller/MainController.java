@@ -7,28 +7,42 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import ks43team01.dto.GoodsSubCategory;
 import ks43team01.dto.GoodsTopCategory;
+import ks43team01.service.GoodsService;
 import ks43team01.service.UserService;
 
-@Controller
+@RestController
 public class MainController {
 	
 	private static final Logger log = LoggerFactory.getLogger(MainController.class);
 	
-	private final UserService userService;
-	public MainController(UserService userService) {
-		this.userService = userService;
+	private final GoodsService goodsService;
+
+	public MainController(GoodsService goodsService) {
+		this.goodsService = goodsService;
 	}
 
-	@GetMapping("/test")
-	public String index(Model model, GoodsTopCategory goodsTopCategory){ 
+	@GetMapping("/topCategory")
+	public List<GoodsTopCategory> getTopCategory(){ 
+		log.info("동작");
+		List<GoodsTopCategory> goodsTopCategory = goodsService.getGoodsTopCategory();
 		
-		List<GoodsTopCategory> expertBusinessField = userService.getTopCategory();
-		model.addAttribute("topcategory",expertBusinessField);//탑카테고리 받아옴
-		log.info("탑카테고리 받아온값   :   {}",expertBusinessField);
+		return goodsTopCategory;
 	
-		return "userpage/goods/addGoods";
+	}
 	
+	@GetMapping("/subCategory")
+	public List<GoodsSubCategory> getSubCategory(@RequestParam(name="goodsTopCategoryCode", required = false) String goodsTopCategoryCode){ 
+		log.info("동작" + goodsTopCategoryCode);
+		List<GoodsSubCategory> goodsSubCategory = goodsService.getGoodsSubCategory(goodsTopCategoryCode);
+		log.info("goodsSubCategory : {}", goodsSubCategory);
+		return goodsSubCategory;
+		
 	}
 }

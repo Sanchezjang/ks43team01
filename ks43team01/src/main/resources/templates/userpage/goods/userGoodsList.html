@@ -74,136 +74,109 @@ layout:decorate="~{userpage/layout/userdefault}">
 	        display: flex;
 	        }
 	</style>
-        <div class="slider-area">
-            <div class="slider-height2 d-flex align-items-center">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <div class="hero-cap hero-cap2 text-center">
-                                <h2>상품 리스트</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Hero End -->
-        
-         <!--? Popular Course Start -->
-        <div class="popular-course section-padding30">
-            <div class="container">
-                <div class="row justify-content-sm-center">
-                    <div class="cl-xl-7 col-lg-8 col-md-10">
-                        <!-- Section Tittle -->
-                        <div class="section-tittle text-center mb-70">
-                            <h3>상품 리스트</h3>
-                        </div> 
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <!-- Single course -->
-                        <div class="single-course mb-40">
-                            <div class="course-img">
-                                <img src="assets/img/gallery/popular_sub1.png" alt="">
-                            </div>
-                            <div class="course-caption">
-                                <div class="course-cap-top">
-                                    <h4><a href="#">java백엔드개발</a></h4>
-                                </div>
-                                <div class="course-cap-mid d-flex justify-content-between">
-                                    <div class="course-ratting">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <ul><li>552 Review</li></ul>
-                                </div>
-                                <div class="course-cap-bottom d-flex justify-content-between">
-                                    <ul>
-                                        <li><i class="ti-user"></i> 562</li>
-                                        <li><i class="ti-heart"></i> 562</li>
-                                    </ul>
-                                    <span>가격 : 800,000</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Popular Course End -->
-        
-        <!-- About Details Start -->
-   
-		<div class="boardForm">
-			<div class="box">
-				<table class="section-top-border">
-					<thead class="progress-table">
-						<tr class="table-head">
-							<th class="title">상품코드</th>
-							<th class="title" hidden="goodsTct">상품하위카테고리코드</th>
-							<th class="title">판매자</th>
-							<th class="writer">상품명</th>
-							<th class="writer">상품이미지</th>
-							<th class="writer">상품가격</th>
-						</tr>
-					</thead>
-					<tbody th:if="${not #lists.isEmpty(userGoodsList)}" th:each="g:${userGoodsList}">
-						<tr class="table-row">
-							<td class="title" th:text="${g.goodsCode}"></td>
-							<td class="title" hidden="goodsTct" th:text="${g.goodsSubCategoryCode}"></td>
-							<td class="title" th:text="${g.userIdCode}"></td>
-							<td><a th:href="@{/userpage/goods/goodsInfo(goodsCode=${g.goodsCode})}" th:value="${g.goodsCode}" th:text="${g.goodsName}"></a></td>
-							<td class="regDate" th:text="${g.goodsImageReg}"></td>
-							<td class="goodsPrice" th:text="${g.goodsPrice}"></td>
-						</tr>
-						<tr th:unless="${not #lists.isEmpty(userGoodsList)}">
-							<td colspan="4">조회된 내용이 없습니다.</td>
-						</tr>
-					</tbody>
-				</table>
+	<div class="slider-area">
+		<div class="slider-height2 d-flex align-items-center">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-12">
+						<div class="hero-cap hero-cap2 text-center">
+							<h2>상품 리스트</h2>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-		<nav class="blog-pagination justify-content-center d-flex">
-			<ul class="pagination">
-				<li class="page-item">
-					<a href="#" class="page-link" aria-label="RecentList">
-						<i class="ti-angle-double-left"></i>
-					</a>
-				</li>
-				<li class="page-item">
-					<a href="#" class="page-link" aria-label="PreviousList">
-						<i class="ti-angle-left"></i>
-					</a>
-				</li>
-				<li class="page-item">
-					<a href="#" class="page-link">1</a>
-				</li>
-				<li class="page-item active">
-					<a href="#" class="page-link">2</a>
-				</li>
-				<li class="page-item active">
-					<a href="#" class="page-link">3</a>
-				</li>
-				<li class="page-item active">
-					<a href="#" class="page-link">4</a>
-				</li>
-				<li class="page-item active">
- 					<a href="#" class="page-link">5</a>
-				</li>
-				<li class="page-item">
-					<a href="#" class="page-link" aria-label="NextList">
-						<i class="ti-angle-right"></i>
-					</a>
-				</li>
-				<li class="page-item">
-					<a href="#" class="page-link" aria-label="OldList">
-						<i class="ti-angle-double-right"></i>
-					</a>
-				</li>
-			</ul>
-		</nav>
+	</div>
+	<!-- Hero End -->
+        
+	<!--? Popular Course Start -->
+	<div class="popular-course section-padding30">
+		<div class="container">
+			<div class="row justify-content-sm-center">
+				<div class="cl-xl-7 col-lg-8 col-md-10">
+					<!-- Section Tittle -->
+					<div class="section-tittle text-center mb-70">
+						<h3>상품 리스트</h3>
+					</div> 
+				</div> 
+			</div>
+			<div class="row">
+				<th:block th:if="${not #lists.isEmpty(userGoodsList)}" th:each="g:${userGoodsList}">
+					<div class="col-xl-3 col-lg-3 col-md-6">
+					<!-- Single course -->
+						<div class="single-course mb-40">
+							<div class="course-img">
+								<img style="width: 100%" src="https://t1.daumcdn.net/cfile/tistory/25367D465817198104">
+							</div>
+							<div class="single-course mb-40">
+								<div class="course-caption">
+									<div class="course-cap-top">
+										<input type="hidden" th:value="${g.goodsCode}">
+										<input type="hidden" th:value="${g.goodsSubCategoryCode}"></input>
+										<h6><a th:href="@{/userpage/goods/goodsInfo(goodsCode=${g.goodsCode})}" th:value="${g.goodsCode}" th:text="${g.goodsName}"></a></h6>
+									</div>
+									<div class="course-cap-mid d-flex justify-content-between">
+										<div class="course-ratting">
+											<i class="fas fa-star"></i>
+											<i class="fas fa-star"></i>
+											<i class="fas fa-star"></i>
+											<i class="fas fa-star"></i>
+											<i class="fas fa-star"></i>
+										</div>
+										<ul><li th:text="${g.userIdCode}"></li></ul>
+									</div>
+									<div class="course-cap-bottom d-flex justify-content-between">
+										<a th:text="${g.goodsPrice}" style="float: right;"><span>원</span></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</th:block>
+			</div>
+		</div>
+	</div>
+	<!-- Popular Course End -->
+        
+	<!-- About Details Start -->
+	<nav class="blog-pagination justify-content-center d-flex">
+		<ul class="pagination">
+			<li class="page-item">
+				<a href="#" class="page-link" aria-label="RecentList">
+					<i class="ti-angle-double-left"></i>
+				</a>
+			</li>
+			<li class="page-item">
+				<a href="#" class="page-link" aria-label="PreviousList">
+					<i class="ti-angle-left"></i>
+				</a>
+			</li>
+			<li class="page-item">
+				<a href="#" class="page-link">1</a>
+			</li>
+			<li class="page-item active">
+				<a href="#" class="page-link">2</a>
+			</li>
+			<li class="page-item active">
+				<a href="#" class="page-link">3</a>
+			</li>
+			<li class="page-item active">
+				<a href="#" class="page-link">4</a>
+			</li>
+			<li class="page-item active">
+				<a href="#" class="page-link">5</a>
+			</li>
+			<li class="page-item">
+				<a href="#" class="page-link" aria-label="NextList">
+					<i class="ti-angle-right"></i>
+				</a>
+			</li>
+			<li class="page-item">
+				<a href="#" class="page-link" aria-label="OldList">
+					<i class="ti-angle-double-right"></i>
+				</a>
+			</li>
+		</ul>
+	</nav>
 </div>
+
