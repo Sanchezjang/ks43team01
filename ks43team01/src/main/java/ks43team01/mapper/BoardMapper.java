@@ -91,6 +91,9 @@ public interface BoardMapper {
 	//공지사항 목록 조회
 	public List<Board> getNoticeBoardList();
 	
+	//1:1 게시글 테이블 수
+	public int getQnaBoardRow();
+	
 	
 	/*
 	 * 관리자 화면

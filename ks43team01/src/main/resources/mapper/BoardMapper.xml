@@ -101,7 +101,14 @@
 		</collection>
 	</resultMap>
 
-  
+	<select id="getQnaBoardRow" resultType="int">
+	/*qna 게시글 행*/
+		SELECT
+			COUNT(*)
+		FROM
+			tb_b_board_question;
+	</select>
+
 	<update id="updatePageView" parameterType="int"> 
 	/*게시글 조회수 증가*/
 		UPDATE
