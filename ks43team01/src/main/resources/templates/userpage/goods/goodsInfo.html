@@ -101,6 +101,25 @@ layout:decorate="~{userpage/layout/userdefault}">
 						</tr>
 					</tbody>
 				</table>
+				<div class="col-md-7 col-sm-7 " >
+					<!-- db에서 저장된 사진 불러오기 -->
+					<div th:if="${not #lists.isEmpty(goods.file)}" th:each="g : ${goods.file}">
+						<div class="goods-image" th:if="${g.fileMainImage eq 'Y'}">
+							<img th:src="@{'/' + ${#strings.replace(g.fileLocation,'\','/')}}" alt="..." />
+						</div>
+						<div class="goods_gallery" th:unless="${g.fileMainImage eq 'Y'}">
+							<a><img th:src="@{'/' + ${#strings.replace(g.fileLocation,'\','/')}}" alt="..." /></a>
+					<!-- @{${#strings.replace(t.storedFilePath,'\','/')}} -->
+						</div>
+	
+					<!-- db에서 저장된 사진 불러오기 -->
+					</div>
+					<div th:unless="${not #lists.isEmpty(goods.file)}">
+						<!-- 저장된 사진 없음 -->
+						<a><img th:src="@{/images/notImage.jfif}" alt="..." /></a>
+					</div>
+				</div>
+			
 			</form>
 			<div>
 				<a th:href="@{/userpage/goods/modifyGoodsInfo(goodsCode=${goods.goodsCode})}">

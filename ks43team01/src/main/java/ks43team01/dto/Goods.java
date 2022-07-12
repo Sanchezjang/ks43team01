@@ -1,5 +1,8 @@
 package ks43team01.dto;
 
+import java.util.List;
+import java.util.Map;
+
 public class Goods {
 	private String goodsCode;
 	private String goodsSubCategoryCode;
@@ -8,7 +11,6 @@ public class Goods {
 	private String goodsPrice;
 	private String goodsWorkingPeriod;
 	private String goodsModifiedPossibilityCount;
-	private String goodsImageReg;
 	private String goodsPreRequestsAnswerType;
 	private String goodsPreRequest;
 	private String userIdCode;
@@ -17,15 +19,18 @@ public class Goods {
 	private GoodsTopCategory goodsTopCategory;
 	private GoodsSubCategory goodsSubCategory;
 	
+	private List<Map<String, String>> 	relFileWithGoods;
+	private List<File> 					file;
+	
 	@Override
 	public String toString() {
 		return "Goods [goodsCode=" + goodsCode + ", goodsSubCategoryCode=" + goodsSubCategoryCode + ", goodsName="
 				+ goodsName + ", goodsDescription=" + goodsDescription + ", goodsPrice=" + goodsPrice
 				+ ", goodsWorkingPeriod=" + goodsWorkingPeriod + ", goodsModifiedPossibilityCount="
-				+ goodsModifiedPossibilityCount + ", goodsImageReg=" + goodsImageReg + ", goodsPreRequestsAnswerType="
+				+ goodsModifiedPossibilityCount + ", goodsPreRequestsAnswerType="
 				+ goodsPreRequestsAnswerType + ", goodsPreRequest=" + goodsPreRequest + ", userIdCode=" + userIdCode
 				+ ", goodsRegDate=" + goodsRegDate + ", goodsTopCategory=" + goodsTopCategory + ", goodsSubCategory="
-				+ goodsSubCategory + "]";
+				+ goodsSubCategory + ", relFileWithGoods=" + relFileWithGoods + ", file=" + file + "]";
 	}
 	public String getGoodsCode() {
 		return goodsCode;
@@ -69,12 +74,6 @@ public class Goods {
 	public void setGoodsModifiedPossibilityCount(String goodsModifiedPossibilityCount) {
 		this.goodsModifiedPossibilityCount = goodsModifiedPossibilityCount;
 	}
-	public String getGoodsImageReg() {
-		return goodsImageReg;
-	}
-	public void setGoodsImageReg(String goodsImageReg) {
-		this.goodsImageReg = goodsImageReg;
-	}
 	public String getGoodsPreRequestsAnswerType() {
 		return goodsPreRequestsAnswerType;
 	}
@@ -110,5 +109,17 @@ public class Goods {
 	}
 	public void setGoodsSubCategory(GoodsSubCategory goodsSubCategory) {
 		this.goodsSubCategory = goodsSubCategory;
+	}
+	public List<Map<String, String>> getRelFileWithGoods() {
+		return relFileWithGoods;
+	}
+	public void setRelFileWithGoods(List<Map<String, String>> relFileWithGoods) {
+		this.relFileWithGoods = relFileWithGoods;
+	}
+	public List<File> getFile() {
+		return file;
+	}
+	public void setFile(List<File> file) {
+		this.file = file;
 	}
 }

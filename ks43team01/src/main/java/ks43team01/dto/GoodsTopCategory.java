@@ -1,17 +1,20 @@
 package ks43team01.dto;
 
+import java.util.List;
+
 public class GoodsTopCategory {
 
 	private String	goodsTopCategoryCode; 
 	private String	goodsTopCategoryName;
 	private String	userIdCode; 
 	private String	goodsTopCategoryRegDate;
+	private List<GoodsSubCategory> goodsSubCategoryList;
 	
 	@Override
 	public String toString() {
 		return "GoodsTopCategory [goodsTopCategoryCode=" + goodsTopCategoryCode + ", goodsTopCategoryName="
 				+ goodsTopCategoryName + ", userIdCode=" + userIdCode + ", goodsTopCategoryRegDate="
-				+ goodsTopCategoryRegDate + "]";
+				+ goodsTopCategoryRegDate + ", goodsSubCategoryList=" + goodsSubCategoryList + "]";
 	}
 	public String getGoodsTopCategoryCode() {
 		return goodsTopCategoryCode;
@@ -36,5 +39,11 @@ public class GoodsTopCategory {
 	}
 	public void setGoodsTopCategoryRegDate(String goodsTopCategoryRegDate) {
 		this.goodsTopCategoryRegDate = goodsTopCategoryRegDate;
+	}
+	public List<GoodsSubCategory> getGoodsSubCategoryList() {
+		return goodsSubCategoryList;
+	}
+	public void setGoodsSubCategoryList(List<GoodsSubCategory> goodsSubCategoryList) {
+		this.goodsSubCategoryList = goodsSubCategoryList;
 	}
 }

@@ -1,16 +1,21 @@
 package ks43team01.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import ks43team01.common.FileUtils;
 import ks43team01.dto.Goods;
 import ks43team01.dto.GoodsSubCategory;
 import ks43team01.dto.GoodsTopCategory;
+import ks43team01.mapper.FileMapper;
 import ks43team01.mapper.GoodsMapper;
 
 @Service
@@ -20,11 +25,12 @@ public class GoodsService {
 	
 	private static final Logger log = LoggerFactory.getLogger(GoodsService.class);
 
-	
 	private final GoodsMapper goodsMapper;
+	private final FileMapper fileMapper;
 	
-	public GoodsService(GoodsMapper goodsMapper) {
+	public GoodsService(GoodsMapper goodsMapper, FileMapper fileMapper) {
 		this.goodsMapper = goodsMapper;
+		this.fileMapper = fileMapper;
 	}
 	
 	/*
@@ -86,14 +92,31 @@ public class GoodsService {
 	}
 	
 	// 상품 등록
-	public int addGoods(String sessionId, Goods goods) {
+	public int addGoods(String sessionId, Goods goods, MultipartFile[] goodsImageReg, String fileRealPath) {
 		
 		goods.setUserIdCode(sessionId);
 		
+		FileUtils fu = new FileUtils(goodsImageReg, goods.getUserIdCode(), fileRealPath);
+		List<Map<String, String>> dtoFileList = fu.parseFileInfo();
+		
+		fileMapper.uploadFile(dtoFileList);
+
 		int result = goodsMapper.addGoods(goods);
+		String goodsCode = goods.getGoodsCode();
+		
+		log.info(goodsCode);
+		List<Map<String, String>> relationFileList = new ArrayList<>();
+		for(Map<String, String> m : dtoFileList) {
+			m.put("goodsCode", goodsCode);
+			relationFileList.add(m);
+		}
+
+		fileMapper.uploadRelationFileWithGoods(relationFileList);
+		
 		
 		return result;
 	}
+	
 	
 	/*
 	 * 관리자 화면
