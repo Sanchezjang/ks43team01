@@ -1,6 +1,10 @@
 package ks43team01.user.controller;
 
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -46,7 +50,7 @@ public class LoginController {
 	@PostMapping("/login")
 	public String login(@RequestParam(name="userId",required = false)String userId
 						,@RequestParam(name="userPw",required = false)String userPw	
-						,HttpSession session,HttpServletRequest request,UserLog userLog,UserLevelExp userLevelExp,User user) {
+						,HttpSession session,HttpServletRequest request,UserLog userLog,UserLevelExp userLevelExp,User user, ServletResponse response) throws IOException {
 		User user1 = userService.getUserInfoById(userId);
 		String OS =	System.getProperty("os.name");
 		log.info("운영체제 출력   :   {}",OS);
@@ -68,9 +72,14 @@ public class LoginController {
 				userService.addUserLevelExp(userLevelExp);
 				log.info("request값  :  {}",request);
 				return "redirect:/";
+				}
+			}
+				response.setCharacterEncoding("UTF-8");
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('아아다 또는 비밀번호를 확인해주세요~!'); self.close();</script>");
+				out.flush();
+			return "userpage/user/login";
 		}
-	}
-	return "redirect:/userpage/login/login";
-	}
 	
-}
+	}
