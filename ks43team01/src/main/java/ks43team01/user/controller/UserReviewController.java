@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestAttributes;
@@ -31,11 +32,10 @@ public class UserReviewController {
 	private static final Logger log = LoggerFactory.getLogger(UserReviewController.class);
 
 	private final ReviewService reviewService;
-
-	
-	public UserReviewController(ReviewService reviewService) {
+	private final PointService pointService;
+	public UserReviewController(ReviewService reviewService, PointService pointService) {
 		this.reviewService = reviewService;
-		
+		this.pointService = pointService;
 	}
 
 	/* 리뷰 수정 (post) */
@@ -96,13 +96,10 @@ public class UserReviewController {
 		log.info("아이디 값 가져오는지 : {}", userId);
 		log.info("들어오는 값 :{} ", reviewContentsReg);
 		log.info("들어오는 값 :{} ", point);
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("reviewContentsReg", reviewContentsReg);
-		paramMap.put("point", point);
 		reviewService.reviewSavePoint(userId);
 		reviewService.userSavePoint(userId);
 		reviewService.addReview(reviewContentsReg);
-		reviewService.accumReviewPoint(point);
+		/* pointService.addPointList(point); */
 		 
 		return "redirect:/userpage/reviewUser/reviewUserList";
 	}
