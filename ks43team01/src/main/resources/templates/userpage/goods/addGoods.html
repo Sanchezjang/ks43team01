@@ -109,7 +109,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 			</div>
 
 			<!-- start form for validation -->
-			<form th:action="@{/userpage/goods/addGoods}" method="post" id="demo-form" data-parsley-validate>
+			<form th:action="@{/userpage/goods/addGoods}" method="post" id="demo-form" data-parsley-validate enctype="multipart/form-data" name="multipart">
 				<div class="orderer form-group">
 					<div class="form-group">
 					<label for="goodsTopCategoryName" class="col-12 mainExplanation required">상위 카테고리</label>

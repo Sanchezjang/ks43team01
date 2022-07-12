@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks43team01.dto.Goods;
@@ -97,12 +98,26 @@ public class UserGoodsController {
 	@PostMapping("/addGoods")
 	public String addGoods(HttpSession session
 			,Goods goods
+			,@RequestParam MultipartFile[] goodsImageReg
 			,HttpServletRequest request) {
 		
 		//log.info("상품 등록 처리 goods : {}", goods);
+		String serverName = request.getServerName();
 		String sessionId = (String) session.getAttribute("UID");
 		
-		goodsService.addGoods(sessionId, goods);
+		String fileRealPath = "";
+		
+		if("localhost".equals(serverName)) {
+			// server 가 localhost 일때 접근
+			fileRealPath = System.getProperty("user.dir") + "/src/main/resources/static/";
+			System.out.println(System.getProperty("user.dir"));
+			//fileRealPath = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
+		}else {
+			//배포용 주소
+			fileRealPath = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
+		}
+		
+		goodsService.addGoods(sessionId, goods, goodsImageReg, fileRealPath);
 		
 		return "redirect:/userpage/goods/userGoodsList";
 	}
