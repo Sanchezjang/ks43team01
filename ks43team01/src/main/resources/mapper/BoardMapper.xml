@@ -16,7 +16,6 @@
 		<result column="board_post_view"					property="boardPostView"/>
 		<result column="board_post_use"						property="boardPostUse"/>
 
-         
 		<association property="boardCategory" javaType="BoardCategory">
 			<id    column="board_category_code"				property="boardCategoryCode"/>
 			<result column="user_id_code"					property="userIdCode"/>
@@ -104,7 +103,6 @@
 		</collection>
 	</resultMap>
 
-
 	<update id="updatePageView" parameterType="int"> 
 	/*게시글 조회수 증가*/
 		UPDATE
@@ -134,7 +132,6 @@
 		WHERE
 			board_comment_code = #{boardCommentCode};
 	</update>
-  
   
 	<insert id="addComment" parameterType="BoardComment">
 	/*게시글 댓글 등록 */
