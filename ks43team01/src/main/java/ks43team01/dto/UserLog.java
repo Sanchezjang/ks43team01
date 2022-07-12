@@ -5,8 +5,24 @@ public class UserLog {
 	private String loginDate;
 	private String loginIp;
 	private String userIdCode;
+	private String userOS;
+	private String userBrowser;
 	private String buyerExp;
 	private String sellerExp;
+	
+
+	public String getUserOS() {
+		return userOS;
+	}
+	public void setUserOS(String userOS) {
+		this.userOS = userOS;
+	}
+	public String getUserBrowser() {
+		return userBrowser;
+	}
+	public void setUserBrowser(String user_Browser) {
+		this.userBrowser = user_Browser;
+	}
 	
 	
 	@Override
@@ -20,6 +36,10 @@ public class UserLog {
 		builder.append(loginIp);
 		builder.append(", userIdCode=");
 		builder.append(userIdCode);
+		builder.append(", userOS=");
+		builder.append(userOS);
+		builder.append(", userBrowser=");
+		builder.append(userBrowser);
 		builder.append(", buyerExp=");
 		builder.append(buyerExp);
 		builder.append(", sellerExp=");

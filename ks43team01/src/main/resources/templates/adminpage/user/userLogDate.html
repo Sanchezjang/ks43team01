@@ -51,6 +51,8 @@
                           <th>로그인시간</th>
                           <th>로그인아이피</th>
                           <th>회원아이디</th>
+                          <th>접속OS</th>
+                          <th>접속브라우저</th>
                           <th>구매자경험치</th>
                           <th>판매자경험치</th>
                           <th>삭제</th>
@@ -65,6 +67,8 @@
                         <td th:text="${l.loginDate}"></td>
 		                <td th:text="${l.loginIp}"></td>
 		                <td th:text="${l.userIdCode}"></td>
+		                <td th:text="${l.userOS}"></td>
+		                <td th:text="${l.userBrowser}"></td>
               			<td th:text="${l.buyerExp}"></td>
               			<td th:text="${l.sellerExp}"></td>
               			<td>
