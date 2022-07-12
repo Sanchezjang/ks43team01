@@ -79,6 +79,13 @@ public class PointService {
 		return result;
 	}
 	
+	/* 관리자 페이지 포인트 내역 추가  */
+	public int addPointList(Point point) {
+		
+		int result = pointMapper.addPointList(point);
+		
+		return result;
+	}
 	
 	/*	관리자 페이지 회원 포인트 조회  */
 	 public List<Point> getPointList() {

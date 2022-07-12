@@ -44,17 +44,8 @@
 		<!-- top navigation -->
 			<div th:replace="adminpage/fragments/header :: headerFragment"></div>
 		<!-- /top navigation -->
-		
-		
-		<!-- 사용자 정의 Script-->
-		<th:block layout:fragment="customScript">
-		<script>
-			var $removeDetailsCode = $('#removeDetailsCode');
-	    	$('.removePointModalBtn').on('click', function() {
-	    	  $removeDetailsCode.val($(this).val());            	  
-	    	});
-    	</script>
-    	<script>
+		 
+			<script>
 			$(function(){
 				
 				$(document).on('click', '.dateBtnGroup', function(){
@@ -129,7 +120,6 @@
 								
 							});
 		</script>	
-		</th:block>	
         <!-- page content -->
         <div class="right_col" role="main">
           <div class="">
@@ -248,8 +238,12 @@
 	               </div>
 	         </div>
               <!-- Modal -->
-             
-
+            <script>
+				var $removeDetailsCode = $('#removeDetailsCode');
+		    	$('.removePointModalBtn').on('click', function() {
+		    	  $removeDetailsCode.val($(this).val());            	  
+		    	});
+	    	</script>
 		<!-- footer content -->
 		<div th:replace="adminpage/fragments/footer :: footerFragment"></div>
 		<!-- /footer content -->

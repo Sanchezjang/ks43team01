@@ -45,6 +45,26 @@
 		</association>
 	</resultMap>
 	
+	<insert id="addPointList" parameterType="Point">
+	/* 리뷰 등록 후 포인트 내역 추가 */
+	INSERT INTO tb_pt_point_accumulation_details
+		(Point_details_code							
+		,user_id_code								
+		,point_standard_details_code				
+		,point_amount								
+		,user_email									
+		,point_history_reg_date						
+		)
+	VALUES 
+		(#{pointDetailsCode}
+		,#{userIdCode}
+		,#{pointStandardDetailsCode}
+		,#{pointAmount}
+		,#{userEmail}
+		,CURDATE()
+		);
+	</insert>
+
 	<update id="modifyGradeList" parameterType="PointSaveByGrade">
 	/* 관리자 페이지 포인트 기준 수정 */
 	UPDATE 
@@ -78,7 +98,7 @@
 			CONCAT('pbssgc0',MAX(CAST(SUBSTRING(pp.point_buy_save_standard_grade_code,7)AS UNSIGNED)+1))
 		FROM 
 			tb_pt_point_buy_save_by_grade AS pp)
-		,#{gradeUserCode}
+		,#{pointSaveByGrade.gradeUserCode}
 		,#{pointSaveByGrade.pointStandardDetailsCode}
 		,#{pointSaveByGrade.pointSaveByGradePercent}
 		,#{pointSaveByGrade.pointSaveByGradeUnit}
