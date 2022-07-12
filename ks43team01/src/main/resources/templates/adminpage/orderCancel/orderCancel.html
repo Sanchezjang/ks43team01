@@ -61,9 +61,9 @@
 						              			<td th:text="${r.buyerSellerConsultatioRefundWorkProgress}"></td>
 						              			<td th:text="${r.refundRequestDatetime}"></td>
 						              			<td th:text="${r.refundRequestmoney}"></td>
-						              			<td th:text="${r.refundRequestmoney}"></td>
-						              			<td><a type="button" th:href="@{orderCancelSuccess(userIdCode=${r.userIdCode})}" class="btn btn-primary" id="refundBtn">승인</a></td>
-												<td><a type="button" th:href="@{orderCancelFail(userIdCode=${r.userIdCode})}" class="btn btn-danger" id="refundBtn1">미승인</a></td>
+						              			<td th:text="${r.refundProgressStatus}"></td>
+						              			<td><a th:href="@{orderCancelSuccess(userIdCode=${r.userIdCode})}" class="btn btn-primary" id="refundBtn">승인</a></td>
+												<td><a th:href="@{orderCancelFail(userIdCode=${r.userIdCode})}" class="btn btn-danger" id="refundBtn1">미승인</a></td>
                      						</tr>
                   						</tbody>
                     				</table>
