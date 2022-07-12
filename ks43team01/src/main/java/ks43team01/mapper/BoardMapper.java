@@ -11,9 +11,6 @@ import ks43team01.dto.BoardCategory;
 import ks43team01.dto.BoardComment;
 import ks43team01.dto.BoardLargeCategory;
 import ks43team01.dto.BoardMediumCategory;
-import ks43team01.dto.BoardPostFile;
-import ks43team01.dto.GoodsSubCategory;
-import ks43team01.dto.GoodsTopCategory;
 import ks43team01.dto.QnaBoard;
 import ks43team01.dto.QnaBoardReply;
 

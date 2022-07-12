@@ -5,7 +5,6 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
-import javax.print.DocFlavor.STRING;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -29,7 +28,6 @@ import ks43team01.dto.BoardLargeCategory;
 import ks43team01.dto.BoardMediumCategory;
 import ks43team01.dto.File;
 import ks43team01.dto.QnaBoard;
-import ks43team01.dto.QnaBoardReply;
 import ks43team01.service.BoardService;
 
 
@@ -54,7 +52,9 @@ public class BoardController {
 	
 	/* 1:1 문의 게시글 답변글 등록  (post) */
 	@PostMapping("/addQnaBoardReply")
-	public String addQnaBoardReply(QnaBoard qnaBoard, HttpSession session, RedirectAttributes reAttr) {
+	public String addQnaBoardReply(QnaBoard qnaBoard
+									, HttpSession session
+									, RedirectAttributes reAttr) {
 		
 		log.info("qnaBoard", qnaBoard);
 		
@@ -73,7 +73,6 @@ public class BoardController {
 									, @RequestParam(name = "boardLargeCategoryCode", required = false) String boardLargeCategoryCode
 									, @RequestParam(name = "boardMediumCategoryCode", required = false) String boardMediumCategoryCode
 									, Model model) {
-		
 		
 		QnaBoard qnaBoard = boardService.getQnaBoardByCode(boardQuestionCode);
 		model.addAttribute("qnaBoard", qnaBoard);
@@ -98,7 +97,8 @@ public class BoardController {
 		
 	/*1:1 문의 게시글 상세 조회*/
 	@GetMapping("/qnaBoardDetail")
-	public String qnaBoardDetail(@RequestParam(value = "boardQuestionCode")String boardQuestionCode, Model model) {
+	public String qnaBoardDetail(@RequestParam(value = "boardQuestionCode")String boardQuestionCode
+								, Model model) {
 		QnaBoard qnaBoard = boardService.getQnaBoardByCode(boardQuestionCode);
 		
 		log.info("qnaBoard : {}", qnaBoard);
@@ -215,6 +215,7 @@ public class BoardController {
 	@PostMapping("/modifyFreeBoard")
 	public String modifyFreeBoard(Board board
 								, RedirectAttributes reAttr) {
+		
 		log.info("board: {}", board);
 		boardService.modifyBoard(board);
 		String boardPostCode = board.getBoardPostCode();
@@ -225,7 +226,9 @@ public class BoardController {
 	
 	/* 4-3. 자유게시판 게시글 수정 (get) */
 	@GetMapping("/modifyFreeBoard")
-	public String modifyFreeBoard(@RequestParam(value = "boardPostCode", required = false)String boardPostCode, Model model) {
+	public String modifyFreeBoard(@RequestParam(value = "boardPostCode", required = false)String boardPostCode
+								, Model model) {
+		
 		Board board = boardService.getBoardByCode(boardPostCode);
 		model.addAttribute("board",board);
 		
@@ -235,7 +238,8 @@ public class BoardController {
 	/* 4-2. 자주묻는 질문 게시글 수정 (post) */
 	@PostMapping("/modifyFaqBoard")
 	public String modifyFaqBoard(Board board
-			, RedirectAttributes reAttr) {
+								, RedirectAttributes reAttr) {
+		
 		log.info("board: {}", board);
 		boardService.modifyBoard(board);
 		String boardPostCode = board.getBoardPostCode();
@@ -246,7 +250,9 @@ public class BoardController {
 	
 	/* 4-2. 자주묻는 질문 게시글 수정 (get) */
 	@GetMapping("/modifyFaqBoard")
-	public String modifyFaqBoard(@RequestParam(value = "boardPostCode", required = false)String boardPostCode, Model model) {
+	public String modifyFaqBoard(@RequestParam(value = "boardPostCode", required = false)String boardPostCode
+								, Model model) {
+		
 		Board board = boardService.getBoardByCode(boardPostCode);
 		model.addAttribute("board",board);
 		
@@ -256,7 +262,8 @@ public class BoardController {
 	/* 4-1. 공지사항 게시글 수정 (post) */
 	@PostMapping("/modifyNoticeBoard")
 	public String modifyNoticeBoard(Board board
-								, RedirectAttributes reAttr) {
+									, RedirectAttributes reAttr) {
+		
 		log.info("board: {}", board);
 		boardService.modifyBoard(board);
 		String boardPostCode = board.getBoardPostCode();
@@ -267,7 +274,9 @@ public class BoardController {
 	
 	/* 4-1. 공지사항 게시글 수정 (get) */
 	@GetMapping("/modifyNoticeBoard")
-	public String modifyNoticeBoard(@RequestParam(value = "boardPostCode", required = false)String boardPostCode, Model model) {
+	public String modifyNoticeBoard(@RequestParam(value = "boardPostCode", required = false)String boardPostCode
+									, Model model) {
+		
 		Board board = boardService.getBoardByCode(boardPostCode);
 		model.addAttribute("board",board);
 		
@@ -276,9 +285,10 @@ public class BoardController {
 	
 	/* 3-3. 자유게시판 게시글 상세 페이지 조회 */
 	@GetMapping("/freeBoardDetail")
-	public String freeBoardDetail(@RequestParam(value = "boardPostCode")String boardPostCode, Model model) {
-		Board board = boardService.getBoardByCode(boardPostCode);
+	public String freeBoardDetail(@RequestParam(value = "boardPostCode")String boardPostCode
+								, Model model) {
 		
+		Board board = boardService.getBoardByCode(boardPostCode);
 		
 		List<BoardComment> boardPostCommentList = boardService.getBoardPostCommentList(boardPostCode);
 		model.addAttribute("board", board);
@@ -293,7 +303,9 @@ public class BoardController {
 	}
 	/* 3-2. 자주묻는 질문 게시글 상세 페이지 조회 */
 	@GetMapping("/faqBoardDetail")
-	public String faqBoardDetail(@RequestParam(value = "boardPostCode")String boardPostCode, Model model) {
+	public String faqBoardDetail(@RequestParam(value = "boardPostCode")String boardPostCode
+								, Model model) {
+		
 		Board board = boardService.getBoardByCode(boardPostCode);
 		log.info("board : {}", board);
 		model.addAttribute("board", board);
@@ -301,7 +313,9 @@ public class BoardController {
 	}
 	/* 3-1. 공지사항 게시글 상세 페이지 조회 */
 	@GetMapping("/noticeBoardDetail")
-	public String noticeBoardDetail(@RequestParam(value = "boardPostCode")String boardPostCode, Model model) {
+	public String noticeBoardDetail(@RequestParam(value = "boardPostCode")String boardPostCode
+									, Model model) {
+		
 		Board board = boardService.getBoardByCode(boardPostCode);
 		log.info("board : {}", board);
 		model.addAttribute("board", board);
@@ -311,7 +325,7 @@ public class BoardController {
 	/* 1:1 게시글 파일 다운로드 */
 	@GetMapping("/download")
 	public void download(HttpServletResponse response
-						,@RequestParam MultipartFile[] boardImgFile
+						, @RequestParam MultipartFile[] boardImgFile
 						, File file) {
 	
 		String fileName = file.getFileReName();
@@ -346,7 +360,6 @@ public class BoardController {
 							, RedirectAttributes reAttr
 							, @RequestParam MultipartFile[] boardImgFile
 							, HttpServletRequest request) {
-		
 		
 		String serverName = request.getServerName();
 		String sessionId = (String) session.getAttribute("UID");
@@ -395,6 +408,7 @@ public class BoardController {
 	public String addFreeBoard(Board board 
 							, HttpSession session
 							, HttpServletRequest request) {
+		
 		String sessionId = (String) session.getAttribute("UID");
 		boardService.addFreeBoard(sessionId, board);
        
@@ -412,7 +426,8 @@ public class BoardController {
 	@PostMapping("/addFaqBoard")
 	public String addFaqBoard(Board board
 							, HttpSession session
-    						, HttpServletRequest request) {
+							, HttpServletRequest request) {
+		
 		String sessionId = (String) session.getAttribute("UID");
 		boardService.addFaqBoard(sessionId, board);
        
@@ -432,6 +447,7 @@ public class BoardController {
 	public String addNoticeBoard(Board board
 								, HttpSession session
 								, HttpServletRequest request) {
+		
 		String sessionId = (String) session.getAttribute("UID");
 		boardService.addNoticeBoard(sessionId, board);
        
@@ -447,8 +463,8 @@ public class BoardController {
 
 	/*1:1 게시글 목록 조회*/
 	   @GetMapping("/qnaBoardList")
-	   public String getqnaBoardList(@RequestParam(name = "currentPage", required = false, defaultValue = "1")int currentPage
-	                           , Model model) {
+	   public String getqnaBoardList(@RequestParam(name = "currentPage", required = false, defaultValue = "1") int currentPage
+			   						, Model model) {
 	      
 	      Map<String, Object> resultMap = boardService.getQnaBoardList(currentPage);
 	      model.addAttribute("getQnaBoardList", resultMap.get("getQnaBoardList"));
@@ -467,7 +483,7 @@ public class BoardController {
 	   /* 1. 사용자 게시글 목록 조회 */
 	   @GetMapping("/{boardCategory}")
 	   public String getBoardList(@PathVariable(value="boardCategory", required = false) String boardCategory
-	                        ,Model model) {
+	                        	, Model model) {
 	      
 	      if(boardCategory.equals("noticeBoardList")) {
 	         List<Board> noticeBoardList = boardService.getNoticeBoardList();

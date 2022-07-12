@@ -51,7 +51,6 @@ public class BoardService {
 	}
 	
 
-	
 	/* 1:1 게시글 등록 */
 	public String addQnaBoard(String sessionId, QnaBoard qnaBoard, MultipartFile[] boardImgFile, String fileRealPath) {
 		qnaBoard.setUserIdCode(sessionId);
@@ -77,66 +76,69 @@ public class BoardService {
 		List<Map<String, String>> dtoFileList = fu.parseFileInfo();
 		
 		// t_file 테이블에 삽입
-				System.out.println(dtoFileList + "<<<dtoFileList입니다.");
-				fileMapper.uploadFile(dtoFileList);
+		System.out.println(dtoFileList + "<<<dtoFileList입니다.");
+		fileMapper.uploadFile(dtoFileList);
 						
-				boardMapper.addQnaBoard(qnaBoard);
-				String boardQuestionCode= qnaBoard.getBoardQuestionCode();
+		boardMapper.addQnaBoard(qnaBoard);
+		String boardQuestionCode= qnaBoard.getBoardQuestionCode();
 				
-				// 릴레이션 테이블에 삽입
-				 List<Map<String, String>> relationFileList = new ArrayList<>();
-				 for(Map<String, String> m : dtoFileList) {
-				 m.put("boardQuestionCode", boardQuestionCode);
-				 relationFileList.add(m);
-				 		}
-				 System.out.println(relationFileList + "<<<relationFileList입니다.");
-			 		fileMapper.uploadRelationFileWithQnaBoard(relationFileList);
+		// 릴레이션 테이블에 삽입
+		List<Map<String, String>> relationFileList = new ArrayList<>();
+		for(Map<String, String> m : dtoFileList) {
+			m.put("boardQuestionCode", boardQuestionCode);
+			relationFileList.add(m);
+		}
+		System.out.println(relationFileList + "<<<relationFileList입니다.");
+		fileMapper.uploadRelationFileWithQnaBoard(relationFileList);
 			     	
-					System.out.println("-----------------------게시글 등록 서비스 끝------------------------------");
-					return boardQuestionCode;
-				}else {
-					
-					int result = boardMapper.addQnaBoard(qnaBoard);
-					return Integer.toString(result);
-				}
+		System.out.println("-----------------------게시글 등록 서비스 끝------------------------------");
+		
+		return boardQuestionCode;
+		
+		}else {
+			
+			int result = boardMapper.addQnaBoard(qnaBoard);
+			
+			return Integer.toString(result);
+		}
 	}
 	
-	   /* 5. 1:1 게시판 게시글 목록 조회*/
-	   public Map<String, Object> getQnaBoardList(int currentPage){
-	      int rowPerPage = 10;
-	      int startPageNum = 1;
-	      int endPageNum = 3;
-	      
-	      double rowCount = boardMapper.getQnaBoardListCount();
-	      int lastPage = (int)Math.ceil(rowCount/rowPerPage);
-	      int startRow = (currentPage - 1) * rowPerPage;
-	      
-	      Map<String, Object> paramMap = new HashMap<String, Object>();
-	      paramMap.put("startRow", startRow);
-	      paramMap.put("rowPerPage", rowPerPage);
-	      
-	      List<QnaBoard> getQnaBoardList = boardMapper.getQnaBoardList(paramMap);
-	      
-	      System.out.println("getQnaBoardList: {}" + getQnaBoardList);
-	      
-	      if(currentPage > 6) {
-	         startPageNum = currentPage - 5;
-	         endPageNum = currentPage + 4; // 자신 포함 / last-21페이지 픽스. 21-4 = 17부터는 움직이지않겠다. 17커런트로왔을때
+   /* 5. 1:1 게시판 게시글 목록 조회*/
+	public Map<String, Object> getQnaBoardList(int currentPage){
+		int rowPerPage = 10;
+		int startPageNum = 1;
+		int endPageNum = 3;
+      
+		double rowCount = boardMapper.getQnaBoardListCount();
+		int lastPage = (int)Math.ceil(rowCount/rowPerPage);
+		int startRow = (currentPage - 1) * rowPerPage;
+      
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("startRow", startRow);
+		paramMap.put("rowPerPage", rowPerPage);
+      
+		List<QnaBoard> getQnaBoardList = boardMapper.getQnaBoardList(paramMap);
+      
+		System.out.println("getQnaBoardList: {}" + getQnaBoardList);
+      
+		if(currentPage > 6) {
+			startPageNum = currentPage - 5;
+			endPageNum = currentPage + 4; // 자신 포함 / last-21페이지 픽스. 21-4 = 17부터는 움직이지않겠다. 17커런트로왔을때
 
-	         if (endPageNum >= lastPage) { // 17이상부터 클릭시 숫자가 늘어나지않고 고정되는 모습
-	            startPageNum = lastPage - 9; // 라스트페이지해당 21-9 = 12부터 고정시키겠다.
-	            endPageNum = lastPage;
-	         }
-	      }
-	      Map<String, Object> resultMap = new HashMap<String, Object>();
-	      resultMap.put("lastPage", lastPage);
-	      resultMap.put("getQnaBoardList", getQnaBoardList);
-	      resultMap.put("startPageNum", startPageNum);
-	      resultMap.put("endPageNum", endPageNum);
-	      resultMap.put("rowCount", rowCount);
+			if (endPageNum >= lastPage) { // 17이상부터 클릭시 숫자가 늘어나지않고 고정되는 모습
+				startPageNum = lastPage - 9; // 라스트페이지해당 21-9 = 12부터 고정시키겠다.
+				endPageNum = lastPage;
+			}
+		}
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("lastPage", lastPage);
+		resultMap.put("getQnaBoardList", getQnaBoardList);
+		resultMap.put("startPageNum", startPageNum);
+		resultMap.put("endPageNum", endPageNum);
+		resultMap.put("rowCount", rowCount);
 	      
-	      return resultMap;
-	   }
+		return resultMap;
+	}
 	
 	// 1:1 문의 2차 카테고리
 	public List<BoardMediumCategory> getBoardMediumCategory(String boardLargeCategory) {
@@ -148,17 +150,20 @@ public class BoardService {
 	//1:1 문의 1차 카테고리
 	public List<BoardLargeCategory> getBoardLargeCategory() {
 		List<BoardLargeCategory> boardLargeCategory= boardMapper.getBoardLargeCategory();
+		
 		return boardLargeCategory;
 	}
 
 	/*1:1 문의 게시글 상세 조회 */
 	public QnaBoard getQnaBoardByCode(String boardQuestionCode) {
 	      System.out.println("___________getQnaBoardByCode____________");
+	      
 	      return boardMapper.getQnaBoardByCode(boardQuestionCode);
 	  }
 	/*1:1 문의 게시글 아이디별정보추출.. */
 	public List<QnaBoard> getQnaBoard(String userIdCode) {
 		List<QnaBoard> resultList = boardMapper.getQnaBoard(userIdCode);
+		
 		return resultList;
 	}
 	/*게시글 댓글 삭제*/
@@ -188,6 +193,7 @@ public class BoardService {
 	/*게시글 댓글 조회 */
 	public List<BoardComment> getBoardPostCommentList(String boardPostCode){
 		List<BoardComment> boardPostCommentList = boardMapper.getBoardPostCommentList(boardPostCode);
+		
 		return boardPostCommentList;
 	}
 	
@@ -209,6 +215,7 @@ public class BoardService {
 	/* 게시글 상세 조회 */
 	public Board getBoardByCode(String boardPostCode) {
 		System.out.println("___________getBoardByCode____________");
+		
 		return boardMapper.getBoardByCode(boardPostCode);
 	}
 
@@ -223,6 +230,7 @@ public class BoardService {
 	/* 자유게시판 목록 조회 */
 	public List<Board> getFreeBoardList(){
 		List<Board> freeBoardList = boardMapper.getFreeBoardList();
+		
 		return freeBoardList;
 	}
 	
@@ -238,6 +246,7 @@ public class BoardService {
 	/* 자주묻는 질문 목록 조회 */
 	public List<Board> getFaqBoardList(){
 		List<Board> faqBoardList = boardMapper.getFaqBoardList();
+		
 		return faqBoardList;
 	}
 
@@ -252,6 +261,7 @@ public class BoardService {
 	/* 공지사항 목록 조회  */
 	public List<Board> getNoticeBoardList(){
 		List<Board> noticeBoardList = boardMapper.getNoticeBoardList();
+		
 		return noticeBoardList;
 	}
 	
@@ -262,12 +272,14 @@ public class BoardService {
 	/* 게시글 답변모음 목록 조회 */
 	public List<BoardAnswer> getBoardAnswerList(){
 		List<BoardAnswer> boardAnswerList = boardMapper.getBoardAnswerList();
+		
 		return boardAnswerList;
 	}
 	
 	/* 게시글 댓글 목록 조회 */
 	public List<BoardComment> getBoardCommentList(){
 		List<BoardComment> boardCommentList = boardMapper.getBoardCommentList();
+		
 		return boardCommentList;
 	}
 	
@@ -283,6 +295,7 @@ public class BoardService {
 	/*문의 게시판 2차 카테고리 조회*/
 	public List<BoardMediumCategory> getBoardMediumCategoryList(){
 		List<BoardMediumCategory> boardMediumCategoryList = boardMapper.getBoardMediumCategoryList();
+		
 		return boardMediumCategoryList;
 	}
 	
@@ -297,6 +310,7 @@ public class BoardService {
 	/*문의 게시판 1차 카테고리 조회*/
 	public List<BoardLargeCategory> getBoardLargeCategoryList(){
 		List<BoardLargeCategory> boardLargeCategoryList = boardMapper.getBoardLargeCategoryList();
+		
 		return boardLargeCategoryList;
 	}	
 	
@@ -310,12 +324,14 @@ public class BoardService {
 	/*게시판 대분류 카테고리 조회*/
 	public List<BoardCategory> getBoardCategoryList(){
 		List<BoardCategory> boardCategoryList = boardMapper.getBoardCategoryList();
+		
 		return boardCategoryList;
 	}
 	
 	/*전체 게시글 목록 조회*/
 	public List<Board> getBoardList(){
 		List<Board> boardList = boardMapper.getBoardList();
+		
 		return boardList;
 	}
 	
