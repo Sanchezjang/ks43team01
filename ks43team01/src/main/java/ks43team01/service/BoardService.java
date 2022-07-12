@@ -19,6 +19,7 @@ import ks43team01.dto.BoardComment;
 import ks43team01.dto.BoardLargeCategory;
 import ks43team01.dto.BoardMediumCategory;
 import ks43team01.dto.QnaBoard;
+import ks43team01.dto.QnaBoardReply;
 import ks43team01.mapper.BoardMapper;
 import ks43team01.mapper.FileMapper;
 
@@ -40,6 +41,17 @@ public class BoardService {
 	 * 사용자 화면
 	 * */
 	
+	/* 1:1 게시글 답변글 등록 */
+	public int addQnaBoardReply(String sessionId, QnaBoard qnaBoard) {
+		qnaBoard.setUserIdCode(sessionId);
+		
+		int result = boardMapper.addQnaBoardReply(qnaBoard);
+		
+		return result;
+	}
+	
+
+	
 	/* 1:1 게시글 등록 */
 	public String addQnaBoard(String sessionId, QnaBoard qnaBoard, MultipartFile[] boardImgFile, String fileRealPath) {
 		qnaBoard.setUserIdCode(sessionId);
@@ -49,37 +61,44 @@ public class BoardService {
 		// 3. 게시글 insert
 		// 4. 결과값 return
 		
+		/*첨부파일을 포함하지 않을 때 조건문 실행*/
+		boolean fileCheck = true;
+		
+		for (MultipartFile multipartFile : boardImgFile){
+			if(!multipartFile.isEmpty()) {
+				fileCheck = false;
+			}
+		}
+		
+		if (!fileCheck) {
+			
 		//파일 업로드 객체 생성
 		FileUtils fu = new FileUtils(boardImgFile, qnaBoard.getUserIdCode(), fileRealPath);
 		List<Map<String, String>> dtoFileList = fu.parseFileInfo();
 		
-		//tb_f_file 테이블에 데이터 삽입
-		System.out.println(dtoFileList + "BoardService/addQnaBoard");
-		fileMapper.uploadFile(dtoFileList);
-		
-		//게시글 등록 - 게시글 코드를 selectKey값으로 담기
-		boardMapper.addQnaBoard(qnaBoard);
-		log.info("추가 후 qnaBoard : {}", qnaBoard);
-		log.info(qnaBoard.getBoardQuestionCode() + "boardQuestionCode!!!");
-		String boardQuestionCode = qnaBoard.getBoardQuestionCode();
-		log.info("boardQuestionCode : {}", boardQuestionCode);
-		
-		//릴레이션 테이블에 삽입
-		List<Map<String, String>> relationFileList = new ArrayList<>();
-		for(Map<String, String> m : dtoFileList) {
-			m.put("boardQuestionCode", boardQuestionCode);
-			relationFileList.add(m);
-		}
-		System.out.println(relationFileList);
-		fileMapper.uploadRelationFileWithQnaBoard(relationFileList);
-		
-		return boardQuestionCode;
-	}
-	
-	/* 1:1 게시판 게시글 조회*/
-	public List<QnaBoard> getQnaBoardList(){
-		List<QnaBoard> qnaBoardList = boardMapper.getQnaBoardList();
-		return qnaBoardList;
+		// t_file 테이블에 삽입
+				System.out.println(dtoFileList + "<<<dtoFileList입니다.");
+				fileMapper.uploadFile(dtoFileList);
+						
+				boardMapper.addQnaBoard(qnaBoard);
+				String boardQuestionCode= qnaBoard.getBoardQuestionCode();
+				
+				// 릴레이션 테이블에 삽입
+				 List<Map<String, String>> relationFileList = new ArrayList<>();
+				 for(Map<String, String> m : dtoFileList) {
+				 m.put("boardQuestionCode", boardQuestionCode);
+				 relationFileList.add(m);
+				 		}
+				 System.out.println(relationFileList + "<<<relationFileList입니다.");
+			 		fileMapper.uploadRelationFileWithQnaBoard(relationFileList);
+			     	
+					System.out.println("-----------------------게시글 등록 서비스 끝------------------------------");
+					return boardQuestionCode;
+				}else {
+					
+					int result = boardMapper.addQnaBoard(qnaBoard);
+					return Integer.toString(result);
+				}
 	}
 	
 	   /* 5. 1:1 게시판 게시글 목록 조회*/
@@ -118,7 +137,6 @@ public class BoardService {
 	      
 	      return resultMap;
 	   }
-	
 	
 	// 1:1 문의 2차 카테고리
 	public List<BoardMediumCategory> getBoardMediumCategory(String boardLargeCategory) {

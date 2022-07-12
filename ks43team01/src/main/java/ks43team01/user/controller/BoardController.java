@@ -29,6 +29,7 @@ import ks43team01.dto.BoardLargeCategory;
 import ks43team01.dto.BoardMediumCategory;
 import ks43team01.dto.File;
 import ks43team01.dto.QnaBoard;
+import ks43team01.dto.QnaBoardReply;
 import ks43team01.service.BoardService;
 
 
@@ -43,6 +44,46 @@ public class BoardController {
 	public BoardController(BoardService boardService) {
 		this.boardService = boardService;
 	}
+	
+	/*
+	 * 사용자 화면
+	 * 
+	 * */
+	
+	// 1:1 문의 게시글 관리
+	
+	/* 1:1 문의 게시글 답변글 등록  (post) */
+	@PostMapping("/addQnaBoardReply")
+	public String addQnaBoardReply(QnaBoard qnaBoard, HttpSession session, RedirectAttributes reAttr) {
+		
+		log.info("qnaBoard", qnaBoard);
+		
+		String sessionId = (String) session.getAttribute("UID");
+		boardService.addQnaBoardReply(sessionId, qnaBoard);
+		
+		String boardQuestionCode = qnaBoard.getBoardQuestionCode();
+		reAttr.addAttribute("boardQuestionCode", boardQuestionCode);
+		
+		return "redirect:/userpage/board/qnaBoardReplyDetail";
+	}
+	
+	/*1:1 문의 게시글 답변글 등록(get)*/
+	@GetMapping("/addQnaBoardReply")
+	public String addQnaBoardReply(@RequestParam(name = "boardQuestionCode", required = false) String boardQuestionCode
+									, @RequestParam(name = "boardLargeCategoryCode", required = false) String boardLargeCategoryCode
+									, @RequestParam(name = "boardMediumCategoryCode", required = false) String boardMediumCategoryCode
+									, Model model) {
+		
+		
+		QnaBoard qnaBoard = boardService.getQnaBoardByCode(boardQuestionCode);
+		model.addAttribute("qnaBoard", qnaBoard);
+		model.addAttribute("boardQuestionCode", boardQuestionCode);
+		model.addAttribute("boardLargeCategoryCode", boardLargeCategoryCode);
+		model.addAttribute("boardMediumCategoryCode", boardMediumCategoryCode);
+		return "/userpage/board/addQnaBoardReply";
+	}
+	
+	
 	//1차 카테고리 선택 시 2차 카테고리 응답
 	@GetMapping("/getBoardMediumCategory")
 	@ResponseBody
@@ -340,11 +381,8 @@ public class BoardController {
 	/* 2-4. 사용자 1:1 문의 게시판 게시글 등록 (get) */
     @GetMapping("/addQnaBoard")
     public String addQnaBoard(Model model) {
-    	List<QnaBoard> qnaBoardList = boardService.getQnaBoardList();
     	List<BoardLargeCategory> boardLargeCategory = boardService.getBoardLargeCategory();
 		
-    	
-		model.addAttribute("qnaBoardList", qnaBoardList);
 		model.addAttribute("boardLargeCategory", boardLargeCategory);
 		
 		log.info("1차 카테고리 : {}",boardLargeCategory);

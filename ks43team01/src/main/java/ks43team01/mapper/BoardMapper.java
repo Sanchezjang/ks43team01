@@ -15,6 +15,7 @@ import ks43team01.dto.BoardPostFile;
 import ks43team01.dto.GoodsSubCategory;
 import ks43team01.dto.GoodsTopCategory;
 import ks43team01.dto.QnaBoard;
+import ks43team01.dto.QnaBoardReply;
 
 @Mapper
 public interface BoardMapper {
@@ -25,11 +26,19 @@ public interface BoardMapper {
 	 * */
 	
 	/*1:1 문의 게시글*/
-	//댓글 삭제
-	//댓글 수정
-	//댓글 등록
-	//댓글 조회
 	
+	//답변 삭제
+	public int removeQnaBoardReply(String boardQuestionReplyCode);
+	
+	//답변 수정
+	public int modifyQnaBoardReply(QnaBoard qnaBoard);
+	
+	//답변 등록
+	public int addQnaBoardReply(QnaBoard qnaBoard);
+	
+	//답변 조회
+	public List<QnaBoardReply> getQnaBoardReplyList(String boardQuestionReplyCode);
+
 	//게시글 삭제
 	public int removeQnaBoard(String boardQuestionCode);
 	

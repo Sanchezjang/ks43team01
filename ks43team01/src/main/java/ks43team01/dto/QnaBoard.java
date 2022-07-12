@@ -23,6 +23,10 @@ public class QnaBoard {
 	private int boardQuestionPageView;
 	private String boardQuestionUse;
 	
+	/*계층형 게시판*/
+	private int boardQuestionOriginNo;
+	private int boardQuestionGroupOrd;
+	
 	private BoardCategory boardCategory;
 	private BoardLargeCategory boardLargeCategory;
 	private BoardMediumCategory boardMediumCategory;
@@ -31,6 +35,18 @@ public class QnaBoard {
 	private List<Map<String, String>> 	relFileWithQnaBoard;
 	private List<File> 				file;
 	
+	public int getBoardQuestionOriginNo() {
+		return boardQuestionOriginNo;
+	}
+	public void setBoardQuestionOriginNo(int boardQuestionOriginNo) {
+		this.boardQuestionOriginNo = boardQuestionOriginNo;
+	}
+	public int getBoardQuestionGroupOrd() {
+		return boardQuestionGroupOrd;
+	}
+	public void setBoardQuestionGroupOrd(int boardQuestionGroupOrd) {
+		this.boardQuestionGroupOrd = boardQuestionGroupOrd;
+	}
 	public String getBoardQuestionCode() {
 		return boardQuestionCode;
 	}
@@ -206,6 +222,10 @@ public class QnaBoard {
 		builder.append(boardQuestionPageView);
 		builder.append(", boardQuestionUse=");
 		builder.append(boardQuestionUse);
+		builder.append(", boardQuestionOriginNo=");
+		builder.append(boardQuestionOriginNo);
+		builder.append(", boardQuestionGroupOrd=");
+		builder.append(boardQuestionGroupOrd);
 		builder.append(", boardCategory=");
 		builder.append(boardCategory);
 		builder.append(", boardLargeCategory=");
