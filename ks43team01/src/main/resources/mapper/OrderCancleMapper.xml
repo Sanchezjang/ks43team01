@@ -132,6 +132,7 @@
 			 	,gg.goods_name as goodsName
 			 	,rrrr.refund_request_reason_code_name as refundRequestReasonCodeName
 			 	,rrbs.buyer_seller_consultation_refund_work_progress as buyerSellerConsultatioRefundWorkProgress
+			 	,trrc.refund_progress_status as refundProgressStatus
 			FROM 
 				tb_rf_refund_request as rrr
 				inner join
@@ -149,7 +150,11 @@
 				INNER  JOIN 
 				tb_rf_refund_buyer_seller_consultation_standard as rrbs 
 				on
-				rrr.refund_buyer_seller_consultation_code = rrbs.refund_buyer_seller_consultation_code 
+				rrr.refund_buyer_seller_consultation_code = rrbs.refund_buyer_seller_consultation_code
+				INNER JOIN 
+				tb_rf_refund_completed as trrc 
+				on
+				rrr.refund_request_code = trrc.refund_request_code ;
 	
 		
 		</select>
