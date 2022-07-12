@@ -62,6 +62,8 @@
  			<result column="login_date" property="loginDate"/>
  			<result column="login_ip" property="loginIp"/>
  			<result column="user_id_code" property="userIdCode"/>
+ 			<result column="user_OS" property="userOS"/>
+ 			<result column="user_Browser" property="userBrowser"/>
  			<result column="buyer_exp" property="buyerExp"/>
  			<result column="seller_exp" property="sellerExp"/>
  	 	</resultMap>
@@ -210,6 +212,8 @@
 			,u.login_date
 			,u.login_ip
 			,u.user_id_code
+			,user_OS
+			,user_Browser
 			,u.buyer_exp
 			,u.seller_exp
 		FROM
@@ -223,6 +227,8 @@
 			,login_date
 			,login_ip
 			,user_id_code
+			,user_OS
+			,user_Browser
 			,buyer_exp
 			,seller_exp
 		)values(
@@ -230,6 +236,8 @@
 			,CURDATE()
 			,#{loginIp}
 			,#{userIdCode}
+			,#{userOS}
+			,#{userBrowser}
 			,5
 			,5
 		);

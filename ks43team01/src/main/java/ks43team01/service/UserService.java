@@ -2,6 +2,8 @@ package ks43team01.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -147,8 +149,22 @@ public class UserService {
 		}
 		
 		//로그인하는 모든 유저의 로그 테이블 쌓기//
-		public int addUserLog(UserLog userLog) {
+		public int addUserLog(UserLog userLog,HttpServletRequest request) {
+			String OS = System.getProperty("os.name");
+			userLog.setUserOS(OS);
+			log.info("OS값 받아오는지 확인   :  {}",OS);
+			String userAgent = request.getHeader("User-Agent");
+			String userBrowser = "";
+			if(userAgent.indexOf("Chrome") > -1) {
+				userBrowser = "크롬";
+			}else if(userAgent.indexOf("Firefox") > -1) {
+				userBrowser = "파이어폭스";
+			}else {
+				userBrowser = "기타등등";
+			}userLog.setUserBrowser(userBrowser);
+			log.info("userBrowser  :   {}",userBrowser);
 			int result = userMapper.addUserLog(userLog);
+			
 			return result;
 		}
 		/*동의항목동의상세테이블*/

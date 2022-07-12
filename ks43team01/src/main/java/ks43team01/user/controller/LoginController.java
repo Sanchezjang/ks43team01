@@ -48,11 +48,14 @@ public class LoginController {
 						,@RequestParam(name="userPw",required = false)String userPw	
 						,HttpSession session,HttpServletRequest request,UserLog userLog,UserLevelExp userLevelExp,User user) {
 		User user1 = userService.getUserInfoById(userId);
-		
-		log.info("user에서 받아온값 :   {}",user);
+		String OS =	System.getProperty("os.name");
+		log.info("운영체제 출력   :   {}",OS);
+		String  userAgent = request.getHeader("User-Agent");
+		log.info("브라우져 기록하기!!!  : {}",userAgent);
+		log.info("user에서 받아온값 :   {}",user1);
 
-		if(user != null) {
-			String userPwCheck = user.getUserPw();
+		if(user1 != null) {
+			String userPwCheck = user1.getUserPw();
 			if(userPw != null && userPw.equals(userPwCheck)) {
 				session.setAttribute("UID"   , userId);
 				session.setAttribute("UNAME"   , user1.getUserName());
@@ -61,12 +64,13 @@ public class LoginController {
 				userLog.setUserIdCode(userId);
 				userLevelExp.setUserIdCode(userId);
 				log.info("로그기록 남기기!!!!",userLog);
-				userService.addUserLog(userLog);
+				userService.addUserLog(userLog, request);
 				userService.addUserLevelExp(userLevelExp);
+				log.info("request값  :  {}",request);
 				return "redirect:/";
 		}
 	}
-	return "redirect:/";
+	return "redirect:/userpage/login/login";
 	}
 	
 }

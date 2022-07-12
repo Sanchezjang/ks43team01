@@ -118,8 +118,6 @@
 				tgg.user_id_code = tuau.user_id_code
 			WHERE
 				trrc.user_id_code = 'id012';
-	
-
 		</select>
 	
 		<select id="getRefundRequestList" resultType="Map">
