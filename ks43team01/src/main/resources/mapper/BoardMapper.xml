@@ -15,8 +15,7 @@
 		<result column="board_post_update_date"				property="boardPostUpdateDate"/>
 		<result column="board_post_view"					property="boardPostView"/>
 		<result column="board_post_use"						property="boardPostUse"/>
-		<result column="board_post_group_num"				property="boardPostGroupNum"/>
-		<result column="board_post_order_num"				property="boardPostOrderNum"/>
+
          
 		<association property="boardCategory" javaType="BoardCategory">
 			<id    column="board_category_code"				property="boardCategoryCode"/>
@@ -45,6 +44,8 @@
 		<result column="board_category_code"				property="boardCategoryCode"/>
 		<result column="board_l_category_code"				property="boardLargeCategoryCode"/>
 		<result column="board_m_category_code"				property="boardMediumCategoryCode"/>
+		<result column="board_question_origin_no"			property="boardQuestionOriginNo"/>
+		<result column="board_question_group_order"			property="boardQuestionGroupOrd"/>
 		<result column="board_question_title"				property="boardQuestionTitle"/>
 		<result column="user_name"							property="userName"/>
 		<result column="board_question_content"				property="boardQuestionContent"/>
@@ -295,15 +296,18 @@
 		WHERE
 			board_post_code = #{boardPostCode};
    </select>
-      
-   	<insert id="addQnaBoard" parameterType="QnaBoard">
-	/* 1:1 문의 게시글 등록*/
-		INSERT INTO tb_b_board_question 
+   
+	
+	<insert id="addQnaBoardReply" parameterType="QnaBoard">
+	/*1:1 문의 게시글 답변글 등록*/
+	INSERT INTO tb_b_board_question 
 		(	board_question_code
 			, user_id_code
 			, board_category_code
 			, board_l_category_code
 			, board_m_category_code
+			, board_question_origin_no
+			, board_question_group_order
 			, board_question_title
 			, user_name
 			, board_question_content
@@ -330,6 +334,79 @@
 					m.board_m_category_code = #{boardMediumCategoryCode}
 				)	
 			, #{boardMediumCategoryCode}
+			, (
+				SELECT
+					m.board_l_category_code
+				FROM
+					tb_b_board_m_category AS m
+				WHERE
+					m.board_m_category_code = #{boardMediumCategoryCode}
+				)	
+			, #{boardMediumCategoryCode}
+			, (SELECT
+					q.board_question_origin_no
+				FROM
+					tb_b_board_question AS q
+				WHERE
+					q.board_question_code = #{boardQuestionCode})
+			, 1
+			, #{boardQuestionTitle}
+			, #{userName}
+			, #{boardQuestionContent}
+			, NULL
+			, CURDATE()
+			, NULL
+			, '댓글'
+			, #{boardQuestionLock}
+			, NULL
+			, CURDATE()
+			, #{boardQuestionPageView}
+			, 'Y'
+		);
+	</insert>
+      
+      
+   	<insert id="addQnaBoard" parameterType="QnaBoard">
+	/* 1:1 문의 게시글 등록*/
+		INSERT INTO tb_b_board_question 
+		(	board_question_code
+			, user_id_code
+			, board_category_code
+			, board_l_category_code
+			, board_m_category_code
+			, board_question_origin_no
+			, board_question_group_order
+			, board_question_title
+			, user_name
+			, board_question_content
+			, board_question_file
+			, board_question_reg_date
+			, user_email
+			, board_question_answer_method
+			, board_question_lock
+			, board_question_pw
+			, board_question_update_date
+			, board_question_page_view
+			, board_question_use	
+		)VALUES 
+		(
+			(select date_format(NOW(),'question%y%m%d%H%i%s')AS board_question_code)
+			, #{userIdCode}
+			, 'board03'
+			, (
+				SELECT
+					m.board_l_category_code
+				FROM
+					tb_b_board_m_category AS m
+				WHERE
+					m.board_m_category_code = #{boardMediumCategoryCode}
+				)	
+			, #{boardMediumCategoryCode}
+			, (SELECT
+					max(q.board_question_origin_no)+1
+				FROM
+					tb_b_board_question AS q)
+			, #{boardQuestionGroupOrd}
 			, #{boardQuestionTitle}
 			, #{userName}
 			, #{boardQuestionContent}
@@ -500,9 +577,7 @@
          ORDER BY board_question_code DESC
          LIMIT #{startRow}, #{rowPerPage};
    </select>
-	
-	
-	
+
 	<select id="getQnaBoard" resultType="Map" parameterType="String">
 	/*사용자용 1:1 문의 게시글 조회*/
 		SELECT
