@@ -94,7 +94,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 					</div>
 					<div class="col-6 board">
 						<label for="boardQuestionContent" class="mainExplanation">본문</label>
-						<textarea th:utext="${qnaBoard.boardQuestionContent+'&#10;' +'---------------------답변이에요~----------------------'+'&#10;'}" class="form-control col-md-10"  rows="5"cols="10" name="boardQuestionContent" id="boardQuestionContent"></textarea>
+						<textarea th:utext="${qnaBoard.boardQuestionContent+'&#10;' + '---------------------답변이에요~----------------------'+'&#10;'}" class="form-control col-md-10"  rows="5"cols="10" name="boardQuestionContent" id="boardQuestionContent"></textarea>
 					<div class="col-6 board">
 						<label for="boardQuestionLock" class="mainExplanation">공개여부</label>
 						<input type="radio" id="boardQuestionLock" class="form-control col-6" name="boardQuestionLock" value="공개글" checked="checked"/>공개글
