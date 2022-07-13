@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>포인트 관리</title>
-
+	<th:block layout:fragment="customCss">
     <!-- Bootstrap -->
     <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <link th:href="@{/admin/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
@@ -20,17 +20,20 @@
     <link th:href="@{/admin/vendors/nprogress/nprogress.css}" rel="stylesheet">
     <!-- iCheck -->
     <link th:href="@{/admin/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+	<!-- datepicker -->
+	<link th:href="@{/admin/build/css/datepicker.css}" rel="stylesheet">    
     <!-- Datatables -->
-    
     <link th:href="@{/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
-
-    <!-- Custom Theme Style -->
     <link th:href="@{/admin/build/css/custom.min.css}" rel="stylesheet">
-        <script type="text/javascript" th:src="@{/Doc/js/jquery-3.6.0.min.js}"></script>
+	</th:block>
+	
+	
+			
+    <!-- Custom Theme Style -->
   </head>
 
   <body class="nav-md">
@@ -44,82 +47,9 @@
 		<!-- top navigation -->
 			<div th:replace="adminpage/fragments/header :: headerFragment"></div>
 		<!-- /top navigation -->
-		 
-			<script>
-			$(function(){
-				
-				$(document).on('click', '.dateBtnGroup', function(){
-					$('form').remove('#testForm')
-					
-					var startDate = $('input[name="startDate"]').val();
-					var endDate = $('input[name="endDate"]').val();
-					
-					var dateBtnForm = $('<form></form>');
-					
-					dateBtnForm.attr("id", "testForm");
-					dateBtnForm.attr("name", "dateBtnForm");
-					dateBtnForm.attr("method", "get");
-					dateBtnForm.attr("action", "/adminpage/pointDetails/searchDatePointList");
-					
-					dateBtnForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
-					dateBtnForm.append($('<input/>', {type: 'hidden', name: 'endDate', value: endDate}));
-					
-					dateBtnForm.appendTo('body');
-					
-					dateBtnForm.submit();
-				});
-				
-				$(document).on('change', '#startDate, #endDate', function(){
-					
-						$('form').remove('#testForm')
-						
-						
-						var startDate = $('input[name="startDate"]').val();
-						var endDate = $('input[name="endDate"]').val();
-						
-						var datepickerForm = $('<form></form>');
-						
-						datepickerForm.attr("id", "testForm");
-						datepickerForm.attr("name", "datepickerForm");
-						datepickerForm.attr("method", "get");
-						datepickerForm.attr("action", "/adminpage/pointDetails/searchDatePointList");
-						
-						datepickerForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
-						datepickerForm.append($('<input/>', {type: 'hidden', name: 'endDate', value: endDate}));
-						
-						datepickerForm.appendTo('body');
-							
-						if(startDate != null && endDate != null && startDate != '' && endDate != ''){
-							
-							datepickerForm.submit();
-						}
-				});
-				
-					$(document).on('click', '.checkType', function(){
-									
-									$('form').remove('#testForm');
-									
-									var checkPaymentType = $(this).val();
-									
-									console.log(checkPaymentType);
-									
-									var checkPaymentTypeForm = $('<form></form>');
-									
-									checkPaymentTypeForm.attr("id", "testForm");
-									checkPaymentTypeForm.attr("name", "checkPaymentTypeForm");
-									checkPaymentTypeForm.attr("method", "get");
-									checkPaymentTypeForm.attr("action", "/adminpage/pointDetails/searchDatePointList");
-									
-									checkPaymentTypeForm.append($('<input/>', {type: 'hidden', name: 'paymentOption', value: checkPaymentType}));
-									
-									checkPaymentTypeForm.appendTo('body');
-										
-									checkPaymentTypeForm.submit();
-				
-								});
-								
-							});
-		</script>	
+		<th:block layout:fragment="customJsScript">
+		 	
+		</th:block>
         <!-- page content -->
         <div class="right_col" role="main">
           <div class="">
@@ -238,16 +168,12 @@
 	               </div>
 	         </div>
               <!-- Modal -->
-            <script>
-				var $removeDetailsCode = $('#removeDetailsCode');
-		    	$('.removePointModalBtn').on('click', function() {
-		    	  $removeDetailsCode.val($(this).val());            	  
-		    	});
-	    	</script>
+            
 		<!-- footer content -->
 		<div th:replace="adminpage/fragments/footer :: footerFragment"></div>
 		<!-- /footer content -->
 
+	<script type="text/javascript" th:src="@{/Doc/js/jquery-3.6.0.min.js}"></script>
     <!-- jQuery -->
     <script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>
     <!-- Bootstrap -->
@@ -275,8 +201,103 @@
     <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
     <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
 
+   	<!-- 제이쿼리 ui js -->
+   	<script th:src="@{https://code.jquery.com/ui/1.12.1/jquery-ui.js}"></script>
+   	<!-- searchDate -->
+	<script th:src="@{/admin/vendors/jquery/dist/searchDate.js}"></script>
+	<!-- moment.js -->
+	<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js}"></script>
+
     <!-- Custom Theme Scripts -->
     <script th:src="@{/admin/build/js/custom.min.js}"></script>
-
+	
+	
+	
+	
+	<!-- modal js -->
+	<script>
+				var $removeDetailsCode = $('#removeDetailsCode');
+		    	$('.removePointModalBtn').on('click', function() {
+		    	  $removeDetailsCode.val($(this).val());            	  
+		    	});
+	</script>
+	
+	<!-- 사용자 정의 js -->
+	<script>
+			$(function(){
+				
+				$(document).on('click', '.dateBtnGroup', function(){
+					$('form').remove('#testForm')
+					
+					var startDate = $('input[name="startDate"]').val();
+					var endDate = $('input[name="endDate"]').val();
+					
+					var dateBtnForm = $('<form></form>');
+					
+					dateBtnForm.attr("id", "testForm");
+					dateBtnForm.attr("name", "dateBtnForm");
+					dateBtnForm.attr("method", "get");
+					dateBtnForm.attr("action", "/adminpage/pointDetails/searchDatePointList");
+					
+					dateBtnForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
+					dateBtnForm.append($('<input/>', {type: 'hidden', name: 'endDate', value: endDate}));
+					
+					dateBtnForm.appendTo('body');
+					
+					dateBtnForm.submit();
+				});
+				
+				$(document).on('change', '#startDate, #endDate', function(){
+					
+						$('form').remove('#testForm')
+						
+						
+						var startDate = $('input[name="startDate"]').val();
+						var endDate = $('input[name="endDate"]').val();
+						
+						var datepickerForm = $('<form></form>');
+						
+						datepickerForm.attr("id", "testForm");
+						datepickerForm.attr("name", "datepickerForm");
+						datepickerForm.attr("method", "get");
+						datepickerForm.attr("action", "/adminpage/pointDetails/searchDatePointList");
+						
+						datepickerForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
+						datepickerForm.append($('<input/>', {type: 'hidden', name: 'endDate', value: endDate}));
+						
+						datepickerForm.appendTo('body');
+							
+						if(startDate != null && endDate != null && startDate != '' && endDate != ''){
+							
+							datepickerForm.submit();
+						}
+				});
+				
+					$(document).on('click', '.checkType', function(){
+									
+									$('form').remove('#testForm');
+									
+									var checkPaymentType = $(this).val();
+									
+									console.log(checkPaymentType);
+									
+									var checkPaymentTypeForm = $('<form></form>');
+									
+									checkPaymentTypeForm.attr("id", "testForm");
+									checkPaymentTypeForm.attr("name", "checkPaymentTypeForm");
+									checkPaymentTypeForm.attr("method", "get");
+									checkPaymentTypeForm.attr("action", "/adminpage/pointDetails/searchDatePointList");
+									
+									checkPaymentTypeForm.append($('<input/>', {type: 'hidden', name: 'paymentOption', value: checkPaymentType}));
+									
+									checkPaymentTypeForm.appendTo('body');
+										
+									checkPaymentTypeForm.submit();
+				
+								});
+								
+							});
+		</script>	
+	
   </body>
 </html>
