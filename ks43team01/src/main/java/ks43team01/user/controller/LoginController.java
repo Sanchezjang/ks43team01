@@ -52,7 +52,7 @@ public class LoginController {
 						,@RequestParam(name="userPw",required = false)String userPw	
 						,HttpSession session,HttpServletRequest request,UserLog userLog,UserLevelExp userLevelExp,User user, ServletResponse response) throws IOException {
 		User user1 = userService.getUserInfoById(userId);
-		String OS =	System.getProperty("os.name");
+		String OS =	System.getProperty("os.version");
 		log.info("운영체제 출력   :   {}",OS);
 		String  userAgent = request.getHeader("User-Agent");
 		log.info("브라우져 기록하기!!!  : {}",userAgent);
@@ -77,7 +77,7 @@ public class LoginController {
 				response.setCharacterEncoding("UTF-8");
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter out = response.getWriter();
-				out.println("<script>alert('아아다 또는 비밀번호를 확인해주세요~!'); self.close();</script>");
+				out.println("<script>alert('아이디 또는 비밀번호를 확인해주세요~!'+'&'); self.close();</script>");
 				out.flush();
 			return "userpage/user/login";
 		}
