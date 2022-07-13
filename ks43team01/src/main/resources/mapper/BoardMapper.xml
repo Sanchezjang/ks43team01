@@ -103,7 +103,7 @@
 		</collection>
 	</resultMap>
 
-	<update id="updatePageView" parameterType="int"> 
+	<update id="updateBoardPageView" parameterType="String"> 
 	/*게시글 조회수 증가*/
 		UPDATE
 			tb_b_board_post

@@ -289,6 +289,7 @@ public class BoardController {
 								, Model model) {
 		
 		Board board = boardService.getBoardByCode(boardPostCode);
+		boardService.updateBoardPageView(boardPostCode);
 		
 		List<BoardComment> boardPostCommentList = boardService.getBoardPostCommentList(boardPostCode);
 		model.addAttribute("board", board);
@@ -307,6 +308,7 @@ public class BoardController {
 								, Model model) {
 		
 		Board board = boardService.getBoardByCode(boardPostCode);
+		boardService.updateBoardPageView(boardPostCode);
 		log.info("board : {}", board);
 		model.addAttribute("board", board);
 		return "/userpage/board/faqBoardDetail";
@@ -317,6 +319,8 @@ public class BoardController {
 									, Model model) {
 		
 		Board board = boardService.getBoardByCode(boardPostCode);
+		
+		boardService.updateBoardPageView(boardPostCode);
 		log.info("board : {}", board);
 		model.addAttribute("board", board);
 		return "/userpage/board/noticeBoardDetail";

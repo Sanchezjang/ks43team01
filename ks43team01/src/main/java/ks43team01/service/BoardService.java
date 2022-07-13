@@ -166,6 +166,9 @@ public class BoardService {
 		
 		return resultList;
 	}
+	
+	
+	
 	/*게시글 댓글 삭제*/
 	public int removeComment(String boardCommentCode) {
 		int result = boardMapper.removeComment(boardCommentCode);
@@ -197,6 +200,12 @@ public class BoardService {
 		return boardPostCommentList;
 	}
 	
+	
+	/*게시글 조회수 업데이트*/
+	public int updateBoardPageView(String boardPostCode) {
+		
+		return boardMapper.updateBoardPageView(boardPostCode);
+	}
 
 	/*게시글삭제*/
 	public int removeBoard(String boardPostCode) {
