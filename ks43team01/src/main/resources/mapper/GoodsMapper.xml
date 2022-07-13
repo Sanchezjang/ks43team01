@@ -178,11 +178,22 @@
 	<select id="getUserGoodsListByTopCategoryCode" parameterType="String" resultMap="GoodsResultMap">
 		/* 사용자화면 상위 카테고리별 상품리스트조회 */
 		SELECT
-			g.goods_code,
-			g.goods_sub_category_code,
-			g.user_id_code,
-			g.goods_name,
-			g.goods_price
+			 g.goods_code
+			,g.goods_sub_category_code
+			,g.user_id_code
+			,g.goods_name
+			,g.goods_price
+			,sub.file_code 
+			,sub.user_id_code
+			,sub.file_orginal_name
+			,sub.file_re_name
+			,sub.file_main_image
+			,sub.file_location
+			,sub.file_size
+			,sub.file_reg_date
+			,sub.file_update_date
+			,sub.file_use
+			,sub.goods_code
 		FROM
 			tb_g_goods AS g
 			INNER JOIN
@@ -191,40 +202,131 @@
 			g.goods_sub_category_code = sc.goods_sub_category_code
 			INNER JOIN
 			tb_g_goods_top_category AS tc
-			ON
+			on
 			tc.goods_top_category_code = sc.goods_top_category_code
+			LEFT JOIN
+			(SELECT
+				 f.file_code 
+				,f.user_id_code
+				,f.file_orginal_name
+				,f.file_re_name
+				,f.file_main_image
+				,f.file_location
+				,f.file_size
+				,f.file_reg_date
+				,f.file_update_date
+				,f.file_use
+				,re.goods_code
+			FROM
+				tb_f_file AS f
+				INNER join
+					tb_b_rel_file_with_Goods AS re
+				on
+					f.file_code = re.file_code) AS sub
+			on
+			sub.goods_code = g.goods_code
 		WHERE
-			tc.goods_top_category_code = #{goodsTopCategoryCode};
+			tc.goods_top_category_code = #{goodsTopCategoryCode}
+		ORDER BY
+			g.goods_reg_date;
 	</select>
 	
 	<select id="getUserGoodsListBySubCategoryCode" parameterType="String" resultMap="GoodsResultMap">
 		/* 사용자화면 하위 카테고리별 상품리스트조회 */
 		SELECT
-			g.goods_code,
-			g.goods_sub_category_code,
-			g.user_id_code,
-			g.goods_name,
-			g.goods_price
+			 g.goods_code
+			,g.goods_sub_category_code
+			,g.user_id_code
+			,g.goods_name
+			,g.goods_price
+			,sub.file_code 
+			,sub.user_id_code
+			,sub.file_orginal_name
+			,sub.file_re_name
+			,sub.file_main_image
+			,sub.file_location
+			,sub.file_size
+			,sub.file_reg_date
+			,sub.file_update_date
+			,sub.file_use
+			,sub.goods_code
 		FROM
 			tb_g_goods AS g
 			INNER JOIN
 			tb_g_goods_sub_category AS sc
 			ON
 			g.goods_sub_category_code = sc.goods_sub_category_code
+			LEFT JOIN
+			(SELECT
+				 f.file_code 
+				,f.user_id_code
+				,f.file_orginal_name
+				,f.file_re_name
+				,f.file_main_image
+				,f.file_location
+				,f.file_size
+				,f.file_reg_date
+				,f.file_update_date
+				,f.file_use
+				,re.goods_code
+			FROM
+				tb_f_file AS f
+				INNER join
+					tb_b_rel_file_with_Goods AS re
+				on
+					f.file_code = re.file_code) AS sub
+			on
+			sub.goods_code = g.goods_code
 		WHERE
-			sc.goods_sub_category_code = #{goodsSubCategoryCode};
+			g.goods_sub_category_code = #{goodsSubCategoryCode}
+		ORDER BY
+			g.goods_reg_date;
 	</select>
 	
 	<select id="getUserGoodsList" resultMap="GoodsResultMap">
 		/* 사용자화면 상품리스트 */
 		SELECT
-			g.goods_code				AS goodsCode,
-			g.goods_sub_category_code	AS goodsSubCategoryCode,
-			g.user_id_code				AS userIdCode,
-			g.goods_name 				AS goodsName,
-			g.goods_price 				AS goodsPrice
+			 g.goods_code
+			,g.goods_sub_category_code
+			,g.user_id_code
+			,g.goods_name
+			,g.goods_price
+			,sub.file_code 
+			,sub.user_id_code
+			,sub.file_orginal_name
+			,sub.file_re_name
+			,sub.file_main_image
+			,sub.file_location
+			,sub.file_size
+			,sub.file_reg_date
+			,sub.file_update_date
+			,sub.file_use
+			,sub.goods_code
 		FROM
 			tb_g_goods AS g
+			LEFT JOIN
+			(SELECT
+				 f.file_code 
+				,f.user_id_code
+				,f.file_orginal_name
+				,f.file_re_name
+				,f.file_main_image
+				,f.file_location
+				,f.file_size
+				,f.file_reg_date
+				,f.file_update_date
+				,f.file_use
+				,re.goods_code
+			FROM
+				tb_f_file AS f
+				INNER join
+					tb_b_rel_file_with_Goods AS re
+				on
+					f.file_code = re.file_code) AS sub
+			on
+			sub.goods_code = g.goods_code
+		ORDER BY
+			g.goods_reg_date;
 	</select>
     
 	<select id="getGoodsTopCategory" resultType="GoodsTopCategory">

@@ -105,26 +105,15 @@ layout:decorate="~{userpage/layout/userdefault}">
 					<div class="col-xl-3 col-lg-3 col-md-6">
 					<!-- Single course -->
 						<div class="single-course mb-40">
-							<div class="course-img">
-								<img style="width: 100%" src="https://t1.daumcdn.net/cfile/tistory/25367D465817198104">
-							</div>
-						<div class="col-md-7 col-sm-7 " >
-							<!-- db에서 저장된 사진 불러오기 -->
-							<div th:if="${not #lists.isEmpty(g.file)}" th:each="f : ${g.file}">
-								<div class="goods-image" th:if="${f.fileMainImage eq 'Y'}">
-									<img th:src="@{'/' + ${#strings.replace(f.fileLocation,'\','/')}}" alt="..." />
+								<!-- db에서 저장된 사진 불러오기 -->
+								<div class="course-img" th:if="${not #lists.isEmpty(g.file)}" th:each="f : ${g.file}" style="border: 1px solid #e4e7ff;">
+									<div th:if="${f.fileMainImage eq 'Y'}" style="height: 170px; width: 98%;">
+										<img style="height: 100%; width: 100%;" th:src="@{'/' + ${#strings.replace(f.fileLocation,'\','/')}}" alt="..." />
+									</div>
+									<div class="goods_gallery" th:unless="${f.fileMainImage eq 'Y'}">
+										<a><img  th:data-setbg="@{/images/notImage.jfif}" alt="..." /></a>
+									</div>
 								</div>
-								<div class="goods_gallery" th:unless="${f.fileMainImage eq 'Y'}">
-									<a><img th:src="@{'/' + ${#strings.replace(f.fileLocation,'\','/')}}" alt="..." /></a>
-								</div>
-			
-							<!-- db에서 저장된 사진 불러오기 -->
-							</div>
-							<div th:unless="${not #lists.isEmpty(g.file)}">
-								<!-- 저장된 사진 없음 -->
-								<a><img th:src="@{/images/notImage.jfif}" alt="..." /></a>
-							</div>
-						</div>
 							<div class="single-course mb-40">
 								<div class="course-caption">
 									<div class="course-cap-top">
