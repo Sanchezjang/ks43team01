@@ -10,11 +10,12 @@ import ks43team01.dto.GoodsTopCategory;
 
 @Mapper
 public interface GoodsMapper {
-	//메인 화면 상품 카테고리
-	public List<GoodsTopCategory> getGoodsMenuCategory();
 	/*
 	 * 사용자 화면
 	 * */
+	//메인 화면 상품 카테고리
+	public List<GoodsTopCategory> getGoodsMenuCategory();
+
 	//상품 삭제
 	public int removeUserGoods(String goodsCode);
 	
