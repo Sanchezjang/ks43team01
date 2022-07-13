@@ -55,10 +55,23 @@ public class UserGoodsController {
 	}
 	
 	//상품리스트
-	@GetMapping("/userGoodsList")
-	public String getUserGoodsList(Model model) {
+	@GetMapping("/userTopCategoryGoodsList")
+	public String getUserGoodsListByTopCategoryCode(@RequestParam(value="goodsTopCategoryCode", required= false)String goodsTopCategoryCode, Model model) {
 		
-		List<Goods> userGoodsList = goodsService.getUserGoodsList();
+		List<Goods> userGoodsList = goodsService.getUserGoodsListByTopCategoryCode(goodsTopCategoryCode);
+		
+		model.addAttribute("userGoodsList", userGoodsList);
+		//log.info("상품리스트 : {}", userGoodsList);
+		
+		return "userpage/goods/userGoodsList";
+	}
+	
+	//상품리스트
+	@GetMapping("/userSubCategoryGoodsList")
+	public String getUserGoodsListBySubCategoryCode(@RequestParam(value="goodsSubCategoryCode", required= false)String goodsSubCategoryCode, Model model) {
+		
+		List<Goods> userGoodsList = goodsService.getUserGoodsListBySubCategoryCode(goodsSubCategoryCode);
+		
 		model.addAttribute("userGoodsList", userGoodsList);
 		//log.info("상품리스트 : {}", userGoodsList);
 		

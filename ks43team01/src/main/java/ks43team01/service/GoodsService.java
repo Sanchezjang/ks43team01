@@ -67,6 +67,22 @@ public class GoodsService {
 		
 	}
 	
+	// 상위 카테고리별 상품리스트조회
+	public List<Goods> getUserGoodsListByTopCategoryCode(String goodsTopCategoryCode){
+		
+		List<Goods> userGoodsList = goodsMapper.getUserGoodsListByTopCategoryCode(goodsTopCategoryCode);
+		
+		return userGoodsList;
+	}
+	
+	// 하위 카테고리별 상품리스트조회
+	public List<Goods> getUserGoodsListBySubCategoryCode(String goodsSubCategoryCode){
+		
+		List<Goods> userGoodsList = goodsMapper.getUserGoodsListBySubCategoryCode(goodsSubCategoryCode);
+		
+		return userGoodsList;
+	}
+	
 	// 상품리스트조회
 	public List<Goods> getUserGoodsList(){
 		

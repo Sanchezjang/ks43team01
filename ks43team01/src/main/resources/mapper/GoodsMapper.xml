@@ -65,6 +65,7 @@
 	
 	<!-- 사용자 화면 메뉴-->
 	<select id="getGoodsMenuCategory" resultMap="GoodsTopCategoryResultMap">
+		/* 메인화면 상품 카테고리 리스트 */
 		SELECT
 			 tc.goods_top_category_code
 			,tc.goods_top_category_name
@@ -151,7 +152,7 @@
 			tb_g_goods AS g
 				 LEFT JOIN
 				(SELECT
-					f.file_code 
+					 f.file_code 
 					,f.user_id_code
 					,f.file_orginal_name
 					,f.file_re_name
@@ -174,7 +175,47 @@
 				g.goods_code = #{goodsCode};
 	</select>
 	
-	<select id="getUserGoodsList" resultType="Map">
+	<select id="getUserGoodsListByTopCategoryCode" parameterType="String" resultMap="GoodsResultMap">
+		/* 사용자화면 상위 카테고리별 상품리스트조회 */
+		SELECT
+			g.goods_code,
+			g.goods_sub_category_code,
+			g.user_id_code,
+			g.goods_name,
+			g.goods_price
+		FROM
+			tb_g_goods AS g
+			INNER JOIN
+			tb_g_goods_sub_category AS sc
+			ON
+			g.goods_sub_category_code = sc.goods_sub_category_code
+			INNER JOIN
+			tb_g_goods_top_category AS tc
+			ON
+			tc.goods_top_category_code = sc.goods_top_category_code
+		WHERE
+			tc.goods_top_category_code = #{goodsTopCategoryCode};
+	</select>
+	
+	<select id="getUserGoodsListBySubCategoryCode" parameterType="String" resultMap="GoodsResultMap">
+		/* 사용자화면 하위 카테고리별 상품리스트조회 */
+		SELECT
+			g.goods_code,
+			g.goods_sub_category_code,
+			g.user_id_code,
+			g.goods_name,
+			g.goods_price
+		FROM
+			tb_g_goods AS g
+			INNER JOIN
+			tb_g_goods_sub_category AS sc
+			ON
+			g.goods_sub_category_code = sc.goods_sub_category_code
+		WHERE
+			sc.goods_sub_category_code = #{goodsSubCategoryCode};
+	</select>
+	
+	<select id="getUserGoodsList" resultMap="GoodsResultMap">
 		/* 사용자화면 상품리스트 */
 		SELECT
 			g.goods_code				AS goodsCode,

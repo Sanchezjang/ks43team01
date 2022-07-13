@@ -27,6 +27,12 @@ public interface GoodsMapper {
 	//개별 상품 상세내역 보기
 	public Goods getGoodsInfoCode(String goodsCode);
 	
+	//상위 카테고리별 상품리스트조회
+	public List<Goods> getUserGoodsListByTopCategoryCode(String goodsTopCategoryCode);
+	
+	//하위 카테고리별 상품리스트조회
+	public List<Goods> getUserGoodsListBySubCategoryCode(String goodsSubCategoryCode);
+	
 	//상품 리스트 
 	public List<Goods> getUserGoodsList();
 	
@@ -77,5 +83,4 @@ public interface GoodsMapper {
 	
 	//상품 상위 카테고리 등록
 	public int addGoodsTopCategory(GoodsTopCategory goodsTopCategory);
-
 }
