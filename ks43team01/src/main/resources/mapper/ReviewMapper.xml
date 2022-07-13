@@ -61,7 +61,7 @@
 		</association>
 	</resultMap>
 	
-	<!-- <insert id="accumReviewPoint" parameterType="Point">
+	<!-- <insert id="addPointList" parameterType="Point">
 	/* 리뷰 등록 후 포인트 내역 추가 */
 	INSERT INTO tb_pt_point_accumulation_details
 		(Point_details_code							
@@ -72,7 +72,10 @@
 		,point_history_reg_date						
 		)
 	VALUES 
-		(#{pointDetailsCode}
+		((SELECT
+			CONCAT('padc0',MAX(CAST(SUBSTRING(pp.Point_details_code,5)AS UNSIGNED)+1))
+		FROM 
+			tb_pt_point_accumulation_details AS pp)
 		,#{userIdCode}
 		,#{pointStandardDetailsCode}
 		,#{pointAmount}

@@ -84,6 +84,7 @@ public class UserReviewController {
 	@PostMapping("/addReview")
 	public String addReview(ReviewContentsReg reviewContentsReg
 						   ,Point point
+						   ,@RequestParam(value = "pointAmount", required = false)String pointAmount
 						   ,HttpServletRequest request
 						   ,HttpSession session
 						   ,RedirectAttributes reAttr) {
@@ -92,15 +93,19 @@ public class UserReviewController {
 		String userId = (String) session.getAttribute("UID");
 		reviewContentsReg.setReviewRegIp(ip);
 		reviewContentsReg.setUserIdCode(userId);
+		log.info("pointAmount:{}",pointAmount);
 		log.info("아이피 가저오는지   :  {}", ip);
 		log.info("아이디 값 가져오는지 : {}", userId);
 		log.info("들어오는 값 :{} ", reviewContentsReg);
-		log.info("들어오는 값 :{} ", point);
 		reviewService.reviewSavePoint(userId);
 		reviewService.userSavePoint(userId);
 		reviewService.addReview(reviewContentsReg);
-		/* pointService.addPointList(point); */
-		 
+		point.setUserIdCode(userId);
+		pointService.addPointList(point); 
+		log.info("들어오는 값 :{} ", point);
+		
+		
+		
 		return "redirect:/userpage/reviewUser/reviewUserList";
 	}
 
@@ -113,11 +118,9 @@ public class UserReviewController {
 							@RequestParam(name = "reviewScoreStandardCode", required = false) String reviewScoreStandardCode) {
 		
 		List<ReviewContentsReg> reviewUserList = reviewService.getReviewUserList();
-		
 		model.addAttribute("reviewUserList",reviewUserList);
 		model.addAttribute("goodsCode", goodsCode);
 		model.addAttribute("reviewScoreStandardCode", reviewScoreStandardCode);
-		
 		return "/userpage/reviewUser/addReview";
 	}
 

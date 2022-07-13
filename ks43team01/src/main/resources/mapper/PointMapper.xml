@@ -56,11 +56,23 @@
 		,point_history_reg_date						
 		)
 	VALUES 
-		(#{pointDetailsCode}
+		((SELECT
+			CONCAT('padc0',MAX(CAST(SUBSTRING(pp.Point_details_code,5)AS UNSIGNED)+1))
+		FROM 
+			tb_pt_point_accumulation_details AS pp)
 		,#{userIdCode}
-		,#{pointStandardDetailsCode}
-		,#{pointAmount}
-		,#{userEmail}
+		,'pac_details02'
+		,(SELECT 
+				ua.user_retention_Points
+			FROM 
+				tb_pt_point_accumulation_details AS pp 
+				INNER JOIN 
+				tb_u_all_user AS ua 
+				ON 
+				pp.user_id_code = ua.user_id_code
+			WHERE 
+				pp.user_id_code = #{userIdCode})
+		,'hun@ksmart.or.kr'
 		,CURDATE()
 		);
 	</insert>
