@@ -78,6 +78,9 @@ public interface BoardMapper {
 	//댓글 조회
 	public List<BoardComment> getBoardPostCommentList(String boardPostCode);
 
+	//게시글 조회수 업데이트
+	public int updateBoardPageView(String boardPostCode);
+	
 	//게시글 삭제
 	public int removeBoard(String boardPostCode);
 	
