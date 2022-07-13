@@ -30,7 +30,7 @@ public class MainController {
 
 	@GetMapping("/topCategory")
 	public List<GoodsTopCategory> getTopCategory(){ 
-		log.info("동작");
+
 		List<GoodsTopCategory> goodsTopCategory = goodsService.getGoodsTopCategory();
 		
 		return goodsTopCategory;
@@ -39,9 +39,9 @@ public class MainController {
 	
 	@GetMapping("/subCategory")
 	public List<GoodsSubCategory> getSubCategory(@RequestParam(name="goodsTopCategoryCode", required = false) String goodsTopCategoryCode){ 
-		log.info("동작" + goodsTopCategoryCode);
+		
 		List<GoodsSubCategory> goodsSubCategory = goodsService.getGoodsSubCategory(goodsTopCategoryCode);
-		log.info("goodsSubCategory : {}", goodsSubCategory);
+
 		return goodsSubCategory;
 		
 	}

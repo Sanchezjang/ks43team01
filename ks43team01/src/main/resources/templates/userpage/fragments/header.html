@@ -73,9 +73,9 @@
 							<ul id="navigation">
                                 <li><a id="goodsTopCategoryBtn">카테고리</a>
                                     <ul class="submenu">
-                                    	<li th:each="l : ${goodsCateMenu}"><a href="#" th:text="${l.goodsTopCategoryName}">카테고리1</a>
+                                    	<li th:each="l : ${goodsCateMenu}"><a th:href="@{/userpage/goods/userTopCategoryGoodsList(goodsTopCategoryCode=${l.goodsTopCategoryCode})}" th:text="${l.goodsTopCategoryName}">카테고리1</a>
                                     		<ul th:if="${not #lists.isEmpty(l.goodsSubCategoryList)}" class="submenu2">
-                                    			<li th:each="sub :${l.goodsSubCategoryList}"><a href="#" th:text="${sub.goodsSubCategoryName}">카테고리2</a></li>
+                                    			<li th:each="sub :${l.goodsSubCategoryList}"><a th:href="@{/userpage/goods/userSubCategoryGoodsList(goodsSubCategoryCode=${sub.goodsSubCategoryCode})}" th:text="${sub.goodsSubCategoryName}">카테고리2</a></li>
                                     		</ul>
                                     	</li>
                                     </ul>

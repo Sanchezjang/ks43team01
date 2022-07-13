@@ -109,7 +109,6 @@ layout:decorate="~{userpage/layout/userdefault}">
 						</div>
 						<div class="goods_gallery" th:unless="${g.fileMainImage eq 'Y'}">
 							<a><img th:src="@{'/' + ${#strings.replace(g.fileLocation,'\','/')}}" alt="..." /></a>
-					<!-- @{${#strings.replace(t.storedFilePath,'\','/')}} -->
 						</div>
 	
 					<!-- db에서 저장된 사진 불러오기 -->
