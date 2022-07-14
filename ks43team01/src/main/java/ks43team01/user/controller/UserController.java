@@ -19,8 +19,10 @@ import ks43team01.dto.SellerEducation;
 import ks43team01.dto.User;
 import ks43team01.dto.GoodsSubCategory;
 import ks43team01.dto.GoodsTopCategory;
+import ks43team01.dto.MailTO;
 import ks43team01.dto.OrderCart;
 import ks43team01.dto.RefundPayment;
+import ks43team01.service.MailService;
 import ks43team01.service.OrderCartService;
 import ks43team01.service.PaymentRefundService;
 import ks43team01.service.UserService;
@@ -36,10 +38,12 @@ public class UserController {
 	private final UserService userService;
 	private final OrderCartService orderCartService;
 	private final PaymentRefundService paymentRefundService;
-	public UserController(UserService userService,OrderCartService orderCartService,PaymentRefundService paymentRefundService) {
+	private final MailService mailService;
+	public UserController(UserService userService,OrderCartService orderCartService,PaymentRefundService paymentRefundService,MailService mailService) {
 		this.userService = userService;
 		this.orderCartService = orderCartService;
 		this.paymentRefundService = paymentRefundService;
+		this.mailService = mailService;
 	}
 	@GetMapping("/user/main")
 	public String userMain() {
@@ -66,12 +70,22 @@ public class UserController {
 		
 		return "userpage/user/userjoin";
 	}
-	@PostMapping("/userjoin") //회원가입시겟맵핑 잡아주는거//
+	@PostMapping("/userjoin") //회원가입시포스트맵핑 잡아주는거//
 	public String addUserInsert(User user,HttpSession session) {
-	
 		userService.addUserInsert(user);
 		log.info("받아온멤버",user);
 		session.setAttribute("UID", user.getUserIdCode());//세션에 있는 정보를 입력한정보가 맞는지 확인//
+		User user1 = userService.getUserInfoById(user.getUserIdCode());
+		log.info("이메일보내  :  {}",user1.getUserEmail());
+		String email = user1.getUserEmail();
+		if(email != null) {
+			MailTO mailTO = new MailTO();
+	        mailTO.setAddress(email);
+	        mailTO.setTitle("산체스님이 발송한 이메일입니다.");
+	        mailTO.setMessage("안녕하세요. 반가워요!하하하하");
+	        mailService.sendMail(mailTO);
+		}
+		
 		return "userpage/user/login";
 	}
 	@GetMapping("/sellerjoin")// 판매자회원추가진행로
