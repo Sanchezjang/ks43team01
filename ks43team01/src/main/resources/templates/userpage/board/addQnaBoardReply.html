@@ -12,7 +12,6 @@ layout:decorate="~{userpage/layout/userdefault}">
 	}
 	body { 
 		font-size:0.875em; line-height:1.5; color:#666; -webkit-text-size-adjust:none; min-width:320px;
-		font-family:'NanumGothic','나눔고딕',dotum, "Helvetica Neue", Helvetica, Verdana, Arial, Sans-Serief;
 	}
 	.section-top-border{
 	    width: 1200px;
@@ -90,7 +89,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 					</div>
 					<div class="col-6 board">
 						<label for="userName" class="mainExplanation">이름</label>
-						<input type="text" th:value="${qnaBoard.userName}" id="userName" class="form-control col-6" name="userName" required />
+						<input type="text" th:value="${session.UNAME}" id="userName" class="form-control col-6" name="userName" required />
 					</div>
 					<div class="col-6 board">
 						<label for="boardQuestionContent" class="mainExplanation">본문</label>

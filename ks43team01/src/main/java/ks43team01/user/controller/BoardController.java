@@ -374,7 +374,10 @@ public class BoardController {
 		
 		String serverName = request.getServerName();
 		String sessionId = (String) session.getAttribute("UID");
+		String sessionName = (String) session.getAttribute("UNAME");
 		qnaBoard.setUserIdCode(sessionId);
+		qnaBoard.setUserName(sessionName);
+		
 		String userIdCode = qnaBoard.getUserIdCode();
 		List<QnaBoard> resultList = boardService.getQnaBoard(userIdCode);
 		log.info("아이디 넣고 리스트로 정보 출력가능한지  :  {} ",resultList);
@@ -393,7 +396,7 @@ public class BoardController {
 			fileRealPath = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
 		}
 		
-		String boardQuestionCode = boardService.addQnaBoard(sessionId, qnaBoard, boardImgFile, fileRealPath);
+		String boardQuestionCode = boardService.addQnaBoard(sessionId, qnaBoard, sessionName, boardImgFile, fileRealPath);
 		log.info("boardQuestionCode : {}" ,boardQuestionCode);
 		
 		reAttr.addAttribute("boardQuestionCode", boardQuestionCode);
@@ -421,7 +424,8 @@ public class BoardController {
 							, HttpServletRequest request) {
 		
 		String sessionId = (String) session.getAttribute("UID");
-		boardService.addFreeBoard(sessionId, board);
+		String sessionName = (String) session.getAttribute("UNAME");
+		boardService.addFreeBoard(sessionId,sessionName, board);
        
 		return "redirect:/userpage/board/freeBoardList";
     }
@@ -440,7 +444,8 @@ public class BoardController {
 							, HttpServletRequest request) {
 		
 		String sessionId = (String) session.getAttribute("UID");
-		boardService.addFaqBoard(sessionId, board);
+		String sessionName = (String) session.getAttribute("UNAME");
+		boardService.addFaqBoard(sessionId, sessionName, board);
        
 		return "redirect:/userpage/board/faqBoardList";
     }
@@ -460,7 +465,8 @@ public class BoardController {
 								, HttpServletRequest request) {
 		
 		String sessionId = (String) session.getAttribute("UID");
-		boardService.addNoticeBoard(sessionId, board);
+		String sessionName = (String) session.getAttribute("UNAME");
+		boardService.addNoticeBoard(sessionId, sessionName, board);
        
 		return "redirect:/userpage/board/noticeBoardList";
     }
