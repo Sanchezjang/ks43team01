@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+
 @Component
 public class UserInterceptor implements HandlerInterceptor{
 
@@ -20,15 +21,21 @@ public class UserInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		String addr = request.getHeader("REFERER");
+		String requestUri =	request.getRequestURI();
+		log.info("requestUri값!!  :{}",requestUri);
+		log.info("addr값!!  :{}",addr);
 		HttpSession session = request.getSession();
+		if(requestUri.indexOf("/userpage/login/login") < 0)  session.setAttribute("PRE_ADDR", requestUri);
+		
 		String sessionId = (String) session.getAttribute("UID");
 		if(sessionId == null) {
 			log.info("sessionId값  :  {}",sessionId);
 			response.sendRedirect("/userpage/login/login");
 			return false;
 		}
-			return true;
-		};
+		return true;
+	}
 	
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
