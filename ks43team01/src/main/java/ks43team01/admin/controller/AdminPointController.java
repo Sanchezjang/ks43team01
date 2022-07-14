@@ -171,17 +171,22 @@ public class AdminPointController {
 		return "/adminpage/pointDetails/addPointList";
 	}
 	
+	
 	/* 관리자 페이지 수단 별 적립 검색 내역 조회 */
 	@GetMapping("/meansPointList")
 	public String meansPointList(Model model
 								,@RequestParam(value="searchKey", required= false)String searchKey
 								,@RequestParam(value="searchValue", required= false)String searchValue) {
 		
-		/*
-		 * if(searchKey != null) {
-		 * 
-		 * }if(searchKey.indexOf("user_") > -1) { searchKey= "" }
-		 */
+		
+		  if(searchKey != null) {
+		  
+		  }if(searchKey.indexOf("user_") > -1) {
+			  searchKey= "u." + searchKey; 
+		  }else if(searchKey.indexOf("point_") > -1) {
+			  searchKey= "p."+searchKey;
+		  }
+		  
 		List<Point> pointList = pointService.meansPointList(searchKey, searchValue);
 		
 		model.addAttribute("pointList",pointList);

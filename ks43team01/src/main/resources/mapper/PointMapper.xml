@@ -148,6 +148,50 @@
 			pb.point_standard_details_code = pp.point_standard_details_code;
 	</select>
 	
+	<select id="searchDatePointList" parameterType="String" resultType="Map">
+	/* 관리자 페이지 날짜 별 결제 내역 조회 */
+		SELECT
+		   	 pd.point_standard_details_code		AS pointStandardDetailsCode
+	        ,pa.point_details_code             	AS pointDetailsCode    
+	        ,pa.point_history_reg_date         	AS pointHistoryRegDate
+	        ,pa.user_id_code                  	AS userIdCode
+	        ,pd.point_standard_name            	AS pointStandardName
+	        ,pd.point_standard_details_name     AS pointStandardDetailsName
+	        ,pa.point_amount                  	AS pointAmount
+	      FROM 
+	    	 tb_pt_point_standard_details AS pd     
+	         INNER JOIN 
+	         tb_pt_point_accumulation_details AS pa 
+	         ON 
+	         pd.point_standard_details_code = pa.point_standard_details_code;
+	      WHERE
+   	         pa.point_history_reg_date BETWEEN #{startDate} AND #{endDate}
+	</select>
+	
+	<select id="meansPointList"  parameterType="String" resultType="Map">
+	/* 관리자 페이지 수단 별 검색 내역 조회 */
+		   SELECT
+		   	 pd.point_standard_details_code		AS pointStandardDetailsCode
+	        ,pa.point_details_code             	AS pointDetailsCode    
+	        ,pa.point_history_reg_date         	AS pointHistoryRegDate
+	        ,pa.user_id_code                  	AS userIdCode
+	        ,pd.point_standard_name            	AS pointStandardName
+	        ,pd.point_standard_details_name     AS pointStandardDetailsName
+	        ,pa.point_amount                  	AS pointAmount
+	      FROM 
+	    	 tb_pt_point_standard_details AS pd     
+	         INNER JOIN 
+	         tb_pt_point_accumulation_details AS pa 
+	         ON 
+	         pd.point_standard_details_code = pa.point_standard_details_code
+	         <trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="searchKey != null and searchKey != '' and searchValue != ''">
+					AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+				</if>
+			</trim>
+			ORDER BY pd.point_standard_details_code;
+     </select>
+	
 	<select id="getPointList"  resultType="Map">
 	/* 관리자 페이지 포인트 내역 조회 */
 		   SELECT
