@@ -42,8 +42,9 @@ public class BoardService {
 	 * */
 	
 	/* 1:1 게시글 답변글 등록 */
-	public int addQnaBoardReply(String sessionId, QnaBoard qnaBoard) {
+	public int addQnaBoardReply(String sessionId, String sessionName, QnaBoard qnaBoard) {
 		qnaBoard.setUserIdCode(sessionId);
+		qnaBoard.setUserName(sessionName);
 		
 		int result = boardMapper.addQnaBoardReply(qnaBoard);
 		
@@ -154,7 +155,7 @@ public class BoardService {
 		return boardLargeCategory;
 	}
 
-	/*1:1 문의 게시글 상세 조회 */
+	/*1:1 문의 게시글 상세 조회  + 게시글 답변 상세 조회 */
 	public QnaBoard getQnaBoardByCode(String boardQuestionCode) {
 	      System.out.println("___________getQnaBoardByCode____________");
 	      

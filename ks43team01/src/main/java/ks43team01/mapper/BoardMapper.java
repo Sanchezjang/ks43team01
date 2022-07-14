@@ -24,6 +24,7 @@ public interface BoardMapper {
 	
 	/*1:1 문의 게시글*/
 	
+	
 	//답변 삭제
 	public int removeQnaBoardReply(String boardQuestionReplyCode);
 	
@@ -48,7 +49,7 @@ public interface BoardMapper {
 	//1차 카테고리(등록화면)
 	public List<BoardLargeCategory> getBoardLargeCategory();
 		
-	//게시글 상세 조회
+	//게시글 상세 조회 + 게시글 답변 상세보기
 	public QnaBoard getQnaBoardByCode(String boardQuestionCode);
 	
 	//게시글 등록

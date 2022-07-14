@@ -50,6 +50,7 @@ public class BoardController {
 	
 	// 1:1 문의 게시글 관리
 	
+	
 	/* 1:1 문의 게시글 답변글 등록  (post) */
 	@PostMapping("/addQnaBoardReply")
 	public String addQnaBoardReply(QnaBoard qnaBoard
@@ -58,13 +59,18 @@ public class BoardController {
 		
 		log.info("qnaBoard", qnaBoard);
 		
+		session.setAttribute("userName", qnaBoard.getUserName());//세션 값 설정
 		String sessionId = (String) session.getAttribute("UID");
-		boardService.addQnaBoardReply(sessionId, qnaBoard);
+		String sessionName = (String) session.getAttribute("UNAME"); //세션값 가져오기
+		qnaBoard.setUserName(sessionName);;
+
+		log.info("sessionName값 : {}",sessionName);
+		boardService.addQnaBoardReply(sessionId, sessionName, qnaBoard);
 		
 		String boardQuestionCode = qnaBoard.getBoardQuestionCode();
 		reAttr.addAttribute("boardQuestionCode", boardQuestionCode);
 		
-		return "redirect:/userpage/board/qnaBoardReplyDetail";
+		return "redirect:/userpage/board/qnaBoardList";
 	}
 	
 	/*1:1 문의 게시글 답변글 등록(get)*/
@@ -79,6 +85,7 @@ public class BoardController {
 		model.addAttribute("boardQuestionCode", boardQuestionCode);
 		model.addAttribute("boardLargeCategoryCode", boardLargeCategoryCode);
 		model.addAttribute("boardMediumCategoryCode", boardMediumCategoryCode);
+		
 		return "/userpage/board/addQnaBoardReply";
 	}
 	
