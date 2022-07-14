@@ -23,7 +23,7 @@ public class UserInterceptor implements HandlerInterceptor{
 			throws Exception {
 		String addr = request.getHeader("REFERER");
 		String requestUri =	request.getRequestURI();
-		log.info("requestUri값!!  :{}",requestUri);
+		log.info("requestUri값!!  :{}",requestUri); 
 		log.info("addr값!!  :{}",addr);
 		HttpSession session = request.getSession();
 		if(requestUri.indexOf("/userpage/login/login") < 0)  session.setAttribute("PRE_ADDR", requestUri);
