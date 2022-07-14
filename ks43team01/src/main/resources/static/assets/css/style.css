@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Josefin+Sans:400,500,600,700|BMJUA:400,500,700|Sen:400,700,800&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans:400,500,600,700|BMJUA:400,500,700|BMJUA:400,700,800&display=swap");
 .white-bg {
     background: #ffffff;
 }
@@ -37,7 +37,7 @@
     color: #0064ff !important;
     display: inline-block;
     padding: 18px 44px;
-    font-family: "Sen", sans-serif;
+    font-family: "BMJUA", sans-serif;
     font-size: 14px;
     font-weight: 400;
     border: 0;
@@ -2545,10 +2545,10 @@ hr {
     display: block;
 }
 .categories-area .single-cat .cat-cap h5 {
-    font-family: "Sen", sans-serif;
+    font-family: "BMJUA", sans-serif;
 }
 .categories-area .single-cat .cat-cap h5 > a {
-    font-family: "Sen", sans-serif;
+    font-family: "BMJUA", sans-serif;
     font-size: 24px;
     font-weight: 700;
     margin-bottom: 21px;
@@ -2648,7 +2648,7 @@ hr {
 }
 .count-down-area .count-down-wrapper .single-counter .counter {
     font-size: 24px;
-    font-family: "Sen", sans-serif;
+    font-family: "BMJUA", sans-serif;
     line-height: 1;
     margin-bottom: 12px;
     display: inline-block;
@@ -2662,7 +2662,7 @@ hr {
     padding: 0;
     font-weight: 600;
     display: inline-block;
-    font-family: "Sen", sans-serif;
+    font-family: "BMJUA", sans-serif;
 }
 .color-blue {
     color: #0064ff;
@@ -2770,7 +2770,7 @@ hr {
 }
 .about-details .about-details-cap h4 {
     font-size: 30px;
-    font-family: "Sen", sans-serif;
+    font-family: "BMJUA", sans-serif;
     font-weight: 700;
     margin-bottom: 30px;
     color: #000a2d;
@@ -3176,7 +3176,7 @@ hr {
 }
 .footer-area .footer-heading .footer-tittle2 h4 {
     color: #fff;
-    font-family: "Sen", sans-serif;
+    font-family: "BMJUA", sans-serif;
     font-size: 26px;
     margin-bottom: 38px;
     font-weight: 500;
@@ -3560,7 +3560,7 @@ hr {
     color: #3a3a3a;
     text-transform: uppercase;
     font-size: 14px;
-    font-family: "Sen", sans-serif;
+    font-family: "BMJUA", sans-serif;
     color: #3a3a3a;
 }
 .home-blog-area .home-blog-single .blog-img-cap .blog-cap .more-btn:hover {
@@ -3578,7 +3578,7 @@ hr {
     margin-bottom: 70px;
 }
 .blog_area a {
-    color: "Sen", sans-serif !important;
+    color: "BMJUA", sans-serif !important;
     text-decoration: none;
     transition: 0.4s;
 }
@@ -4723,7 +4723,7 @@ hr {
     color: #fff;
     font-weight: 900;
     margin-bottom: 0;
-    font-family: "Sen", sans-serif;
+    font-family: "BMJUA", sans-serif;
     text-transform: capitalize;
 }
 @media (max-width: 767px) {
