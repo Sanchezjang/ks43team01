@@ -23,14 +23,14 @@ public class WebConfig implements WebMvcConfigurer{
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 
-		/*registry.addInterceptor(commonInterceptor)
+		registry.addInterceptor(commonInterceptor)
 				.addPathPatterns("/**")
 				.excludePathPatterns("/admin/build/**")
 				.excludePathPatterns("/admin/css/**")
 				.excludePathPatterns("/admin/vendors/**")
 				.excludePathPatterns("/assets/**")
 				.excludePathPatterns("/Doc/**")
-				.excludePathPatterns("/images/**");*/
+				.excludePathPatterns("/images/**");
 		
 		registry.addInterceptor(userInterceptor)
 				.addPathPatterns("/userpage/**")
