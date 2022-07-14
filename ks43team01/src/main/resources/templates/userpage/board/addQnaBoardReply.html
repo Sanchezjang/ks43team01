@@ -74,15 +74,15 @@ layout:decorate="~{userpage/layout/userdefault}">
 				<div class="clearfix"></div>
 			</div>
 			<!-- start form for validation -->
-			<form th:action="@{/userpage/board/addQnaBoardReply}" method="post" id="demo-form" data-parsley-validate enctype="multipart/form-data" name="multipart">
+			<form th:action="@{/userpage/board/addQnaBoardReply(boardQuestionCode=${qnaBoard.boardQuestionCode})}" method="post" id="demo-form" data-parsley-validate enctype="multipart/form-data" name="multipart">
 				<div class="writer form-group">
 					<div class="col-6 board">
 						<label for="boardLargeCategoryCode" class="mainExplanation">1차 카테고리</label>
 						<input th:value="${qnaBoard.boardLargeCategoryCode}" id="boardLargeCategoryCode" class="form-control col-6" name="boardLargeCategoryCode" required />
 					</div>
 					<div class="col-6 board">
-					<label for="boardMediumCategoryCode"  class="mainExplanation">2차 문의 카테고리</label>
-						<input th:value="${qnaBoard.boardMediumCategoryCode}" id="boardLargeCategoryCode" class="form-control col-6" name="boardLargeCategoryCode" required />
+						<label for="boardMediumCategoryCode"  class="mainExplanation">2차 문의 카테고리</label>
+						<input th:value="${qnaBoard.boardMediumCategoryCode}" id="boardMediumCategoryCode" class="form-control col-6" name="boardMediumCategoryCode" required />
 					</div>
 					<div class="col-6 board">
 						<label for="boardQuestionTitle" class="mainExplanation">제목</label>
@@ -90,7 +90,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 					</div>
 					<div class="col-6 board">
 						<label for="userName" class="mainExplanation">이름</label>
-						<input type="text" id="userName" class="form-control col-6" name="userName" required />
+						<input type="text" th:value="${qnaBoard.userName}" id="userName" class="form-control col-6" name="userName" required />
 					</div>
 					<div class="col-6 board">
 						<label for="boardQuestionContent" class="mainExplanation">본문</label>

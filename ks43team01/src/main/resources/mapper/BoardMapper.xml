@@ -224,6 +224,8 @@
 			board_post_code = #{boardPostCode};
 	</update>
 
+	
+
 	<select id="getQnaBoardByCode" parameterType="String" resultMap="qnaBoardResultMap">
 	/*1:1 문의 게시글 상세 페이지 조회*/
 			SELECT
@@ -303,6 +305,7 @@
 			, board_category_code
 			, board_l_category_code
 			, board_m_category_code
+			, board_answer_code
 			, board_question_origin_no
 			, board_question_group_order
 			, board_question_title
@@ -322,30 +325,16 @@
 			(select date_format(NOW(),'question%y%m%d%H%i%s')AS board_question_code)
 			, #{userIdCode}
 			, 'board03'
-			, (
-				SELECT
-					m.board_l_category_code
-				FROM
-					tb_b_board_m_category AS m
-				WHERE
-					m.board_m_category_code = #{boardMediumCategoryCode}
-				)	
+			, #{boardLargeCategoryCode}		
 			, #{boardMediumCategoryCode}
-			, (
-				SELECT
-					m.board_l_category_code
-				FROM
-					tb_b_board_m_category AS m
-				WHERE
-					m.board_m_category_code = #{boardMediumCategoryCode}
-				)	
-			, #{boardMediumCategoryCode}
+			, NULL
 			, (SELECT
 					q.board_question_origin_no
 				FROM
 					tb_b_board_question AS q
 				WHERE
 					q.board_question_code = #{boardQuestionCode})
+					
 			, 1
 			, #{boardQuestionTitle}
 			, #{userName}
@@ -355,7 +344,7 @@
 			, NULL
 			, '댓글'
 			, #{boardQuestionLock}
-			, NULL
+			, #{boardQuestionPw}
 			, CURDATE()
 			, #{boardQuestionPageView}
 			, 'Y'
@@ -558,21 +547,23 @@
 
 	   <select id="getQnaBoardList" parameterType="map" resultMap="qnaBoardResultMap">
    /*사용자용 1:1 문의 게시글 목록 조회*/
-         SELECT
-         board_question_code
-         , user_id_code
-         , board_category_code
-         , board_l_category_code
-         , board_m_category_code      
-         , board_question_title               
-         , user_name                        
-         , board_question_lock               
-         , board_question_reg_date            
-         , board_question_page_view         
-      FROM
-         tb_b_board_question
-         ORDER BY board_question_code DESC
-         LIMIT #{startRow}, #{rowPerPage};
+	SELECT
+		board_question_code
+		, user_id_code
+		, board_category_code
+		, board_l_category_code
+		, board_m_category_code  
+		, board_question_origin_no
+		, board_question_group_order     
+		, board_question_title               
+		, user_name                        
+		, board_question_lock               
+		, board_question_reg_date            
+		, board_question_page_view
+	FROM
+		tb_b_board_question
+		 ORDER BY board_question_origin_no DESC, board_question_group_order ASC
+		 		LIMIT #{startRow}, #{rowPerPage};
    </select>
 
 	<select id="getQnaBoard" resultType="Map" parameterType="String">
@@ -583,6 +574,8 @@
 			, board_category_code					AS boardCategoryCode
 			, board_l_category_code					AS boardLargeCategoryCode
 			, board_m_category_code					AS boardMediumCategoryCode
+			, board_question_origin_no				AS boardQuestionOriginNo
+			, board_question_group_order			AS boardQuestionGroupOrd
 			, board_question_title					AS boardQuestionTitle
 			, user_name								AS userName
 			, board_question_lock					AS boardQuestionLock
