@@ -54,20 +54,20 @@ layout:decorate="~{userpage/layout/userdefault}">
 						<div class="col-12">
 							<div class="form-group">
 								<h4>제목</h4>
-								<input class="form-control" name="boardPostTitle" id="boardPostTitle" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '입력하세요.'" placeholder="제목을 입력하세요."  required>
+								<input class="form-control" th:value="${board.boardPostTitle}" name="boardPostTitle" id="boardPostTitle" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '입력하세요.'" placeholder="제목을 입력하세요."  required>
 							</div>
 						</div>
 						<div class="col-6">
 							<div class="form-group">
 							<h4>이름</h4>
-								<input class="form-control valid" name="boardUserName" id="boardUserName" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '입력하세요.'" placeholder="이름을 입력하세요."  required>
+								<input class="form-control valid" th:value="${board.boardUserName}" name="boardUserName" id="boardUserName" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '입력하세요.'" placeholder="이름을 입력하세요."  required>
 							</div>
 						</div>
 					
 						<div class="col-12">
 							<div class="form-group">
 							<h4>본문</h4>
-								<textarea class="form-control w-100" name="boardPostContent" id="boardPostContent" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = '본문을 입력하세요.'" placeholder="본문을 입력하세요."  required></textarea>
+								<textarea class="form-control w-100" th:text="${board.boardPostContent}" name="boardPostContent" id="boardPostContent" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = '본문을 입력하세요.'" placeholder="본문을 입력하세요."  required></textarea>
 							</div>
 						</div>
 							<div class="form-group">

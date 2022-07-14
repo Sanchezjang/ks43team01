@@ -53,8 +53,9 @@ public class BoardService {
 	
 
 	/* 1:1 게시글 등록 */
-	public String addQnaBoard(String sessionId, QnaBoard qnaBoard, MultipartFile[] boardImgFile, String fileRealPath) {
+	public String addQnaBoard(String sessionId, QnaBoard qnaBoard, String sessionName, MultipartFile[] boardImgFile, String fileRealPath) {
 		qnaBoard.setUserIdCode(sessionId);
+		qnaBoard.setUserName(sessionName);
 		
 		// 1. 1:1 문의 게시글 첨부파일 업로드
 		// 2. 파일 업로드 시 파일 DB insert
@@ -230,8 +231,9 @@ public class BoardService {
 	}
 
 	/* 자유게시판 게시글 등록 */
-	public int addFreeBoard(String sessionId, Board board) {
+	public int addFreeBoard(String sessionId, String sessionName, Board board) {
 		board.setUserIdCode(sessionId);
+		board.setBoardUserName(sessionName);
 		int result = boardMapper.addFreeBoard(board);
 		
 		return result;
@@ -246,8 +248,10 @@ public class BoardService {
 	
 
 	/* 자주묻는 질문 게시글 등록 */
-	public int addFaqBoard(String sessionId, Board board) {
+	public int addFaqBoard(String sessionId, String sessionName, Board board) {
 		board.setUserIdCode(sessionId);
+		board.setBoardUserName(sessionName);
+		
 		int result = boardMapper.addFaqBoard(board);
 		
 		return result;
@@ -261,8 +265,10 @@ public class BoardService {
 	}
 
 	/* 공지사항 게시글 등록 */
-	public int addNoticeBoard(String sessionId, Board board) {
+	public int addNoticeBoard(String sessionId, String sessionName, Board board) {
 		board.setUserIdCode(sessionId);
+		board.setBoardUserName(sessionName);
+		
 		int result = boardMapper.addNoticeBoard(board);
 		
 		return result;

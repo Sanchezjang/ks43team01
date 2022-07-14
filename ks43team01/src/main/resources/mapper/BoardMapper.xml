@@ -338,7 +338,22 @@
 			, 1
 			, #{boardQuestionTitle}
 			, #{userName}
-			, #{boardQuestionContent}
+			,( SELECT
+					ba.board_answer_content
+				FROM
+				   tb_b_board_question AS bq
+				   INNER JOIN
+				   tb_b_board_answer AS ba
+				WHERE
+				   ba.board_answer_word =
+				   (
+				   SELECT
+				      ba.board_answer_word
+				   WHERE
+				   LOCATE(ba.board_answer_word, bq.board_question_content) > 0
+				   )
+				   AND
+				   bq.board_question_code = #{boardQuestionCode})
 			, NULL
 			, CURDATE()
 			, NULL
