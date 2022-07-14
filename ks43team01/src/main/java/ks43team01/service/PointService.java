@@ -25,7 +25,13 @@ public class PointService {
 
 	}
 	
-	
+	/* 관리자 페이지  수단 별 적립 검색 내역 조회 */
+	public List<Point> meansPointList(String searchKey, String searchValue){
+		
+		List<Point> pointList = pointMapper.meansPointList(searchKey, searchValue);
+		
+		return pointList;
+	}
 	
 	/* 관리자 페이지 포인트 내역 날짜 별 조회 */
 	public List<Point> searchDatePointList(String startDate, String endDate) {

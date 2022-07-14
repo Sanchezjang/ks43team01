@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Josefin+Sans:400,500,600,700|Roboto:400,500,700|Sen:400,700,800&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans:400,500,600,700|BMJUA:400,500,700|Sen:400,700,800&display=swap");
 .white-bg {
     background: #ffffff;
 }
@@ -101,9 +101,14 @@
     opacity: 0.9;
 }
 body {
-    font-family: "Roboto", sans-serif;
+	font-family: 'BMJUA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
     font-weight: normal;
     font-style: normal;
+    /*
+    font-family: "BMJUA", sans-serif;
+    font-weight: normal;
+    font-style: normal;*/
 }
 h1,
 h2,
@@ -111,7 +116,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "Sen", sans-serif;
+    font-family: "BMJUA";
     color: #0064ff;
     margin-top: 0px;
     font-style: normal;
@@ -119,7 +124,7 @@ h6 {
     text-transform: normal;
 }
 p {
-    font-family: "Roboto", sans-serif;
+    font-family: "BMJUA";
     color: #10285d;
     font-size: 16px;
     line-height: 30px;
@@ -4769,7 +4774,7 @@ hr {
     cursor: pointer;
     display: block;
     float: left;
-    font-family: "Roboto", sans-serif;
+    font-family: "BMJUA", sans-serif;
     font-weight: normal;
     width: 100% !important;
     line-height: 50px;

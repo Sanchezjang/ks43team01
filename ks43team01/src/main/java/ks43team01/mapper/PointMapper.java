@@ -13,6 +13,8 @@ import ks43team01.dto.PointStandardDetails;
 @Mapper
 public interface PointMapper {
 	
+	/* 관리자 페이지  수단 별 적립  검색 내역 조회 */
+	public List<Point> meansPointList(String searchKey, String searchValue); 
 	
 	/* 관리자 페이지 포인트 내역 날짜 별 조회 */
 	public List<Point> searchDatePointList(String startDate, String endDate);
