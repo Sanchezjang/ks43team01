@@ -65,6 +65,9 @@ layout:decorate="~{userpage/layout/userdefault}">
 	.col-6{
 		padding-bottom: 20px;
 	}
+	.col-12{
+		padding-bottom: 20px;
+	}
 	.pay{
 		padding-left: 10px;	
 	}
@@ -98,7 +101,6 @@ layout:decorate="~{userpage/layout/userdefault}">
 	.totalOrder{
 		padding-top: 10px;
 	}
-	
 	</style>
 	
 	<div class="qnaBoard">
@@ -112,7 +114,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 				<div class="clearfix"></div>
 			</div>
 			<!-- start form for validation -->
-			<form th:action="@{/userpage/board/addQnaBoard}" method="post" id="demo-form" data-parsley-validate enctype="multipart/form-data" name="multipart">
+			<form th:action="@{/userpage/board/modifyQnaBoard}" method="post" id="demo-form" data-parsley-validate enctype="multipart/form-data" name="multipart">
 				<div class="writer form-group">
 					<div class="form-group">
 					<label for="boardLargeCategoryName" class="col-12 mainExplanation required">1차 문의 카테고리</label>
@@ -134,38 +136,16 @@ layout:decorate="~{userpage/layout/userdefault}">
 					</div>
 					<div class="col-6 goods">
 						<label for="boardQuestionTitle" class="mainExplanation">제목</label>
-						<input type="text" id="boardQuestionTitle" class="form-control  col-md-10" name="boardQuestionTitle" required />
+						<input type="text" th:value="${qnaBoard.boardQuestionTitle}" id="boardQuestionTitle" class="form-control  col-md-10" name="boardQuestionTitle" required />
 					</div>
 					<div class="col-6 goods">
 						<label for="userName" class="mainExplanation">이름</label>
-						<input type="text" th:value="${session.UNAME}" id="userName" class="form-control col-6" name="userName" required />
+						<input type="text" th:value="${qnaBoard.userName}" id="userName" class="form-control col-6" name="userName" required />
 					</div>
 					<div class="col-6 goods">
 						<label for="boardQuestionContent" class="mainExplanation">본문</label>
-						<textarea class="form-control col-12" rows="5"cols="10" name="boardQuestionContent" id="boardQuestionContent"></textarea>
-					<div class="col-6 goods">
-						<label for="boardQuestionAnswerMethod" class="mainExplanation">답변 방법</label>
-						<input type="radio" id="boardQuestionAnswerMethod" class="form-control col-6" name="boardQuestionAnswerMethod" value="댓글" checked="checked"/>댓글
-						<input type="radio" id="boardQuestionAnswerMethod" class="form-control col-6" name="boardQuestionAnswerMethod" value="이메일"/>이메일
-					</div>
-					<div class="col-6 goods">
-						<label for="userEmail" class="mainExplanation">이메일</label>
-						<input type="email" id="userName" class="form-control col-6" name="userEmail" />
-					</div>
-					<div class="col-6 goods">
-						<label for="boardQuestionLock" class="mainExplanation">공개여부</label>
-						<input type="radio" id="boardQuestionLock" class="form-control col-6" name="boardQuestionLock" value="공개글" checked="checked"/>공개글
-						<input type="radio" id="boardQuestionLock" class="form-control col-6" name="boardQuestionLock" value="비밀글"/>비밀글
-					</div>
-					<div class="col-6 goods">
-						<label for="boardQuestionPw" class="mainExplanation">비밀번호</label>
-						<input type="password" id="boardQuestionPw" class="form-control col-6" name="boardQuestionPw"/>
-					</div>
-					<div class="col-12 goods">
-						<label for="boardPostFileCode" class="mainExplanation">첨부파일</label>
-						<input type="file" id="boardPostFileCode" class="form-control col-12" name="boardImgFile"/>
-						<div class="explanation">첨부파일을 입력해주세요.</div>
-					</div>
+						<textarea th:text="${qnaBoard.boardQuestionContent}" class="form-control col-12" rows="5"cols="10" name="boardQuestionContent" id="boardQuestionContent"></textarea>
+
 					<div class="totalOrder">
 						<button type="submit" class="genric-btn primary btn-sm" id="addQnaBoard">등록</button>
 					</div>

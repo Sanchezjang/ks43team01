@@ -41,12 +41,32 @@ public class BoardService {
 	 * 사용자 화면
 	 * */
 	
+	/*게시글 조회수 업데이트*/
+	public int updateQnaBoardPageView(String boardQuestionCode) {
+		
+		return boardMapper.updateQnaBoardPageView(boardQuestionCode);
+	}
+	
 	/* 1:1 게시글 답변글 등록 */
 	public int addQnaBoardReply(String sessionId, String sessionName, QnaBoard qnaBoard) {
 		qnaBoard.setUserIdCode(sessionId);
 		qnaBoard.setUserName(sessionName);
 		
 		int result = boardMapper.addQnaBoardReply(qnaBoard);
+		
+		return result;
+	}
+	
+	/* 1:1 게시글삭제 */
+	public int removeQnaBoard(String boardQuestionCode) {
+		int result = boardMapper.removeQnaBoard(boardQuestionCode);
+		
+		return result;
+	}
+
+	/* 1:1 게시글  수정 */
+	public int modifyQnaBoard(QnaBoard qnaBoard) {
+		int result = boardMapper.modifyQnaBoard(qnaBoard);
 		
 		return result;
 	}

@@ -155,8 +155,7 @@
 			, NOW()
 		);
 	</insert>
-  
-
+ 
 	<select id="getBoardPostCommentList" resultType="BoardComment">
 		/*게시글 댓글 조회 */
 			SELECT
@@ -224,7 +223,38 @@
 			board_post_code = #{boardPostCode};
 	</update>
 
-	
+	<update id="updateQnaBoardPageView" parameterType="String"> 
+	/*1:1게시글 조회수 증가*/
+		UPDATE
+			tb_b_board_question
+		SET
+			board_question_page_view = board_question_page_view + 1
+		WHERE
+			board_question_code = #{boardQuestionCode}
+	</update>
+
+	<delete id="removeQnaBoard" parameterType="String">
+	/*1:1 게시글 삭제 */
+		DELETE
+		FROM
+			tb_b_board_question
+		WHERE
+			board_question_code = #{boardQuestionCode};
+	</delete>
+
+	<update id="modifyQnaBoard" parameterType="String">
+	/*1:1 게시글 수정 */
+		UPDATE
+			tb_b_board_question 
+		SET 
+			board_l_category_code = #{boardLargeCategoryCode}
+			, board_m_category_code = #{boardMediumCategoryCode}
+			, board_question_title = #{boardQuestionTitle}
+			, board_question_content = #{boardQuestionContent}
+			, board_question_reg_date = CURDATE()
+		WHERE
+			board_question_code = #{boardQuestionCode};
+	</update>
 
 	<select id="getQnaBoardByCode" parameterType="String" resultMap="qnaBoardResultMap">
 	/*1:1 문의 게시글 상세 페이지 조회*/
@@ -643,7 +673,8 @@
 		FROM
 			tb_b_board_post
 		WHERE
-			board_category_code = 'board04';
+			board_category_code = 'board04'
+		ORDER BY board_post_code DESC;
 	</select>
    
 	<insert id="addFaqBoard" parameterType="Board">
@@ -686,7 +717,8 @@
 		FROM
 			tb_b_board_post
 		WHERE
-			board_category_code = 'board02';
+			board_category_code = 'board02'
+		ORDER BY board_post_code DESC;;
 	</select>
 
 	<insert id="addNoticeBoard" parameterType="Board">
@@ -729,7 +761,8 @@
 		FROM
 			tb_b_board_post
 		WHERE
-			board_category_code = 'board01';
+			board_category_code = 'board01'
+		ORDER BY board_post_code DESC;
 	</select>
   
 	<select id="getBoardList" resultType="Board">
@@ -746,7 +779,8 @@
 			, board_post_view						AS boardPostView
 			, board_post_use						AS boardPostUse
 		FROM
-			tb_b_board_post;
+			tb_b_board_post
+		ORDER BY board_post_code DESC;
   </select>
   
      <select id="getQnaBoardListCount" resultType="int">

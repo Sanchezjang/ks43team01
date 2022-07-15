@@ -23,7 +23,8 @@ public interface BoardMapper {
 	 * */
 	
 	/*1:1 문의 게시글*/
-	
+	//게시글 조회수 업데이트
+	public int updateQnaBoardPageView(String boardQuestionCode);
 	
 	//답변 삭제
 	public int removeQnaBoardReply(String boardQuestionReplyCode);

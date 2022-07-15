@@ -107,7 +107,7 @@ public class BoardController {
 	public String qnaBoardDetail(@RequestParam(value = "boardQuestionCode")String boardQuestionCode
 								, Model model) {
 		QnaBoard qnaBoard = boardService.getQnaBoardByCode(boardQuestionCode);
-		
+		boardService.updateQnaBoardPageView(boardQuestionCode);
 		log.info("qnaBoard : {}", qnaBoard);
 		
 		model.addAttribute("qnaBoard", qnaBoard);
@@ -332,6 +332,45 @@ public class BoardController {
 		model.addAttribute("board", board);
 		return "/userpage/board/noticeBoardDetail";
 	}
+	
+	/* 1:1 게시글 삭제 */
+	@GetMapping("/removeQnaBoard")
+	public String removeQnaBoard(@RequestParam(value = "boardQuestionCode", required = false)String boardQuestionCode) {
+		log.info("나가는 값:{}", "test");
+		boardService.removeQnaBoard(boardQuestionCode);
+		
+		return "redirect:/userpage/board/qnaBoardList";
+	}
+	
+	/* 1:1 게시글 수정 (post) */
+	@PostMapping("/modifyQnaBoard")
+	public String modifyQnaBoard(QnaBoard qnaBoard
+									, RedirectAttributes reAttr) {
+		
+		log.info("qnaBoard: {}", qnaBoard);
+		boardService.modifyQnaBoard(qnaBoard);
+		String boardQuestionCode = qnaBoard.getBoardQuestionCode();
+		reAttr.addAttribute("boardQuestionCode", boardQuestionCode);
+		
+		return "redirect:/userpage/board/qnaBoardDetail";
+	}
+	
+	/* 1:1 게시글 수정 (get) */
+	@GetMapping("/modifyQnaBoard")
+	public String modifyQnaBoard(@RequestParam(value = "boardQuestionCode", required = false)String boardQuestionCode
+									, Model model) {
+		List<BoardLargeCategory> boardLargeCategory = boardService.getBoardLargeCategory();
+		
+		model.addAttribute("boardLargeCategory", boardLargeCategory);
+		
+		log.info("1차 카테고리 : {}",boardLargeCategory);
+		
+		QnaBoard qnaBoard = boardService.getQnaBoardByCode(boardQuestionCode);
+		model.addAttribute("qnaBoard",qnaBoard);	
+		
+		return "/userpage/board/modifyQnaBoard";
+	}
+	
 	
 	/* 1:1 게시글 파일 다운로드 */
 	@GetMapping("/download")
