@@ -41,12 +41,56 @@ public class BoardService {
 	 * 사용자 화면
 	 * */
 	
+	//1:1 게시글 페이징
+	public Map<String, Object> getQnaBoardList(int currentPage){
+		// 몇개 보여줄지?
+		int rowPerPage = 5;
+		int startPageNum = 1;
+		int	endPageNum = 10;
+				
+		
+		//총 행의 갯수
+		double rowCount = boardMapper.getQnaBoardListCount();
+		
+		//마지막페이지
+		int lastPage = (int) Math.ceil(rowCount/rowPerPage);
+		
+		//페이징 처리
+		int startRow = (currentPage -1) * rowPerPage;
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("startRow", startRow);
+		paramMap.put("rowPerPage", rowPerPage);
+		
+		List<Map<String, Object>> qnaBoardList = boardMapper.getQnaBoardList(paramMap);
+		
+		//동적 페이지 번호
+		if(currentPage > 6) {
+			startPageNum =  currentPage - 5;
+			endPageNum = currentPage + 4;
+			if(endPageNum >= lastPage) {
+				startPageNum = lastPage - 9;
+				endPageNum = lastPage;
+			}
+		}
+		
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("lastPage", lastPage);
+		resultMap.put("qnaBoardList", qnaBoardList);
+		resultMap.put("startPageNum", startPageNum);
+		resultMap.put("endPageNum" , endPageNum);
+		
+		return resultMap;
+	}
+	
 	/*게시글 조회수 업데이트*/
 	public int updateQnaBoardPageView(String boardQuestionCode) {
 		
 		return boardMapper.updateQnaBoardPageView(boardQuestionCode);
 	}
 	
+
 	/* 1:1 게시글 답변글 등록 */
 	public int addQnaBoardReply(String sessionId, String sessionName, QnaBoard qnaBoard) {
 		qnaBoard.setUserIdCode(sessionId);
@@ -125,42 +169,7 @@ public class BoardService {
 		}
 	}
 	
-   /* 5. 1:1 게시판 게시글 목록 조회*/
-	public Map<String, Object> getQnaBoardList(int currentPage){
-		int rowPerPage = 10;
-		int startPageNum = 1;
-		int endPageNum = 3;
-      
-		double rowCount = boardMapper.getQnaBoardListCount();
-		int lastPage = (int)Math.ceil(rowCount/rowPerPage);
-		int startRow = (currentPage - 1) * rowPerPage;
-      
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("startRow", startRow);
-		paramMap.put("rowPerPage", rowPerPage);
-      
-		List<QnaBoard> getQnaBoardList = boardMapper.getQnaBoardList(paramMap);
-      
-		System.out.println("getQnaBoardList: {}" + getQnaBoardList);
-      
-		if(currentPage > 6) {
-			startPageNum = currentPage - 5;
-			endPageNum = currentPage + 4; // 자신 포함 / last-21페이지 픽스. 21-4 = 17부터는 움직이지않겠다. 17커런트로왔을때
 
-			if (endPageNum >= lastPage) { // 17이상부터 클릭시 숫자가 늘어나지않고 고정되는 모습
-				startPageNum = lastPage - 9; // 라스트페이지해당 21-9 = 12부터 고정시키겠다.
-				endPageNum = lastPage;
-			}
-		}
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("lastPage", lastPage);
-		resultMap.put("getQnaBoardList", getQnaBoardList);
-		resultMap.put("startPageNum", startPageNum);
-		resultMap.put("endPageNum", endPageNum);
-		resultMap.put("rowCount", rowCount);
-	      
-		return resultMap;
-	}
 	
 	// 1:1 문의 2차 카테고리
 	public List<BoardMediumCategory> getBoardMediumCategory(String boardLargeCategory) {

@@ -22,7 +22,12 @@ public interface BoardMapper {
 	 * (일반 게시글 : 공지사항, 자주묻는 질문, 자유 게시판)
 	 * */
 	
-	/*1:1 문의 게시글*/
+
+	
+	
+	//첨부파일 수정
+	List <Map<String,Object>> selectBoardFileDetail(Map<String, String> Map);
+	
 	//게시글 조회수 업데이트
 	public int updateQnaBoardPageView(String boardQuestionCode);
 	
@@ -56,14 +61,12 @@ public interface BoardMapper {
 	//게시글 등록
 	public int addQnaBoard(QnaBoard qnaBoard);
 	
-	//게시글 목록 조회(페이징)
-	public List<QnaBoard> getQnaBoardList(Map<String, Object> paramMap);
+	//게시글 페이징
+	public List<Map<String, Object>> getQnaBoardList(Map<String, Object> paramMap);
 	
 	//1:1 문의 게시글 목록 row 수
 	public int getQnaBoardListCount();
-	
-	//게시글 목록 조회
-	public List<QnaBoard> getQnaBoardList();
+
 	
 	
 	/*일반 게시글 */
@@ -91,6 +94,7 @@ public interface BoardMapper {
 	
 	//게시글 상세 조회
 	public Board getBoardByCode(String boardPostCode);	
+	
 	//1:1문의 아이디별 검색
 	public List<QnaBoard> getQnaBoard(String userIdCode);
 	//자유게시판 게시글 등록
