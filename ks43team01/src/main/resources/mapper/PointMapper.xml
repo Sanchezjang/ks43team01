@@ -63,7 +63,7 @@
 		,#{userIdCode}
 		,'pac_details02'
 		,(SELECT 
-				ua.user_retention_Points
+				LAST(ua.user_retention_Points)
 			FROM 
 				tb_pt_point_accumulation_details AS pp 
 				INNER JOIN 
@@ -71,7 +71,8 @@
 				ON 
 				pp.user_id_code = ua.user_id_code
 			WHERE 
-				pp.user_id_code = #{userIdCode})
+				pp.user_id_code = #{userIdCode}
+				ORDER BY ua.user_retention_Points DESC)
 		,'hun@ksmart.or.kr'
 		,CURDATE()
 		);

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -40,13 +41,17 @@ public class UserReviewController {
 
 	/* 리뷰 수정 (post) */
 	@PostMapping("/modifyReview")
-	public String modifyReview(ReviewContentsReg reviewContentsReg, RedirectAttributes reAttr) {
+	@ResponseBody
+	public Map<String, Object> modifyReview(ReviewContentsReg reviewContentsReg, RedirectAttributes reAttr) {
 		log.info("reviewContentsReg: {}", reviewContentsReg);
 
 		reviewService.modifyReview(reviewContentsReg);
 		String reviewCode = reviewContentsReg.getReviewCode();
 		reAttr.addAttribute("reviewCode", reviewCode);
-		return "redirect:/userpage/reviewUser/reviewUserList";
+		Map<String, Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("reviewCode", reviewCode);
+		resultMap.put("href", "/userpage/reviewUser/reviewUserList");
+		return resultMap;
 	}
 
 	/* 리뷰 수정 (get) */
@@ -126,7 +131,9 @@ public class UserReviewController {
 
 	/* 유저 페이지 회원 리뷰 목록 조회 */
 	@GetMapping("/reviewUserList")
-	public String getReviewUserList(@RequestParam(name = "goodsCode", required = false) String goodsCode, Model model) {
+	public String getReviewUserList(@RequestParam(name = "goodsCode", required = false) String goodsCode
+									,@RequestParam(name = "userName", required = false) String userName
+									, Model model) {
 
 		List<ReviewContentsReg> reviewUserList = reviewService.getReviewUserList();
 		model.addAttribute("reviewUserList", reviewUserList);

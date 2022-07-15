@@ -1,6 +1,7 @@
 <!doctype html>
 <html class="no-js" lang="zxx"  xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+		
     <!--? Preloader Start -->
 	<div th:fragment="headerFragment">
 		<div id="preloader-active" >
@@ -14,54 +15,146 @@
 			</div>
 		</div>
     <!-- Preloader end -->
+    
+<style>
+#navigation li a{
+	padding: 5px 10px;
+	font-size: 18px;
+}
+#navigation li ul li a{
+	padding: 0px 10px;
+	font-size: 15px;
+	color: #333;
+}
 
+.header-info-right .form-box {
+  position: relative;
+  margin-top: 2px;
+  margin-bottom: 5px;
+}
+.header-info-right .form-box input {
+    border: 0;
+    background: #f4f4f4;
+    border-radius: 30px;
+    padding: 10px 29px;
+    width: 160px;
+    height: 40px;
+}
+@media only screen and (min-width: 1200px) and (max-width: 1600px) {
+.header-info-right .form-box input {
+        width: 265px;
+    }
+}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+.header-info-right .form-box input {
+        width: 210px;
+    }
+}
+.header-info-right .form-box input::placeholder {
+    font-size: 13px;
+    font-family: "BMJUA", sans-serif;
+}
+.header-info-right .form-box .search-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.header-info-right .form-box .search-icon i {
+    color: #fff;
+    cursor: pointer;
+    background: #0064ff;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+}
+.header-area .header-top {
+    border-bottom: 0px;
+}
+.header-info-right .topUl li {
+    display: inline-block;
+    padding-top: 12px;
+}
+.header-info-right .topUl li:last-child{
+	padding-right: 15px;
+}
+.header-info-right ul li {
+    display: inline-block;
+}
+.header-info-right ul {
+    display: inline;
+}
+.header-info-right ul li a {
+    color: #86878a;
+    font-size: 16px;
+    padding-left: 25px;
+    font-family: "BMJUA", sans-serif;
+}
+.header-info-right ul li a:hover {
+    color: #0064ff;
+}
+.header-info-right ul li a i {
+    padding-right: 10px;
+    color: #4044b4;
+}
+#botContainer{
+	height: 50px;
+	padding: 0;
+}
+#botContainer .menu-wrapper{
+	padding: 8px 0;
+}
+.header-bottom{
+	margin-bottom: 4px;
+}
+</style>
 	<!-- Header Start -->
 	<div class="header-area">
 		<div class="main-header ">
 			<div class="header-top d-none d-lg-block">
 			<!-- Left Social -->
-				<div class="header-left-social">
-					<ul class="header-social">    
-	                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-	                    <li><a href="https://www.facebook.com/sai4ull"><i class="fab fa-facebook-f"></i></a></li>
-	                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-	                    <li> <a href="#"><i class="fab fa-google-plus-g"></i></a></li>
-					</ul>
-				</div>
-				<div class="container">
+				<div class="container" style="padding : 20px 8px 20px 8px;">
 					<div class="col-xl-12">
 						<div class="row d-flex justify-content-between align-items-center">
 							<div class="header-info-left">
-								<ul th:if="${session.UID != null}" style="text-align: right;">     
-									<input type="hidden" th:value="${session.UNAME}">
-									<li >[[${session.UNAME}]]님 환영합니다.</li>
-								</ul>
-								<ul th:unless="${session.UID != null}" style="text-align: right;">     
-									<li >로그인을 해주세요~!</li>
-								</ul>
+								<div class="logo d-none d-lg-block" style="background-color: #fff; padding: 0;">
+									<a th:href="@{/}"><img th:src="@{/assets/img/logo/logo.png}" alt=""></a>
+								</div>
+								
 							</div>
 							<div class="header-info-right">
-								<ul>
-	                            	<li><a th:href="@{/default}">!관리자</a></li>
-	                               	<li th:unless="${session.UID == null}"><a th:href="@{/sellerjoin}"><i class="ti-user"></i>전문가 등록</a></li>
-	                               	<li th:unless="${session.UID == null}"><a th:href="@{/userpage/login/logout}"><i class="ti-user"></i>로그아웃</a></li>
-	                               	<li th:unless="${session.UID == null}"><a th:href="@{/userinfomation}"><i class="ti-user"></i>내정보</a></li>
-	                                <li th:unless="${session.UID != null}"><a th:href="@{/userpage/login/login}"><i class="ti-user"></i>로그인</a></li>
-	                                <li th:unless="${session.UID != null}"><a th:href="@{/userjoin}"><i class="ti-lock"></i>회원가입</a></li>
-	                               	<li th:unless="${session.UID == null}"><a th:href="@{/userpage/goods/addGoods}"><i class="ti-user"></i>상품 등록</a></li>
-	                                <li><a th:href="@{/orderCart}"><i class="ti-bag"></i>#장바구니</a></li>
-								</ul>
-							</div>
+                      <ul th:if="${session.UID != null}" style="text-align: right;">     
+	                      <li>
+							  <ul th:if="${session.UID != null}" style="text-align: right;">     
+								 <input type="hidden" th:value="${session.UNAME}">
+								 <li style="font-size: 14px;">[[${session.UNAME}]]님 환영합니다.</li>
+							  </ul>
+						  </li>
+						  <li>
+							  <ul th:unless="${session.UID != null}" style="text-align: right;">     
+								<li >로그인을 해주세요~!</li>
+							  </ul>
+						  </li>	
+					  </ul>			
+						<ul>
+                           	<li><a th:href="@{/default}">!관리자</a></li>
+                              	<li th:unless="${session.UID == null}"><a th:href="@{/userinfomation}"><i class="ti-user"></i>내정보</a></li>
+                               <li th:unless="${session.UID != null}"><a th:href="@{/userpage/login/login}"><i class="ti-user"></i>로그인</a></li>
+                              	<li th:unless="${session.UID == null}"><a th:href="@{/userpage/login/logout}"><i class="ti-user"></i>로그아웃</a></li>
+                               <li th:unless="${session.UID != null}"><a th:href="@{/userjoin}"><i class="ti-lock"></i>회원가입</a></li>
+						</ul>
+							</div>      
+							
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="header-bottom header-sticky">
 			<!-- Logo -->
-				<div class="logo d-none d-lg-block">
-					<a th:href="@{/}"><img th:src="@{/assets/img/logo/logo.png}" alt=""></a>
-				</div>
-				<div class="container">
+				
+				
+				<div class="container" id="botContainer">
 					<div class="menu-wrapper">
 					<!-- Logo -->
 						<div class="logo logo2 d-block d-lg-none">
@@ -98,20 +191,26 @@
                                     </ul>
                                 </li>
                            	</ul>
-                                </nav>
-                            </div>
+                         </nav>
+                      </div>
                             <!-- Header-btn -->
-                            <div class="header-search d-none d-lg-block">
+                           <div class="header-info-right">
+								<ul class="topUl">
+	                               	<li th:unless="${session.UID == null}"><a th:href="@{/sellerjoin}"><i class="ti-user"></i>전문가 등록</a></li>
+	                               	<li th:unless="${session.UID == null}"><a th:href="@{/userpage/goods/addGoods}"><i class="ti-user"></i>상품 등록</a></li>
+	                                <li><a th:href="@{/orderCart}"><i class="ti-bag"></i>#장바구니</a></li>
+								</ul>
                                 <form action="#" class="form-box f-right ">
                                     <input type="text" name="Search" placeholder="상품검색">
                                     <div class="search-icon">
                                         <i class="fas fa-search special-tag"></i>
                                     </div>
                                 </form>
-                            </div>
-                        </div>
+							</div>
+                      
+                    </div>
                         <!-- Mobile Menu -->
-                        <div class="col-12">
+                        <div class="col-12" style="background-color: #f2f2f2; color: #f2f2f2; margin-top: -10px;">
                             <div class="mobile_menu d-block d-lg-none"></div>
                         </div>
                     </div>

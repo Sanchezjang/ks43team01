@@ -111,11 +111,31 @@ layout:decorate="~{userpage/layout/userdefault}">
 						<input class="form-control" name="reviewCode" type="hidden" th:value="${reviewContentsReg.reviewCode}"></input>
 					</div>
 					<div class="clickBtn mt-3" >
-						<button type="submit" class="save boxed-btn">저장</button>>
-						<a th:href="@{/reviewUserList}"><button type="button" class="cancel boxed-btn">취소</button></a>
+						<button type="button" class="save boxed-btn modifyReviewBtn">저장</button>>
+						<a th:href="@{/reviewUserList}" class="cancel boxed-btn">취소</a>
 					</div>
 					</form>
 				</div>
 			</div>
 		<div th:replace="userpage/fragments/review :: reviewFragment"></div>
+		<script type="text/javascript">
+			$('.modifyReviewBtn').click(function(){
+				$.ajax({
+				    url: "/userpage/reviewUser/modifyReview",
+				    type: "POST",
+				    dataType: "JSON",
+				    data: $('#addReviewForm').serialize(),
+				    success: function(data){
+				    	var reviewCode = data.reviewCode;
+				    	var href = data.href;
+				  		location.href = href + '?reviewCode=' + reviewCode;
+				    },
+				    error: function (request, status, error){        
+
+				    }
+				});
+			});
+		</script>
+		
 </div>
+</html>
