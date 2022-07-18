@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="ks43team01.mapper.FileMapper">
+	<insert id="uploadFile" parameterType="List">
+		/*파일 업로드*/
+	 	INSERT INTO tb_f_file
+		(	file_code
+			, user_id_code
+			, file_orginal_name
+			, file_re_name
+			, file_main_image
+			, file_location
+			, file_size
+			, file_reg_date)
+		VALUES 
+		<foreach collection="list" item="item" separator=",">
+		
+		(	#{item.fileCode}
+			, #{item.userIdCode}
+			, #{item.fileOriginalName}
+			, #{item.fileReName}
+			, 'Y'
+			, #{item.fileLocation}
+			, #{item.fileSize}
+			, NOW()
+		)											
+		</foreach>
+	</insert>
+	
+	<insert id="uploadRelationFileWithQnaBoard" parameterType="list">
+		/*게시판, 파일 릴레이션 테이블 삽입*/
+		INSERT INTO tb_b_rel_file_with_QnaBoard
+		(
+			board_question_code
+			, file_code
+		) VALUES
+		<foreach collection="list" item="item" separator=",">
+		(	
+			#{item.boardQuestionCode}
+			, #{item.fileCode}
+		)
+		</foreach>
+	</insert>
+	
+	<insert id="uploadRelationFileWithGoods" parameterType="list">
+		/*상품이미지, 파일 릴레이션 테이블 삽입*/
+		INSERT INTO tb_b_rel_file_with_Goods
+		(
+			goods_code
+			, file_code
+		) VALUES
+		<foreach collection="list" item="item" separator=",">
+		(	
+			#{item.goodsCode}
+			, #{item.fileCode}
+		)
+		</foreach>
+	</insert>
+ </mapper>

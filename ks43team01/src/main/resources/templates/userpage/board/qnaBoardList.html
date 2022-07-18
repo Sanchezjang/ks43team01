@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">	
+
+<!------ Include the above in your HEAD tag ---------->
+<div layout:fragment="content">
+	<style>
+		html, body, div, a, table, thead, tbody, tr, th, td {
+			margin:0; outline:0; border:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent;
+		}
+		body { 
+			font-size:0.875em; line-height:1.5; color:#666; -webkit-text-size-adjust:none; min-width:320px;
+		}
+		ul{margin:0;}
+		a:link, a:visited {text-decoration:none; color: #656565;}
+		
+		.container {max-width:1024px; margin:30px auto;}
+		
+		.blog-pagination {
+		    margin-top: 0;    
+		}    
+		.boardForm{
+			padding-top: 50px;
+		}
+		.section-top-border{
+			width: 1200px;
+			margin:0 auto;
+		}
+		.progress-table{
+			background: #f9f9ff;
+			padding: 15px 0px 30px 0px;
+			min-width: 800px;
+		}
+		.serial{
+			width: 11.83%;
+			padding-left: 30px;
+		}
+		.writer{
+			width:  15%;
+		}
+		.regDate {
+			width: 15%;
+		}
+		.title {
+			width: 40.36%;
+			padding-right: 50px;
+		}
+		.lock{
+			width: 19.74%;
+			padding-left: 30px;
+		}
+		.pageView{
+			width: 10%;
+		}
+		.table-head {
+			padding: 15px 0;
+			display: flex;
+			font-weight: bold;
+			color: $title-color;
+			line-height: 40px;
+			text-transform: uppercase;
+			font-weight: 500;
+			border-bottom: 2px solid #c6d8f7;
+		}
+		.table-row {
+			padding: 15px 0;
+			border-top: 1px solid #edf3fd;
+			display: flex;
+		}
+		.searchBoard{
+			
+		}
+	</style>
+
+	<div class="slider-area">
+		<div class="slider-height2 d-flex align-items-center">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-12">
+						<div class="hero-cap hero-cap2 text-center">
+							<h2>Q&A</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Hero End -->
+	<!-- About Details Start -->
+	<div class="boardForm">
+		<div class="box" style="width:1200px; margin:0 auto;">
+			<table class="section-top-border" id="boardTable">
+				<thead class="progress-table">
+					<tr class="table-head">
+						
+							<th class="title">제목</th>
+							<th class="writer">작성자</th>
+							<th class="lock">공개유무</th>
+							<th class="regDate">등록일</th>
+							<th class="pageView">조회수</th>
+					</tr>
+				</thead>	
+				<tbody th:if="${not #lists.isEmpty(qnaBoardList)}" th:each="l, status : ${qnaBoardList}">
+					<tr class="table-row">
+						<td class="title"><a th:href="@{/userpage/board/qnaBoardDetail(boardQuestionCode=${l.boardQuestionCode})}" th:value="${l.boardQuestionCode}" th:text="${l.boardQuestionTitle}" style="color: #212529;"></a></td>
+						<td class="writer"  th:text="${l.userName}"></td>
+						<td class="lock"  th:text="${l.boardQuestionLock}"></td>
+						<td class="regDate" th:text="${l.boardQuestionRegDate}"> </td>
+						<td class="pageView" th:text="${l.boardQuestionPageView}"> </td>
+					</tr>
+					<tr th:unless="${not #lists.isEmpty(qnaBoardList)}">
+						<td colspan="5">조회된 내용이 없습니다.</td>
+					</tr>
+				</tbody>
+				<tfoot>
+				<tr>
+					<td class="page-item" style="text-align: center;">
+						<a th:href="@{/userPage/qnaBoardList}">[맨처음]</a>
+						<a th:if="${currentPage > 1}" th:href="@{/qnaBoardList(currentPage=${currentPage - 1})}">[이전]</a>
+						<th:block th:each="num : ${#numbers.sequence(startPageNum,endPageNum)}">
+							<label th:if="${currentPage eq num}" th:text="${(num < 10) ? '[0' + num + ']' : '[' + num + ']'}"></label>
+							<a th:unless="${currentPage eq num}"th:href="@{/qnaBoardList(currentPage=${num})}" th:text="${(num<10) ? '[0' + num + ']' : '[' + num + ']'}"></a>
+						</th:block>
+						
+						<a th:if="${currentPage < lastPage}" th:href="@{/qnaBoardList(currentPage=${currentPage + 1})}">[다음]</a>
+						<a th:href="@{/qnaBoardList(currentPage=${lastPage})}">[마지막]</a>
+					</td>
+				</tr>
+				
+				</tfoot>
+			</table>
+				<div style="text-align:right; margin-top:20px;"><a th:href="@{/userpage/board/addQnaBoard}" class="genric-btn primary" >글쓰기</a></div>	
+		<div class="searchBoard">
+			<form name="search-form" autocomplete="off">
+				<select name="type">
+					<option value="title">제목별</option>
+					<option value="period">기간별</option>
+					<option value="writer">아이디별</option>
+				</select>
+				<input type="text" class="form-control col-3" name="keyword" value="">
+				<input type="button" id="searchBtn" value="검색" onclick="getBoardSearch()">
+			</form>
+		</div>
+		</div>
+		
+			
+	</div>
+	
+
+		
+	</nav>
+</div>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">	 
+
+<!------ Include the above in your HEAD tag ---------->
+<div layout:fragment="content">
+	<style>
+	html, body, div, a, table, thead, tbody, tr, th, td {
+		margin:0; outline:0; border:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent;
+	}
+	
+	body { 
+		font-size:0.875em; line-height:1.5; color:#666; -webkit-text-size-adjust:none; min-width:320px;
+		font-family:'NanumGothic','나눔고딕',dotum, "Helvetica Neue", Helvetica, Verdana, Arial, Sans-Serief;
+	}
+	
+	.section-top-border{
+	    width: 1200px;
+    	height: 150px;
+	}
+	
+	.x_panel{
+	width: 1200px;
+    margin: 0 auto;
+    padding-top: 80px;
+    padding-bottom: 80px;
+		
+	}
+
+	.col-6{
+		padding-bottom: 20px;
+	}
+
+	.check{
+	    width: 300px;
+	}
+
+	
+	th{
+		height: 50px;
+		font-size: 20px;
+	}
+	td{
+		font-size: 15px;
+	}
+	
+	.col-lg-6{
+		text-align: right;
+	}
+
+	.pointCheckBox{
+		padding-top : 10px;
+	    text-align: right;
+	}
+	.title{
+		font-size: 20px;
+		padding-bottom: 10px;
+	}
+	hr{
+		width: 600px;
+	}
+	
+	.totalOrder {
+    width: 400px;
+    position: relative;
+}
+
+	.total{
+		border: 1px solid #BDBDBD;
+	    margin: 10px;
+	    padding: 30px;
+	    width: 500px;
+	    height: 300px;
+	}
+	
+	h3{
+		padding-bottom: 10px;
+	}
+	
+	.totalCount{
+		float: right;
+	}	
+	.title{
+		padding-right: 20px;
+	}
+	
+	.totalOrderDetails{
+		float: right;
+	}
+	
+	p{
+	text-align: center;
+	}
+
+	</style>
+	
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+		
+	
+	<div class="x_panel">
+		<h2>결제성공</h2>
+		<div class="x_content">
+		<from id="oderFrom" name="oderFrom" th:action="@{/orderComplate}" method="POST">
+		 	<th:block th:if="${not #lists.isEmpty(complateList)}" th:each="c : ${complateList}">
+		 	<input type="hidden" id="jang" name="userIdCode" th:value="${c.userIdCode}">
+		 	<input type="hidden" id="goodsCode" name="goodsCode" th:value="${c.goodsCode}">
+		 	<input type="hidden" name="orderStatusStandardCode" th:value="${c.orderStatusStandardCode}">
+		 	</th:block>
+		 	<th:block th:unless="${not #lists.isEmpty(complateList)}">
+		 	 값이 없습니다!.
+		 	</th:block>
+		 	
+		</from>
+				<table class="section-top-border">
+					<thead>
+						<tr class="table-head">
+							<th>항목</th>
+							<th>판매자</th>
+							<th>가격</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<tr class="table-row">
+							<td>이미지, 상품 이름</td>
+							<td>자바</td>
+							<td>50000</td>
+						</tr>
+					
+					</tbody>
+				
+				
+				</table>
+		<hr style="width: 1200px"/>
+		
+		<!-- start form for validation -->
+		<!-- end form for validations -->
+	</div>
+</div>
+		<script type="text/javascript">
+			  setTimeout('move_page()',2000); //2초후에 move_page함수실행
+			
+			  function move_page(){
+			  location.href="/orderComplate"  // 페이지 이동
+			  };
+				this.document.getElementById("oderFrom").submit(); 
+		</script>
+</div>
+
+	
+                          

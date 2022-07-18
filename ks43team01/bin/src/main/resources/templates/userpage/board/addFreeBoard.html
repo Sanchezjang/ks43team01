@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">	 
+
+<!------ Include the above in your HEAD tag ---------->
+<div layout:fragment="content">
+<style>
+
+.BoardRow{
+	width: 1200px;
+	margin:0 auto;	
+}
+
+.addBoardForm {
+	width: 1200px;
+	margin:0 auto;	
+	margin-bottom: 100px;
+	margin-top:100px;
+}
+
+.single-element-widget{
+	margin-bottom: 30px;
+}
+
+.clickBtn{
+	width: 1200px;
+	text-align:center;
+}
+
+</style>
+
+ <div class="slider-area">
+            <div class="slider-height2 d-flex align-items-center">
+                <div class="container">
+                    <div class="BoardRow">
+                        <div class="col-xl-12">
+                            <div class="hero-cap hero-cap2 text-center">
+                                <h2>Free bulletin board</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Hero End -->
+        <!-- About Details Start -->
+
+		<div class="addBoardForm">
+			<div class="BoardRow">
+				<form class="" th:action="@{addFreeBoard}" method="post">
+					<div class="BoardRow">
+						<div class="col-12">
+							<div class="form-group">
+								<h4>제목</h4>
+								<input class="form-control" name="boardPostTitle" id="boardPostTitle" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '입력하세요.'" placeholder="제목을 입력하세요."  required>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="form-group">
+							<h4>이름</h4>
+								<input class="form-control valid" name="boardUserName" id="boardUserName" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '입력하세요.'" placeholder="이름을 입력하세요."  required>
+							</div>
+						</div>
+					
+						<div class="col-12">
+							<div class="form-group">
+							<h4>본문</h4>
+								<textarea class="form-control w-100" name="boardPostContent" id="boardPostContent" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = '본문을 입력하세요.'" placeholder="본문을 입력하세요."  required></textarea>
+							</div>
+						</div>
+					
+					</div>
+						<div class="clickBtn mt-3" >
+							<button type="submit" class="button boxed-btn">저장</button>
+							<a th:href="@{/userpage/board/freeBoardList}"><button type="button" class="cansel boxed-btn">취소</button></a>
+						</div>
+		
+
+				</form>
+			</div>
+		</div>
+			
+		<script type="text/javascript">
+		 $('#boardForm').validate({
+	            rules: {
+	                name: {
+	                    required: true,
+	                    minlength: 2
+	                },
+	                subject: {
+	                    required: true,
+	                    minlength: 4
+	                },
+	                number: {
+	                    required: true,
+	                    minlength: 5
+	                },
+	                email: {
+	                    required: true,
+	                    email: true
+	                },
+	                message: {
+	                    required: true,
+	                    minlength: 20
+	                }
+	            },
+	            messages: {
+	                name: {
+	                    required: "come on, you have a name, don't you?",
+	                    minlength: "your name must consist of at least 2 characters"
+	                },
+	                subject: {
+	                    required: "come on, you have a subject, don't you?",
+	                    minlength: "your subject must consist of at least 4 characters"
+	                },
+	                number: {
+	                    required: "come on, you have a number, don't you?",
+	                    minlength: "your Number must consist of at least 5 characters"
+	                },
+	                email: {
+	                    required: "no email, no message"
+	                },
+	                message: {
+	                    required: "본문 내용을 입력하세요.",
+	                    minlength: "thats all? really?"
+	                }
+	            },
+	            submitHandler: function(form) {
+	                $(form).ajaxSubmit({
+	                    type:"POST",
+	                    data: $(form).serialize(),
+	                    url:"contact_process.php",
+	                    success: function() {
+	                        $('#contactForm :input').attr('disabled', 'disabled');
+	                        $('#contactForm').fadeTo( "slow", 1, function() {
+	                            $(this).find(':input').attr('disabled', 'disabled');
+	                            $(this).find('label').css('cursor','default');
+	                            $('#success').fadeIn()
+	                            $('.modal').modal('hide');
+			                	$('#success').modal('show');
+	                        })
+	                    },
+	                    error: function() {
+	                        $('#contactForm').fadeTo( "slow", 1, function() {
+	                            $('#error').fadeIn()
+	                            $('.modal').modal('hide');
+			                	$('#error').modal('show');
+	                        })
+	                    }
+	                })
+	            }
+	        })
+		</script>
+</div>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">	 
+
+	<!------ Include the above in your HEAD tag ---------->
+	<th:block layout:fragment="customScript">
+		<script>
+ 			$(function(){
+				$(document).on('change', '#goodsTopCategoryName', function(){
+					var $goodsTopCategoryName = $("#goodsTopCategoryName").val()
+					console.log($goodsTopCategoryName);
+					var request = $.ajax({
+						url: "/userpage/goods/getGoodsSubCategory",
+						method: "GET",
+						data: { 'goodsTopCategoryName' : $goodsTopCategoryName},
+						dataType: "json"
+					});
+			 		
+					request.done(function( data ) {
+					console.log(data)
+					var html = '', $goodsSubCategory = $('#goodsSubCategoryCode');
+					if(data.length == 0){
+						html += '<option value=""> :: 하위 카테고리 :: </option>';
+					}else{ 								
+						for(var i=0; i < data.length; i++){
+							html += '<option value="'+data[i].goodsSubCategoryCode+'"> ' + data[i].goodsSubCategoryName + ' </option>';
+						}
+					}
+						$goodsSubCategory.html(html);
+						$goodsSubCategory.niceSelect('update');
+					});
+					 
+						request.fail(function( jqXHR, textStatus ) {
+							alert( "Request failed: " + textStatus );
+					});
+				});
+			});
+ 			
+ 			$(function(){
+				$goodsTopCategoryNameVal = $('#goodsTopCategoryName').attr('data-goodsSubCategory');
+					
+					console.log($goodsTopCategoryNameVal);
+				
+					$('#goodsTopCategoryName option[value=' + $goodsTopCategoryNameVal + ']').attr('selected', 'selected');
+				
+						$goodsTopCategoryNameVal.html(html);
+						$goodsTopCategoryNameVal.niceSelect('update');
+ 			});
+ 		</script>
+ 		
+	</th:block>	
+
+<div layout:fragment="content">
+	<style>
+	html, body, div, a, table, thead, tbody, tr, th, td {
+		margin:0; outline:0; border:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent;
+	}
+	body { 
+		font-size:0.875em; line-height:1.5; color:#666; -webkit-text-size-adjust:none; min-width:320px;
+		font-family:'NanumGothic','나눔고딕',dotum, "Helvetica Neue", Helvetica, Verdana, Arial, Sans-Serief;
+	}
+	.section-top-border{
+	    width: 1200px;
+    	height: 150px;
+	}
+	.x_panel{
+	width: 1200px;
+    margin: 0 auto;
+    padding-top: 80px;
+    padding-bottom: 80px;
+	}
+	.orderer{
+	}
+	.col-6{
+		padding-bottom: 20px;
+	}
+	.pay{
+		padding-left: 10px;	
+	}
+	.flat{
+	
+	}
+	.check{
+	    width: 300px;
+	}
+	.explanation{
+		color:grey;
+		font-size: 12px;
+		margin-bottom: 10px;
+	}
+	.mainExplanation{
+		color : black;
+		font-weight: bold;
+		margin-top: 10px;
+	}
+	.goods{
+		border-bottom: 1px solid grey;
+	}
+	.select1{
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
+	.btn-lg{
+		text-align: center;
+		margin-top: 20px;
+	}
+	</style>
+	
+	<div style=" margin-left: 220px;">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>상품(서비스)수정</h2>
+					<ul class="nav navbar-right panel_toolbox">
+						<li class="dropdown"></li>
+						<li><a class="close-link"><i class="fa fa-close"></i></a></li>
+					</ul>
+				<div class="clearfix"></div>
+			</div>
+
+			<!-- start form for validation -->
+			<form th:action="@{/userpage/goods/modifyGoods}" method="post" id="demo-form" data-parsley-validate>
+				<div class="orderer form-group">
+					<div class="form-group">
+					<label for="goodsTopCategoryName" class="col-12 mainExplanation required">상위 카테고리</label>
+						<select id="goodsTopCategoryName" name="goodsTopCategoryName" class="wide col-6 select1" th:data-goodsSubCategory="${goods.goodsSubCategory.goodsTopCategoryName}">
+							<option value="" disabled selected> :: 상위 카테고리 :: </option>
+							<th:block th:if="${not #lists.isEmpty(goodsTopCategory)}" th:each="g:${goodsTopCategory}">
+								<option th:value="${g.goodsTopCategoryCode}">[[${g.goodsTopCategoryName}]]</option>
+							</th:block>
+							<th:block th:unless="${not #lists.isEmpty(goodsTopCategory)}">
+								<option value="">등록된 카테고리가 없습니다</option>
+							</th:block>
+						</select>
+					</div>
+					<div class="form-group">   
+					<label for="goodsSubCategoryCode" class="col-12 mainExplanation required">하위 카테고리</label>
+						 <select id="goodsSubCategoryCode" name="goodsSubCategoryCode" class="wide col-6 select1" >
+							<option value=""> :: 하위 카테고리 :: </option>
+						</select>
+					</div>
+					<div class="col-6 goods">
+						<label for="goodsName" class="mainExplanation">상품(서비스)명</label>
+						<input type="text" th:value="${goods.goodsName}" id="goodsName" class="form-control  col-md-10" name="goodsName" required />
+					</div>
+					<div class="col-6 goods">
+						<label for="goodsDescription" class="mainExplanation">상품(서비스)설명</label>
+						<input type="text" th:value="${goods.goodsDescription}" class="form-control col-6" rows="5" cols="5" name="goodsDescription" id="goodsDescription"></input>
+					</div>
+					<div class="col-6 goods">
+						<label for="goodsPrice" class="mainExplanation">상품금액</label>
+						<input th:value="${goods.goodsPrice}" type="text" id="goodsPrice" class="form-control col-6" name="goodsPrice" required />
+					</div>
+					<div class="col-6 goods">
+						<label for="goodsWorkingPeriod" class="mainExplanation">작업기간</label>
+						<input th:value="${goods.goodsWorkingPeriod}" type="text" id="goodsWorkingPeriod" class="form-control col-6" name="goodsWorkingPeriod" required/>
+					</div>
+					<div class="col-6 goods">
+					<label for="goodsModifiedPossibilityCount" class="mainExplanation col-11" >수정가능횟수</label>
+						<input th:value="${goods.goodsModifiedPossibilityCount}" type="text" id="goodsModifiedPossibilityCount" class="form-control col-6" name="goodsModifiedPossibilityCount" required/>
+					</div>
+					<div class="col-6 goods">
+						<label for="goodsImageReg" class="mainExplanation">상품이미지</label>
+						<input type="file" id="goodsImageReg" class="form-control col-6" name="goodsImageReg" required />
+						<div class="explanation">상품서비스의 이미지를 업로드해주세요!(jpg,png파일 업로드)</div>
+					</div>
+					<div class="form-group">
+						<input class="form-control" name="goodsCode" type="hidden" th:value="${goods.goodsCode}"></input>
+					</div>
+					<div class="totalOrder">
+						<button type="submit" class="genric-btn primary btn-sm" id="addGoods">수정</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+	<!-- end form for validations -->
+	</div>
+</div>

@@ -1,113 +1,222 @@
-
+<!doctype html>
+<html class="no-js" lang="zxx"  xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+		
     <!--? Preloader Start -->
-   <div th:fragment="headerFragment">
-     <div id="preloader-active" >
-        <div class="preloader d-flex align-items-center justify-content-center">
-            <div class="preloader-inner position-relative">
-                <div class="preloader-circle"></div>
-                <div class="preloader-img pere-text">
-                    <img src="assets/img/logo/loder.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
+	<div th:fragment="headerFragment">
+		<div id="preloader-active" >
+			<div class="preloader d-flex align-items-center justify-content-center">
+				<div class="preloader-inner position-relative">
+					<div class="preloader-circle"></div>
+					<div class="preloader-img pere-text">
+						<img th:src="@{/assets/img/logo/loder.png}" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
     <!-- Preloader end -->
-        <!-- Header Start -->
-    <div class="header-area">
-            <div class="main-header ">
-                <div class="header-top d-none d-lg-block">
-                    <!-- Left Social -->
-                    <div class="header-left-social">
-                        <ul class="header-social">    
-                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="https://www.facebook.com/sai4ull"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                            <li> <a href="#"><i class="fab fa-google-plus-g"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="container">
-                        <div class="col-xl-12">
-                            <div class="row d-flex justify-content-between align-items-center">
-                                <div class="header-info-left">
-                                    <ul th:unless="${session.UID == null}" style="text-align: right;">     
-                                        <li >[[${session.UID}]]님 로그인중입니다.</li>
-                                        <li>언제나 환영합니다^^</li>
+    
+<style>
+#navigation li a{
+	padding: 5px 10px;
+	font-size: 18px;
+}
+#navigation li ul li a{
+	padding: 0px 10px;
+	font-size: 15px;
+	color: #333;
+}
+
+.header-info-right .form-box {
+  position: relative;
+  margin-top: 2px;
+  margin-bottom: 5px;
+}
+.header-info-right .form-box input {
+    border: 0;
+    background: #f4f4f4;
+    border-radius: 30px;
+    padding: 10px 29px;
+    width: 160px;
+    height: 40px;
+}
+@media only screen and (min-width: 1200px) and (max-width: 1600px) {
+.header-info-right .form-box input {
+        width: 265px;
+    }
+}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+.header-info-right .form-box input {
+        width: 210px;
+    }
+}
+.header-info-right .form-box input::placeholder {
+    font-size: 13px;
+    font-family: "BMJUA", sans-serif;
+}
+.header-info-right .form-box .search-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.header-info-right .form-box .search-icon i {
+    color: #fff;
+    cursor: pointer;
+    background: #0064ff;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+}
+.header-area .header-top {
+    border-bottom: 0px;
+}
+.header-info-right .topUl li {
+    display: inline-block;
+    padding-top: 12px;
+}
+.header-info-right .topUl li:last-child{
+	padding-right: 15px;
+}
+.header-info-right ul li {
+    display: inline-block;
+}
+.header-info-right ul {
+    display: inline;
+}
+.header-info-right ul li a {
+    color: #86878a;
+    font-size: 16px;
+    padding-left: 25px;
+    font-family: "BMJUA", sans-serif;
+}
+.header-info-right ul li a:hover {
+    color: #0064ff;
+}
+.header-info-right ul li a i {
+    padding-right: 10px;
+    color: #4044b4;
+}
+#botContainer{
+	height: 50px;
+	padding: 0;
+}
+#botContainer .menu-wrapper{
+	padding: 8px 0;
+}
+.header-bottom{
+	margin-bottom: 4px;
+}
+</style>
+	<!-- Header Start -->
+	<div class="header-area">
+		<div class="main-header ">
+			<div class="header-top d-none d-lg-block">
+			<!-- Left Social -->
+				<div class="container" style="padding : 20px 8px 20px 8px;">
+					<div class="col-xl-12">
+						<div class="row d-flex justify-content-between align-items-center">
+							<div class="header-info-left">
+								<div class="logo d-none d-lg-block" style="background-color: #fff; padding: 0;">
+									<a th:href="@{/}"><img th:src="@{/assets/img/logo/logo.png}" alt=""></a>
+								</div>
+								
+							</div>
+							<div class="header-info-right">
+                      <ul th:if="${session.UID != null}" style="text-align: right;">     
+	                      <li>
+							  <ul th:if="${session.UID != null}" style="text-align: right;">     
+								 <input type="hidden" th:value="${session.UNAME}">
+								 <li style="font-size: 14px;">[[${session.UNAME}]]님 환영합니다.</li>
+							  </ul>
+						  </li>
+						  <li>
+							  <ul th:unless="${session.UID != null}" style="text-align: right;">     
+								<li >로그인을 해주세요~!</li>
+							  </ul>
+						  </li>	
+					  </ul>			
+						<ul>
+                           	<li><a th:href="@{/default}">!관리자</a></li>
+                              	<li th:unless="${session.UID == null}"><a th:href="@{/userinfomation}"><i class="ti-user"></i>내정보</a></li>
+                               <li th:unless="${session.UID != null}"><a th:href="@{/userpage/login/login}"><i class="ti-user"></i>로그인</a></li>
+                              	<li th:unless="${session.UID == null}"><a th:href="@{/userpage/login/logout}"><i class="ti-user"></i>로그아웃</a></li>
+                               <li th:unless="${session.UID != null}"><a th:href="@{/userjoin}"><i class="ti-lock"></i>회원가입</a></li>
+						</ul>
+							</div>      
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="header-bottom header-sticky">
+			<!-- Logo -->
+				
+				
+				<div class="container" id="botContainer">
+					<div class="menu-wrapper">
+					<!-- Logo -->
+						<div class="logo logo2 d-block d-lg-none">
+							<a href="index.html"><img th:src="@{/assets/img/logo/logo.png}" alt=""></a>
+						</div>
+					<!-- Main-menu -->
+					<div class="main-menu d-none d-lg-block">
+						<nav>
+							<ul id="navigation">
+                                <li><a id="goodsTopCategoryBtn">카테고리</a>
+                                    <ul class="submenu">
+                                    	<li th:each="l : ${goodsCateMenu}"><a th:href="@{/userpage/goods/userTopCategoryGoodsList(goodsTopCategoryCode=${l.goodsTopCategoryCode})}" th:text="${l.goodsTopCategoryName}">카테고리1</a>
+                                    		<ul th:if="${not #lists.isEmpty(l.goodsSubCategoryList)}" class="submenu2">
+                                    			<li th:each="sub :${l.goodsSubCategoryList}"><a th:href="@{/userpage/goods/userSubCategoryGoodsList(goodsSubCategoryCode=${sub.goodsSubCategoryCode})}" th:text="${sub.goodsSubCategoryName}">카테고리2</a></li>
+                                    		</ul>
+                                    	</li>
                                     </ul>
-                                    <ul th:unless="${session.UID != null}" style="text-align: right;">     
-                                        <li >로그인을 해주세요~!</li>
-                                        <li>언제나 환영합니다^^</li>
+								</li>
+                                <li><a href="#">커뮤니티</a>
+                                    <ul class="submenu">
+                                       	<li><a th:href="@{/userpage/board/freeBoardList}">자유게시판</a></li>
                                     </ul>
-                                </div>
-                                <div class="header-info-right">
-                                    <ul>
-                                    	<li><a th:href="@{/default}">관리자화면전환 임시버튼</a></li>
-                                       	<li th:unless="${session.UID == null}"><a th:href="@{/sellerjoin}"><i class="ti-user"></i>전문가 등록</a></li>
-                                       	<li th:unless="${session.UID == null}"><a th:href="@{/logout}"><i class="ti-user"></i>로그아웃</a></li>
-                                        <li th:unless="${session.UID != null}"><a th:href="@{/login}"><i class="ti-user"></i>로그인</a></li>
-                                        <li th:unless="${session.UID != null}"><a th:href="@{/userjoin}"><i class="ti-lock"></i>회원가입</a></li>
+								</li>
+								<li><a href="#">고객센터</a>
+                                    <ul class="submenu">
+                                        <li><a th:href="@{/userpage/board/noticeBoardList}">공지 사항</a></li>
+                                        <li><a th:href="@{/userpage/board/faqBoardList}">자주하는 질문</a></li>
+                                        <li><a th:href="@{/userpage/board/qnaBoardList}">1:1 문의 게시판</a></li>
                                     </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="header-bottom header-sticky">
-                    <!-- Logo -->
-                    <div class="logo d-none d-lg-block">
-                        <a th:href="@{/}"><img src="assets/img/logo/logo.png" alt=""></a>
-                    </div>
-                    <div class="container">
-                        <div class="menu-wrapper">
-                            <!-- Logo -->
-                            <div class="logo logo2 d-block d-lg-none">
-                                <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
-                            </div>
-                            <!-- Main-menu -->
-                            <div class="main-menu d-none d-lg-block">
-                                <nav>
-                                	<ul id="navigation">                                                                                          
-                                        <li><a href="#">전체카테고리</a>
-                                            <ul class="submenu">
-                                                <li><a href="#">디자인</a></li>
-                                                <li><a href="#">IT/프로그래밍</a></li>
-                                                <li><a href="#">영상/사진/음향</a></li>
-                                                <li><a href="#">마케팅</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">커뮤니티</a>
-                                        <ul class="submenu">
-                                               <li><a href="#">자유게시판</a></li>
-                                                
-                                        </ul>
-                                        </li>
-                                        <li><a href="#">고객센터</a>
-                                         <ul class="submenu">
-                                                <li><a href="#">공지 사항</a></li>
-                                                <li><a href="#">자주하는 질문</a></li>
-                                                <li><a href="#">1:1 문의 게시판</a></li>
-                                            </ul>
-                                        </li>
+                               	</li>
+                                <li><a href="#">임시리뷰</a>
+                                    <ul class="submenu">
+                                        <li><a th:href="@{/userpage/reviewUser/reviewUserList}">리뷰등록</a></li>
                                     </ul>
-                                </nav>
-                            </div>
+                                </li>
+                           	</ul>
+                         </nav>
+                      </div>
                             <!-- Header-btn -->
-                            <div class="header-search d-none d-lg-block">
+                           <div class="header-info-right">
+								<ul class="topUl">
+	                               	<li th:unless="${session.UID == null}"><a th:href="@{/sellerjoin}"><i class="ti-user"></i>전문가 등록</a></li>
+	                               	<li th:unless="${session.UID == null}"><a th:href="@{/userpage/goods/addGoods}"><i class="ti-user"></i>상품 등록</a></li>
+	                                <li><a th:href="@{/orderCart}"><i class="ti-bag"></i>#장바구니</a></li>
+								</ul>
                                 <form action="#" class="form-box f-right ">
                                     <input type="text" name="Search" placeholder="상품검색">
                                     <div class="search-icon">
                                         <i class="fas fa-search special-tag"></i>
                                     </div>
                                 </form>
-                            </div>
-                        </div>
+							</div>
+                      
+                    </div>
                         <!-- Mobile Menu -->
-                        <div class="col-12">
+                        <div class="col-12" style="background-color: #f2f2f2; color: #f2f2f2; margin-top: -10px;">
                             <div class="mobile_menu d-block d-lg-none"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-     </header>
-        <!-- Header End -->
+	</div>
+	<!-- Header End -->
   

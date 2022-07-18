@@ -1,0 +1,123 @@
+<!doctype html>
+<html class="no-js" lang="zxx"  xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <!--? Preloader Start -->
+	<div th:fragment="headerFragment">
+		<div id="preloader-active" >
+			<div class="preloader d-flex align-items-center justify-content-center">
+				<div class="preloader-inner position-relative">
+					<div class="preloader-circle"></div>
+					<div class="preloader-img pere-text">
+						<img th:src="@{/assets/img/logo/loder.png}" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+    <!-- Preloader end -->
+
+	<!-- Header Start -->
+	<div class="header-area">
+		<div class="main-header ">
+			<div class="header-top d-none d-lg-block">
+			<!-- Left Social -->
+				<div class="header-left-social">
+					<ul class="header-social">    
+	                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+	                    <li><a href="https://www.facebook.com/sai4ull"><i class="fab fa-facebook-f"></i></a></li>
+	                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+	                    <li> <a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+					</ul>
+				</div>
+				<div class="container">
+					<div class="col-xl-12">
+						<div class="row d-flex justify-content-between align-items-center">
+							<div class="header-info-left">
+								<ul th:if="${session.UID != null}" style="text-align: right;">     
+									<input type="hidden" th:value="${session.UNAME}">
+									<li >[[${session.UNAME}]]님 환영합니다.</li>
+								</ul>
+								<ul th:unless="${session.UID != null}" style="text-align: right;">     
+									<li >로그인을 해주세요~!</li>
+								</ul>
+							</div>
+							<div class="header-info-right">
+								<ul>
+	                            	<li><a th:href="@{/default}">!관리자</a></li>
+	                               	<li th:unless="${session.UID == null}"><a th:href="@{/sellerjoin}"><i class="ti-user"></i>전문가 등록</a></li>
+	                               	<li th:unless="${session.UID == null}"><a th:href="@{/userpage/login/logout}"><i class="ti-user"></i>로그아웃</a></li>
+	                               	<li th:unless="${session.UID == null}"><a th:href="@{/userinfomation}"><i class="ti-user"></i>내정보</a></li>
+	                                <li th:unless="${session.UID != null}"><a th:href="@{/userpage/login/login}"><i class="ti-user"></i>로그인</a></li>
+	                                <li th:unless="${session.UID != null}"><a th:href="@{/userjoin}"><i class="ti-lock"></i>회원가입</a></li>
+	                               	<li th:unless="${session.UID == null}"><a th:href="@{/userpage/goods/addGoods}"><i class="ti-user"></i>상품 등록</a></li>
+	                                <li><a th:href="@{/orderCart}"><i class="ti-bag"></i>#장바구니</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="header-bottom header-sticky">
+			<!-- Logo -->
+				<div class="logo d-none d-lg-block">
+					<a th:href="@{/}"><img th:src="@{/assets/img/logo/logo.png}" alt=""></a>
+				</div>
+				<div class="container">
+					<div class="menu-wrapper">
+					<!-- Logo -->
+						<div class="logo logo2 d-block d-lg-none">
+							<a href="index.html"><img th:src="@{/assets/img/logo/logo.png}" alt=""></a>
+						</div>
+					<!-- Main-menu -->
+					<div class="main-menu d-none d-lg-block">
+						<nav>
+							<ul id="navigation">
+                                <li><a id="goodsTopCategoryBtn">카테고리</a>
+                                    <ul class="submenu">
+                                    	<li th:each="l : ${goodsCateMenu}"><a th:href="@{/userpage/goods/userTopCategoryGoodsList(goodsTopCategoryCode=${l.goodsTopCategoryCode})}" th:text="${l.goodsTopCategoryName}">카테고리1</a>
+                                    		<ul th:if="${not #lists.isEmpty(l.goodsSubCategoryList)}" class="submenu2">
+                                    			<li th:each="sub :${l.goodsSubCategoryList}"><a th:href="@{/userpage/goods/userSubCategoryGoodsList(goodsSubCategoryCode=${sub.goodsSubCategoryCode})}" th:text="${sub.goodsSubCategoryName}">카테고리2</a></li>
+                                    		</ul>
+                                    	</li>
+                                    </ul>
+								</li>
+                                <li><a href="#">커뮤니티</a>
+                                    <ul class="submenu">
+                                       	<li><a th:href="@{/userpage/board/freeBoardList}">자유게시판</a></li>
+                                    </ul>
+								</li>
+								<li><a href="#">고객센터</a>
+                                    <ul class="submenu">
+                                        <li><a th:href="@{/userpage/board/noticeBoardList}">공지 사항</a></li>
+                                        <li><a th:href="@{/userpage/board/faqBoardList}">자주하는 질문</a></li>
+                                        <li><a th:href="@{/userpage/board/qnaBoardList}">1:1 문의 게시판</a></li>
+                                    </ul>
+                               	</li>
+                                <li><a href="#">임시리뷰</a>
+                                    <ul class="submenu">
+                                        <li><a th:href="@{/userpage/reviewUser/reviewUserList}">리뷰등록</a></li>
+                                    </ul>
+                                </li>
+                           	</ul>
+                                </nav>
+                            </div>
+                            <!-- Header-btn -->
+                            <div class="header-search d-none d-lg-block">
+                                <form action="#" class="form-box f-right ">
+                                    <input type="text" name="Search" placeholder="상품검색">
+                                    <div class="search-icon">
+                                        <i class="fas fa-search special-tag"></i>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- Mobile Menu -->
+                        <div class="col-12" style="background-color: #f2f2f2; color: #f2f2f2;">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+	<!-- Header End -->
+  

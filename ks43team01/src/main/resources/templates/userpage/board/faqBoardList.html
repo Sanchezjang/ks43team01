@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">	
+
+<!------ Include the above in your HEAD tag ---------->
+<div layout:fragment="content">
+	<style>
+	.headWrap h2{
+			text-align: center;
+			padding: 35px 0 10px 0;
+		
+		}
+		.headWrap{
+			margin-bottom: 30px;
+		}
+		.section-top-border{
+			width: 1200px;
+			margin:0 auto;
+		}
+		
+		.progress-table{
+			background: #f9f9ff;
+			padding: 15px 0px 30px 0px;
+			min-width: 800px;
+		}
+		.writer{
+			width:  30%;
+		}
+		.regDate {
+			width: 20%;
+		}
+		.title {
+			width: 50%;
+			padding-right: 50px;
+			padding-left: 30px;
+		}
+		.lock{
+			width: 19.74%;
+			padding-left: 30px;
+		}
+		.pageView{
+			width: 10%;
+		}
+		.table-head {
+			padding: 15px 0;
+			display: flex;
+			font-weight: bold;
+			color: $title-color;
+			line-height: 40px;
+			text-transform: uppercase;
+			font-weight: 500;
+			border-bottom: 2px solid #c6d8f7;
+		}
+		.table-row {
+			padding: 15px 0;
+			border-top: 1px solid #edf3fd;
+			display: flex;
+		}
+		.searchBoard{
+			
+		}
+		.blog-pagination{
+			padding-bottom: 30px;
+			margin-top: 0px;
+		}
+	
+	
+	</style>
+
+	     
+
+        <!-- Hero End -->
+        <!-- About Details Start -->
+        <div class="headWrap">
+       		<h2>자주 묻는 질문</h2>
+		</div>
+   
+		<div class="boardForm">
+			<div class="box" style="width:1200px; margin:0 auto;">
+				<table class="section-top-border">
+					<thead class="progress-table">
+						<tr class="table-head">
+							<th class="title">제목</th>
+							<th class="writer">작성자</th>
+							<th class="regDate">등록일</th>
+							<th class="pageView">조회수</th>
+						</tr>
+					<tbody th:if="${not #lists.isEmpty(faqBoardList)}" th:each="l : ${faqBoardList}">
+						<tr class="table-row">
+							<td class="title"><a th:href="@{/userpage/board/faqBoardDetail(boardPostCode=${l.boardPostCode})}" th:value="${l.boardPostCode}" th:text="${l.boardPostTitle}" style="color: #212529;"></a></td>
+							<td class="writer"  th:text="${l.boardUserName}"></td>
+							<td class="regDate" th:text="${l.boardPostRegDate}"> </td>
+							<td class="pageView" th:text="${l.boardPostView}"> </td>
+						</tr>
+						<tr th:unless="${not #lists.isEmpty(faqBoardList)}">
+							<td colspan="4">조회된 내용이 없습니다.</td>
+						</tr>
+					</tbody>
+				</table>
+					<div style="text-align:right; margin-top:20px;"><a th:href="@{/userpage/board/addFaqBoard}" class="genric-btn primary" >글쓰기</a></div>
+			</div>
+		</div>
+		<nav class="blog-pagination justify-content-center d-flex">
+			<ul class="pagination">
+				<li class="page-item">
+					<a href="#" class="page-link" aria-label="RecentList">
+						<i class="ti-angle-double-left"></i>
+					</a>
+				</li>
+				<li class="page-item">
+					<a href="#" class="page-link" aria-label="PreviousList">
+						<i class="ti-angle-left"></i>
+					</a>
+				</li>
+				<li class="page-item">
+					<a href="#" class="page-link">1</a>
+				</li>
+				<li class="page-item active">
+					<a href="#" class="page-link">2</a>
+				</li>
+				<li class="page-item active">
+					<a href="#" class="page-link">3</a>
+				</li>
+				<li class="page-item active">
+					<a href="#" class="page-link">4</a>
+				</li>
+				<li class="page-item active">
+ 					<a href="#" class="page-link">5</a>
+				</li>
+				<li class="page-item">
+					<a href="#" class="page-link" aria-label="NextList">
+						<i class="ti-angle-right"></i>
+					</a>
+				</li>
+				<li class="page-item">
+					<a href="#" class="page-link" aria-label="OldList">
+						<i class="ti-angle-double-right"></i>
+					</a>
+				</li>
+			</ul>
+		</nav>
+</div>

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks43team01.mapper.OrderCartMapper">
+	
+<resultMap type="ks43team01.dto.Goods" 					id="Goods">
+	<id 	column="goods_code"							property="goodsCode"/>
+	<result column="goods_sub_category_code" 			property="goodsSubCategoryCode"/>
+	<result column="goods_name" 						property="goodsName"/>		
+<result column="goods_description" 						property="goodsDescription"/>
+	<result column="goods_price" 						property="goodsPrice"/>
+<result column="goods_working_period" 					property="goodsWorkingPeriod"/>
+	<result column="goods_modified_possibility_count"	property="goodsModifiedPossibilityCount"/>
+	<result column="goods_image_reg" 					property="goodsImageReg"/>
+	<result column="goods_pre_requests_answer_type" 	property="goodsPreRequestsAnswerType"/>
+	<result column="goods_pre_request" 					property="goodsPreRequest"/>
+	<result column="user_id_code" 						property="userIdCode"/>
+	<result column="goods_reg_date" 					property="goodsRegDate"/>
+</resultMap>
+	  		
+	<resultMap type="OrderCart" 			id="OrderCartResultMap">
+		<id column="order_cart_code"         property="orderCartCode"/>
+		<result column="user_id_code"        property="userIdCode"/>
+		<result column="seller_id_code"      property="sellerIdCode"/>
+		<result column="seller_phone_number" property="sellerPhoneNumber"/>
+		<result column="goods_img" 			 property="goodsImg"/>
+		<result column="goods_price" 		 property="goodsPrice"/>
+		<result column="goods_code" 		 property="goodsCode"/>
+		<result column="goods_name" 		 property="goodsName"/>
+		<result column="goods_details"		 property="goodsDetails"/>
+	</resultMap>
+	
+	<resultMap type="OrderCurrent" 				id="OrderCurrentResultMap">
+		<id column="order_code"         		property="orderCode"/>
+		<result column="order_status_code"      property="orderStatusCode"/>
+		<result column="user_id_code"        	property="userIdCode"/>
+		<result column="goods_code"    			property="goodsCode"/>
+		<result column="order_receive_addr" 	property="orderReceiveAddr"/>
+		<result column="order_receive_contact"  property="orderReceiveContact"/>
+		<result column="order_sendname" 		property="orderSendname"/>
+		<result column="order_sendphone" 		property="orderSendphone"/>
+		<result column="order_date" 			property="orderDate"/>
+	</resultMap>
+	
+	<resultMap type="OrderStatusComplete" 		    id="OrderStatusCompleteResultMap">
+		<id column="order_status_code"         		property="orderStatusCode"/>
+		<result column="user_id_code"     	    	property="userIdCode"/>
+		<result column="goods_code"      			property="goodsCode"/>
+		<result column="order_code" 	     	  	property="orderCode"/>
+		<result column="order_status_standard_code" property="orderStatusStandardCode"/>
+		<result column="order_status_update_time" 	property="orderStatusUpdateTime"/>
+	</resultMap>
+	
+		<resultMap type="PaymentGoods" 						id="PaymentGoodsResultMap">
+		<id column="payment_code" 							property="paymentCode"/> 
+		<result column="order_code" 						property="orderCode"/>
+		<result column="user_id_code" 						property="userIdCode"/>	
+		<result column="goods_code" 						property="goodsCode"/> 
+		<result column="payment_input_account_card_number"  property="paymentInputAccountCardNumber"/> 
+		<result column="payment_agency_type" 				property="paymentAgencyType"/>
+		<result column="payment_agency" 					property="paymentAgency"/>
+		<result column="payment_point" 						property="paymentPoint"/>
+		<result column="payment_realtime" 					property="paymentRealtime"/>
+		<result column="payment_virtual" 					property="paymentVirtual"/>
+		<result column="payment_seller_calculate_amount" 	property="paymentSellerCalculateAmount"/>
+		<result column="site_fee" 							property="siteFee"/> 
+		<result column="buyer_exp" 							property="buyerExp"/> 
+		<result column="seller_exp" 						property="sellerExp"/> 
+		<result column="payment_by_cash_time" 				property="paymentByCashTime"/>
+	</resultMap>
+	
+	<resultMap type="ks43team01.dto.User" id="userResultMap">
+	  		<id column="user_id_code" property="userIdCode"/>
+	  		<result column="user_pw" property="userPw"/>
+	  		<result column="user_name" property="userName"/>
+	  		<result column="user_contact" property="userContact"/>
+	  		<result column="user_email" property="userEmail"/>
+	  		<result column="user_withdraw_status" property="userStatus"/>
+	  		<result column="user_activity_area" property="userArea"/>
+	  		<result column="user_retention_Points" property="userPoint"/>
+	  		<result column="user_rating_buyer" property="userRatingBuyer"/>
+	  		<result column="user_rating_seller" property="userRatingSeller"/>
+	  		<result column="user_rating" property="userRating"/>
+	  		<result column="user_reg_date" property="userRreDate"/>
+	  		<result column="user_update_date" property="userUpDate"/>
+	  		<result column="level_num_code" property="userLevel"/>
+  		</resultMap>
+	
+	
+	<insert id="addPaymentGoods" parameterType="PaymentGoods">
+		/*주문>결제완료시 페이먼트 테이블로 인썰트되는정보*/
+		INSERT into tb_p_payment_goods
+		(	payment_code
+			,order_code
+			,user_id_code
+			,goods_code
+			,payment_input_account_card_number
+			,payment_agency_type
+			,payment_agency
+			,payment_point
+			,payment_realtime
+			,payment_virtual
+			,payment_seller_calculate_amount
+			,site_fee
+			,buyer_exp
+			,seller_exp
+			,payment_by_cash_time
+		)values(
+			date_format(NOW(),'pay_%y%m%d%H%i%s')
+			,#{orderCode}
+			,#{userIdCode}
+			,#{goodsCode}
+			,'352-1350-9141-22'
+			,'카카오결제'
+			,'카카오페이'
+			,0
+			,80000
+			,0
+			,80000
+			,2000
+			,100
+			,100
+			,CURDATE()
+		);
+	</insert>
+		
+	<insert id="addOrderStatusComplete" parameterType="OrderStatusComplete">
+		<selectKey resultType="string" keyProperty="orderStatusCode" order="AFTER">
+	     	SELECT 
+				order_status_code as orderStatusCode
+			FROM 
+				tb_o_order_status
+			WHERE
+				user_id_code =#{userIdCode}
+	    </selectKey> 
+		/*주문>결제완료시 15번 테이블로 인썰트되는정보*/                            
+		INSERT into tb_o_order_status
+		(	 order_status_code
+			,user_id_code
+			,goods_code
+			,order_status_standard_code
+			,order_status_update_time
+		)values(
+			date_format(NOW(),'delc%y%m%d%H%i%s')
+			,#{userIdCode}
+			,#{goodsCode}
+			,'s002'
+			,CURDATE()
+		);
+	</insert>	
+	<select id="getOrderCurrent" resultType="OrderCurrent">
+		/*주문>결제완료시 셀렉터 13번 테이블정보꺼내*/
+		SELECT
+			 order_code
+			,order_status_code
+			,user_id_code
+			,goods_code
+			,order_receive_addr
+			,order_receive_contact
+			,order_sendname
+			,order_sendphone
+			,order_date
+		FROM
+			tb_o_order_current_status
+		WHERE
+			order_code = #{orderCode};
+	</select>
+	<insert id="addOrderCurrent" parameterType="OrderCurrent">
+		<selectKey resultType="string" keyProperty="orderCode" order="AFTER">
+	     	SELECT 
+				order_code as orderCode
+			FROM 
+				tb_o_order_current_status
+			WHERE
+				order_status_code = #{orderStatusCode}
+	    </selectKey> 
+		/*주문>결제시 13번 테이블로 인썰트되는정보*/
+		INSERT into tb_o_order_current_status
+		(	order_code
+			,order_status_code
+			,user_id_code
+			,goods_code
+			,order_receive_addr
+			,order_receive_contact
+			,order_sendname
+			,order_sendphone
+			,order_date
+		)values(
+			date_format(NOW(),'o%y%m%d%H%i%s')
+			,#{orderStatusCode}
+			,#{userIdCode}
+			,#{goodsCode}
+			,#{orderReceiveAddr}
+			,#{orderReceiveContact}
+			,#{orderSendname}
+			,#{orderSendphone}
+			,NOW()
+		);
+	</insert>
+	
+	<select id="getOrderCartList" resultType="OrderCart">
+				/* 사용자화면 장바구니 리스트 출력 */
+		SELECT
+			goc.order_cart_code as orderCartCode
+			,goc.user_id_code as userIdCode
+			,goc.seller_id_code as sellerIdCode
+			,goc.seller_phone_number as sellerPhoneNumber
+			,goc.goods_img as goodsImg
+			,goc.goods_price as goodsPrice
+			,goc.goods_code as goodsCode
+			,goc.goods_name as goodsName
+			,goc.goods_details as goodsDetails
+		FROM
+			 tb_g_order_cart as goc
+		WHERE 
+			goc.user_id_code = #{userIdCode};
+	</select>
+	<delete id="removeOrderCart" parameterType="OrderCart">
+		/* 사용자화면 장바구니 상품삭제하기*/
+		DELETE  
+		FROM 
+			tb_g_order_cart 
+		WHERE 
+			order_cart_code = #{ocCode};
+	</delete>
+	
+		<delete id="removeAllOrderCart" parameterType="OrderCart">
+		/* 사용자화면 장바구니비우기*/
+		DELETE 
+		FROM 
+			tb_g_order_cart 
+		WHERE
+			user_id_code =#{userIdCode}
+	</delete>
+</mapper> 

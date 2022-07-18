@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">	 
+
+<!------ Include the above in your HEAD tag ---------->
+<div layout:fragment="content">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#iamportPayment").click(function(){
+			requestPay();
+		});
+	})
+	
+	  var IMP = window.IMP; // 생략가능
+	  IMP.init('imp05239063'); // <-- 본인 가맹점 식별코드 삽입
+	  function requestPay(date) {
+		  IMP.request_pay({
+		    pg: "html5_inicis",
+		    pay_method: "card",
+		    merchant_uid : 'merchant_'+new Date().getTime(),
+		    name : '결제테스트',
+		    amount : 14000,
+		    buyer_email : 'iamport@siot.do',
+		    buyer_name : '구매자',
+		    buyer_tel : '010-1234-5678',
+		    buyer_addr : '서울특별시 강남구 삼성동',
+		    buyer_postcode : '123-456'
+		  }, function (rsp) {
+			    console.log(rsp);
+			    if (rsp.success) {
+			      var msg = '결제가 완료되었습니다.';
+			      alert(msg);
+			      location.href = "결제 완료 후 이동할 페이지 url"
+			    } else {
+			      var msg = '결제에 실패하였습니다.';
+			      msg += '에러내용 : ' + rsp.error_msg;
+			      alert(msg);
+			    }
+		    });
+		  }
+	  
+	</script>
+	<style>
+	
+	
+	
+	
+	</style>
+	
+	<div class="container">
+			<div class="input-form-backgroud row">
+				<div class="input-form col-11" style="max-width: 100%;">
+					<div class="row">
+						<div class="col-3" style="border-right: 1px solid grey;">
+							<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+								<a class="nav-link active taps" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">장바구니</a>
+							    <a class="nav-link taps" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">주문/배송</a>
+							    <a class="nav-link taps" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">취소/반품/환불</a>
+							    <a class="nav-link taps" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">포인트/쿠폰</a>
+							    <a class="nav-link taps" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">문의내역</a>
+							    <a class="nav-link taps" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">리뷰관리</a>
+							    <a class="nav-link taps" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">배송지수정</a>
+    						</div>
+  						</div>
+  						<div class="col-9">
+    						<div class="tab-content" id="v-pills-tabContent" style="margin-bottom: 10px;">
+      							<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+									<div class="row" style="border-bottom: 1px solid grey;">
+									<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
+										<div class="col-12" style="display: inline-block;">
+											<img  class="img-responsive" style="width: 80%" src="https://t1.daumcdn.net/cfile/tistory/25367D465817198104">
+										</div>
+									</div>
+									<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
+											<p>자바스트립트!!!</p>
+											<i>500,000원</i>
+											<i>2022.03.01</i>
+											<p>깔끔한작업!!</p>
+									</div>
+									<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
+										<div class="col-12" style="display: inline-block;">
+											<p class="">잡스모바일</p>
+											<p>010-1111-2222</p>
+										</div>
+									</div>
+									<div class="col-xs-6 col-sm-3" style="text-align:center;  width: 25%;" >
+										<div class="col-12" style="display: inline-block; justify-content: center;margin-top:20%;">
+											<a href="#" class="btn-warning btn-sm" style="display: center;">삭제하기</a>
+										</div>
+									</div>
+									</div>
+									</div>
+									
+									</div>
+								<button id="iamportPayment" onclick="requestPay()" class="btn-primary btn-lg" style="float: right;">결제하기</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>						
+	

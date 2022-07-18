@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">
+<!------ Include the above in your HEAD tag ---------->
+	<th:block layout:fragment="customScript">
+ 		<script>
+ 			$(function(){
+ 				$(document).on('change', '#expertBusinessField', function(){
+ 				var $topCategory =$("#expertBusinessField").val()
+ 					console.log($topCategory)
+ 					var request = $.ajax({
+ 						  url: "/getCategory",
+ 						  method: "GET",
+ 						  data: { 'expertBusinessField' : $topCategory},
+ 						  dataType: "json"
+ 						});
+ 						 						 
+ 						request.done(function( data ) {
+ 							
+ 							var html = '', $subCategory = $('#expertDetailedBusiness');
+ 							if(data.length == 0){
+ 								html += '<option value="">: : : : 2차카테고리 : : : :</option>';
+ 							}else{ 								
+	 							for(var i=0; i < data.length; i++){
+	 								html += '<option value="'+data[i].goodsSubCategoryCode+'"> ' + data[i].goodsSubCategoryName + ' </option>';
+	 							}
+ 							}
+ 							$subCategory.html(html);
+ 							$subCategory.niceSelect('update');
+ 						});
+ 						 
+ 						request.fail(function( jqXHR, textStatus ) {
+ 						  alert( "Request failed: " + textStatus );
+ 						});
+ 				});
+ 			});
+ 		</script>
+	</th:block>	
+	<div layout:fragment="content">
+		<div class="container">
+			<div class="input-form-backgroud row" style="padding-bottom: 50px;">
+				<div class="input-form col-11" style="max-width: 100%; margin-top:35px; " >
+					<div class="row">
+						<div class="col-3" style="border-right: 1px solid grey;">
+							<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+								<a class="nav-link active taps" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">회원정보</a>
+							    <a class="nav-link taps" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">기술분야</a>
+							    <a class="nav-link taps" id="v-pills-profile-tab1" data-toggle="pill" href="#v-pills-profile1" role="tab" aria-controls="v-pills-profile1" aria-selected="false">근무사항</a>
+							    <a class="nav-link taps" id="v-pills-profile-tab2" data-toggle="pill" href="#v-pills-profile2" role="tab" aria-controls="v-pills-profile2" aria-selected="false">학력사항</a>
+							    <a class="nav-link taps" id="v-pills-profile-tab3" data-toggle="pill" href="#v-pills-profile3" role="tab" aria-controls="v-pills-profile3" aria-selected="false">구매내역</a>
+							    <a class="nav-link taps" id="v-pills-profile-tab4" data-toggle="pill" href="#v-pills-profile4" role="tab" aria-controls="v-pills-profile4" aria-selected="false">판매내역</a>
+							    <a class="nav-link taps" id="v-pills-profile-tab5" data-toggle="pill" href="#v-pills-profile5" role="tab" aria-controls="v-pills-profile5" aria-selected="false">취소/환불</a>
+    						</div>
+  						</div>
+  						<div class="col-9">
+    						<div class="tab-content" id="v-pills-tabContent">
+      							<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+		    						<form id="modifyUser" method="post" th:action="@{modifyUser}">
+			    						<th:block  th:if="${not #lists.isEmpty(userList)}" th:each="u : ${userList}">
+			    						<div class="form-group">	
+			    							<label for="userIdCode ">회원아이디</label>
+			    							<input type="text" class="form-control  col-6" id="userIdCode" name="userIdCode" readonly th:value="${u.userIdCode}">
+										</div>
+										<div class="form-group">    
+										    <label for="userName">닉네임</label>
+										    <input type="text" class="form-control  col-6" id="userName" name="userName" th:value="${u.userName}">
+								  		</div>
+								      	<div class="form-group">
+										    <label for="userContact">전화번호</label>
+										    <input type="text" class="form-control col-6" id="userContact" name="userContact" th:value="${u.userContact}">
+								  		</div>
+								      	<div class="form-group">
+										    <label for="userEmail">이메일</label>
+										    <input type="email" class="form-control col-6" id="userEmail" name="userEmail" th:value="${u.userEmail}">
+								  		</div>
+								        <div class="form-group">
+										    <label for="userArea">활동지역</label>
+										    <input type="text" class="form-control col-6" id="userArea" name="userArea" th:value="${u.userArea}">
+								  		</div>
+								        <div class="form-group">
+										    <label for="userPoint">사용가능포인트</label>
+										    <input type="text" class="form-control col-6" id="userPoint" name="userPoint" th:value="${u.userPoint}" readonly>
+								  		</div>
+	        							<div class="form-group">
+			    							<label for="userRating">등급</label>
+			    							<input type="text" class="form-control col-6" id="userRating" name="userRating" th:value="${u.userRating}" readonly>
+										</div>
+	        							<div class="form-group">
+			    							<label for="userLevel">권한</label>
+			    							<input type="text" class="form-control col-6" id="userLevel" name="userLevel" th:value="${u.userLevel}" readonly>
+										</div>
+										</th:block>
+									<button class="btn btn-lg btn-primary btn-block col-6" type="submit">수정</button>
+									</form>
+								</div>
+								<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+									<form id="modifyBusiness" method="post" th:action="@{modifyBusiness}">
+										<div class="form-group">	
+			    							<label for="expertBusinessField" class="col-12">비지니스 분야</label>
+			    							<select id="expertBusinessField" name="expertBusinessField" class="wide col-6">
+				              	 				<option value="">: : : : : 1차카테고리 : : : : </option>
+		              	 						<th:block th:if="${not #lists.isEmpty(topcategory)}" th:each="g : ${topcategory}">
+	              	 							<option th:value="${g.goodsTopCategoryCode}">[[${g.goodsTopCategoryName}]]</option>
+			              	 					</th:block>
+		              	 						<th:block th:unless="${not #lists.isEmpty(topcategory)}">
+		              	 						<option value="">등록된 카테고리가 없습니다</option>
+				              	 				</th:block>
+		              						</select>
+										</div>
+										<div class="form-group">    
+										    <label for="expertDetailedBusiness" class="col-12">상세분야</label>
+										    <select id="expertDetailedBusiness" name="expertDetailedBusiness" class="wide col-6" >
+	              	 							<option value="">: : : : 2차카테고리 : : : : </option>
+		              						</select>
+								  		</div>
+								      	<div class="form-group">
+										    <label for="expertRetentionTechnology" class="col-12">보유기술</label>
+										    <input type="text" class="form-control col-6" id="expertRetentionTechnology" >
+								  		</div>
+								      	<div class="form-group">
+										    <label for="expertIntroduction" class="col-12">자기소개</label>
+										    <input type="text" class="form-control col-6" id="expertIntroduction">
+								  		</div>
+									<button class="btn btn-lg btn-primary btn-block col-6" type="submit">수정</button>
+							  		</form>
+						  		</div>
+								<div class="tab-pane fade" id="v-pills-profile1" role="tabpanel" aria-labelledby="v-pills-profile-tab1">
+									<form id="modifyCompany" method="post">
+										<div class="form-group">	
+			    							<label for="expertCompanyName ">회사명</label>
+			    							<input type="text" class="form-control  col-6" id="expertCompanyName" name="expertCompanyName">
+										</div>
+										<div class="form-group">    
+										    <label for="expertPosition">직위</label>
+										    <input type="text" class="form-control  col-6" id="expertPosition" name="expertPosition">
+								  		</div>
+										<div class="form-group">    
+										    <label for="expertWorkDepartment">근무부서</label>
+										    <input type="text" class="form-control  col-6" id="expertWorkDepartment" name="expertWorkDepartment">
+								  		</div>
+								      	<div class="form-group">
+										    <label for="expertWorkPlace">근무지</label>
+										    <input type="text" class="form-control col-6" id="expertWorkPlace" name="expertWorkPlace">
+								  		</div>
+								      	<div class="form-group">
+										    <label for="expertWorkDate">근무기간</label>
+										    <input type="text" class="form-control col-6" id="expertWorkDate" name="expertWorkDate">
+								  		</div>
+								      	<div class="form-group">
+										    <label for="expertEtc">기타기록사항</label>
+										    <input type="text" class="form-control col-6" id="expertEtc" name="expertEtc">
+								  		</div>
+								      	<div class="form-group">
+										    <label for="expertStayUse">근무지상주가능여부</label>
+										    <input type="text" class="form-control col-6" id="expertStayUse" name="expertStayUse">
+								  		</div>
+								      	<div class="form-group">
+										    <label for="expertCareerProofMattersAttachments">경력증명사항첨부서류</label>
+										    <input type="file" class="form-control col-7" id="expertCareerProofMattersAttachments">
+								  		</div>
+								  	</form>
+									<button class="btn btn-lg btn-primary btn-block col-6" type="submit">수정</button>
+								</div>
+								<div class="tab-pane fade" id="v-pills-profile2" role="tabpanel" aria-labelledby="v-pills-profile-tab2">
+									<form id="modifySchool" method="post">
+										<div class="form-group">	
+			    							<label for="exampleFormControlInput1 ">학교명</label>
+			    							<input type="text" class="form-control  col-6" id="expertSchoolName" name="expertSchoolName">
+										</div>
+										<div class="form-group">    
+										    <label for="exampleFormControlInput1">전공</label>
+										    <input type="text" class="form-control  col-6" id="expertMajor" name="expertSchoolName">
+								  		</div>
+								      	<div class="form-group">
+										    <label for="exampleFormControlInput1">학력최종상황</label>
+										    <input type="text" class="form-control col-6" id="expertFinalState" name="expertSchoolName">
+								  		</div>
+								      	<div class="form-group">
+										    <label for="exampleFormControlInput1">학력증명사항첨부서류</label>
+										    <input type="file" class="form-control col-7" id="expertAcademicDocument" name="expertSchoolName">
+								  		</div>
+						  			</form>
+									<button class="btn btn-lg btn-primary btn-block col-6" type="submit">수정</button>
+								</div>
+								<div class="tab-pane fade" id="v-pills-profile3" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+									<div class="row" style="border-bottom: 1px solid grey;">
+										<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
+											<div class="col-12" style="display: inline-block;">
+												<img  class="img-responsive" style="width: 80%" src="https://t1.daumcdn.net/cfile/tistory/25367D465817198104">
+											</div>
+										</div>
+										<th:block th:if="${not #lists.isEmpty(orderCartList)}" th:each="o : ${orderCartList}">
+										<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
+											<input type="hidden" name="userIdCode" id="userIdCode" th:value="${o.userIdCode}">
+											<input type="hidden" name="orderCartCode" id="orderCartCode" th:value="${o.userIdCode}">
+											<p th:text="${o.goodsName}">1</p>
+											<i th:text="${o.goodsPrice+'원'}">1</i>
+											<p th:text="${o.goodsDetails}">1</p>
+										</div>
+										<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
+											<div class="col-12" style="display: inline-block;">
+												<p th:text="|판매자 : ${o.sellerIdCode}|">₩</p>
+												<p th:text="|판매자번호 ${o.sellerPhoneNumber}|">1</p>
+											</div>
+										</div>
+										<div class="col-xs-6 col-sm-3" style="text-align:center;  width: 25%;" >
+											<div class="col-12" style="display: inline-block; justify-content: center;margin-top:20%;">
+												<a  class="btn-warning btn-sm" th:href="@{/userpage/reviewUser/addReview(goodsCode=${o.goodsCode})}" style="display: center;">리뷰쓰기</a>
+											</div>
+											<div class="col-12" style="display: inline-block; justify-content: center;margin-top:20%;">
+												<a  th:href="@{userpage/order/orderCancel}" class="btn-danger btn-sm" style="display: center;">환불요청</a>
+											</div>
+										</div>
+										</th:block>
+									</div>
+								</div>
+								<div class="tab-pane fade" id="v-pills-profile5" role="tabpanel" aria-labelledby="v-pills-settings-tab5">
+									<div class="row" style="border-bottom: 1px solid grey;">
+										<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
+											<div class="col-12" style="display: inline-block;">
+												<img  class="img-responsive" style="width: 80%" src="https://t1.daumcdn.net/cfile/tistory/25367D465817198104">
+											</div>
+										</div>
+										<th:block th:if="${not #lists.isEmpty(refundPayList)}" th:each="r : ${refundPayList}">
+										<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
+											<input type="hidden" name="userIdCode" id="userIdCode" th:value="${r.userIdCode}">
+											<input type="hidden" name="orderCode" id="orderCode" th:value="${r.orderCode}">
+											<p th:text="|상품이름 : ${r.goodsName}|">1</p>
+											<i th:text="|환불요청가격 : ${r.goodsPrice+'원'}|">1</i>
+											<input type="hidden" th:value="${r.goodsCode}">
+										</div>
+										<div class="col-xs-6 col-sm-3"  style="width: 25%;" >
+											<div class="col-12" style="display: inline-block;">
+												<p th:text="|판매자 : ${r.sellerIdCode}|">₩</p>
+												<p th:text="|판매자번호 : ${r.sellerPhoneNumber}|">1</p>
+										</div>
+										</div>
+										<div class="col-xs-6 col-sm-3" style="text-align:center;  width: 25%;" >
+											<div class="col-12" style="display: inline-block; justify-content: center;margin-top:20%;">
+												<a  class="btn-danger btn-sm"  style="display: center; color:white;" th:text="${r.refundProgressStatus}"></a>
+											</div>
+										</th:block>
+										</div>
+									</div>
+								</div>
+							</div>
+							<footer class="my-3 text-center text-small">
+								<p class="mb-1">&copy; 2022 </p>
+							</footer>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>

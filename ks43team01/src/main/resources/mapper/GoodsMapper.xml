@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks43team01.mapper.GoodsMapper">
+	<resultMap type="Goods" id="GoodsResultMap" >
+			<id 	column="goods_code"							property="goodsCode"/>
+			<result column="goods_sub_category_code" 			property="goodsSubCategoryCode"/>
+			<result column="goods_name" 						property="goodsName"/>
+			<result column="goods_description" 					property="goodsDescription"/>
+			<result column="goods_price" 						property="goodsPrice"/>
+			<result column="goods_working_period" 				property="goodsWorkingPeriod"/>
+			<result column="goods_modified_possibility_count"	property="goodsModifiedPossibilityCount"/>
+			<result column="user_id_code" 						property="userIdCode"/>
+			<result column="goods_reg_date" 					property="goodsRegDate"/>
+		<association property="goodsTopCategory" javaType="GoodsTopCategory">
+			<id 	column="goods_top_category_code"		property="goodsTopCategoryCode"/>
+			<result column="goods_top_category_name" 		property="goodsTopCategoryName"/>
+			<result column="user_id_code" 					property="userIdCode"/>
+			<result column="goods_top_category_reg_date"	property="goodsTopCategoryRegDate"/>
+		</association>
+		<association property="goodsSubCategory" javaType="GoodsSubCategory">
+			<id 	column="goods_sub_category_code"		property="goodsSubCategoryCode"/>
+			<result column="goods_top_category_code" 		property="goodsTopCategoryCode"/>
+			<result column="goods_top_category_name" 		property="goodsTopCategoryName"/>
+			<result column="goods_sub_category_name"		property="goodsSubCategoryName"/>
+			<result column="user_id_code"					property="userIdCode"/>
+			<result column="goods_sub_category_reg_date"	property="goodsSubCategoryRegDate"/>
+		</association>
+		<collection property="file" ofType="File">
+			<id    column="file_code"						property="fileCode"/>
+			<result column="user_id_code"					property="userIdCode"/>
+			<result column="file_orginal_name"				property="fileOriginalName"/>
+			<result column="file_re_name"					property="fileReName"/>
+			<result column="file_main_image"				property="fileMainImage"/>
+			<result column="file_location"					property="fileLocation"/>
+			<result column="file_size"						property="fileSize"/>
+			<result column="file_reg_date"					property="fileRegDate"/>
+			<result column="file_update_date"				property="fileUpdateDate"/>
+			<result column="file_use"						property="fileUse"/>	
+		</collection>
+	</resultMap>
+	<resultMap type="goodsTopCategory" id="GoodsTopCategoryResultMap">
+		<id 	column="goods_top_category_code"		property="goodsTopCategoryCode"/>
+		<result column="goods_top_category_name" 		property="goodsTopCategoryName"/>
+		<result column="user_id_code" 					property="userIdCode"/>
+		<result column="goods_top_category_reg_date"	property="goodsTopCategoryRegDate"/>
+		<collection property="goodsSubCategoryList" ofType="goodsSubCategory">
+			<id 	column="goods_sub_category_code"		property="goodsSubCategoryCode"/>
+			<result column="goods_top_category_code" 		property="goodsTopCategoryCode"/>
+			<result column="goods_top_category_name" 		property="goodsTopCategoryName"/>
+			<result column="goods_sub_category_name"		property="goodsSubCategoryName"/>
+			<result column="user_id_code"					property="userIdCode"/>
+			<result column="goods_sub_category_reg_date"	property="goodsSubCategoryRegDate"/>
+		</collection>
+	</resultMap>
+	<resultMap type="goodsSubCategory" id="GoodsSubCategoryResultMap">
+		<id 	column="goods_sub_category_code"		property="goodsSubCategoryCode"/>
+		<result column="goods_top_category_code" 		property="goodsTopCategoryCode"/>
+		<result column="goods_top_category_name" 		property="goodsTopCategoryName"/>
+		<result column="goods_sub_category_name"		property="goodsSubCategoryName"/>
+		<result column="user_id_code"					property="userIdCode"/>
+		<result column="goods_sub_category_reg_date"	property="goodsSubCategoryRegDate"/>
+	</resultMap>
+	
+	<!-- 사용자 화면 메뉴-->
+	<select id="getGoodsMenuCategory" resultMap="GoodsTopCategoryResultMap">
+		/* 메인화면 상품 카테고리 리스트 */
+		SELECT
+			 tc.goods_top_category_code
+			,tc.goods_top_category_name
+			,ts.goods_sub_category_code
+			,ts.goods_sub_category_name
+		FROM
+			tb_g_goods_top_category AS tc
+			LEFT JOIN 
+			tb_g_goods_sub_category AS ts
+			on
+			tc.goods_top_category_code = ts.goods_top_category_code
+		ORDER BY tc.goods_top_category_code, ts.goods_sub_category_code;
+	</select>
+	
+	<!-- 사용자 화면 -->
+	<delete id="removeUserGoods" parameterType="String">
+		/* 상품 삭제 */
+		DELETE
+		FROM
+			tb_g_goods
+		WHERE
+			goods_code = #{goodsCode};
+	</delete>
+	
+	<select id="getModifyGoodsInfoCode" parameterType="String" resultMap="GoodsResultMap">
+	  	/* 상품 수정화면 기존 데이터 조회 */	
+		SELECT
+			c.goods_top_category_name,
+			c.goods_sub_category_name,
+			g.goods_sub_category_code,
+			g.goods_name,
+			g.goods_description,
+			g.goods_price,
+			g.goods_working_period,
+			g.goods_modified_possibility_count,
+			g.goods_code,
+			g.user_id_code
+		FROM
+			tb_g_goods AS g
+			INNER JOIN
+			tb_g_goods_sub_category AS c
+			ON
+			g.goods_sub_category_code = c.goods_sub_category_code
+		WHERE
+			g.goods_code = #{goodsCode};
+  	</select>
+	
+	<update id="modifyGoods" parameterType="String">
+		/* 상품 수정 */
+		UPDATE
+			tb_g_goods 
+		SET 
+			goods_sub_category_code = #{goodsSubCategoryCode}
+		   ,goods_name = #{goodsName}	
+		   ,goods_description = #{goodsDescription}
+		   ,goods_price = #{goodsPrice}
+		   ,goods_working_period = #{goodsWorkingPeriod}
+		   ,goods_modified_possibility_count = #{goodsModifiedPossibilityCount}
+		   ,goods_reg_date =  CURDATE()
+		WHERE
+			goods_code = #{goodsCode};
+	</update>	
+	
+	<select id="getGoodsInfoCode" parameterType="String" resultMap="GoodsResultMap">
+		/* 개별 상품 보기 */
+		SELECT
+			 g.goods_code
+			,g.goods_sub_category_code
+			,g.user_id_code
+			,g.goods_name
+			,g.goods_price
+			,sub.file_code
+			,sub.user_id_code
+			,sub.file_orginal_name
+			,sub.file_re_name
+			,sub.file_main_image
+			,sub.file_location
+			,sub.file_size
+			,sub.file_reg_date
+			,sub.file_update_date
+			,sub.file_use
+			,sub.goods_code
+		FROM
+			tb_g_goods AS g
+				 LEFT JOIN
+				(SELECT
+					 f.file_code 
+					,f.user_id_code
+					,f.file_orginal_name
+					,f.file_re_name
+					,f.file_main_image
+					,f.file_location
+					,f.file_size
+					,f.file_reg_date
+					,f.file_update_date
+					,f.file_use
+					,re.goods_code
+				FROM
+					tb_f_file AS f
+					INNER join
+						tb_b_rel_file_with_Goods AS re
+					on
+						f.file_code = re.file_code) AS sub
+			ON
+				sub.goods_code = g.goods_code
+			where
+				g.goods_code = #{goodsCode};
+	</select>
+	
+	<select id="getUserGoodsListByTopCategoryCode" parameterType="String" resultMap="GoodsResultMap">
+		/* 사용자화면 상위 카테고리별 상품리스트조회 */
+		SELECT
+			 g.goods_code
+			,g.goods_sub_category_code
+			,g.user_id_code
+			,g.goods_name
+			,g.goods_price
+			,sub.file_code 
+			,sub.user_id_code
+			,sub.file_orginal_name
+			,sub.file_re_name
+			,sub.file_main_image
+			,sub.file_location
+			,sub.file_size
+			,sub.file_reg_date
+			,sub.file_update_date
+			,sub.file_use
+			,sub.goods_code
+		FROM
+			tb_g_goods AS g
+			INNER JOIN
+			tb_g_goods_sub_category AS sc
+			ON
+			g.goods_sub_category_code = sc.goods_sub_category_code
+			INNER JOIN
+			tb_g_goods_top_category AS tc
+			on
+			tc.goods_top_category_code = sc.goods_top_category_code
+			LEFT JOIN
+			(SELECT
+				 f.file_code 
+				,f.user_id_code
+				,f.file_orginal_name
+				,f.file_re_name
+				,f.file_main_image
+				,f.file_location
+				,f.file_size
+				,f.file_reg_date
+				,f.file_update_date
+				,f.file_use
+				,re.goods_code
+			FROM
+				tb_f_file AS f
+				INNER join
+					tb_b_rel_file_with_Goods AS re
+				on
+					f.file_code = re.file_code) AS sub
+			on
+			sub.goods_code = g.goods_code
+		WHERE
+			tc.goods_top_category_code = #{goodsTopCategoryCode}
+		ORDER BY
+			g.goods_reg_date;
+	</select>
+	
+	<select id="getUserGoodsListBySubCategoryCode" parameterType="String" resultMap="GoodsResultMap">
+		/* 사용자화면 하위 카테고리별 상품리스트조회 */
+		SELECT
+			 g.goods_code
+			,g.goods_sub_category_code
+			,g.user_id_code
+			,g.goods_name
+			,g.goods_price
+			,sub.file_code 
+			,sub.user_id_code
+			,sub.file_orginal_name
+			,sub.file_re_name
+			,sub.file_main_image
+			,sub.file_location
+			,sub.file_size
+			,sub.file_reg_date
+			,sub.file_update_date
+			,sub.file_use
+			,sub.goods_code
+		FROM
+			tb_g_goods AS g
+			INNER JOIN
+			tb_g_goods_sub_category AS sc
+			ON
+			g.goods_sub_category_code = sc.goods_sub_category_code
+			LEFT JOIN
+			(SELECT
+				 f.file_code 
+				,f.user_id_code
+				,f.file_orginal_name
+				,f.file_re_name
+				,f.file_main_image
+				,f.file_location
+				,f.file_size
+				,f.file_reg_date
+				,f.file_update_date
+				,f.file_use
+				,re.goods_code
+			FROM
+				tb_f_file AS f
+				INNER join
+					tb_b_rel_file_with_Goods AS re
+				on
+					f.file_code = re.file_code) AS sub
+			on
+			sub.goods_code = g.goods_code
+		WHERE
+			g.goods_sub_category_code = #{goodsSubCategoryCode}
+		ORDER BY
+			g.goods_reg_date;
+	</select>
+	
+	<select id="getUserGoodsList" resultMap="GoodsResultMap">
+		/* 사용자화면 상품리스트 */
+		SELECT
+			 g.goods_code
+			,g.goods_sub_category_code
+			,g.user_id_code
+			,g.goods_name
+			,g.goods_price
+			,sub.file_code 
+			,sub.user_id_code
+			,sub.file_orginal_name
+			,sub.file_re_name
+			,sub.file_main_image
+			,sub.file_location
+			,sub.file_size
+			,sub.file_reg_date
+			,sub.file_update_date
+			,sub.file_use
+			,sub.goods_code
+		FROM
+			tb_g_goods AS g
+			LEFT JOIN
+			(SELECT
+				 f.file_code 
+				,f.user_id_code
+				,f.file_orginal_name
+				,f.file_re_name
+				,f.file_main_image
+				,f.file_location
+				,f.file_size
+				,f.file_reg_date
+				,f.file_update_date
+				,f.file_use
+				,re.goods_code
+			FROM
+				tb_f_file AS f
+				INNER join
+					tb_b_rel_file_with_Goods AS re
+				on
+					f.file_code = re.file_code) AS sub
+			on
+			sub.goods_code = g.goods_code
+		ORDER BY
+			g.goods_reg_date;
+	</select>
+    
+	<select id="getGoodsTopCategory" resultType="GoodsTopCategory">
+		/* 상품 등록 화면 상위 카테고리 조회 */
+		SELECT 
+			gt.goods_top_category_code		AS goodsTopCategoryCode,
+			gt.goods_top_category_name		AS goodsTopCategoryName,
+			gt.user_id_code					AS userIdCode,
+			gt.goods_top_category_reg_date	AS goodsTopCategoryRegDate
+		FROM
+			tb_g_goods_top_category AS gt;
+	</select>
+    
+	<select id="getGoodsSubCategory" parameterType="String" resultMap="GoodsSubCategoryResultMap">
+		/* 상품 등록 화면 하위 카테고리 조회 */
+		SELECT 
+			gs.goods_sub_category_code,
+			gs.goods_top_category_code,
+			gs.goods_top_category_name,
+			gs.goods_sub_category_name,
+			gs.user_id_code,
+			gs.goods_sub_category_reg_date
+		FROM
+			tb_g_goods_sub_category AS gs
+		WHERE
+			gs.goods_top_category_code = #{goodsTopCategoryName};
+	</select>
+	
+	<insert id="addGoods" parameterType="Goods">
+		/* 상품 등록 */
+		INSERT INTO tb_g_goods
+		(	goods_code,
+			goods_sub_category_code,
+			goods_name,
+			goods_description,
+			goods_price,
+			goods_working_period,
+			goods_modified_possibility_count,
+			user_id_code,
+			goods_reg_date
+		)VALUES(
+			(SELECT
+				CONCAT('goods_',MAX(CAST(SUBSTRING(g.goods_code,7) AS UNSIGNED))+1)
+			 FROM
+				tb_g_goods AS g),
+			#{goodsSubCategoryCode},
+			#{goodsName},
+			#{goodsDescription},
+			#{goodsPrice},
+			#{goodsWorkingPeriod},
+			#{goodsModifiedPossibilityCount},
+			#{userIdCode},
+			CURDATE()
+		);
+		<selectKey resultType="String" keyProperty="goodsCode" order="AFTER">
+			/* 상품 등록시 만들어지는 코드 */
+			SELECT
+				g.goods_code
+			FROM
+				tb_g_goods AS g
+			ORDER BY g.goods_code DESC
+			LIMIT 1
+		</selectKey>
+	</insert>
+	
+
+	
+	<!-- 관리자 화면 -->
+	<!-- 관리자 화면 -->
+	<delete id="removeAdminGoods" parameterType="Goods">
+		/* 상품 삭제 */
+		DELETE
+		FROM
+			tb_g_goods
+		WHERE
+			goods_code = #{goodsCode};
+	</delete>
+	
+	<select id="getAdminGoodsList" resultType="Map">
+		/* 상품 리스트 조회 */
+		SELECT
+			gg.goods_code AS goodsCode,
+			gs.goods_top_category_name AS goodsTopCategoryName,
+			gs.goods_sub_category_name AS goodsSubCategoryName,
+			gg.goods_name AS goodsName,
+			gg.goods_price AS goodsPrice,
+			gg.user_id_code AS userIdCode,
+			gg.goods_reg_date AS goodsRegDate
+		FROM
+			tb_g_goods AS gg
+			INNER JOIN
+			tb_g_goods_sub_category AS gs
+			ON
+			gg.goods_sub_category_code = gs.goods_sub_category_code;
+	</select>
+	
+	<delete id="removeGoodsSubCategory" parameterType="GoodsSubCategory">
+		/* 상품 하위 카테고리 삭제 */
+		DELETE
+		FROM
+			tb_g_goods_sub_category
+		WHERE
+			goods_sub_category_code = #{goodsSubCategoryCode};
+	</delete>
+	
+	<update id="modifyGoodsSubCategory" parameterType="String">
+		/* 상품 하위 카테고리 수정 */
+		UPDATE
+			tb_g_goods_sub_category
+		SET 
+			goods_top_category_code =
+			(
+			SELECT
+				goods_top_category_code
+			FROM
+				tb_g_goods_top_category
+			WHERE
+				goods_top_category_name = #{goodsTopCategoryName}
+			),
+			goods_top_category_name = #{goodsTopCategoryName},
+			goods_sub_category_name = #{goodsSubCategoryName},
+			goods_sub_category_reg_date = CURDATE()
+		WHERE
+			goods_sub_category_code = #{goodsSubCategoryCode};
+	</update>
+	
+	<select id="getModifyGoodsSubCategoryCode" parameterType="String" resultMap="GoodsResultMap">
+	  	/* 상품 하위 카테고리 수정화면 기존 데이터 조회 */	
+		SELECT
+			g.goods_sub_category_code 		AS goodsSubCategoryCode,
+			g.goods_top_category_code 		AS goodsTopCategoryCode,
+			g.goods_top_category_name 		AS goodsTopCategoryName,
+			g.goods_sub_category_name		AS goodsSubCategoryName,
+			g.user_id_code					AS userIdCode,
+			g.goods_sub_category_reg_date	AS goodsSubCategoryRegDate
+		FROM
+			tb_g_goods_sub_category AS g
+		WHERE
+			g.goods_sub_category_code = #{goodsSubCategoryCode};
+  	</select>
+	
+	<select id="getGoodsSubCategoryList" resultType="GoodsSubCategory">
+		/* 상품 하위 카테고리 리스트 조회 */
+		SELECT
+			g.goods_sub_category_code 		AS goodsSubCategoryCode,
+			g.goods_top_category_code 		AS goodsTopCategoryCode,
+			(
+			SELECT
+				t.goods_top_category_name
+			FROM
+				tb_g_goods_top_category AS t
+			WHERE
+				t.goods_top_category_code = g.goods_top_category_code
+			) AS goodsTopCategoryName,
+			g.goods_sub_category_name		AS goodsSubCategoryName,
+			g.user_id_code					AS userIdCode,
+			g.goods_sub_category_reg_date	AS goodsSubCategoryRegDate
+		FROM
+			tb_g_goods_sub_category AS g;
+	</select>
+	
+	<insert id="addGoodsSubCategory" parameterType="Goods">
+		/* 상품 하위 카테고리 등록 */
+		INSERT INTO tb_g_goods_sub_category
+		(
+			goods_sub_category_code,
+			goods_top_category_code,
+			goods_top_category_name,
+			goods_sub_category_name,
+			user_id_code,
+			goods_sub_category_reg_date
+		) VALUES (
+			(SELECT
+				CONCAT('sub_category_',MAX(CAST(SUBSTRING(g.goods_sub_category_code,14) AS UNSIGNED))+1)
+			 FROM
+				tb_g_goods_sub_category AS g)
+			,(
+			SELECT
+				g.goods_top_category_code
+			FROM
+				tb_g_goods_top_category AS g
+			WHERE
+				g.goods_top_category_name = #{goodsTopCategoryName}
+			)
+			,#{goodsTopCategoryName}
+			,#{goodsSubCategoryName}
+			,#{userIdCode}
+			,CURDATE()
+		);
+	</insert>
+	
+	<delete id="removeGoodsTopCategory" parameterType="GoodsTopCategory">
+		/* 상품 상위 카테고리 삭제 */
+		
+	</delete>
+
+	<update id="modifyGoodsTopCategory" parameterType="String">
+		/* 상품 상위 카테고리 수정 */
+		UPDATE
+			tb_g_goods_top_category
+		SET
+			goods_top_category_name = #{goodsTopCategoryName},
+			goods_top_category_reg_date = CURDATE()
+		WHERE
+			goods_top_category_code = #{goodsTopCategoryCode};
+	</update>
+	
+	<select id="getModifyGoodsTopCategoryCode" parameterType="String" resultMap="GoodsResultMap">
+	  	/* 상품 상위 카테고리 수정화면 기존 데이터 조회 */	
+		SELECT
+			g.goods_top_category_code		AS goodsTopCategoryCode,
+			g.goods_top_category_name		AS goodsTopCategoryName,
+			g.user_id_code					AS userIdCode,
+			g.goods_top_category_reg_date	AS goodsTopCategoryRegDate
+		FROM
+			tb_g_goods_top_category AS g
+		WHERE
+			g.goods_top_category_code = #{goodsTopCategoryCode};
+  	</select>
+	
+	<select id="getGoodsTopCategoryList" resultType="GoodsTopCategory">
+		/* 상품 상위 카테고리 리스트 조회 */
+		SELECT
+			g.goods_top_category_code 		AS goodsTopCategoryCode,
+			g.goods_top_category_name 		AS goodsTopCategoryName,
+			g.user_id_code 					AS userIdCode,
+			g.goods_top_category_reg_date	AS goodsTopCategoryRegDate
+		FROM
+			tb_g_goods_top_category AS g;
+	</select>
+	
+	<insert id="addGoodsTopCategory" parameterType="Goods">
+		/* 상품 상위 카테고리 등록 */
+		INSERT INTO tb_g_goods_top_category
+		(
+			goods_top_category_code,
+			goods_top_category_name,
+			user_id_code,
+			goods_top_category_reg_date
+		) VALUES (
+			(SELECT
+				CONCAT('top_category_',MAX(CAST(SUBSTRING(g.goods_top_category_code,14) AS UNSIGNED))+1)
+			 FROM
+				tb_g_goods_top_category AS g)
+			,#{goodsTopCategoryName}
+			,#{userIdCode}
+			,CURDATE()
+		);
+	</insert>
+	
+</mapper> 

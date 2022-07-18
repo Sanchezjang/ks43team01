@@ -9,8 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>DataTables | Gentelella</title>
-
+    <title>포인트 관리</title>
+	<th:block layout:fragment="customCss">
     <!-- Bootstrap -->
     <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <link th:href="@{/admin/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
@@ -20,161 +20,36 @@
     <link th:href="@{/admin/vendors/nprogress/nprogress.css}" rel="stylesheet">
     <!-- iCheck -->
     <link th:href="@{/admin/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+	<!-- datepicker -->
+	<link th:href="@{/admin/build/css/datepicker.css}" rel="stylesheet">    
     <!-- Datatables -->
-    
     <link th:href="@{/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
-
-    <!-- Custom Theme Style -->
     <link th:href="@{/admin/build/css/custom.min.css}" rel="stylesheet">
+	</th:block>
+	
+	
+			
+    <!-- Custom Theme Style -->
   </head>
 
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-        <div class="col-md-3 left_col">
-          <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <!-- menu profile quick info -->
-            <div class="profile clearfix">
-              <div class="profile_pic">
-                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
-              </div>
-              <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>John Doe</h2>
-              </div>
-            </div>
-            <!-- /menu profile quick info -->
-
-            <br />
-
-            <!-- sidebar menu -->
+      
+        <!-- left menu -->
 			<div th:replace="adminpage/fragments/leftmenu :: leftmenuFragment"></div>
-            <!-- /sidebar menu -->
+        <!-- /left menu -->
 
-            <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            <!-- /menu footer buttons -->
-          </div>
-        </div>
-
-        <!-- top navigation -->
-        <div class="top_nav">
-            <div class="nav_menu">
-                <div class="nav toggle">
-                  <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                </div>
-                <nav class="nav navbar-nav">
-                <ul class=" navbar-right">
-                  <li class="nav-item dropdown open" style="padding-left: 15px;">
-                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                      <img src="images/img.jpg" alt="">John Doe
-                    </a>
-                    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item"  href="javascript:;"> Profile</a>
-                        <a class="dropdown-item"  href="javascript:;">
-                          <span class="badge bg-red pull-right">50%</span>
-                          <span>Settings</span>
-                        </a>
-                    <a class="dropdown-item"  href="javascript:;">Help</a>
-                      <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                    </div>
-                  </li>
-  
-                  <li role="presentation" class="nav-item dropdown open">
-                    <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                      <i class="fa fa-envelope-o"></i>
-                      <span class="badge bg-green">6</span>
-                    </a>
-                    <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <div class="text-center">
-                          <a class="dropdown-item">
-                            <strong>See All Alerts</strong>
-                            <i class="fa fa-angle-right"></i>
-                          </a>
-                        </div>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        <!-- /top navigation -->
-
-
-
+		<!-- top navigation -->
+			<div th:replace="adminpage/fragments/header :: headerFragment"></div>
+		<!-- /top navigation -->
+		<th:block layout:fragment="customJsScript">
+		 	
+		</th:block>
         <!-- page content -->
         <div class="right_col" role="main">
           <div class="">
@@ -182,23 +57,11 @@
               <div class="title_left">
                 <h3>포인트</h3>
               </div>
-
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-secondary" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
-              </div>
             </div>
 
-                    <div class="col-md-12 col-sm-12 ">
+             <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>포인트 내역 관리</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -209,86 +72,112 @@
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
                     </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                      <div class="row">
-                          <div class="col-sm-12">
-                            <div class="card-box table-responsive">
-                    <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action" style="width:100%">
-                      <thead>
-                        <tr>
-                          <th></th>
-                          <th>포인트적립날짜</th>
-                          <th>유저 아이디</th>
-                          <th>포인트기준</th>
-                          <th>포인트상세내용</th>
-                          <th>포인트 량</th>
-                          <th>수정</th>
-                          <th>삭제</th>
-                        </tr>
-                      </thead>
-                       <tbody>
-                     <tr th:if="${not #lists.isEmpty(pointList)}" th:each="l:${pointList}">
-                     <td>
-                        <input type="checkbox" id="check-all" >
-                     </td>
-                     	<td th:text="${l.pointHistoryRegDate}"></td>
-                        <td th:text="${l.userIdCode}"></td>
-		                <td th:text="${l.pointStandardName}"></td>
-		                <td th:text="${l.pointStandardDetailsName}"></td>
-              			<td th:text="${l.pointAmount}"></td>
-              			<td></td>
-              			<td></td>
-                        <!-- <td><button type="button" th:href="@{/pointList(pointDetailsCode=${l.pointDetailsCode})}" class="btn btn-danger" style="font-size: 10px">수정</button></td>
-                        <td><button type="button" th:href="@{/pointList(pointDetailsCode=${l.pointDetailsCode})}" class="btn btn-danger" style="font-size: 10px">삭제</button></td> -->
-                     </tr>
-                  </tbody>
-                    </table>
-                  </div>
-                  </div>
-              </div>
-            </div>
-                </div>
-              </div>
+                    
+                    <!--  시작화면  -->
+			        	<div th:include="adminpage/fragments/searchBar :: searchBarFragment"></div>
+			        <!--  끝 화면 -->
+                    <form th:action="@{/adminpage/pointDetails/pointList}" method="get">
+						<div class="form-row mt-2">
+							<div class="form-group col-md-2">
+								<select name="searchKey" class="form-control text-center">
+									<option value=""> :: 선택 :: </option>
+									<option value="userIdCode">아이디</option>
+									<option value="pointStandardDetailsCode">포인트 기준</option>
+								</select>
+							</div>
+							<div class="form-group col-md-6">
+								<input type="text" class="form-control" name="searchValue" placeholder="Search"
+								aria-label="Text input with dropdown button">
+							</div>
+							<div class="form-group col-md-2">
+								<button type="submit" class="btn btn-success" ><i class="fa fa-search"></i> 검색</button>
+								<button type="reset" class="btn btn-info" id="btn_reset"><i class="fa fa-minus-circle"></i> 초기화</button>
+							</div>
+						</div>
+					</form>
+                    <div class="table-responsive">
+						<div class="clearfix">
+	                        <div class="float-left">
+	                            <span>Total : </span>
+	                        </div>
+                    	</div>	
+						<table class="table table-striped jambo_table bulk_action">
+							<thead>
+								<tr class="headings">
+									<th>
+										<input type="checkbox" id="check-all" class="flat">
+									</th>
+								 	<th hidden="standard">내역코드값</th>
+			                        <th hidden="details">상세내역코드</th>
+			                        <th>포인트적립날짜</th>
+			                        <th>유저 아이디</th>
+			                        <th>포인트기준</th>
+			                        <th>포인트상세내용</th>
+			                        <th>포인트 량</th>
+			                        <th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="even pointer" th:if="${not #lists.isEmpty(pointList)}" th:each="p:${pointList}">
+									<td class="a-center">
+										<input type="checkbox" class="flat" name="table_records">
+									</td>
+									<td hidden="details" th:text=${p.pointStandardDetailsCode}></td>
+			                     	<td hidden="standard" th:text="${p.pointDetailsCode}"></td>
+			                     	<td th:text="${p.pointHistoryRegDate}"></td>
+			                        <td th:text="${p.userIdCode}"></td>
+					                <td th:text="${p.pointStandardName}"></td>
+					                <td th:text="${p.pointStandardDetailsName}"></td>
+			              			<td th:text="${p.pointAmount}"></td>
+									<td><button type="button" class="btn btn-danger removePointModalBtn" data-toggle="modal" data-target="#removePointModal" style="font-size: 10px" th:value="${p.pointDetailsCode}">삭제</button></td>
+								</tr>
+							</tbody>
+						</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  </div>
+</div>
 
-                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">지출 내역</h4>
-                        </div>
-                        <div class="modal-body" th:if="${not #lists.isEmpty(spendingList)}" th:each="s:${spendingList}">
-                             <h6 th:text="${s.spendingInfo}"></h6>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-
-                </div>
-              </div>
-            </div>
-          </div>
         <!-- /page content -->
+        
+        <!-- Modal -->
+	         <div class="modal fade" id="removePointModal" tabindex="-1" role="dialog">
+	               <div class="modal-dialog" role="document">
+	                   <div class="modal-content">
+	                     <div class="modal-header">
+	                        <h5 class="modal-title">포인트 내역 삭제</h5>
+	                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                           <span aria-hidden="true">&times;</span>
+	                        </button>
+	                     </div>
+	                     <div class="modal-body">
+	                        	정말 포인트내역을 삭제하시겠습니까?
+	                     </div>
+	                     <div class="modal-footer">
+                           <form action="/adminpage/pointDetails/removePointStandard" method="get">
+								<input type="hidden" name="pointDetailsCode" id="removeDetailsCode">
+	                       		<button type="button" class="btn btn-primary" data-dismiss="modal">취소</button>
+								<button type="submit" class="btn btn-danger">삭제</button>
+                           </form>
+	                     </div>
+	                  </div>
+	               </div>
+	         </div>
+              <!-- Modal -->
+            
+		<!-- footer content -->
+		<div th:replace="adminpage/fragments/footer :: footerFragment"></div>
+		<!-- /footer content -->
 
-        <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
-      </div>
-
+	<script type="text/javascript" th:src="@{/Doc/js/jquery-3.6.0.min.js}"></script>
     <!-- jQuery -->
     <script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>
     <!-- Bootstrap -->
-   <script th:src="@{/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
     <!-- FastClick -->
     <script th:src="@{/admin/vendors/fastclick/lib/fastclick.js}"></script>
     <!-- NProgress -->
@@ -312,8 +201,103 @@
     <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
     <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
 
+   	<!-- 제이쿼리 ui js -->
+   	<script th:src="@{https://code.jquery.com/ui/1.12.1/jquery-ui.js}"></script>
+   	<!-- searchDate -->
+	<script th:src="@{/admin/vendors/jquery/dist/searchDate.js}"></script>
+	<!-- moment.js -->
+	<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js}"></script>
+
     <!-- Custom Theme Scripts -->
     <script th:src="@{/admin/build/js/custom.min.js}"></script>
-
+	
+	
+	
+	
+	<!-- modal js -->
+	<script>
+				var $removeDetailsCode = $('#removeDetailsCode');
+		    	$('.removePointModalBtn').on('click', function() {
+		    	  $removeDetailsCode.val($(this).val());            	  
+		    	});
+	</script>
+	
+	<!-- 사용자 정의 js -->
+	<script>
+			$(function(){
+				
+				$(document).on('click', '.dateBtnGroup', function(){
+					$('form').remove('#testForm')
+					
+					var startDate = $('input[name="startDate"]').val();
+					var endDate = $('input[name="endDate"]').val();
+					
+					var dateBtnForm = $('<form></form>');
+					
+					dateBtnForm.attr("id", "testForm");
+					dateBtnForm.attr("name", "dateBtnForm");
+					dateBtnForm.attr("method", "get");
+					dateBtnForm.attr("action", "/adminpage/pointDetails/searchDatePointList");
+					
+					dateBtnForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
+					dateBtnForm.append($('<input/>', {type: 'hidden', name: 'endDate', value: endDate}));
+					
+					dateBtnForm.appendTo('body');
+					
+					dateBtnForm.submit();
+				});
+				
+				$(document).on('change', '#startDate, #endDate', function(){
+					
+						$('form').remove('#testForm')
+						
+						
+						var startDate = $('input[name="startDate"]').val();
+						var endDate = $('input[name="endDate"]').val();
+						
+						var datepickerForm = $('<form></form>');
+						
+						datepickerForm.attr("id", "testForm");
+						datepickerForm.attr("name", "datepickerForm");
+						datepickerForm.attr("method", "get");
+						datepickerForm.attr("action", "/adminpage/pointDetails/searchDatePointList");
+						
+						datepickerForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
+						datepickerForm.append($('<input/>', {type: 'hidden', name: 'endDate', value: endDate}));
+						
+						datepickerForm.appendTo('body');
+							
+						if(startDate != null && endDate != null && startDate != '' && endDate != ''){
+							
+							datepickerForm.submit();
+						}
+				});
+				
+					$(document).on('click', '.checkType', function(){
+									
+									$('form').remove('#testForm');
+									
+									var checkPaymentType = $(this).val();
+									
+									console.log(checkPaymentType);
+									
+									var checkPaymentTypeForm = $('<form></form>');
+									
+									checkPaymentTypeForm.attr("id", "testForm");
+									checkPaymentTypeForm.attr("name", "checkPaymentTypeForm");
+									checkPaymentTypeForm.attr("method", "get");
+									checkPaymentTypeForm.attr("action", "/adminpage/pointDetails/searchDatePointList");
+									
+									checkPaymentTypeForm.append($('<input/>', {type: 'hidden', name: 'paymentOption', value: checkPaymentType}));
+									
+									checkPaymentTypeForm.appendTo('body');
+										
+									checkPaymentTypeForm.submit();
+				
+								});
+								
+							});
+		</script>	
+	
   </body>
 </html>

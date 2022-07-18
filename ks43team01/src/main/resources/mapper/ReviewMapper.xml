@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks43team01.mapper.ReviewMapper">
+	<resultMap type="ReviewContentsReg" id="ReviewContentsRegResultMap">
+		    <id 	column="review_code"	 				property="reviewCode"/>
+			<result column="goods_basic_info_code" 			property="goodsBasicInfoCode"/>
+			<result column="user_id_code" 					property="userIdCode"/>
+			<result column="review_score_standard_code" 	property="reviewScoreStandardCode"/>
+			<result column="review_content"				    property="reviewContent"/>
+			<result column="review_recommendations_count" 	property="reviewRecommendationsCount"/>
+			<result column="review_decommendations_count" 	property="reviewDecommendationsCount"/>
+			<result column="review_reg_date" 				property="reviewRegDate"/>
+			<result column="review_reg_buyer_exp" 			property="reviewRegBuyerExp"/>
+			<result column="review_reg_ip" 					property="reviewRegIp"/>
+			<result column="review_star_score" 				property="reviewStarScore"/>
+			
+		<association property="goods" javaType="Goods">
+			<id 	column="goods_code"							property="goodsCode"/>
+			<result column="goods_sub_category_code" 			property="goodsSubCategoryCode"/>
+			<result column="goods_name" 						property="goodsName"/>
+			<result column="goods_description" 					property="goodsDescription"/>
+			<result column="goods_price" 						property="goodsPrice"/>
+			<result column="goods_working_period" 				property="goodsWorkingPeriod"/>
+			<result column="goods_modified_possibility_count"	property="goodsModifiedPossibilityCount"/>
+			<result column="goods_image_reg" 					property="goodsImageReg"/>
+			<result column="goods_pre_requests_answer_type" 	property="goodsPreRequestsAnswerType"/>
+			<result column="goods_pre_request" 					property="goodsPreRequest"/>
+			<result column="user_id_code" 						property="userIdCode"/>
+			<result column="goods_reg_date" 					property="goodsRegDate"/>
+		</association>
+		
+		<association property="scoreByReview" javaType="ReviewByScore">
+			<id 	column="review_score_standard_code"	 	property="reviewScoreStandardCode"/>
+			<result column="review_star_score" 				property="reviewStarScore"/>
+			<result column="review_score_standard_details" 	property="reviewScoreStandardDetails"/>
+		</association>
+		
+		<association property="user" javaType="User">
+			<id column="user_id_code" 						property="userIdCode"/>
+	  		<result column="user_pw" 						property="userPw"/>
+	  		<result column="user_name"						property="userName"/>
+	  		<result column="user_contact" 					property="userContact"/>
+	  		<result column="user_email" 					property="userEmail"/>
+	  		<result column="user_withdraw_status" 			property="userStatus"/>
+	  		<result column="user_activity_area" 			property="userArea"/>
+	  		<result column="user_retention_Points" 			property="userPoint"/>
+	  		<result column="user_rating"					property="userRating"/>
+	  		<result column="user_reg_date" 					property="userRreDate"/>
+	  		<result column="user_update_date"			    property="userUpDate"/>
+	  		<result column="level_num_code" 				property="userLevel"/>
+		</association>
+		<association property="point" javaType="Point">
+			<id 	column="point_details_code"	 					property="pointDetailsCode"/>
+			<result column="user_id_code" 							property="userIdCode"/>
+			<result column="point_standard_details_code" 			property="pointStandardDetailsCode"/>
+			<result column="point_amount"				   		 	property="pointAmount"/>
+			<result column="user_email" 							property="userEmail"/>
+			<result column="point_history_reg_date" 				property="pointHistoryRegDate"/>
+		</association>
+	</resultMap>
+	
+	<!-- <insert id="addPointList" parameterType="Point">
+	/* 리뷰 등록 후 포인트 내역 추가 */
+	INSERT INTO tb_pt_point_accumulation_details
+		(Point_details_code							
+		,user_id_code								
+		,point_standard_details_code				
+		,point_amount								
+		,user_email									
+		,point_history_reg_date						
+		)
+	VALUES 
+		((SELECT
+			CONCAT('padc0',MAX(CAST(SUBSTRING(pp.Point_details_code,5)AS UNSIGNED)+1))
+		FROM 
+			tb_pt_point_accumulation_details AS pp)
+		,#{userIdCode}
+		,#{pointStandardDetailsCode}
+		,#{pointAmount}
+		,#{userEmail}
+		,CURDATE()
+		);
+	</insert> -->
+	
+	
+	<select id="getReviewAdminList" resultType="Map">
+	/* 관리자페이지 회원 리뷰 목록 */
+		SELECT
+			 tr.review_code							AS reviewCode
+			,tr.review_reg_date                   	AS reviewRegDate    			
+			,tr.review_content						AS reviewContent
+			,rb.review_star_score					AS reviewStarScore			
+			,tr.review_recommendations_count		AS reviewRecommendationsCount		
+			,tr.review_decommendations_count		AS reviewDecommendationsCount		
+		FROM 
+			tb_r_review_contents AS tr 
+			INNER join
+			tb_g_goods AS gg
+			on
+			tr.goods_code = gg.goods_code
+			INNER JOIN 
+			tb_u_all_user AS ua
+			ON 
+			tr.user_id_code = ua.user_id_code 
+			INNER JOIN 
+			tb_r_based_on_score_by_review AS rb 
+			ON 
+			tr.review_score_standard_code = rb.review_score_standard_code
+			ORDER by
+			tr.review_reg_date DESC;
+	</select>
+	
+	<select id="getReviewUserList" resultType="Map">
+	/* 유저페이지 회원 리뷰 목록*/
+		SELECT
+			 gg.goods_code							AS goodsCode
+			,tr.review_code							AS reviewCode
+			,tr.review_reg_date                   	AS reviewRegDate    			
+			,tr.review_content						AS reviewContent
+			,ua.user_id_code						AS userIdCode
+			,tr.review_star_score					AS reviewStarScore
+			,tr.review_recommendations_count		AS reviewRecommendationsCount
+			,tr.review_decommendations_count		AS reviewDecommendationsCount
+		FROM 
+			tb_r_review_contents AS tr 
+			INNER join
+			tb_g_goods AS gg
+			on
+			tr.goods_code = gg.goods_code
+			INNER JOIN 
+			tb_u_all_user AS ua
+			ON 
+			tr.user_id_code = ua.user_id_code 
+			INNER JOIN 
+			tb_r_based_on_score_by_review AS rb 
+			ON 
+			tr.review_score_standard_code = rb.review_score_standard_code
+			ORDER BY 
+			tr.review_code DESC;
+	</select>
+	
+	<select id="getReviewByCode" parameterType="String" resultMap="ReviewContentsRegResultMap">
+	/* 리뷰 상세페이지 조회 */
+		SELECT
+		    rr.review_code							
+		   ,rr.review_reg_date						
+		   ,rr.user_id_code						
+		   ,rr.review_content						
+		   ,rr.review_recommendations_count			
+		   ,rr.review_decommendations_count			
+		   ,rr.review_star_score 					
+		FROM 
+			tb_r_review_contents AS rr 
+		WHERE
+			rr.review_code = #{reviewCode};
+	</select>
+	
+	<delete id="removeAdminReview" parameterType="String">
+		DELETE
+		FROM
+			tb_r_review_contents 
+		WHERE
+			review_code = #{reviewCode};
+	</delete>
+	
+	<update id="userSavePoint" parameterType="String">
+	/* 리뷰 등록시 유저테이블  총 포인트 적립*/
+		UPDATE
+			tb_u_all_user AS ua
+		SET
+			ua.user_retention_Points = ua.user_retention_Points + 100  
+		WHERE
+			ua.user_id_code = #{userIdCode};
+		
+	</update>
+	
+	<update id="reviewSavePoint" parameterType="String">
+	/* 리뷰 등록시 포인트적립내역테이블 포인트 적립 */
+		UPDATE
+			tb_pt_point_accumulation_details AS pa
+		SET
+			pa.point_amount = pa.point_amount + 100 
+		WHERE
+			pa.user_id_code = #{userIdCode};
+		
+	</update>
+
+	<delete id="removeReview" parameterType="String">
+	/* 회원 페이지 리뷰 삭제 */
+		DELETE 
+		FROM 
+			tb_r_review_contents 
+		WHERE
+			review_code = #{reviewCode};
+	</delete>
+	
+	<update id="modifyReview" parameterType="String">
+	/* 회원 페이지 리뷰 수정 */
+		UPDATE
+			tb_r_review_contents 
+		SET 
+			review_content = #{reviewContent}
+		   ,review_reg_date = CURDATE()	
+		   ,review_star_score = #{reviewStarScore}
+		WHERE
+			review_code = #{reviewCode};
+	</update>
+	
+	<insert id="addReview" parameterType="ReviewContentsReg">
+	/* 리뷰 등록 */
+		INSERT INTO tb_r_review_contents 
+			( review_code
+			 ,goods_code
+			 ,user_id_code
+			 ,review_score_standard_code
+			 ,review_content
+			 ,review_recommendations_count
+			 ,review_decommendations_count
+			 ,review_reg_date
+			 ,review_reg_buyer_exp
+	 		 ,review_reg_ip
+	 		 ,review_star_score
+			 )
+			 VALUES (
+			(SELECT
+				CONCAT(LPAD(MAX(CAST(SUBSTRING(rr.review_code,1) AS UNSIGNED))+1,2,0))
+			FROM
+				   tb_r_review_contents AS rr)
+			 ,#{goodsCode}
+			 ,#{userIdCode}
+			 ,(SELECT 
+					review_score_standard_code
+				FROM 
+					tb_r_based_on_score_by_review 
+				WHERE 
+					review_star_score = #{reviewStarScore})
+			 ,#{reviewContent}
+			 ,0
+			 ,0
+			 ,CURDATE()
+			 ,50
+			 ,#{reviewRegIp}
+			 ,#{reviewStarScore}
+			 );
+	</insert>
+</mapper>
+	
+	
+	
+	

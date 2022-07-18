@@ -4,46 +4,211 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks43team01.mapper.PointMapper">
 	<resultMap type="Point" id="PointStandardReusltMap">
-			<id 	column="point_details_code"	 			property="pointDetailsCode"/>
-			<result column="user_id_code" 					property="userIdCode"/>
-			<result column="point_standard_code" 			property="pointStandardCode"/>
-			<result column="point_standard_details_code" 	property="pointStandardDetailsCode"/>
-			<result column="point_amount"				    property="pointAmount"/>
-			<result column="user_email" 					property="userEmail"/>
-			<result column="point_history_reg_date" 		property="pointHistoryRegDate"/>
-		<association property="pointDetails" javaType="PointStandardDetails">
-			<id 	column="point_standard_details_code"	 	property="pointStandardDetailsCode"/>
-			<result column="point_standard_code" 				property="pointStandardCode"/>
-			<result column="point_standard_details_name" 		property="pointStandardDetailsName"/>
-			<result column="user_id_code" 						property="userIdCode"/>
-			<result column="point_standard_details_reg_date" 	property="pointStandardDetailsRegDate"/>
+			<id 	column="point_details_code"	 					property="pointDetailsCode"/>
+			<result column="user_id_code" 							property="userIdCode"/>
+			<result column="point_standard_details_code" 			property="pointStandardDetailsCode"/>
+			<result column="point_amount"				   		 	property="pointAmount"/>
+			<result column="user_email" 							property="userEmail"/>
+			<result column="point_history_reg_date" 				property="pointHistoryRegDate"/>
+		<association property="pointStandardDetails" javaType="PointStandardDetails">
+			<id 	column="point_standard_details_code"	 		property="pointStandardDetailsCode"/>
+			<result column="point_standard_details_name" 			property="pointStandardDetailsName"/>
+			<result column="user_id_code" 							property="userIdCode"/>
+			<result column="point_standard_details_reg_date" 		property="pointStandardDetailsRegDate"/>
 		</association>
-		<association property="pointStandard" javaType="PointStandard">
-		<id 	column="point_standard_code"	 	property="pointStandardCode"/>
-		<result column="point_standard_name" 		property="pointStandardName"/>
-		<result column="user_id_code" 				property="userIdCode"/>
-		<result column="point_standard_reg_date" 	property="pointStandardRegDate"/>
+		<association property="pointSaveByGrade" javaType="PointSaveByGrade">
+			<id 	column="point_buy_save_standard_grade_code"	 	property="pointBuySaveStandardGradeCode"/>
+			<result column="grade_user_code" 						property="gradeUserCode"/>
+			<result column="point_standard_details_code" 			property="pointStandardDetailsCode"/>
+			<result column="point_standard_details_name" 			property="pointStandardDetailsName"/>
+			<result column="point_save_by_grade_percent" 			property="pointSaveByGradePercent"/>
+			<result column="point_save_by_grade_unit" 				property="pointSaveByGradeUnit"/>
+		</association>
+		<association property="user" javaType="User">
+			<id column="user_id_code" 								property="userId"/>
+	  		<result column="user_pw" 								property="userPw"/>
+	  		<result column="user_name"								property="userName"/>
+	  		<result column="user_contact" 							property="userContact"/>
+	  		<result column="user_email" 							property="userEmail"/>
+	  		<result column="user_withdraw_status" 					property="userStatus"/>
+	  		<result column="user_activity_area" 					property="userArea"/>
+	  		<result column="user_retention_Points" 					property="userPoint"/>
+	  		<result column="user_rating"							property="userRating"/>
+	  		<result column="user_reg_date" 							property="userRreDate"/>
+	  		<result column="user_update_date"					    property="userUpDate"/>
+	  		<result column="level_num_code" 						property="userLevel"/>
+		</association>
+		<association property="gradeUserCode" javaType="GradeUserCode">
+			<id 	column="grade_user_code"	 					property="gradeUserCode"/>
+			<result column="grade_name" 							property="gradeName"/>
+			<result column="grade_accumulate_exp" 					property="gradeAccumulateExp"/>
 		</association>
 	</resultMap>
 	
+	<insert id="addPointList" parameterType="Point">
+	/* 리뷰 등록 후 포인트 내역 추가 */
+	INSERT INTO tb_pt_point_accumulation_details
+		(Point_details_code							
+		,user_id_code								
+		,point_standard_details_code				
+		,point_amount								
+		,user_email									
+		,point_history_reg_date						
+		)
+	VALUES 
+		((SELECT
+			CONCAT('padc0',MAX(CAST(SUBSTRING(pp.Point_details_code,5)AS UNSIGNED)+1))
+		FROM 
+			tb_pt_point_accumulation_details AS pp)
+		,#{userIdCode}
+		,'pac_details02'
+		,(SELECT 
+				LAST(ua.user_retention_Points)
+			FROM 
+				tb_pt_point_accumulation_details AS pp 
+				INNER JOIN 
+				tb_u_all_user AS ua 
+				ON 
+				pp.user_id_code = ua.user_id_code
+			WHERE 
+				pp.user_id_code = #{userIdCode}
+				ORDER BY ua.user_retention_Points DESC)
+		,'hun@ksmart.or.kr'
+		,CURDATE()
+		);
+	</insert>
+
+	<update id="modifyGradeList" parameterType="PointSaveByGrade">
+	/* 관리자 페이지 포인트 기준 수정 */
+	UPDATE 
+		tb_pt_point_buy_save_by_grade 
+	SET 
+		point_save_by_grade_percent = #{pointSaveByGradePercent}
+	   ,point_save_by_grade_unit = #{pointSaveByGradeUnit}
+	WHERE 
+		point_buy_save_standard_grade_code = #{pointBuySaveStandardGradeCode};
+	</update>
 	
+	<delete id="removeGradeList" parameterType="String">
+	/* 관리자 페이지 포인트 기준 내역 삭제 */
+	DELETE
+	FROM 
+		tb_pt_point_buy_save_by_grade
+	WHERE 
+		point_buy_save_standard_grade_code = #{pointBuySaveStandardGradeCode};
+	</delete>
+	
+	<insert id="addPointGradeList" parameterType="Map">
+	/* 관리자 페이지 포인트 기준 등록 */
+	INSERT INTO tb_pt_point_buy_save_by_grade
+		 (point_buy_save_standard_grade_code
+		,grade_user_code
+		,point_standard_details_code
+		,point_save_by_grade_percent
+		,point_save_by_grade_unit)
+		VALUES(
+		(SELECT
+			CONCAT('pbssgc0',MAX(CAST(SUBSTRING(pp.point_buy_save_standard_grade_code,7)AS UNSIGNED)+1))
+		FROM 
+			tb_pt_point_buy_save_by_grade AS pp)
+		,#{pointSaveByGrade.gradeUserCode}
+		,#{pointSaveByGrade.pointStandardDetailsCode}
+		,#{pointSaveByGrade.pointSaveByGradePercent}
+		,#{pointSaveByGrade.pointSaveByGradeUnit}
+		);
+	</insert>
+	
+	<delete id="removePointStandard" parameterType="String">
+	/* 관리자 페이지 포인트 내역 삭제 */
+		DELETE
+		FROM 
+			tb_pt_point_accumulation_details
+		WHERE
+			point_details_code = #{pointDetailsCode};
+	</delete>
+	
+	<select id="getPointGradeList" resultType="Map">
+	/* 관리자 페이지 포인트 적립 기준 조회 */
+		SELECT
+			 pb.point_buy_save_standard_grade_code									AS pointBuySaveStandardGradeCode
+			,ur.grade_user_code														AS gradeUserCode
+			,pp.point_standard_details_code											AS pointStandardDetailsCode
+			,pp.point_standard_details_name 										AS pointStandardDetailsName
+			,ur.grade_name															AS gradeName
+			,CONCAT(SUBSTRING(pb.point_save_by_grade_percent,3,2),+'%')				AS pointSaveByGradePercent
+			,pb.point_save_by_grade_unit											AS pointSaveByGradeUnit
+		FROM 
+			tb_pt_point_buy_save_by_grade AS pb 
+			INNER JOIN 
+			tb_u_user_rating_standard AS ur 
+			ON 
+			pb.grade_user_code = ur.grade_user_code
+			INNER JOIN 
+			tb_pt_point_standard_details AS pp
+			ON 
+			pb.point_standard_details_code = pp.point_standard_details_code;
+	</select>
+	
+	<select id="searchDatePointList" parameterType="String" resultType="Map">
+	/* 관리자 페이지 날짜 별 결제 내역 조회 */
+		SELECT
+		   	 pd.point_standard_details_code		AS pointStandardDetailsCode
+	        ,pa.point_details_code             	AS pointDetailsCode    
+	        ,pa.point_history_reg_date         	AS pointHistoryRegDate
+	        ,pa.user_id_code                  	AS userIdCode
+	        ,pd.point_standard_name            	AS pointStandardName
+	        ,pd.point_standard_details_name     AS pointStandardDetailsName
+	        ,pa.point_amount                  	AS pointAmount
+	      FROM 
+	    	 tb_pt_point_standard_details AS pd     
+	         INNER JOIN 
+	         tb_pt_point_accumulation_details AS pa 
+	         ON 
+	         pd.point_standard_details_code = pa.point_standard_details_code;
+	      WHERE
+   	         pa.point_history_reg_date BETWEEN #{startDate} AND #{endDate}
+	</select>
+	
+	<select id="meansPointList"  parameterType="String" resultType="Map">
+	/* 관리자 페이지 수단 별 검색 내역 조회 */
+		   SELECT
+		   	 pd.point_standard_details_code		AS pointStandardDetailsCode
+	        ,pa.point_details_code             	AS pointDetailsCode    
+	        ,pa.point_history_reg_date         	AS pointHistoryRegDate
+	        ,pa.user_id_code                  	AS userIdCode
+	        ,pd.point_standard_name            	AS pointStandardName
+	        ,pd.point_standard_details_name     AS pointStandardDetailsName
+	        ,pa.point_amount                  	AS pointAmount
+	      FROM 
+	    	 tb_pt_point_standard_details AS pd     
+	         INNER JOIN 
+	         tb_pt_point_accumulation_details AS pa 
+	         ON 
+	         pd.point_standard_details_code = pa.point_standard_details_code
+	         <trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="searchKey != null and searchKey != '' and searchValue != ''">
+					AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+				</if>
+			</trim>
+			ORDER BY pd.point_standard_details_code;
+     </select>
 	
 	<select id="getPointList"  resultType="Map">
-		SELECT 
-		   pa.point_history_reg_date			AS pointHistoryRegDate
-		  ,pa.user_id_code						AS userIdCode
-		  ,ps.point_standard_name				AS pointStandardName
-		  ,pd.point_standard_details_name		AS pointStandardDetailsName
-		  ,pa.point_amount						AS pointAmount
-		FROM 
-			tb_pt_point_standard AS ps
-			INNER JOIN 
-			tb_pt_point_standard_details AS pd
-			ON 
-			ps.point_standard_code = pd.point_standard_code
-			INNER JOIN 
-			tb_pt_point_accumulation_details AS pa 
-			ON 
-			pd.point_standard_details_code = pa.point_standard_details_code;
+	/* 관리자 페이지 포인트 내역 조회 */
+		   SELECT
+		   	 pd.point_standard_details_code		AS pointStandardDetailsCode
+	        ,pa.point_details_code             	AS pointDetailsCode    
+	        ,pa.point_history_reg_date         	AS pointHistoryRegDate
+	        ,pa.user_id_code                  	AS userIdCode
+	        ,pd.point_standard_name            	AS pointStandardName
+	        ,pd.point_standard_details_name     AS pointStandardDetailsName
+	        ,pa.point_amount                  	AS pointAmount
+	      FROM 
+	    	 tb_pt_point_standard_details AS pd     
+	         INNER JOIN 
+	         tb_pt_point_accumulation_details AS pa 
+	         ON 
+	         pd.point_standard_details_code = pa.point_standard_details_code;
+         
 	</select>
 </mapper>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">
+<!------ Include the above in your HEAD tag ---------->
+<div layout:fragment="content">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+<style>
+	html, body, div, a, table, thead, tbody, tr, th, td {
+		margin:0; outline:0; border:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent;
+	}
+	body { 
+		font-size:0.875em; line-height:1.5; color:#666; -webkit-text-size-adjust:none; min-width:320px;
+	}
+	.boardDetailView{
+		width: 1000px;
+		min-height:800px;
+		margin: 0 auto;
+		padding-top: 50px;
+	}
+	.boardView{
+		border: 1px solid #ccc;
+		width: 1000px;
+	}
+	
+	th{
+		background-color: #F6F6F6;
+		height: 40px;
+		text-align: center;
+		border: 1px solid #ccc;
+		vertical-align: middle;
+	}
+	
+	td{
+		border: 1px solid #ccc;
+		vertical-align: middle;
+		padding: 15px;
+		
+	}
+	
+	.detailContent{
+		height: 200px;
+		
+	}
+	
+	.clickBtn{
+		width: 1000px;
+		text-align:right;
+		padding-top: 20px;
+	}
+
+	.returnPage{
+		padding-bottom: 30px;
+	}
+	
+	.comment{
+		width: 1000px;
+		margin: 0 auto;
+		text-align: center;
+	}
+   
+	.btn{
+		margin-left: 10px;
+		margin-bottom: 40px;
+	}
+
+	#boardComment{
+	width: 800px;
+	}
+
+	.modifyBtn{
+		color: black;
+	}
+	.removeBtn{
+		color: black;
+	}
+
+	.userName{
+		font-size: 15px;
+		font-weight: bold;
+		margin-bottom: 5px;
+	}
+
+	.commentContent{
+		margin-bottom: 5px;	
+	}
+
+	textarea {
+		width: 800px;
+	}
+	.commentUpdateForm{
+		display: none;
+	}
+
+
+</style>
+
+	<!-- Hero Start -->
+	<div class="slider-area">
+		<div class="slider-height2 d-flex align-items-center">
+			<div class="container">
+				<div class="BoardRow">
+					<div class="col-xl-12">
+						<div class="hero-cap hero-cap2 text-center">
+						<h2>Free bulletin board</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Hero End -->
+
+	<!-- About Details Start -->
+	<div class="boardDetailView">
+		<div class="col-12">
+			<div class="boardPostDetail">
+				<div class="backHistory">
+					<a type="button" class="returnPage" onclick="history.back(-1)">돌아가기</a>
+				</div>
+				<input type="hidden" th:value="${board.boardPostCode}">
+				<table class="boardView">
+					<colgroup>
+						<col width="15%">
+						<col width="35%">
+						<col width="15%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th>제목</th>
+							<td th:text="${board.boardPostTitle}"></td>
+							<th>조회수</th>
+							<td th:text="${board.boardPostView}"></td>
+							</tr>
+						<tr>
+							<th>작성자</th>
+							<td th:text="${board.boardUserName}"></td>
+							<th>작성시간</th>
+							<td th:text="${board.boardPostRegDate}"></td>
+						</tr>
+						<tr>
+							<th colspan="4">내용</th>
+						</tr>
+						<tr>
+							<td class="detailContent" colspan="4" th:text="${board.boardPostContent}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="clickBtn mt-3" >
+					<a th:href="@{/userpage/board/modifyFreeBoard(boardPostCode=${board.boardPostCode})}">
+						<button type="submit" class="genric-btn primary" th:if="${session.UID == board.userIdCode}">수정</button>
+					</a>
+					<a th:href="@{/userpage/board/removeFreeBoard(boardPostCode=${board.boardPostCode})}">
+						<button type="button" class="genric-btn primary-border" th:if="${session.UID == board.userIdCode}">삭제</button>
+					</a>
+				</div>
+			</div>   
+		</div>
+		<hr>
+	       
+		<h4>댓글 목록</h4>
+		<div th:if="${not #lists.isEmpty(boardPostCommentList)}" th:each="l : ${boardPostCommentList}">
+			<div class="userName" th:text="${l.userName}"></div>
+			<div class="commentContent" th:text="${l.boardCommentContent}"></div>
+			<div class="commentReg" th:text="${l.boardCommentRegDate}"></div>
+			<div class="commentMenu" th:if="${session.UID == l.userIdCode}">
+				<a class="modifyBtn" href="#; return false;" onclick="updateCom()">수정</a>
+				<a class="removeBtn" th:href="@{/userpage/board/removeComment(boardPostCode=${l.boardPostCode},boardCommentCode=${l.boardCommentCode})}">삭제</a>
+			</div>
+					         		
+			<div class="modifyText">
+				<form class="commentUpdateForm" th:action="@{/userpage/board/modifyComment(boardPostCode=${l.boardPostCode},boardCommentCode=${l.boardCommentCode})}" method="post">
+					<textarea rows="2" cols="120" name="boardCommentContent" th:text="${l.boardCommentContent}"></textarea>
+						<button type="submit" id="modifyCom" class="btn genric-btn primary">수정</button>
+					
+				</form>
+			</div>
+			<hr>
+		</div>
+				
+		<form class="commentForm" th:action="@{/userpage/board/addComment(boardPostCode=${board.boardPostCode})}" method="post">
+			<div class="comment">
+				<textarea rows="2" cols="120" name="boardCommentContent"></textarea>
+				<button type="submit" class="btn genric-btn primary">댓글 등록</button>
+			</div>
+		</form>
+	</div>
+	
+	<script type="text/javascript">
+		$(".modifyBtn").click(function(){
+			
+			$(this).parent().parent().find(".commentUpdateForm").slideToggle(200);
+		});
+	</script>
+	
+
+	
+
+</div>
+</html>
