@@ -103,6 +103,45 @@
 		</collection>
 	</resultMap>
 
+
+
+	<select id="getSearchBoardList" fetchSize="1000" parameterType="String" resultType="Board">
+	/*게시글 검색*/
+		SELECT
+			b.user_id_code AS userIdCode
+			,b.board_post_title AS boardPostTitle
+			,b.board_user_name AS boardUserName
+			,b.board_post_content AS boardPostContent
+			,b.board_post_reg_date AS boardPostRegDate
+		FROM
+			tb_b_board_post AS b
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="searchValue != null and searchValue != ''">
+				${searchKey} LIKE CONCAT('%',#{searchValue}, '%')
+			</if>
+		</trim>
+		and
+			b.board_category_code = 'board01';
+	</select>
+	
+	<select id="getSearchQnaBoardList" fetchSize="1000" parameterType="String" resultMap="qnaBoardResultMap">
+	/*게시글 검색*/
+		SELECT
+			b.user_id_code
+			,b.board_post_title
+			,b.board_user_name
+			,b.board_post_content
+			,b.board_post_reg_date
+		FROM
+			tb_b_board_post AS b
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="searchValue != null and searchValue != ''">
+				${searchKey} LIKE CONCAT('%',#{searchValue}, '%');
+			</if>
+		</trim>
+	
+	</select>
+
 	<select id="selectBoardFileDetail" parameterType="hashMap" resultType="hashMap">
 	/*게시글 내 첨부파일 수정*/
 	SELECT
@@ -388,6 +427,7 @@
 			, #{boardQuestionTitle}
 			, #{userName}
 			,( SELECT
+					
 					ba.board_answer_content
 				FROM
 				   tb_b_board_question AS bq
@@ -628,8 +668,16 @@
 		tb_b_board_question
 		 ORDER BY board_question_origin_no DESC, board_question_group_order ASC
 	LIMIT #{startRow}, #{rowPerPage};
-   </select>
-
+	</select>
+   
+	<select id="getQnaBoardListCount" resultType="int">
+   	/*1:1 문의 게시글 목록 총 row 수*/
+      SELECT
+         COUNT(q.board_question_code)
+      FROM
+         tb_b_board_question AS q;
+	</select>	
+	
 	<select id="getQnaBoard" resultType="Map" parameterType="String">
 	/*사용자용 1:1 문의 게시글 조회*/
 		SELECT
@@ -783,7 +831,7 @@
 			board_category_code = 'board01'
 		ORDER BY board_post_code DESC;
 	</select>
-  
+
 	<select id="getBoardList" resultType="Board">
 	/*관리자용 전체 게시글 조회*/
 		SELECT
@@ -802,12 +850,6 @@
 		ORDER BY board_post_code DESC;
   </select>
   
-	<select id="getQnaBoardListCount" resultType="int">
-   	/*1:1 문의 게시글 목록 총 row 수*/
-      SELECT
-         COUNT(q.board_question_code)
-      FROM
-         tb_b_board_question AS q;
-   </select>
+	
 
 </mapper>

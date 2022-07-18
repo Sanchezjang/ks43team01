@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">	
+
+	<div th:fragment="searchBoardFragment">
+		<form th:action="@{/userpage/board/noticeBoardList}" method="post">
+			<select name="searchKey">
+				<option value="boardPostTitle">제목별</option>
+				<option value="userIdCode">작성자명</option>
+				<option value="boardUserName">아이디명</option>
+				<option value="boardPostContent">내용</option>
+			</select>
+			<input type="text" class="form-control col-3" name="searchValue"/>
+			<input class="searchBtn" type="submit" value="검색버튼"/>
+		</form>
+	</div>
+</html>

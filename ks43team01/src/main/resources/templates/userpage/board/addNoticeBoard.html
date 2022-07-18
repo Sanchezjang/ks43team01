@@ -7,7 +7,14 @@ layout:decorate="~{userpage/layout/userdefault}">
 <!------ Include the above in your HEAD tag ---------->
 <div layout:fragment="content">
 <style>
-
+.headWrap h2{
+	text-align: center;
+	padding: 35px 0 10px 0;
+	
+}
+.headWrap{
+	margin-bottom: 30px;
+}
 .BoardRow{
 	width: 1200px;
 	margin:0 auto;	
@@ -32,21 +39,9 @@ layout:decorate="~{userpage/layout/userdefault}">
 
 </style>
 
- <div class="slider-area">
-            <div class="slider-height2 d-flex align-items-center">
-                <div class="container">
-                    <div class="BoardRow">
-                        <div class="col-xl-12">
-                            <div class="hero-cap hero-cap2 text-center">
-                                <h2>Notice</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Hero End -->
-        <!-- About Details Start -->
+<div class="headWrap">
+	<h2>공지사항</h2>
+</div>	
 
 		<div class="addBoardForm">
 				<form class="" th:action="@{/userpage/board/addNoticeBoard}" method="post">
