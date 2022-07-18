@@ -30,7 +30,17 @@ layout:decorate="~{userpage/layout/userdefault}">
 .countingStar{
 	box-sizing: border-box;
 }
-
+.reviewBottom{
+	position: absolute;
+    bottom: 0;
+    right: 10px;
+}
+.reviewBottom .btn{
+	padding : 15px 20px;
+	background-color: #fff;
+	color: #0064ff;
+	display: inline-block;	
+}
 .rating input{
 	display: none;
 }
@@ -54,6 +64,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 	box-shadow: 0 1px 1px 0 gray;
 	padding: 25px 30px;
 	height: 200px;
+	position: relative;
 }
 .rating {
    direction: rtl;
@@ -90,12 +101,12 @@ layout:decorate="~{userpage/layout/userdefault}">
 				
 						<div class="mainWrap">
 							<div class="reviewLeft">
-								<div th:text="|상품이미지 넣어${r.goodsCode}|"></div>
+								<div th:text="상품이미지 "></div>
 								<!-- <span th:text="${r.reviewImg}"></span> -->
 							</div>
 							<div class="reviewRight">
 							<div class="reviewTop">
-								<div th:text="|작성자 : ${r.userIdCode} 이현우 /|" style="display: inline; margin-right: 10px;"></div>
+								<div th:text="|작성자 : ${r.userIdCode} /|" style="display: inline; margin-right: 10px;"></div>
 									<div class="rating" id="viewScore" data-rate="3" style="display: inline;">
 										<label class="yellowstar" for="rate1" th:if="${r.reviewStarScore} == 1">★</label>
 											<input type="radio" name="reviewStarScore" value="5" id="rate1"><label for="rate1" th:if="${r.reviewStarScore} == 1">★★★★</label>
@@ -114,29 +125,34 @@ layout:decorate="~{userpage/layout/userdefault}">
 									</div>
 									<div th:text="${r.reviewRegDate}" style="display: inline; float: right; width: 15.5%; font-size: 13px;">리뷰작성완료일시</div>
 							</div>
-							<div class="mainContent">
+							<div class="mainContent ">
 								<div th:text="${r.reviewContent}" style="height: 114px;">내용</div>
 							</div>	
+							<div class="reviewBottom">
+									<a th:href="@{/userpage/reviewUser/modifyReview(reviewCode=${r.reviewCode})}">
+										<button type="submit" class="btn" id="swal-modify-review"
+											th:if="${session.UID == r.userIdCode}">수정</button>
+									</a>
+									<a th:href="@{/userpage/reviewUser/removeReview(reviewCode=${r.reviewCode})}">
+										<button class="btn" id="swal-delete-review"
+											th:if="${session.UID == r.userIdCode}">삭제</button>
+									</a>
+							</div>
 						</div>
-						
-						
-						
-						
-						<!-- <div class="review-bottom">
-								<a th:href="@{/userpage/reviewUser/modifyReview(reviewCode=${r.reviewCode})}">
-								<button type="submit" class="btn" id="swal-modify-review"
-									th:if="${session.UID == r.userIdCode}">수정</button>
-								</a>
-								<a th:href="@{/userpage/reviewUser/removeReview(reviewCode=${r.reviewCode})}">
-								<button class="btn" id="swal-delete-review"
-									th:if="${session.UID == r.userIdCode}">삭제</button>
-							</a>
-						</div> -->
-						
-						<div class="review-bottom">
 							
 						</div>
 					</div>					
+				</div>
+			</div>
+			</th:block>
+			
+	</html>
+		
+						
+						
+						
+						
+						
 						
 					<!-- <div class="list form-group" style=" text-align: center; color: #333; background-color: #333;">
 						<div class="pagination">
@@ -164,9 +180,3 @@ layout:decorate="~{userpage/layout/userdefault}">
 							</div>
 						</div>
 					</div> -->
-				</div>
-			</div>
-			</th:block>
-			
-	</html>
-		

@@ -57,22 +57,22 @@
 		)
 	VALUES 
 		((SELECT
-			CONCAT('padc0',MAX(CAST(SUBSTRING(pp.Point_details_code,5)AS UNSIGNED)+1))
+			CONCAT('padc0',MAX(CAST(SUBSTRING(pa.Point_details_code,5)AS UNSIGNED)+1))
 		FROM 
-			tb_pt_point_accumulation_details AS pp)
+			tb_pt_point_accumulation_details AS pa)
 		,#{userIdCode}
 		,'pac_details02'
 		,(SELECT 
-				LAST(ua.user_retention_Points)
+				pr.point_save_reg_review
 			FROM 
-				tb_pt_point_accumulation_details AS pp 
+				tb_pt_point_accumulation_details AS pp
 				INNER JOIN 
-				tb_u_all_user AS ua 
+				tb_pt_point_review_save_by_grade AS pr 
 				ON 
-				pp.user_id_code = ua.user_id_code
+				pp.point_standard_details_code = pr.point_standard_details_code 
 			WHERE 
 				pp.user_id_code = #{userIdCode}
-				ORDER BY ua.user_retention_Points DESC)
+				LIMIT 1)
 		,'hun@ksmart.or.kr'
 		,CURDATE()
 		);
@@ -122,7 +122,9 @@
 	/* 관리자 페이지 포인트 내역 삭제 */
 		DELETE
 		FROM 
-			tb_pt_point_accumulation_details
+			tb_pt_point_accumulation_details AS pa
+			INNER JOIN 
+			
 		WHERE
 			point_details_code = #{pointDetailsCode};
 	</delete>

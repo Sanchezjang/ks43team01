@@ -1,7 +1,9 @@
 package ks43team01.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,9 +12,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import ks43team01.common.FileUtils;
 import ks43team01.dto.Point;
 import ks43team01.dto.ReviewContentsReg;
+import ks43team01.mapper.FileMapper;
 import ks43team01.mapper.PointMapper;
 import ks43team01.mapper.ReviewMapper;
 
@@ -20,9 +25,10 @@ import ks43team01.mapper.ReviewMapper;
 @Transactional
 public class ReviewService {
 	private final ReviewMapper reviewMapper;
-	public ReviewService(ReviewMapper reviewMapper) {
+	private final FileMapper fileMapper;
+	public ReviewService(ReviewMapper reviewMapper, FileMapper fileMapper) {
 		this.reviewMapper = reviewMapper;
-		
+		this.fileMapper = fileMapper;
 	}
 
 	
@@ -50,15 +56,23 @@ public class ReviewService {
 		return result;
 	}
 
-	/* 유저페이지 리뷰 수정 */
+	/* 회원페이지 리뷰 수정 */
 	public int modifyReview(ReviewContentsReg reviewContentsReg) {
 
 		int result = reviewMapper.modifyReview(reviewContentsReg);
 		
 		return result;
 	}
-
-	/* 유저페이지 리뷰 삭제 */
+	/* 회원페이지 리뷰 이미지 삭제  */
+	public int removeImageReview(String reviewCode) {
+		
+		int result = reviewMapper.removeImageReview(reviewCode);
+		
+		return result;
+		
+	}
+	
+	/* 회원페이지 리뷰 삭제 */
 	public int removeReview(String reviewCode) {
 
 		int result = reviewMapper.removeReview(reviewCode);
@@ -83,10 +97,24 @@ public class ReviewService {
 	}
 
 	/* 회원페이지 리뷰 등록 */
-	public int addReview(ReviewContentsReg reviewContentsReg) {
+	public int addReview(ReviewContentsReg reviewContentsReg, MultipartFile[] reviewImageReg, String fileRealPath) {
+		
+		FileUtils fu = new FileUtils(reviewImageReg, reviewContentsReg.getUserIdCode(), fileRealPath);
+		List<Map<String, String>> dtoFileList = fu.parseFileInfo();
+		
+		fileMapper.uploadFile(dtoFileList);
 		
 		int result = reviewMapper.addReview(reviewContentsReg);
+		String reviewCode = reviewContentsReg.getReviewCode();
 		
+		log.info(reviewCode);
+		List<Map<String, String>> relationFileList = new ArrayList<>();
+		for(Map<String, String> m : dtoFileList) {
+			m.put("reviewCode", reviewCode);
+			relationFileList.add(m);
+		}
+
+		fileMapper.uploadRelationFileWithReview(relationFileList);
 		return result;
 	}
 
