@@ -11,6 +11,8 @@ import ks43team01.dto.ReviewContentsReg;
 @Mapper
 public interface ReviewMapper {
 
+	/* 회원 페이지 리뷰 이미지 삭제 */
+	public int removeImageReview(String reviewCode);
 	
 	/* 리뷰등록 후 포인트 내역에 추가 */ 
 	public int accumReviewPoint(Point point);

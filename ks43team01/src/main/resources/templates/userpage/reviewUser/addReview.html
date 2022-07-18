@@ -56,27 +56,26 @@ layout:decorate="~{userpage/layout/userdefault}">
 		.text-bold{
 			font-size: 15px;
 		}
+		.headWrap h2{
+			text-align: center;
+			padding: 35px 0 10px 0;
+			
+		}
+		.headWrap{
+			margin-bottom: 30px;
+		}
+		
 	</style>
 	
-	 		<div class="slider-area">
-	            <div class="slider-height2 d-flex align-items-center">
-	                <div class="container">
-	                    <div class="ReviewRow">
-	                        <div class="col-xl-12">
-	                            <div class="hero-cap hero-cap2 text-center">
-	                                <h2>Board</h2>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	         </div>
+	 		<div class="headWrap">
+       			<h2>리뷰 등록</h2>
+			</div>			
 	        <!-- Hero End -->
 	        <!-- About Details Start -->
 	
 			<div class="addReviewForm">
 				<div class="ReviewRow">
-					<form class="form-contact contact_form" th:action="@{/userpage/reviewUser/addReview}" method="post" id="addReviewForm" novalidate="novalidate">
+					<form class="form-contact contact_form" th:action="@{/userpage/reviewUser/addReview}" method="post" id="addReviewForm" novalidate="novalidate" data-parsley-validate enctype="multipart/form-data">
 						<div class="x_panel">
 							<div class="make-star">
 									<div class="col-6">
@@ -104,15 +103,22 @@ layout:decorate="~{userpage/layout/userdefault}">
 					<div class="col-12">
 						<div class="form-group">
 						<h4>내용</h4>
+							<input type="hidden" name="pointDetailsCode" id="pointDetailsCode" th:value=${pointDetailsCode}>
 							<input type="hidden" name="goodsCode" id="goodsCode" th:value=${goodsCode}>
 							<input type="hidden" name="reviewScoreStandardCode" id="reviewScoreStandardCode" th:value=${reviewScoreStandardCode}>
 							<textarea class="form-control w-100" name="reviewContent" id="reviewContent" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = '본문을 입력하세요.'" placeholder="본문을 입력하세요."  required></textarea>
 						</div>
 					</div>
+					<div class="col-12 goods">
+						<h4>첨부파일</h4>
+						<input type="file" id="reviewImageReg" class="form-control col-12" name="reviewImageReg"/>
+						<div class="explanation">첨부파일을 등록해주세요.</div>
+					</div>
 					<div class="clickBtn mt-3" >
 						<a th:action="@{/adminpage/pointDetails/accumReviewPoint}"><button type="submit" class="save boxed-btn">저장</button>></a>
 						<a th:href="@{/reviewUserList}"><button type="button" class="cancel boxed-btn">취소</button></a>
 					</div>
+					
 					</form>
 				</div>
 			</div>
