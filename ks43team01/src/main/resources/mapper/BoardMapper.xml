@@ -103,6 +103,25 @@
 		</collection>
 	</resultMap>
 
+	<select id="selectBoardFileDetail" parameterType="hashMap" resultType="hashMap">
+	/*게시글 내 첨부파일 수정*/
+	SELECT
+		f.file_code
+		,wb.board_question_code
+		,f.file_orginal_name
+		,f.file_re_name
+	FROM
+		tb_f_file AS f
+		INNER JOIN
+			tb_b_rel_file_with_QnaBoard AS wb
+		on
+			f.file_code = wb.file_code
+	WHERE
+		wb.board_question_code = #{boardQuestionCode};
+	
+	</select>
+
+
 	<update id="updateBoardPageView" parameterType="String"> 
 	/*게시글 조회수 증가*/
 		UPDATE
@@ -155,8 +174,7 @@
 			, NOW()
 		);
 	</insert>
-  
-
+ 
 	<select id="getBoardPostCommentList" resultType="BoardComment">
 		/*게시글 댓글 조회 */
 			SELECT
@@ -224,7 +242,38 @@
 			board_post_code = #{boardPostCode};
 	</update>
 
-	
+	<update id="updateQnaBoardPageView" parameterType="String"> 
+	/*1:1게시글 조회수 증가*/
+		UPDATE
+			tb_b_board_question
+		SET
+			board_question_page_view = board_question_page_view + 1
+		WHERE
+			board_question_code = #{boardQuestionCode}
+	</update>
+
+	<delete id="removeQnaBoard" parameterType="String">
+	/*1:1 게시글 삭제 */
+		DELETE
+		FROM
+			tb_b_board_question
+		WHERE
+			board_question_code = #{boardQuestionCode};
+	</delete>
+
+	<update id="modifyQnaBoard" parameterType="String">
+	/*1:1 게시글 수정 */
+		UPDATE
+			tb_b_board_question 
+		SET 
+			board_l_category_code = #{boardLargeCategoryCode}
+			, board_m_category_code = #{boardMediumCategoryCode}
+			, board_question_title = #{boardQuestionTitle}
+			, board_question_content = #{boardQuestionContent}
+			, board_question_reg_date = CURDATE()
+		WHERE
+			board_question_code = #{boardQuestionCode};
+	</update>
 
 	<select id="getQnaBoardByCode" parameterType="String" resultMap="qnaBoardResultMap">
 	/*1:1 문의 게시글 상세 페이지 조회*/
@@ -560,7 +609,7 @@
 			tb_b_board_category;
    </select>  
 
-	   <select id="getQnaBoardList" parameterType="map" resultMap="qnaBoardResultMap">
+	<select id="getQnaBoardList" parameterType="map" resultMap="qnaBoardResultMap">
    /*사용자용 1:1 문의 게시글 목록 조회*/
 	SELECT
 		board_question_code
@@ -578,7 +627,7 @@
 	FROM
 		tb_b_board_question
 		 ORDER BY board_question_origin_no DESC, board_question_group_order ASC
-		 		LIMIT #{startRow}, #{rowPerPage};
+	LIMIT #{startRow}, #{rowPerPage};
    </select>
 
 	<select id="getQnaBoard" resultType="Map" parameterType="String">
@@ -643,7 +692,8 @@
 		FROM
 			tb_b_board_post
 		WHERE
-			board_category_code = 'board04';
+			board_category_code = 'board04'
+		ORDER BY board_post_code DESC;
 	</select>
    
 	<insert id="addFaqBoard" parameterType="Board">
@@ -686,7 +736,8 @@
 		FROM
 			tb_b_board_post
 		WHERE
-			board_category_code = 'board02';
+			board_category_code = 'board02'
+		ORDER BY board_post_code DESC;;
 	</select>
 
 	<insert id="addNoticeBoard" parameterType="Board">
@@ -729,7 +780,8 @@
 		FROM
 			tb_b_board_post
 		WHERE
-			board_category_code = 'board01';
+			board_category_code = 'board01'
+		ORDER BY board_post_code DESC;
 	</select>
   
 	<select id="getBoardList" resultType="Board">
@@ -746,18 +798,16 @@
 			, board_post_view						AS boardPostView
 			, board_post_use						AS boardPostUse
 		FROM
-			tb_b_board_post;
+			tb_b_board_post
+		ORDER BY board_post_code DESC;
   </select>
   
-     <select id="getQnaBoardListCount" resultType="int">
-   		/*1:1 문의 게시글 목록 총 row 수*/
+	<select id="getQnaBoardListCount" resultType="int">
+   	/*1:1 문의 게시글 목록 총 row 수*/
       SELECT
          COUNT(q.board_question_code)
       FROM
          tb_b_board_question AS q;
    </select>
 
-
-  
-  
 </mapper>

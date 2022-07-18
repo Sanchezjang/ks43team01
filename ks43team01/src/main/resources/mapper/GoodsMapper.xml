@@ -83,9 +83,10 @@
 	<!-- 사용자 화면 -->
 	<delete id="removeUserGoods" parameterType="String">
 		/* 상품 삭제 */
-		DELETE
-		FROM
-			tb_g_goods
+		UPDATE
+			tb_g_goods AS g
+		SET 
+			 g.goods_use = 'n'
 		WHERE
 			goods_code = #{goodsCode};
 	</delete>
@@ -125,6 +126,7 @@
 		   ,goods_working_period = #{goodsWorkingPeriod}
 		   ,goods_modified_possibility_count = #{goodsModifiedPossibilityCount}
 		   ,goods_reg_date =  CURDATE()
+		   ,goods_use = 'y'
 		WHERE
 			goods_code = #{goodsCode};
 	</update>	
@@ -227,6 +229,8 @@
 			sub.goods_code = g.goods_code
 		WHERE
 			tc.goods_top_category_code = #{goodsTopCategoryCode}
+			AND
+			g.goods_use = 'y'
 		ORDER BY
 			g.goods_reg_date;
 	</select>
@@ -279,6 +283,8 @@
 			sub.goods_code = g.goods_code
 		WHERE
 			g.goods_sub_category_code = #{goodsSubCategoryCode}
+			AND
+			g.goods_use = 'y'
 		ORDER BY
 			g.goods_reg_date;
 	</select>
@@ -325,6 +331,8 @@
 					f.file_code = re.file_code) AS sub
 			on
 			sub.goods_code = g.goods_code
+		WHERE
+			g.goods_use = 'y'
 		ORDER BY
 			g.goods_reg_date;
 	</select>
@@ -366,7 +374,8 @@
 			goods_working_period,
 			goods_modified_possibility_count,
 			user_id_code,
-			goods_reg_date
+			goods_reg_date,
+			goods_use
 		)VALUES(
 			(SELECT
 				CONCAT('goods_',MAX(CAST(SUBSTRING(g.goods_code,7) AS UNSIGNED))+1)
@@ -379,7 +388,8 @@
 			#{goodsWorkingPeriod},
 			#{goodsModifiedPossibilityCount},
 			#{userIdCode},
-			CURDATE()
+			CURDATE(),
+			'y'
 		);
 		<selectKey resultType="String" keyProperty="goodsCode" order="AFTER">
 			/* 상품 등록시 만들어지는 코드 */
@@ -398,9 +408,10 @@
 	<!-- 관리자 화면 -->
 	<delete id="removeAdminGoods" parameterType="Goods">
 		/* 상품 삭제 */
-		DELETE
-		FROM
-			tb_g_goods
+		UPDATE
+			tb_g_goods AS g
+		SET 
+			 g.goods_use = 'n'
 		WHERE
 			goods_code = #{goodsCode};
 	</delete>
@@ -408,13 +419,13 @@
 	<select id="getAdminGoodsList" resultType="Map">
 		/* 상품 리스트 조회 */
 		SELECT
-			gg.goods_code AS goodsCode,
-			gs.goods_top_category_name AS goodsTopCategoryName,
-			gs.goods_sub_category_name AS goodsSubCategoryName,
-			gg.goods_name AS goodsName,
-			gg.goods_price AS goodsPrice,
-			gg.user_id_code AS userIdCode,
-			gg.goods_reg_date AS goodsRegDate
+			gg.goods_code 				AS goodsCode,
+			gs.goods_top_category_name	AS goodsTopCategoryName,
+			gs.goods_sub_category_name	AS goodsSubCategoryName,
+			gg.goods_name				AS goodsName,
+			gg.goods_price				AS goodsPrice,
+			gg.user_id_code				AS userIdCode,
+			gg.goods_reg_date			AS goodsRegDate
 		FROM
 			tb_g_goods AS gg
 			INNER JOIN

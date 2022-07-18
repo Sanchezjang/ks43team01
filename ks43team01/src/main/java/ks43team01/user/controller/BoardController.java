@@ -50,6 +50,23 @@ public class BoardController {
 	
 	// 1:1 문의 게시글 관리
 	
+	/*1:1 문의 게시글 페이징*/
+	@GetMapping("/qnaBoardList")
+	public String qnaBoardList(@RequestParam(name="currentPage", required = false, defaultValue = "1")int currentPage
+								, Model model){
+		Map<String, Object> resultMap = boardService.getQnaBoardList(currentPage);
+
+		model.addAttribute("resultMap",				resultMap);
+		model.addAttribute("currentPage", 			currentPage);
+		model.addAttribute("qnaBoardList",	 	resultMap.get("qnaBoardList"));
+		model.addAttribute("lastPage",				resultMap.get("lastPage"));
+		model.addAttribute("startPageNum",			resultMap.get("startPageNum"));
+		model.addAttribute("endPageNum",			resultMap.get("endPageNum"));
+		
+							
+		return "/userpage/board/qnaBoardList";
+	}
+	
 	
 	/* 1:1 문의 게시글 답변글 등록  (post) */
 	@PostMapping("/addQnaBoardReply")
@@ -107,7 +124,7 @@ public class BoardController {
 	public String qnaBoardDetail(@RequestParam(value = "boardQuestionCode")String boardQuestionCode
 								, Model model) {
 		QnaBoard qnaBoard = boardService.getQnaBoardByCode(boardQuestionCode);
-		
+		boardService.updateQnaBoardPageView(boardQuestionCode);
 		log.info("qnaBoard : {}", qnaBoard);
 		
 		model.addAttribute("qnaBoard", qnaBoard);
@@ -333,6 +350,45 @@ public class BoardController {
 		return "/userpage/board/noticeBoardDetail";
 	}
 	
+	/* 1:1 게시글 삭제 */
+	@GetMapping("/removeQnaBoard")
+	public String removeQnaBoard(@RequestParam(value = "boardQuestionCode", required = false)String boardQuestionCode) {
+		log.info("나가는 값:{}", "test");
+		boardService.removeQnaBoard(boardQuestionCode);
+		
+		return "redirect:/userpage/board/qnaBoardList";
+	}
+	
+	/* 1:1 게시글 수정 (post) */
+	@PostMapping("/modifyQnaBoard")
+	public String modifyQnaBoard(QnaBoard qnaBoard
+								, RedirectAttributes reAttr) {
+		
+		log.info("qnaBoard: {}", qnaBoard);
+		boardService.modifyQnaBoard(qnaBoard);
+		String boardQuestionCode = qnaBoard.getBoardQuestionCode();
+		reAttr.addAttribute("boardQuestionCode", boardQuestionCode);
+		
+		return "redirect:/userpage/board/qnaBoardDetail";
+	}
+	
+	/* 1:1 게시글 수정 (get) */
+	@GetMapping("/modifyQnaBoard")
+	public String modifyQnaBoard(@RequestParam(value = "boardQuestionCode", required = false)String boardQuestionCode
+									, Model model) {
+		List<BoardLargeCategory> boardLargeCategory = boardService.getBoardLargeCategory();
+
+		model.addAttribute("boardLargeCategory", boardLargeCategory);
+		
+		log.info("1차 카테고리 : {}",boardLargeCategory);
+		
+		QnaBoard qnaBoard = boardService.getQnaBoardByCode(boardQuestionCode);
+		model.addAttribute("qnaBoard",qnaBoard);	
+		
+		return "/userpage/board/modifyQnaBoard";
+	}
+	
+	
 	/* 1:1 게시글 파일 다운로드 */
 	@GetMapping("/download")
 	public void download(HttpServletResponse response
@@ -478,24 +534,7 @@ public class BoardController {
 		return "/userpage/board/addNoticeBoard";
     }
 
-	/*1:1 게시글 목록 조회*/
-	   @GetMapping("/qnaBoardList")
-	   public String getqnaBoardList(@RequestParam(name = "currentPage", required = false, defaultValue = "1") int currentPage
-			   						, Model model) {
-	      
-	      Map<String, Object> resultMap = boardService.getQnaBoardList(currentPage);
-	      model.addAttribute("getQnaBoardList", resultMap.get("getQnaBoardList"));
-	      model.addAttribute("resultMap", resultMap);
-	      model.addAttribute("currentPage", currentPage);
-	      model.addAttribute("lastPage", resultMap.get("lastPage"));
-	      model.addAttribute("startPageNum", resultMap.get("startPageNum"));
-	      model.addAttribute("endPageNum", resultMap.get("endPageNum"));
-	      model.addAttribute("rowCount", resultMap.get("rowCount"));
-	      System.out.println("getQnaBoardList resultMap-----------"+resultMap);
-	      
-	      return "/userpage/board/qnaBoardList";
-	      
-	   }
+
 	      
 	   /* 1. 사용자 게시글 목록 조회 */
 	   @GetMapping("/{boardCategory}")

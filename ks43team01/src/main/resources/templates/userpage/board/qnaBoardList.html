@@ -69,6 +69,9 @@ layout:decorate="~{userpage/layout/userdefault}">
 			border-top: 1px solid #edf3fd;
 			display: flex;
 		}
+		.searchBoard{
+			
+		}
 	</style>
 
 	<div class="slider-area">
@@ -88,10 +91,10 @@ layout:decorate="~{userpage/layout/userdefault}">
 	<!-- About Details Start -->
 	<div class="boardForm">
 		<div class="box" style="width:1200px; margin:0 auto;">
-			<table class="section-top-border">
+			<table class="section-top-border" id="boardTable">
 				<thead class="progress-table">
 					<tr class="table-head">
-							<th class="serial">no.</th>
+						
 							<th class="title">제목</th>
 							<th class="writer">작성자</th>
 							<th class="lock">공개유무</th>
@@ -99,61 +102,53 @@ layout:decorate="~{userpage/layout/userdefault}">
 							<th class="pageView">조회수</th>
 					</tr>
 				</thead>	
-				<tbody th:if="${not #lists.isEmpty(getQnaBoardList)}" th:each="l, status : ${getQnaBoardList}">
+				<tbody th:if="${not #lists.isEmpty(qnaBoardList)}" th:each="l, status : ${qnaBoardList}">
 					<tr class="table-row">
-						<td class="serial" th:text="${#numbers.formatInteger((rowCount - status.index) - ((currentPage - 1)*7),0)}"></td>
 						<td class="title"><a th:href="@{/userpage/board/qnaBoardDetail(boardQuestionCode=${l.boardQuestionCode})}" th:value="${l.boardQuestionCode}" th:text="${l.boardQuestionTitle}" style="color: #212529;"></a></td>
 						<td class="writer"  th:text="${l.userName}"></td>
 						<td class="lock"  th:text="${l.boardQuestionLock}"></td>
 						<td class="regDate" th:text="${l.boardQuestionRegDate}"> </td>
 						<td class="pageView" th:text="${l.boardQuestionPageView}"> </td>
 					</tr>
-					<tr th:unless="${not #lists.isEmpty(getQnaBoardList)}">
-						<td colspan="6">조회된 내용이 없습니다.</td>
+					<tr th:unless="${not #lists.isEmpty(qnaBoardList)}">
+						<td colspan="5">조회된 내용이 없습니다.</td>
 					</tr>
 				</tbody>
+				<tfoot>
+				<tr>
+					<td class="page-item" style="text-align: center;">
+						<a th:href="@{/userPage/qnaBoardList}">[맨처음]</a>
+						<a th:if="${currentPage > 1}" th:href="@{/qnaBoardList(currentPage=${currentPage - 1})}">[이전]</a>
+						<th:block th:each="num : ${#numbers.sequence(startPageNum,endPageNum)}">
+							<label th:if="${currentPage eq num}" th:text="${(num < 10) ? '[0' + num + ']' : '[' + num + ']'}"></label>
+							<a th:unless="${currentPage eq num}"th:href="@{/qnaBoardList(currentPage=${num})}" th:text="${(num<10) ? '[0' + num + ']' : '[' + num + ']'}"></a>
+						</th:block>
+						
+						<a th:if="${currentPage < lastPage}" th:href="@{/qnaBoardList(currentPage=${currentPage + 1})}">[다음]</a>
+						<a th:href="@{/qnaBoardList(currentPage=${lastPage})}">[마지막]</a>
+					</td>
+				</tr>
+				
+				</tfoot>
 			</table>
 				<div style="text-align:right; margin-top:20px;"><a th:href="@{/userpage/board/addQnaBoard}" class="genric-btn primary" >글쓰기</a></div>	
+		<div class="searchBoard">
+			<form name="search-form" autocomplete="off">
+				<select name="type">
+					<option value="title">제목별</option>
+					<option value="period">기간별</option>
+					<option value="writer">아이디별</option>
+				</select>
+				<input type="text" class="form-control col-3" name="keyword" value="">
+				<input type="button" id="searchBtn" value="검색" onclick="getBoardSearch()">
+			</form>
 		</div>
+		</div>
+		
+			
 	</div>
 	
-	<nav class="blog-pagination justify-content-center d-flex">
-		<ul class="pagination">
-			<li class="page-item">
-				<a href="#" class="page-link" aria-label="RecentList">
- 					<i class="ti-angle-double-left"></i>
-				</a>
-			</li>
-			<li class="page-item">
-				<a href="#" class="page-link" aria-label="PreviousList">
-					<i class="ti-angle-left"></i>
-				</a>
-			</li>
-			<li class="page-item">
-				<a href="#" class="page-link">1</a>
-			</li>
-			<li class="page-item active">
-				<a href="#" class="page-link">2</a>
-			</li>
-			<li class="page-item active">
-				<a href="#" class="page-link">3</a>
-			</li>
-			<li class="page-item active">
-				<a href="#" class="page-link">4</a>
-			</li>
-			<li class="page-item active">
-				<a href="#" class="page-link">5</a>
-			</li>
-			<li class="page-item">
-				<a href="#" class="page-link" aria-label="NextList">
-					<i class="ti-angle-right"></i>
-				</a>
-			</li>
-			<li class="page-item">
-				<a href="#" class="page-link" aria-label="OldList">
-					<i class="ti-angle-double-right"></i>
- 				</a>
-			</li>
-		</ul>
+
+		
 	</nav>
 </div>
