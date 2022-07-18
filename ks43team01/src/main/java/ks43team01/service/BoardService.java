@@ -41,13 +41,21 @@ public class BoardService {
 	 * 사용자 화면
 	 * */
 	
+
+	//게시글 검색
+	public List<Board> getSearchBoardList(String searchKey, String searchValue){
+		List<Board> searchBoardList = boardMapper.getSearchBoardList(searchKey, searchValue);
+		
+		return searchBoardList;
+	}
+	
 	//1:1 게시글 페이징
 	public Map<String, Object> getQnaBoardList(int currentPage){
 		// 몇개 보여줄지?
-		int rowPerPage = 5;
+		int rowPerPage = 6;
 		int startPageNum = 1;
 		int	endPageNum = 10;
-				
+		
 		
 		//총 행의 갯수
 		double rowCount = boardMapper.getQnaBoardListCount();
@@ -74,6 +82,7 @@ public class BoardService {
 			}
 		}
 		
+		if(lastPage < endPageNum) endPageNum = lastPage;
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("lastPage", lastPage);

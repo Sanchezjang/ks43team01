@@ -162,6 +162,38 @@ public class BoardController {
 		return "redirect:/userpage/board/freeBoardDetail";
 	}
 	
+	/* 게시글 검색 기능 */
+	@PostMapping("/noticeBoardList")
+	public String getSearchBoardList(@RequestParam(name="boardPostCode", required = false)String boardPostCode
+									, @RequestParam(name="searchKey")String searchKey
+        							, @RequestParam(name="searchValue", required = false)String searchValue
+        							, Model model) {
+		
+	
+		
+		log.info("searchKey: {}", searchKey);
+		log.info("searchValue: {}", searchValue);
+		
+		if("userIdCode".equals(searchKey)) {
+			searchKey = "user_id_code";
+		}else if("boardPostTitle".equals(searchKey)) {
+			searchKey = "board_post_title";
+		}else if("boardUserName".equals(searchKey)) {
+			searchKey = "board_user_name";
+		}else if("boardPostContent".equals(searchKey)) {
+			searchKey = "board_post_content";
+		}else {
+			searchKey = "board_post_reg_date";
+		}
+		
+		List<Board> searchBoardList = boardService.getSearchBoardList(searchKey, searchValue);
+		
+		if(searchBoardList != null) model.addAttribute("noticeBoardList", searchBoardList);
+		
+		
+		return "/userpage/board/noticeBoardList"; 
+	}
+	
 	/* 게시글  댓글 수정 (get) */
 	@GetMapping("/modifyComment")
 	public String modifyComment(Model model

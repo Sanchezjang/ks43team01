@@ -70,6 +70,8 @@ public interface BoardMapper {
 	
 	
 	/*일반 게시글 */
+	//게시글 검색
+	public List<Board> getSearchBoardList(String searchKey, String searchValue);
 	
 	//댓글 삭제
 	public int removeComment(String boardCommentCode);
