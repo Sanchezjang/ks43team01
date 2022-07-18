@@ -155,7 +155,7 @@ public class GoodsService {
 	
 	//상품 하위 카테고리 삭제
 	public int removeGoodsSubCategory(String goodsSubCategoryCode) {
-	      
+	    
 		int result = goodsMapper.removeGoodsSubCategory(goodsSubCategoryCode);
 		return result;
 	}
@@ -196,7 +196,15 @@ public class GoodsService {
 	}
 	
 	// 상품 상위 카테고리 삭제
-	
+	public int removeGoodsTopCategory(String goodsTopCategoryCode) {
+		int result;
+		try {
+			result = goodsMapper.removeGoodsTopCategory(goodsTopCategoryCode);
+		} catch (Exception e) {
+			result = 0;
+		}
+		return result;
+	}	
 	
 	// 상품 상위 카테고리 수정
 	public int modifyGoodsTopCategory(GoodsTopCategory goodsTopCategory) {

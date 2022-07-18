@@ -73,7 +73,6 @@ layout:decorate="~{userpage/layout/userdefault}">
         <!-- Hero End -->
         <!-- About Details Start -->
 				
-				
 	<div class="row">
 		<div class="col-12">
 			<form>
@@ -102,32 +101,29 @@ layout:decorate="~{userpage/layout/userdefault}">
 					</tbody>
 				</table>
 				<div class="col-md-7 col-sm-7 " >
+					<div class="single-course mb-40">
 					<!-- db에서 저장된 사진 불러오기 -->
 					<div th:if="${not #lists.isEmpty(goods.file)}" th:each="g : ${goods.file}">
-						<div class="goods-image" th:if="${g.fileMainImage eq 'Y'}">
-							<img th:src="@{'/' + ${#strings.replace(g.fileLocation,'\','/')}}" alt="..." />
+						<div class="goods-image" th:if="${g.fileMainImage eq 'Y'}" style="height: 170px; width: 98%;">
+							<img style="height: 100%; width: 100%;" th:src="@{'/' + ${#strings.replace(g.fileLocation,'\','/')}}" alt="..." />
 						</div>
 						<div class="goods_gallery" th:unless="${g.fileMainImage eq 'Y'}">
 							<a><img th:src="@{'/' + ${#strings.replace(g.fileLocation,'\','/')}}" alt="..." /></a>
 						</div>
-	
 					<!-- db에서 저장된 사진 불러오기 -->
 					</div>
 					<div th:unless="${not #lists.isEmpty(goods.file)}">
 						<!-- 저장된 사진 없음 -->
 						<a><img th:src="@{/images/notImage.jfif}" alt="..." /></a>
 					</div>
+					</div>
 				</div>
-			
 			</form>
-			<div>
-				<a th:href="@{/userpage/goods/modifyGoodsInfo(goodsCode=${goods.goodsCode})}">
-					<button type="submit" class="btn" id="swal-modify-goods" th:if="${session.UID == goods.userIdCode}">수정</button>
-				</a>
-			</div>
-		</div>
 		<div>
-		
+			<a th:href="@{/userpage/goods/modifyGoodsInfo(goodsCode=${goods.goodsCode})}">
+				<button type="submit" class="btn" id="swal-modify-goods" th:if="${session.UID == goods.userIdCode}">수정</button>
+			</a>
+			</div>
 		</div>
 			
 			 <!-- Modal -->
