@@ -531,7 +531,11 @@
 	
 	<delete id="removeGoodsTopCategory" parameterType="GoodsTopCategory">
 		/* 상품 상위 카테고리 삭제 */
-		
+		DELETE
+		FROM
+			tb_g_goods_top_category
+		WHERE
+			goods_top_category_code = #{goodsTopCategoryCode};
 	</delete>
 
 	<update id="modifyGoodsTopCategory" parameterType="String">
