@@ -160,7 +160,6 @@
 	
 	</select>
 
-
 	<update id="updateBoardPageView" parameterType="String"> 
 	/*게시글 조회수 증가*/
 		UPDATE
@@ -282,7 +281,7 @@
 	</update>
 
 	<update id="updateQnaBoardPageView" parameterType="String"> 
-	/*1:1게시글 조회수 증가*/
+	/*1:1 게시글 조회수 증가*/
 		UPDATE
 			tb_b_board_question
 		SET
@@ -316,7 +315,7 @@
 
 	<select id="getQnaBoardByCode" parameterType="String" resultMap="qnaBoardResultMap">
 	/*1:1 문의 게시글 상세 페이지 조회*/
-			SELECT
+		SELECT
 			bq.board_question_code
 			,bq.user_id_code
 			,bq.board_category_code
@@ -330,6 +329,7 @@
 			,bq.board_question_lock
 			,bq.user_email
 			,bq.board_question_answer_method
+			,bq.board_question_page_view
 			,sub.file_code 
 			,sub.user_id_code
 			,sub.file_orginal_name
@@ -422,27 +422,25 @@
 					tb_b_board_question AS q
 				WHERE
 					q.board_question_code = #{boardQuestionCode})
-					
 			, 1
 			, #{boardQuestionTitle}
 			, #{userName}
-			,( SELECT
-					
-					ba.board_answer_content
-				FROM
-				   tb_b_board_question AS bq
-				   INNER JOIN
-				   tb_b_board_answer AS ba
-				WHERE
-				   ba.board_answer_word =
-				   (
-				   SELECT
-				      ba.board_answer_word
-				   WHERE
-				   LOCATE(ba.board_answer_word, bq.board_question_content) > 0
-				   )
-				   AND
-				   bq.board_question_code = #{boardQuestionCode})
+			, IFNULL(( SELECT
+							ba.board_answer_content
+						FROM
+						   tb_b_board_question AS bq
+						   INNER JOIN
+						   tb_b_board_answer AS ba
+						WHERE
+						   ba.board_answer_word =
+						   (
+						   SELECT
+						      ba.board_answer_word
+						   WHERE
+						   LOCATE(ba.board_answer_word, bq.board_question_content) > 0
+						   )
+						   AND
+						   bq.board_question_code = #{boardQuestionCode}), #{boardQuestionContent})
 			, NULL
 			, CURDATE()
 			, NULL

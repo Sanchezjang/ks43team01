@@ -7,73 +7,66 @@ layout:decorate="~{userpage/layout/userdefault}">
 <div layout:fragment="content">
 	<style>
 	.headWrap h2{
-			text-align: center;
-			padding: 35px 0 10px 0;
-		
-		}
-		.headWrap{
-			margin-bottom: 30px;
-		}
-		.section-top-border{
-			width: 1200px;
-			margin:0 auto;
-		}
-		
-		.progress-table{
-			background: #f9f9ff;
-			padding: 15px 0px 30px 0px;
-			min-width: 800px;
-		}
-		.writer{
-			width:  30%;
-		}
-		.regDate {
-			width: 20%;
-		}
-		.title {
-			width: 50%;
-			padding-right: 50px;
-			padding-left: 30px;
-		}
-		.lock{
-			width: 19.74%;
-			padding-left: 30px;
-		}
-		.pageView{
-			width: 10%;
-		}
-		.table-head {
-			padding: 15px 0;
-			display: flex;
-			font-weight: bold;
-			color: $title-color;
-			line-height: 40px;
-			text-transform: uppercase;
-			font-weight: 500;
-			border-bottom: 2px solid #c6d8f7;
-		}
-		.table-row {
-			padding: 15px 0;
-			border-top: 1px solid #edf3fd;
-			display: flex;
-		}
-		.blog-pagination{
-			padding-bottom: 30px;
-			margin-top: 0px;
-		}
-		.search{
-		
-		}
-		
+		text-align: center;
+		padding: 35px 0 10px 0;
+	}
+	.headWrap{
+		margin-bottom: 30px;
+	}
+	.section-top-border{
+		width: 1200px;
+		margin:0 auto;
+	}
+	.progress-table{
+		background: #f9f9ff;
+		padding: 15px 0px 30px 0px;
+		min-width: 800px;
+	}
+	.writer{
+		width:  30%;
+	}
+	.regDate {
+		width: 20%;
+	}
+	.title {
+		width: 50%;
+		padding-right: 50px;
+		padding-left: 30px;
+	}
+	.lock{
+		width: 19.74%;
+		padding-left: 30px;
+	}
+	.pageView{
+		width: 10%;
+	}
+	.table-head {
+		padding: 15px 0;
+		display: flex;
+		font-weight: bold;
+		color: $title-color;
+		line-height: 40px;
+		text-transform: uppercase;
+		font-weight: 500;
+		border-bottom: 2px solid #c6d8f7;
+	}
+	.table-row {
+		padding: 15px 0;
+		border-top: 1px solid #edf3fd;
+		display: flex;
+	}
+	.blog-pagination{
+		padding-bottom: 30px;
+		margin-top: 0px;
+	}
+	.genric-btn{
+		margin-bottom: 10px;
+	}
 	</style>
 
-<div class="headWrap">
-	<h2>공지사항</h2>
-</div>
-
-	<!-- Hero End -->
-	<!-- About Details Start -->
-
+	<div class="headWrap">
+		<h2>공지사항</h2>
+	</div>
 
 	<div class="boardForm">
 		<div class="box" style="width:1200px; margin:0 auto;">
@@ -100,10 +93,9 @@ layout:decorate="~{userpage/layout/userdefault}">
 			<div style="text-align:right; margin-top:20px;">
 				<a th:href="@{/userpage/board/addNoticeBoard}" class="genric-btn primary" >글쓰기</a>
 			</div>
-				<div class="search" th:include="userPage/search/boardSearch :: searchBoardFragment"></div> <br/>
+			<div class="search" th:include="userPage/search/boardSearch :: searchBoardFragment"></div> <br/>
 		</div>
 	</div>
-	
 	
 	<nav class="blog-pagination justify-content-center d-flex">
 		<ul class="pagination">
