@@ -425,8 +425,9 @@
 			, 1
 			, #{boardQuestionTitle}
 			, #{userName}
+			
 			, IFNULL(( SELECT
-							ba.board_answer_content
+							IF(COUNT(ba.board_answer_content) <![CDATA[<>]]> 1, NULL, ba.board_answer_content)
 						FROM
 						   tb_b_board_question AS bq
 						   INNER JOIN
