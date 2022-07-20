@@ -103,7 +103,7 @@
 		</collection>
 	</resultMap>
 
-
+	<!-- 사용자 화면 -->
 
 	<select id="getSearchBoardList" fetchSize="1000" parameterType="String" resultType="Board">
 	/*게시글 검색*/
@@ -229,36 +229,7 @@
 				board_post_code = #{boardPostCode};
 	</select>
 
-	<select id="getBoardAnswerList" resultType="BoardAnswer">
-	/*게시글 답변 모음 목록 조회 */
-		SELECT
-			board_answer_code 						AS boardAnswerCode
-			, user_id_code 							AS userIdCode
-			, board_l_category_code 				AS boardLargeCategoryCode
-			, board_m_category_code 				AS boardMediumCategoryCode
-			, board_answer_word 					AS boardAnswerWord
-			, board_answer_content 					AS boardAnswerContent
-			, board_answer_reg_date 				AS boardAnswerRegDate
-			, board_answer_update_date 				AS boardAnswerUpdateDate
-		FROM
-			tb_b_board_answer;
-     </select>  
-  
-	<select id="getBoardCommentList" resultType="BoardComment">
-	/*관리자용 게시글 댓글 목록 조회 */
-		SELECT
-			board_comment_code 						AS boardCommentCode
-			, user_id_code 							AS userIdCode
-			, board_post_code 						AS boardPostCode
-			, board_comment_content 				AS boardCommentContent
-			, board_comment_reg_date 				AS boardCommentRegDate
-			, board_comment_use 					AS boardCommentUse
-			, user_name 							AS userName
-			, board_comment_update_date 			AS boardCommentUpdateDate
-		FROM
-			tb_b_board_comment;
-	</select>
-
+	
 	<delete id="removeBoard" parameterType="String">
 	/*게시글 삭제 */
 		DELETE
@@ -520,25 +491,7 @@
 
 	</insert>
    
-	<insert id="addBoardMediumCategory" parameterType="BoardMediumCategory">
-	/*문의 게시판 2차 카테고리 등록*/
-		INSERT INTO tb_b_board_m_category
-         (	board_m_category_code
-			, user_id_code
-			, board_l_category_code
-			, board_m_category_name
-			, board_m_category_reg_date
-			, board_m_category_update_date
-			, board_m_category_use
-		)VALUES (
-			#{boardMediumCategoryCode}
-			, #{userIdCode}
-			, #{boardLargeCategoryName}
-			, CURDATE() 
-			, CURDATE() 
-			, 'Y'
-		);
-	</insert>
+	
 	
 	<select id="getBoardMediumCategory" parameterType="String" resultType="BoardMediumCategory">
 	/*문의 게시판 2차 카테고리 조회 */
@@ -556,8 +509,8 @@
 		WHERE
 			board_l_category_code = #{boardLargeCategoryName};
 	</select>
-
-
+	
+	
 	<select id="getBoardMediumCategoryList" resultType="BoardMediumCategory">
 	/*문의 게시판 2차 카테고리 조회 */
 		SELECT
@@ -616,37 +569,6 @@
 			tb_b_board_l_category;
 	</select>
     
-	<insert id="addBoardCategory" parameterType="BoardCategory">
-	/*게시글 대분류 카테고리 등록*/
-		INSERT INTO tb_b_board_category
-		(	board_category_code
-			, user_id_code
-			, board_category_name
-			, board_category_reg_date
-			, board_category_update_date
-			, board_category_use
-		)VALUES (
-			#{boardCategoryCode}
-			, #{userIdCode}
-			, #{boardCategoryName}
-			, CURDATE() 
-			, CURDATE() 
-			, 'Y'
-		);
-	</insert>
-     
-	<select id="getBoardCategoryList" resultType="BoardCategory">
-	/*게시글 대분류 카테고리 조회*/
-		SELECT
-			board_category_code						AS boardCategoryCode
-			, user_id_code							AS userIdCode
-			, board_category_name					AS boardCategoryName
-			, board_category_reg_date				AS boardCategoryRegDate
-			, board_category_update_date			AS boardCategoryUpdateDate
-			, board_category_use					AS boardCategoryUse
-		FROM
-			tb_b_board_category;
-   </select>  
 
 	<select id="getQnaBoardList" parameterType="map" resultMap="qnaBoardResultMap">
    /*사용자용 1:1 문의 게시글 목록 조회*/
@@ -830,9 +752,131 @@
 			board_category_code = 'board01'
 		ORDER BY board_post_code DESC;
 	</select>
+	
+	<!-- 관리자 화면  -->
+	
+	<select id="getBoardAnswerList" resultType="BoardAnswer">
+	/*게시글 답변 모음 목록 조회 */
+		SELECT
+			board_answer_code 						AS boardAnswerCode
+			, user_id_code 							AS userIdCode
+			, board_l_category_code 				AS boardLargeCategoryCode
+			, board_m_category_code 				AS boardMediumCategoryCode
+			, board_answer_word 					AS boardAnswerWord
+			, board_answer_content 					AS boardAnswerContent
+			, board_answer_reg_date 				AS boardAnswerRegDate
+			, board_answer_update_date 				AS boardAnswerUpdateDate
+		FROM
+			tb_b_board_answer;
+     </select>  
+  
+	<select id="getBoardCommentList" resultType="BoardComment">
+	/*관리자용 게시글 댓글 목록 조회 */
+		SELECT
+			board_comment_code 						AS boardCommentCode
+			, user_id_code 							AS userIdCode
+			, board_post_code 						AS boardPostCode
+			, board_comment_content 				AS boardCommentContent
+			, board_comment_reg_date 				AS boardCommentRegDate
+			, board_comment_use 					AS boardCommentUse
+			, user_name 							AS userName
+			, board_comment_update_date 			AS boardCommentUpdateDate
+		FROM
+			tb_b_board_comment;
+	</select>
+	
+	
 
+    <insert id="addBoardMediumCategory" parameterType="BoardMediumCategory">
+	/*문의 게시판 2차 카테고리 등록*/
+		INSERT INTO tb_b_board_m_category
+         (	board_m_category_code
+			, user_id_code
+			, board_l_category_code
+			, board_m_category_name
+			, board_m_category_reg_date
+			, board_m_category_update_date
+			, board_m_category_use
+		)VALUES (
+			#{boardMediumCategoryCode}
+			, #{userIdCode}
+			, #{boardLargeCategoryName}
+			, CURDATE() 
+			, CURDATE() 
+			, 'Y'
+		);
+	</insert>
+	<delete id="removeBoardCategory" parameterType="String">
+	/*게시판 대분류 카테고리 삭제*/
+		DELETE
+		FROM
+			tb_b_board_category
+		WHERE
+			board_category_code = #{boardCategoryCode};
+	</delete>
+	
+	<update id="modifyBoardCategory" parameterType="String">
+	/*게시판 대분류 카테고리 수정*/
+		UPDATE
+			tb_b_board_category
+		SET
+			board_category_code = #{boardCategoryCode}
+			, board_category_name = #{boardCategoryName}
+			, board_category_update_date = CURDATE()
+			, board_category_use = #{boardCategoryUse}
+		WHERE
+			board_category_code = #{boardCategoryCode};
+	</update>
+	
+	<select id="getBoardCategoryByCode" parameterType="String" resultType="BoardCategory">
+	/*게시글 상세 페이지 조회*/
+		SELECT
+			board_category_code						AS boardCategoryCode
+			,user_id_code							AS userIdCode
+			,board_category_name					AS boardCategoryName
+			,board_category_reg_date				AS boardCategoryRegDate
+			,board_category_update_date				AS boardCategoryUpdateDate
+			,board_category_use						AS boardCategoryUse
+		FROM
+			tb_b_board_category 
+		WHERE
+			board_category_code = #{boardCategoryCode};
+   </select>
+	
+	<insert id="addBoardCategory" parameterType="BoardCategory">
+	/*게시글 대분류 카테고리 등록*/
+		INSERT INTO tb_b_board_category
+		(	board_category_code
+			, user_id_code
+			, board_category_name
+			, board_category_reg_date
+			, board_category_update_date
+			, board_category_use
+		)VALUES (
+			#{boardCategoryCode}
+			, #{userIdCode}
+			, #{boardCategoryName}
+			, CURDATE() 
+			, CURDATE() 
+			, 'Y'
+		);
+	</insert>
+	
+	<select id="getBoardCategoryList" resultType="BoardCategory">
+	/*게시글 대분류 카테고리 조회*/
+		SELECT
+			board_category_code						AS boardCategoryCode
+			, user_id_code							AS userIdCode
+			, board_category_name					AS boardCategoryName
+			, board_category_reg_date				AS boardCategoryRegDate
+			, board_category_update_date			AS boardCategoryUpdateDate
+			, board_category_use					AS boardCategoryUse
+		FROM
+			tb_b_board_category;
+	</select>  
+	
 	<select id="getBoardList" resultType="Board">
-	/*관리자용 전체 게시글 조회*/
+	/*전체 게시글 목록 조회*/
 		SELECT
 			board_post_code							AS boardPostCode       
 			, user_id_code							AS userIdCode
@@ -847,8 +891,5 @@
 		FROM
 			tb_b_board_post
 		ORDER BY board_post_code DESC;
-  </select>
-  
-	
-
+	</select>
 </mapper>
