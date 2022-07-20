@@ -3,8 +3,8 @@
 xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{userpage/layout/userdefault}">	
-	<div th:fragment="searchBoardFragment">
-		<form th:action="@{/userpage/board/noticeBoardList}" class="form-inline row col-12" method="post">
+	<div th:fragment="searchQnaBoardFragment">
+		<form th:action="@{/userpage/board/qnaBoardList}" class="form-inline row col-12" method="post">
 			<div class="form-group row col-6 justify-content-center">
 				<div class="periodSelect" style="margin-right: 5px;">
 					<select name="searchKey">
@@ -16,10 +16,10 @@ layout:decorate="~{userpage/layout/userdefault}">
 				</div>
 				<div >
 					<select name="searchKey">
-						<option value="boardPostTitle">제목별</option>
+						<option value="boardQuestionTitle">제목별</option>
 						<option value="userIdCode">아이디명</option>
-						<option value="boardUserName">작성자명</option>
-						<option value="boardPostContent">내용</option>
+						<option value="userName">작성자명</option>
+						<option value="boardQuestionContent">내용</option>
 					</select>
 				</div>
 				<input type="text" class="form-control col-sm-5 mx-2 " name="searchValue"/>

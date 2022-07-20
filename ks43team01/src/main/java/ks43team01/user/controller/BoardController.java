@@ -49,10 +49,10 @@ public class BoardController {
 	 * */
 	
 	// 1:1 문의 게시글 관리
+	
 	/*1:1 문의 게시글 검색*/
 	@PostMapping("/qnaBoardList")
-	public String getSearchQnaBoardList(@RequestParam(name="boardQuestionCode", required = false)String boardQuestionCode
-										, @RequestParam(name="searchKey")String searchKey
+	public String getSearchQnaBoardList( @RequestParam(name="searchKey")String searchKey
 										, @RequestParam(name="searchValue", required = false)String searchValue
 										, Model model) {
 		
@@ -72,8 +72,6 @@ public class BoardController {
 		}
 		
 		List<QnaBoard> searchQnaBoardList = boardService.getSearchQnaBoardList(searchKey, searchValue);
-		QnaBoard qnaBoard = boardService.getQnaBoardByCode(boardQuestionCode);
-		model.addAttribute("boardQuestionCode", boardQuestionCode);
 		
 		if(searchQnaBoardList != null) model.addAttribute("qnaBoardList", searchQnaBoardList);
 		
@@ -213,7 +211,6 @@ public class BoardController {
 									, @RequestParam(name="searchValue", required = false)String searchValue
 									, Model model) {
 		
-
 		log.info("searchKey: {}", searchKey);
 		log.info("searchValue: {}", searchValue);
 		

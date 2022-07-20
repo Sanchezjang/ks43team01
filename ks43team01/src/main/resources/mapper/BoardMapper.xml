@@ -108,13 +108,14 @@
 	<select id="getSearchBoardList" fetchSize="1000" parameterType="String" resultType="Board">
 	/*게시글 검색*/
 		SELECT
-			b.user_id_code AS userIdCode
-			,b.board_post_title AS boardPostTitle
-			,b.board_user_name AS boardUserName
-			,b.board_post_content AS boardPostContent
-			,b.board_post_reg_date AS boardPostRegDate
+			board_post_code									AS boardPostCode
+			, user_id_code 									AS userIdCode
+			, board_post_title 								AS boardPostTitle
+			, board_user_name 								AS boardUserName
+			, board_post_content 							AS boardPostContent
+			, board_post_reg_date 							AS boardPostRegDate
 		FROM
-			tb_b_board_post AS b
+			tb_b_board_post
 		<trim prefix="WHERE" prefixOverrides="AND |OR ">
 			<if test="searchValue != null and searchValue != ''">
 				${searchKey} LIKE CONCAT('%',#{searchValue}, '%')
@@ -125,15 +126,16 @@
 	</select>
 	
 	<select id="getSearchQnaBoardList" fetchSize="1000" parameterType="String" resultMap="qnaBoardResultMap">
-	/*게시글 검색*/
+	/*1:1 게시글 검색*/
 		SELECT
-			b.user_id_code
-			,b.board_post_title
-			,b.board_user_name
-			,b.board_post_content
-			,b.board_post_reg_date
+			board_question_code						AS boardQuestionCode"
+			, user_id_code							AS userIdCode
+			, board_question_title					AS boardQuestionTitle
+			, user_name								AS userName 
+			, board_question_content				AS boardQuestionContent
+			, board_question_reg_date				AS boardQuestionRegDate
 		FROM
-			tb_b_board_post AS b
+			tb_b_board_question
 		<trim prefix="WHERE" prefixOverrides="AND |OR ">
 			<if test="searchValue != null and searchValue != ''">
 				${searchKey} LIKE CONCAT('%',#{searchValue}, '%');
