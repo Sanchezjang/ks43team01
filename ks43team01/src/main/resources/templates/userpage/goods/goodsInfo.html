@@ -1,82 +1,46 @@
 <!DOCTYPE html>
-<html class="no-js" lang="zxx" 
-xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{userpage/layout/userdefault}">
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{userpage/layout/userdefault}">
 <!------ Include the above in your HEAD tag ---------->
 <div layout:fragment="content">
-<script type="text/javascript" th:src="@{/Doc/js/jquery-3.6.0.min.js}"></script>
-<style>
-.card-body{
-	padding: 7.25rem;
-	padding-bottom: 10px;
+	<script type="text/javascript" th:src="@{/Doc/js/jquery-3.6.0.min.js}"></script>
+	<style>
+.infoContainer {
+	margin: 2% 12% 0 12%;
+	height: 1000px;
 }
 
-.card .card-footer {
-	margin: 0px;
-	padding: 7px;
+.topWrap {
+	height: 500px;
 }
 
-.btn.btn-primary {
-	background-color: #f3f5f700;
-	border-color: #f3f5f700;
-	color: #212529;
+.topLeftWrap {
+	float: left;
+	width: 50%;
+	height: 500px;
 }
 
-.btn.btn-primary:hover {
-	background-color: #f3f5f700;
-	border-color: #f3f5f700;
+.topRightWrap {
+	float: right;
+	width: 45%;
+	height: 500px;
+	padding: 20px;
 }
 
-.replyContent {
-	font-size: 20px;
-	margin: 10px;
+#leftImg {
+	width: 100%;
+	height: 480px;
+	padding: 20px;
+	margin: 0 auto;
 }
-.rating {
-    display: inline-block;
-    direction: rtl;
-    border:none;
-	}
-	.rating {
-	    text-align: right;
-	}
-	.rating input[type=radio]{
-	    display: none;
-	}
-	.rating label{
-	    font-size: 1.5em;
-	    color: transparent;
-	    text-shadow: 0 0 0 #b1b1b1;
-	    margin: -2px;
-	}
-	.rating .yellowstar{
-	    font-size: 1.5em;
-	    color: transparent;
-	    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-	    margin: -2px;
-	    float: left;
-	}
 </style>
-        <div class="slider-area">
-            <div class="slider-height2 d-flex align-items-center">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <div class="hero-cap hero-cap2 text-center">
-                                <h2>Review</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Hero End -->
-        <!-- About Details Start -->
-				
-	<div class="row">
-		<div class="col-12">
-			<form>
-				<table>
+	<!-- Hero End -->
+	<!-- About Details Start -->
+
+	<div class="infoContainer">
+		<div class="topWrap">
+			<!-- <table>
 					<thead>
 						<tr>
 							<th>상품코드</th>
@@ -99,72 +63,108 @@ layout:decorate="~{userpage/layout/userdefault}">
 							</td>
 						</tr>
 					</tbody>
-				</table>
-				<div class="col-md-7 col-sm-7 " >
-					<div class="single-course mb-40">
+				</table> -->
+			<div class="topLeftWrap">
+				<div class="single-course mb-40">
 					<!-- db에서 저장된 사진 불러오기 -->
-					<div th:if="${not #lists.isEmpty(goods.file)}" th:each="g : ${goods.file}">
-						<div class="goods-image" th:if="${g.fileMainImage eq 'Y'}" style="height: 170px; width: 98%;">
-							<img style="height: 100%; width: 100%;" th:src="@{'/' + ${#strings.replace(g.fileLocation,'\','/')}}" alt="..." />
+					<div th:if="${not #lists.isEmpty(goods.file)}"
+						th:each="g : ${goods.file}">
+						<div class="goods-image" th:if="${g.fileMainImage eq 'Y'}">
+							<img id="leftImg"
+								th:src="@{'/' + ${#strings.replace(g.fileLocation,'\','/')}}"
+								alt="..." />
 						</div>
 						<div class="goods_gallery" th:unless="${g.fileMainImage eq 'Y'}">
-							<a><img th:src="@{'/' + ${#strings.replace(g.fileLocation,'\','/')}}" alt="..." /></a>
+							<a><img
+								th:src="@{'/' + ${#strings.replace(g.fileLocation,'\','/')}}"
+								alt="..." /></a>
 						</div>
-					<!-- db에서 저장된 사진 불러오기 -->
+						<!-- db에서 저장된 사진 불러오기 -->
 					</div>
 					<div th:unless="${not #lists.isEmpty(goods.file)}">
 						<!-- 저장된 사진 없음 -->
 						<a><img th:src="@{/images/notImage.jfif}" alt="..." /></a>
 					</div>
+				</div>
+			</div>
+
+
+
+
+			<div class="topRightWrap">
+				<!-- <a th:href="@{/userpage/goods/modifyGoodsInfo(goodsCode=${goods.goodsCode})}">
+					<button type="submit" class="btn" id="swal-modify-goods" th:if="${session.UID == goods.userIdCode}">수정</button>
+				</a> -->
+
+				<div class="topRightHead">
+					<h4>잘 해 드릴게 ~~</h4>
+					<h4 style="text-align: right; width: 100%;">20000원</h4>
+				</div>
+					<div class="topRightMid">
+						<div>
+							<h4>작업기간</h4>
+						</div>
+						<div>
+							<h4>수정횟수</h4>
+						</div>
+						<div>
+							<button>구매하기</button>
+						</div>
+					</div>
+
+
+
+
+
+
+
+
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="removeUserGoodsModal" tabindex="-1"
+			role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">상품 삭제</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">정말 상품을 삭제하시겠습니까?</div>
+					<div class="modal-footer">
+						<form
+							th:action="@{/userpage/goods/removeUserGoods(goodsCode=${goods.goodsCode})}"
+							method="get">
+							<input type="hidden" name="goodsCode" id="removeUserGoodsCode">
+							<button type="button" class="btn btn-primary"
+								data-dismiss="modal">취소</button>
+							<button type="submit" class="btn btn-danger">삭제</button>
+						</form>
 					</div>
 				</div>
-			</form>
-		<div>
-			<a th:href="@{/userpage/goods/modifyGoodsInfo(goodsCode=${goods.goodsCode})}">
-				<button type="submit" class="btn" id="swal-modify-goods" th:if="${session.UID == goods.userIdCode}">수정</button>
-			</a>
 			</div>
 		</div>
-			
-			 <!-- Modal -->
-	         <div class="modal fade" id="removeUserGoodsModal" tabindex="-1" role="dialog">
-	               <div class="modal-dialog" role="document">
-	                   <div class="modal-content">
-	                     <div class="modal-header">
-	                        <h5 class="modal-title">상품 삭제</h5>
-	                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	                           <span aria-hidden="true">&times;</span>
-	                        </button>
-	                     </div>
-	                     <div class="modal-body">
-	                        	정말 상품을 삭제하시겠습니까?
-	                     </div>
-	                     <div class="modal-footer">
-                           <form th:action="@{/userpage/goods/removeUserGoods(goodsCode=${goods.goodsCode})}" method="get">
-								<input type="hidden" name="goodsCode" id="removeUserGoodsCode">
-	                       		<button type="button" class="btn btn-primary" data-dismiss="modal">취소</button>
-								<button type="submit" class="btn btn-danger">삭제</button>
-                           </form>
-	                     </div>
-	                  </div>
-	               </div>
-	         </div>
-             <!-- Modal -->
-            
-            <script type="text/javascript">
-				var $swalModifyGoods = $('#swal-modify-goods');
-            	$('.btn').on('click', function() {
-            	  $swalModifyGoods.val($(this).val());            	  
-            	})
-			</script>
-			
-            <script type="text/javascript">
-            	var $removeUserGoodsCode = $('#removeUserGoodsCode');
-            	$('.removeUserGoodsModalBtn').on('click', function() {
-            	  $removeUserGoodsCode.val($(this).val());            	  
-            	})
-            </script>
-        </div>
-        <div th:replace="userpage/fragments/review :: reviewFragment"></div>
-   	</div>
+		<!-- Modal -->
+</div>
+</div>
+
+		<script type="text/javascript">
+			var $swalModifyGoods = $('#swal-modify-goods');
+			$('.btn').on('click', function() {
+				$swalModifyGoods.val($(this).val());
+			})
+		</script>
+
+		<script type="text/javascript">
+			var $removeUserGoodsCode = $('#removeUserGoodsCode');
+			$('.removeUserGoodsModalBtn').on('click', function() {
+				$removeUserGoodsCode.val($(this).val());
+			})
+		</script>
+	</div>
+	<div th:replace="userpage/fragments/review :: reviewFragment"></div>
+</div>
 </html>
