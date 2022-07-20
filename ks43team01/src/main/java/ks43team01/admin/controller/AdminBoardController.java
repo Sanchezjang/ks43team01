@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks43team01.dto.Board;
 import ks43team01.dto.BoardAnswer;
@@ -36,6 +38,43 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 	public AdminBoardController(BoardService boardService) {
 		this.boardService = boardService;
 	}
+	
+	/* 게시판 카테고리 삭제 */
+	@GetMapping("/removeBoardCategory")
+	public String removeBoardCategory(String boardCategoryCode) {
+		
+		boardService.removeBoardCategory(boardCategoryCode);
+		
+		return "adminpage/boardAdmin/removeBoardCategory";
+	}
+	
+	/* 게시판 카테고리 수정 (post)*/
+	@PostMapping("/modifyBoardCategory")
+	public String modifyBoardCategory(BoardCategory boardCategory
+									,RedirectAttributes reAttr) {
+		
+		boardService.modifyBoardCategory(boardCategory);
+		String boardCategoryCode = boardCategory.getBoardCategoryCode();
+		reAttr.addAttribute("boardCategoryCode", boardCategoryCode);
+		
+		return "redirect:/adminpage/boardAdmin/boardCategoryList";
+	}
+	
+	/* 게시판 카테고리 수정 (get)*/
+	@GetMapping("/modifyBoardCategory")
+	public String modifyBoardCategory(@RequestParam(value = "boardCategoryCode", required = false)String boardCategoryCode
+									, Model model) {
+		
+		BoardCategory boardCategory = boardService.getBoardCategoryByCode(boardCategoryCode);
+		
+		log.info("boardCategory : {}", boardCategory);
+		model.addAttribute("boardCategory", boardCategory);
+		model.addAttribute("boardCategoryCode", boardCategoryCode);
+		
+		
+		return "adminpage/boardAdmin/modifyBoardCategory";
+	}
+	
 	
 	/* 게시글 답변 모음 목록 조회*/
 	@GetMapping("/boardAnswerList")
