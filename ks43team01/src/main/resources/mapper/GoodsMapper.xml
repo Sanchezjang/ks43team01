@@ -138,7 +138,11 @@
 			,g.goods_sub_category_code
 			,g.user_id_code
 			,g.goods_name
+			,g.goods_description
 			,g.goods_price
+			,g.goods_working_period
+			,g.goods_modified_possibility_count
+			,g.goods_reg_date
 			,sub.file_code
 			,sub.user_id_code
 			,sub.file_orginal_name
@@ -150,6 +154,10 @@
 			,sub.file_update_date
 			,sub.file_use
 			,sub.goods_code
+			,sc.goods_top_category_name
+			,sc.goods_sub_category_name
+			,sc.goods_top_category_code
+			,sc.goods_sub_category_code
 		FROM
 			tb_g_goods AS g
 				 LEFT JOIN
@@ -173,7 +181,11 @@
 						f.file_code = re.file_code) AS sub
 			ON
 				sub.goods_code = g.goods_code
-			where
+			INNER JOIN
+				tb_g_goods_sub_category AS sc
+			ON
+				sc.goods_sub_category_code = g.goods_sub_category_code
+			WHERE
 				g.goods_code = #{goodsCode};
 	</select>
 	
