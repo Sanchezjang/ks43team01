@@ -56,21 +56,19 @@ layout:decorate="~{userpage/layout/userdefault}">
 		.text-bold{
 			font-size: 15px;
 		}
+		.headWrap h2{
+			text-align: center;
+			padding: 35px 0 10px 0;
+			
+		}
+		.headWrap{
+			margin-bottom: 30px;
+		}
 	</style>
 	
-	 		<div class="slider-area">
-	            <div class="slider-height2 d-flex align-items-center">
-	                <div class="container">
-	                    <div class="ReviewRow">
-	                        <div class="col-xl-12">
-	                            <div class="hero-cap hero-cap2 text-center">
-	                                <h2>Board</h2>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	         </div>
+	 		<div class="headWrap">
+       			<h2>리뷰 수정</h2>
+			</div>			
 	        <!-- Hero End -->
 	        <!-- About Details Start -->
 	
@@ -109,6 +107,11 @@ layout:decorate="~{userpage/layout/userdefault}">
 					</div>
 					<div class="form-group">
 						<input class="form-control" name="reviewCode" type="hidden" th:value="${reviewContentsReg.reviewCode}"></input>
+					</div>
+					<div class="col-12 goods">
+						<h4>첨부파일</h4>
+						<input type="file" id="reviewImageReg" class="form-control col-12" name="reviewImageReg"/>
+						<div class="explanation">첨부파일을 등록해주세요.</div>
 					</div>
 					<div class="clickBtn mt-3" >
 						<button type="button" class="save boxed-btn modifyReviewBtn">저장</button>>
