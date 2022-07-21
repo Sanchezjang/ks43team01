@@ -13,6 +13,11 @@
 		.topWrap {
 			height: 500px;
 		}
+		.bottomWrap{
+			padding-top: 20px;
+			border: 2px solid #c9c9c9;
+			text-align: center;
+		}
 		.topLeftWrap {
 			float: left;
 			width: 55%;
@@ -76,6 +81,9 @@
 		h5, h4{
 			color: #333;
 		}
+		h6{
+			color: black;
+		}
 		.infoContainer a:hover{
 			background-color: #c9c9c9;
 		}
@@ -119,7 +127,6 @@
 		.payBtn button:hover{
 			background-color: #166ff7;
 		}
-		
 		.UpDelBtn{
 			margin-top: 20px;
 			text-align: right;
@@ -133,6 +140,9 @@
 		}
 		.topNav{
 			padding-bottom: 50px;
+		}
+		.goodsDescriptionBox{
+			padding: 20px;
 		}
 	</style>
 	<!-- Hero End -->
@@ -163,54 +173,54 @@
 						<a th:href="@{/userpage/goods/userTopCategoryGoodsList(goodsTopCategoryCode=${goods.goodsSubCategory.goodsTopCategoryCode})}" style="color: #555969;" class="navMove">[[${goods.goodsSubCategory.goodsTopCategoryName}]]</a> >
 						<a th:href="@{/userpage/goods/userSubCategoryGoodsList(goodsSubCategoryCode=${goods.goodsSubCategory.goodsSubCategoryCode})}" style="color: #555969;" class="navMove">[[${goods.goodsSubCategory.goodsSubCategoryName}]]</a>
 					</div>
-				<div class="topRightHead">
-					<h4>[[${goods.goodsName}]]</h4>
-				</div>
-				<div class="trmTop">
-					<h4 style="text-align: right; width: 100%;">[[${goods.goodsPrice}]] 원</h4>
-						</div>
-						<div class="trmBot">
-							<span>판매자 : [[${goods.userIdCode}]]</span><br>
-							<span>작업기간 : [[${goods.goodsWorkingPeriod}]] 일</span><br>
-							<span>수정가능횟수 : [[${goods.goodsModifiedPossibilityCount}]] 회</span>
-						</div>
-						<div class="payBtn">
-							<a th:href="@{/userpage/order/addOrderCurrentStatus(goodsCode=${goods.goodsCode})}">
-								<button type="button" class="btn">구매하기</button>
-							</a>
-						</div>
+					<div class="topRightHead">
+						<h4>[[${goods.goodsName}]]</h4>
 					</div>
-</div>
-					<div class="UpDelBtn">
-						<a th:href="@{/userpage/goods/modifyGoodsInfo(goodsCode=${goods.goodsCode})}">
-							<button type="submit" class="btn" id="swal-modify-goods"
-								th:if="${session.UID == goods.userIdCode}">수정</button>
+					<div class="trmTop">
+						<h4 style="text-align: right; width: 100%;">[[${goods.goodsPrice}]] 원</h4>
+					</div>
+					<div class="trmBot">
+						<span>판매자 : [[${goods.userIdCode}]]</span><br>
+						<span>작업기간 : [[${goods.goodsWorkingPeriod}]] 일</span><br>
+						<span>수정가능횟수 : [[${goods.goodsModifiedPossibilityCount}]] 회</span>
+					</div>
+					<div class="payBtn">
+						<a th:href="@{/userpage/order/addOrderCurrentStatus(goodsCode=${goods.goodsCode})}">
+							<button type="button" class="btn">구매하기</button>
 						</a>
-						<button type="button" class="btn btn-danger removeUserGoodsModalBtn" data-toggle="modal" data-target="#removeUserGoodsModal"
-							th:if="${session.UID == goods.userIdCode}" th:value="${goods.goodsCode}">삭제</button>
 					</div>
-
+				</div>
+			</div>
+		</div>
+		<div class="bottomWrap">
+			<div class="goodsDescriptionBox">
+				<h4>서비스 설명</h4>
+				<h6>[[${goods.goodsDescription}]]</h6>
+			</div>
+		</div>
+			<div class="UpDelBtn">
+			<a th:href="@{/userpage/goods/modifyGoodsInfo(goodsCode=${goods.goodsCode})}">
+				<button type="submit" class="btn" id="swal-modify-goods" th:if="${session.UID == goods.userIdCode}">수정</button>
+			</a>
+			<button type="button" class="btn btn-danger removeUserGoodsModalBtn" data-toggle="modal" data-target="#removeUserGoodsModal"
+				th:if="${session.UID == goods.userIdCode}" th:value="${goods.goodsCode}">삭제</button>
+			</div>
 
 		<!-- Modal -->
-		<div class="modal fade" id="removeUserGoodsModal" tabindex="-1"
-			role="dialog">
+		<div class="modal fade" id="removeUserGoodsModal" tabindex="-1" role="dialog">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title">상품 삭제</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<div class="modal-body">정말 상품을 삭제하시겠습니까?</div>
+				<div class="modal-body">정말 상품을 삭제하시겠습니까?</div>
 					<div class="modal-footer">
-						<form
-							th:action="@{/userpage/goods/removeUserGoods(goodsCode=${goods.goodsCode})}"
-							method="get">
+						<form th:action="@{/userpage/goods/removeUserGoods(goodsCode=${goods.goodsCode})}" method="get">
 							<input type="hidden" name="goodsCode" id="removeUserGoodsCode">
-							<button type="button" class="btn btn-primary"
-								data-dismiss="modal">취소</button>
+							<button type="button" class="btn btn-primary" data-dismiss="modal">취소</button>
 							<button type="submit" class="btn btn-danger">삭제</button>
 						</form>
 					</div>
@@ -218,8 +228,6 @@
 			</div>
 		</div>
 		<!-- Modal -->
-</div>
-
 		<script type="text/javascript">
 			var $swalModifyGoods = $('#swal-modify-goods');
 			$('.btn').on('click', function() {
