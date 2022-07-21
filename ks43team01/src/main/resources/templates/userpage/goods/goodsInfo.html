@@ -6,78 +6,148 @@
 <div layout:fragment="content">
 	<script type="text/javascript" th:src="@{/Doc/js/jquery-3.6.0.min.js}"></script>
 	<style>
-.infoContainer {
-	margin: 2% 12% 0 12%;
-	height: 1000px;
-}
-
-.topWrap {
-	height: 500px;
-}
-
-.topLeftWrap {
-	float: left;
-	width: 50%;
-	height: 500px;
-}
-
-.topRightWrap {
-	float: right;
-	width: 45%;
-	height: 500px;
-	padding: 20px;
-}
-
-#leftImg {
-	width: 100%;
-	height: 480px;
-	padding: 20px;
-	margin: 0 auto;
-}
-</style>
+		.infoContainer {
+			margin: 20px 12% 0 12%;
+			height: 100%;
+		}
+		.topWrap {
+			height: 500px;
+		}
+		.topLeftWrap {
+			float: left;
+			width: 55%;
+			height: 500px;
+		}
+		.topRightWrap {
+			float: right;
+			width: 45%;
+			height: 500px;
+			padding: 0px 0px 20px 20px;
+		}
+		#leftImg {
+			width: 100%;
+			height: 480px;
+			margin: 0 auto;
+			border: 2px solid #c9c9c9;
+		}
+		.css-1sbovig{
+			outline: none;
+			border-width: 1px;
+			border-style: solid;
+			box-sizing: border-box;
+			border-radius: 4px;
+			line-height: 1;
+			font-weight: 500;
+			transition: background-color 0.3s ease 0s, border-color 0.3s ease 0s;
+			text-decoration: none;
+			-webkit-box-align: center;
+			align-items: center;
+			-webkit-box-pack: center;
+			justify-content: center;
+			cursor: pointer;
+			position: relative;
+			user-select: none;
+			white-space: nowrap;
+			max-width: 100%;
+			height: 36px;
+			font-size: 14px;
+			padding: 0px 16px;
+			min-width: 64px;
+			background-color: transparent;
+			border-color: transparent;
+			color: rgb(48, 52, 65);
+			float: right;
+			display: block;
+		}
+		.css-1sbovig:hover{
+			background-color: #f2f2f2;
+		}  
+		.topRightMid{
+			border: 2px solid #c9c9c9;
+			width: 100%;
+			height: 100%;
+			padding: 20px 30px 0px 30px;
+			color: #333;
+		}
+		.topRightHead{
+			text-align: right;
+			border-bottom: 2px solid #d9d9d9;
+		}
+		h5, h4{
+			color: #333;
+		}
+		.infoContainer a:hover{
+			background-color: #c9c9c9;
+		}
+		.trmTop{
+			padding: 10px 0 10px 0;
+		}
+		.trmBot{
+			padding-top: 50px;
+		}
+		.trmMid{
+			padding: 15px 0 0 0;
+		}
+		.trmMid p{
+			margin: 0;
+			height: 24px;
+			color: #828282;
+			font-weight: lighter;
+		}	
+		.subMemo{
+			padding: 0 0 15px 0;
+		}
+		.css-fduad0{
+			color: #0064ff;
+		}
+		.mainMemo{
+			margin-bottom: 10px;
+		}
+		.payBtn{
+			padding-top: 20px;
+		}
+		.payBtn button{
+			width: 100%;
+			height: 45px;
+			background-color: #0064ff;
+			color: #fff;
+			margin-top: 20px;
+			border: none;
+			border-radius: 10px;
+			padding: 2px 0 0 0;
+		}
+		.payBtn button:hover{
+			background-color: #166ff7;
+		}
+		
+		.UpDelBtn{
+			margin-top: 20px;
+			text-align: right;
+		}
+		.UpDelBtn button{
+			width: 70px;
+			height: 30px;
+			padding: 7px 10px 5px 10px;
+			vertical-align: middle;
+			border-radius: 5px;
+		}
+		.topNav{
+			padding-bottom: 50px;
+		}
+	</style>
 	<!-- Hero End -->
 	<!-- About Details Start -->
-
 	<div class="infoContainer">
 		<div class="topWrap">
-			<!-- <table>
-					<thead>
-						<tr>
-							<th>상품코드</th>
-							<th hidden="userId">판매자</th>
-							<th>상품가격</th>
-							<th>수정</th>
-							<th>삭제</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td th:text="${goods.goodsCode}"></td>
-							<td th:text="${goods.userIdCode}" hidden="userId"></td>
-							<td th:text="${goods.goodsPrice}"></td>
-							<td>
-							</td>
-							<td>
-								<button type="button" class="btn btn-danger removeUserGoodsModalBtn" data-toggle="modal" data-target="#removeUserGoodsModal"
-								th:if="${session.UID == goods.userIdCode}" th:value="${goods.goodsCode}">삭제</button>
-							</td>
-						</tr>
-					</tbody>
-				</table> -->
 			<div class="topLeftWrap">
 				<div class="single-course mb-40">
 					<!-- db에서 저장된 사진 불러오기 -->
-					<div th:if="${not #lists.isEmpty(goods.file)}"
-						th:each="g : ${goods.file}">
+					<div th:if="${not #lists.isEmpty(goods.file)}" th:each="g : ${goods.file}">
 						<div class="goods-image" th:if="${g.fileMainImage eq 'Y'}">
-							<img id="leftImg"
-								th:src="@{'/' + ${#strings.replace(g.fileLocation,'\','/')}}"
-								alt="..." />
+							<img id="leftImg" th:src="@{'/' + ${#strings.replace(g.fileLocation,'\','/')}}" alt="..." />
 						</div>
 						<div class="goods_gallery" th:unless="${g.fileMainImage eq 'Y'}">
-							<a><img
-								th:src="@{'/' + ${#strings.replace(g.fileLocation,'\','/')}}"
-								alt="..." /></a>
+							<a><img th:src="@{'/' + ${#strings.replace(g.fileLocation,'\','/')}}" alt="..." /></a>
 						</div>
 						<!-- db에서 저장된 사진 불러오기 -->
 					</div>
@@ -87,38 +157,38 @@
 					</div>
 				</div>
 			</div>
-
-
-
-
 			<div class="topRightWrap">
-				<!-- <a th:href="@{/userpage/goods/modifyGoodsInfo(goodsCode=${goods.goodsCode})}">
-					<button type="submit" class="btn" id="swal-modify-goods" th:if="${session.UID == goods.userIdCode}">수정</button>
-				</a> -->
-
+				<div class="topRightMid">
+					<div class="topNav">
+						<a th:href="@{/userpage/goods/userTopCategoryGoodsList(goodsTopCategoryCode=${goods.goodsSubCategory.goodsTopCategoryCode})}" style="color: #555969;" class="navMove">[[${goods.goodsSubCategory.goodsTopCategoryName}]]</a> >
+						<a th:href="@{/userpage/goods/userSubCategoryGoodsList(goodsSubCategoryCode=${goods.goodsSubCategory.goodsSubCategoryCode})}" style="color: #555969;" class="navMove">[[${goods.goodsSubCategory.goodsSubCategoryName}]]</a>
+					</div>
 				<div class="topRightHead">
-					<h4>잘 해 드릴게 ~~</h4>
-					<h4 style="text-align: right; width: 100%;">20000원</h4>
+					<h4>[[${goods.goodsName}]]</h4>
 				</div>
-					<div class="topRightMid">
-						<div>
-							<h4>작업기간</h4>
+				<div class="trmTop">
+					<h4 style="text-align: right; width: 100%;">[[${goods.goodsPrice}]] 원</h4>
 						</div>
-						<div>
-							<h4>수정횟수</h4>
+						<div class="trmBot">
+							<span>판매자 : [[${goods.userIdCode}]]</span><br>
+							<span>작업기간 : [[${goods.goodsWorkingPeriod}]] 일</span><br>
+							<span>수정가능횟수 : [[${goods.goodsModifiedPossibilityCount}]] 회</span>
 						</div>
-						<div>
-							<button>구매하기</button>
+						<div class="payBtn">
+							<a th:href="@{/userpage/order/addOrderCurrentStatus(goodsCode=${goods.goodsCode})}">
+								<button type="button" class="btn">구매하기</button>
+							</a>
 						</div>
 					</div>
-
-
-
-
-
-
-
-
+</div>
+					<div class="UpDelBtn">
+						<a th:href="@{/userpage/goods/modifyGoodsInfo(goodsCode=${goods.goodsCode})}">
+							<button type="submit" class="btn" id="swal-modify-goods"
+								th:if="${session.UID == goods.userIdCode}">수정</button>
+						</a>
+						<button type="button" class="btn btn-danger removeUserGoodsModalBtn" data-toggle="modal" data-target="#removeUserGoodsModal"
+							th:if="${session.UID == goods.userIdCode}" th:value="${goods.goodsCode}">삭제</button>
+					</div>
 
 
 		<!-- Modal -->
@@ -148,7 +218,6 @@
 			</div>
 		</div>
 		<!-- Modal -->
-</div>
 </div>
 
 		<script type="text/javascript">
