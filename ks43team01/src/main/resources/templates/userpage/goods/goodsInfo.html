@@ -189,22 +189,6 @@
 								<button type="button" class="btn">구매하기</button>
 							</a>
 						</div>
-					<div class="topRightHead">
-						<h4>[[${goods.goodsName}]]</h4>
-					</div>
-					<div class="trmTop">
-						<h4 style="text-align: right; width: 100%;">[[${goods.goodsPrice}]] 원</h4>
-					</div>
-					<div class="trmBot">
-						<span>판매자 : [[${goods.userIdCode}]]</span><br>
-						<span>작업기간 : [[${goods.goodsWorkingPeriod}]] 일</span><br>
-						<span>수정가능횟수 : [[${goods.goodsModifiedPossibilityCount}]] 회</span>
-					</div>
-					<div class="payBtn">
-						<a th:href="@{/userpage/order/addOrderCurrentStatus(goodsCode=${goods.goodsCode})}">
-							<button type="button" class="btn">구매하기</button>
-						</a>
-					</div>
 				</div>
 			</div>
 		</div>

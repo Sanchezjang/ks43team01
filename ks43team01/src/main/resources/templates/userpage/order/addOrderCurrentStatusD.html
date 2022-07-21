@@ -169,16 +169,14 @@ layout:decorate="~{userpage/layout/userdefault}">
 					</tr>
 				</thead>
 				
-					<th:block th:if="${not #lists.isEmpty(orderCartList)}" th:each="o : ${orderCartList}">
+					<th:block th:if="${not #lists.isEmpty(goodslist)}" th:each="g : ${goodslist}">
 				<tbody>
 					<tr class="table-row">
 						<input type="hidden" id="userIdCode" name="userIdCode"th:value="${session.UID}">
-						<input type="hidden" id="goodsCode" name="goodsCode" th:value="${o.goodsCode}">
-						<input type="hidden" id="orderSendphone" name="orderSendphone" th:value="${o.sellerPhoneNumber}">
-						<input type="hidden" id="orderSendname" name="orderSendname" th:value="${o.sellerIdCode}">
-						<td th:text="${o.goodsName}">1</td>
-						<td id="orderSendname" th:text="${o.sellerIdCode}" th:value="${o.sellerIdCode}">2</td>
-						<td th:text="${o.goodsPrice+'원'}">3</td>
+						<input type="hidden" id="goodsCode" name="goodsCode" th:value="${g.goodsCode}">
+						<td th:text="${g.goodsName}">1</td>
+						<td id="orderSendname" th:text="${g.userIdCode}" th:value="${g.userIdCode}">2</td>
+						<td th:text="${g.goodsPrice+'원'}">3</td>
 					</tr>
 				</tbody>
 					</th:block>

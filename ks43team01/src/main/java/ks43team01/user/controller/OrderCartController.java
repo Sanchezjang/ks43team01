@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ks43team01.dto.Goods;
 import ks43team01.dto.OrderCart;
 import ks43team01.dto.OrderCurrent;
 import ks43team01.dto.OrderStatusComplete;
 import ks43team01.dto.PaymentGoods;
 import ks43team01.dto.User;
+import ks43team01.service.GoodsService;
 import ks43team01.service.OrderCartService;
 import ks43team01.service.OrderService;
 import ks43team01.service.UserService;
@@ -32,9 +34,12 @@ public class OrderCartController {
 	////DI///
 	private final OrderCartService orderCartService;
 	private final UserService userService;
-	public OrderCartController(OrderCartService orderCartService,UserService userService) {
+	private final GoodsService goodsService;
+	
+	public OrderCartController(OrderCartService orderCartService,UserService userService,GoodsService goodsService) {
 		this.orderCartService = orderCartService;
 		this.userService = userService;
+		this.goodsService = goodsService;
 	}
 	/* 사용자화면 장바구니 리스트 출력 */
 	@GetMapping("/orderCart")
@@ -61,8 +66,13 @@ public class OrderCartController {
 	}
 	/*상품다이렉트로 구입하는 방법!!!*/
 	@GetMapping("userpage/order/addOrderCurrentStatusD")
-	public String orderSucces1(@RequestParam(name="goodsCode")String goodsCode) {
-		
+	public String orderSucces1(@RequestParam(name="goodsCode")String goodsCode,HttpSession session, User user,Goods goods,Model model) {
+		String userIdCode = (String) session.getAttribute("UID");
+		User userList = userService.getUserInfoById(userIdCode);
+		model.addAttribute("userList", userList);
+		log.info("주문자 정보 받아오는지 출력!!직접결제  :  {}",userList);
+		List<Goods> goodslist = orderCartService.addPayDirect(goodsCode);
+		model.addAttribute("goodslist", goodslist);
 		return "userpage/order/addOrderCurrentStatusD";
 	}
 	/*사용자가 선택한 제품만 주문으로 이동*/

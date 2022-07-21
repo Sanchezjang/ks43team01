@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import ks43team01.dto.Goods;
 import ks43team01.dto.OrderCart;
 import ks43team01.dto.OrderCurrent;
 import ks43team01.dto.OrderStatusComplete;
@@ -26,6 +27,8 @@ public interface OrderCartMapper {
 	public List<OrderCurrent> getOrderCurrent(OrderCurrent orderCurrent);
 	/*주문>결제완료시 페이먼트 테이블로 인썰트되는정보*/
 	public int addPaymentGoods(PaymentGoods paymentGoods);
-	
+	/*미지막 결제로 넘어가는 부분*/
 	public List<OrderCurrent> getOrderCurrent(String oCcode);
+	/*메인에서 바로 결제되게 하는로직*/
+	public List<Goods> addPayDirect(String goodsCode);
 }

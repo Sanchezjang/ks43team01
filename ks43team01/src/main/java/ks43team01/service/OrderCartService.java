@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ks43team01.dto.Goods;
 import ks43team01.dto.OrderCart;
 import ks43team01.dto.OrderCurrent;
 import ks43team01.dto.OrderStatusComplete;
@@ -70,6 +71,9 @@ public class OrderCartService {
 		List<OrderCurrent> orderCurrent1 = orderCartMapper.getOrderCurrent(oCcode);
 		return orderCurrent1;
 	}
-
+	public List<Goods> addPayDirect(String goodsCode){
+		List<Goods> goodslist = orderCartMapper.addPayDirect(goodsCode);
+		return goodslist;
+	}
 		
 	}
