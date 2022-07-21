@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,10 +56,13 @@ public class LoginController {
 		String  userAgent = request.getHeader("User-Agent");
 		log.info("브라우져 기록하기!!!  : {}",userAgent);
 		log.info("user에서 받아온값 :   {}",user1);
+		
 
 		if(user1 != null) {
 			String userPwCheck = user1.getUserPw();
 			if(userPw != null && userPw.equals(userPwCheck)) {
+				StopWatch stopWatch = new StopWatch();
+				stopWatch.start();
 				session.setAttribute("UID"   , userId);
 				session.setAttribute("UNAME"   , user1.getUserName());
 				String loginUserIp = request.getRemoteAddr();
@@ -69,9 +73,12 @@ public class LoginController {
 				userService.addUserLog(userLog, request);
 				userService.addUserLevelExp(userLevelExp);
 				log.info("request값  :  {}",request);
+				stopWatch.stop();
+				log.info("----------------메소드 걸린시간---------------",stopWatch.prettyPrint());	
 				return "redirect:/";
 				}
-			}
+			}		
+			
 				response.setCharacterEncoding("UTF-8");
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter out = response.getWriter();
