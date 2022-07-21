@@ -122,7 +122,7 @@
 			</if>
 		</trim>
 		and
-			b.board_category_code = 'board01';
+			board_category_code = 'board01';
 	</select>
 	
 	<select id="getSearchQnaBoardList" fetchSize="1000" parameterType="String" resultMap="qnaBoardResultMap">
@@ -141,7 +141,6 @@
 				${searchKey} LIKE CONCAT('%',#{searchValue}, '%');
 			</if>
 		</trim>
-	
 	</select>
 
 	<select id="selectBoardFileDetail" parameterType="hashMap" resultType="hashMap">
@@ -808,7 +807,7 @@
 			, 'Y'
 		);
 	</insert>
-	<delete id="removeBoardCategory" parameterType="String">
+	<delete id="removeBoardCategory" parameterType="BoardCategory">
 	/*게시판 대분류 카테고리 삭제*/
 		DELETE
 		FROM

@@ -34,7 +34,7 @@
 						request.fail(function( jqXHR, textStatus ) {
 							alert( "Request failed: " + textStatus );
 					});
-				});
+				});22
 			});
 			$(document).ready(function(){
 				$("#file").on('change',function(){
@@ -42,7 +42,9 @@
 					  $("#boardPostFileCode").val(fileName);
 				});
 			});
+			
 		</script>
+		
 	</th:block>
 	
 <style>
@@ -254,18 +256,18 @@ td input[type="radio"] {
 					<tr>
 						<th scope="col">답변 방법</th>
 						<td scope="col">
-							<label for="textRadio">댓글</label>
-							<input type="radio" style="margin-right: 5px;" id="textRadio" class="" name="boardQuestionAnswerMethod" value="댓글" checked="checked"/>
+							<label for="textRadio">답변글</label>
+							<input type="radio" style="margin-right: 5px;" id="textRadio" name="boardQuestionAnswerMethod" value="답변글" checked="checked"/>
 							<label for="emailRadio">이메일</label>
-							<input type="radio" id="emailRadio" class="" name="boardQuestionAnswerMethod" value="이메일"/>
+							<input type="radio" id="emailRadio" name="boardQuestionAnswerMethod" value="이메일"/>
 						</td>
-						<td scope="col" colspan="4">
-							<input type="email" style="width: 100%; font-size: 12px;"id="emailInput" class="" name="userEmail" placeholder="이메일을 입력해주세요."/>		
+						<td scope="col" colspan="4" id="emailTd">
+							<input type="email" style="width: 100%; font-size: 12px;" id="emailInput" name="userEmail" placeholder="이메일을 입력해주세요."/>		
 						</td>
 					</tr>
 					<tr>
 						<th>공개여부 </th>
-						<td>	
+						<td class="boardQuestionLock">	
 							<label for="gongGae">공개글</label>
 							<input type="radio" style="margin-right: 5px;" id="gongGae" class="" name="boardQuestionLock" value="공개글" checked="checked"/>
 							<label for="bimil">비밀글</label>
