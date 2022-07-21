@@ -59,6 +59,12 @@ public class OrderCartController {
 		orderCartService.removeAllOrderCart(userIdCode);
 		return "redirect:/orderCart";
 	}
+	/*상품다이렉트로 구입하는 방법!!!*/
+	@GetMapping("userpage/order/addOrderCurrentStatusD")
+	public String orderSucces1(@RequestParam(name="goodsCode")String goodsCode) {
+		
+		return "userpage/order/addOrderCurrentStatusD";
+	}
 	/*사용자가 선택한 제품만 주문으로 이동*/
 	@PostMapping("/orderCheck")
 	@ResponseBody
