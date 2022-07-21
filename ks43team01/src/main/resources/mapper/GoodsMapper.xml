@@ -394,11 +394,9 @@
 		<selectKey resultType="String" keyProperty="goodsCode" order="AFTER">
 			/* 상품 등록시 만들어지는 코드 */
 			SELECT
-				g.goods_code
+				CONCAT('goods_',MAX(CAST(SUBSTRING(g.goods_code,7) AS UNSIGNED)))
 			FROM
 				tb_g_goods AS g
-			ORDER BY g.goods_code DESC
-			LIMIT 1
 		</selectKey>
 	</insert>
 	
@@ -531,7 +529,11 @@
 	
 	<delete id="removeGoodsTopCategory" parameterType="GoodsTopCategory">
 		/* 상품 상위 카테고리 삭제 */
-		
+		DELETE
+		FROM
+			tb_g_goods_top_category
+		WHERE
+			goods_top_category_code = #{goodsTopCategoryCode};
 	</delete>
 
 	<update id="modifyGoodsTopCategory" parameterType="String">

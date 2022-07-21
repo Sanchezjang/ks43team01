@@ -22,8 +22,10 @@ public interface BoardMapper {
 	 * (일반 게시글 : 공지사항, 자주묻는 질문, 자유 게시판)
 	 * */
 	
-
+	/*1:1 문의 게시글*/
 	
+	//게시글 검색
+	public List<QnaBoard> getSearchQnaBoardList(String searchKey, String searchValue);
 	
 	//첨부파일 수정
 	List <Map<String,Object>> selectBoardFileDetail(Map<String, String> Map);
@@ -70,6 +72,9 @@ public interface BoardMapper {
 	
 	
 	/*일반 게시글 */
+	
+	//게시글 검색
+	public List<Board> getSearchBoardList(String searchKey, String searchValue);
 	
 	//댓글 삭제
 	public int removeComment(String boardCommentCode);
@@ -121,32 +126,41 @@ public interface BoardMapper {
 	
 	//1:1 문의 게시글 댓글 목록 조회
 	
+	//게시글 답변 모음 목록 조회
+	public List<BoardAnswer> getBoardAnswerList();
+	
 	//일반 게시글 댓글 목록 조회
 	public List<BoardComment> getBoardCommentList();
 
-	//수정
-	//삭제
+	//문의 게시판 2차 카테고리 삭제
+	public int removeBoardMediumCategory(String boardMediumCategoryCode);
+	//문의 게시판 2차 카테고리 수정
+	public int modifyBoardMediumCategory(BoardMediumCategory boardMediumCategory);
 	//문의 게시판 2차 카테고리 등록
 	public int addBoardMediumCategory(BoardMediumCategory boardMediumCategory);
 	//문의 게시판 2차 카테고리 조회
 	public List<BoardMediumCategory> getBoardMediumCategoryList();
 
-	//수정
-	//삭제
+	//문의 게시판 1차 카테고리 삭제
+	public int removeBoardLargeCategory(String boardLargeCategoryCode);
+	//문의 게시판 1차 카테고리 수정
+	public int modifyBoardLargeCategory(BoardLargeCategory boardLargeCategory);
 	//문의 게시판 1차 카테고리 등록
 	public int addBoardLargeCategory(BoardLargeCategory boardLargeCategory);
 	//문의 게시판 1차 카테고리 조회 
 	public List<BoardLargeCategory> getBoardLargeCategoryList();
 	
-	//수정
-	//삭제
+	//게시판 대분류 카테고리 삭제
+	public int removeBoardCategory(String boardCategoryCode);
+	//게시판 대분류 카테고리 수정
+	public int modifyBoardCategory(BoardCategory boardCategory);
+	//게시판 대분류 카테고리 상세 조회
+	public BoardCategory getBoardCategoryByCode(String boardCategoryCode);	
 	//게시판 대분류 카테고리 등록
 	public int addBoardCategory(BoardCategory boardCategory);
 	//게시판 대분류 카테고리 조회
 	public List<BoardCategory> getBoardCategoryList();
 	
-	//게시글 답변 모음 목록 조회
-	public List<BoardAnswer> getBoardAnswerList();
 	
 	
 	//전체 게시글 목록 조회

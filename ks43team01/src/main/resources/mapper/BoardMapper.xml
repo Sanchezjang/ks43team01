@@ -103,6 +103,47 @@
 		</collection>
 	</resultMap>
 
+	<!-- 사용자 화면 -->
+
+	<select id="getSearchBoardList" fetchSize="1000" parameterType="String" resultType="Board">
+	/*게시글 검색*/
+		SELECT
+			board_post_code									AS boardPostCode
+			, user_id_code 									AS userIdCode
+			, board_post_title 								AS boardPostTitle
+			, board_user_name 								AS boardUserName
+			, board_post_content 							AS boardPostContent
+			, board_post_reg_date 							AS boardPostRegDate
+		FROM
+			tb_b_board_post
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="searchValue != null and searchValue != ''">
+				${searchKey} LIKE CONCAT('%',#{searchValue}, '%')
+			</if>
+		</trim>
+		and
+			b.board_category_code = 'board01';
+	</select>
+	
+	<select id="getSearchQnaBoardList" fetchSize="1000" parameterType="String" resultMap="qnaBoardResultMap">
+	/*1:1 게시글 검색*/
+		SELECT
+			board_question_code						AS boardQuestionCode"
+			, user_id_code							AS userIdCode
+			, board_question_title					AS boardQuestionTitle
+			, user_name								AS userName 
+			, board_question_content				AS boardQuestionContent
+			, board_question_reg_date				AS boardQuestionRegDate
+		FROM
+			tb_b_board_question
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="searchValue != null and searchValue != ''">
+				${searchKey} LIKE CONCAT('%',#{searchValue}, '%');
+			</if>
+		</trim>
+	
+	</select>
+
 	<select id="selectBoardFileDetail" parameterType="hashMap" resultType="hashMap">
 	/*게시글 내 첨부파일 수정*/
 	SELECT
@@ -120,7 +161,6 @@
 		wb.board_question_code = #{boardQuestionCode};
 	
 	</select>
-
 
 	<update id="updateBoardPageView" parameterType="String"> 
 	/*게시글 조회수 증가*/
@@ -191,36 +231,7 @@
 				board_post_code = #{boardPostCode};
 	</select>
 
-	<select id="getBoardAnswerList" resultType="BoardAnswer">
-	/*게시글 답변 모음 목록 조회 */
-		SELECT
-			board_answer_code 						AS boardAnswerCode
-			, user_id_code 							AS userIdCode
-			, board_l_category_code 				AS boardLargeCategoryCode
-			, board_m_category_code 				AS boardMediumCategoryCode
-			, board_answer_word 					AS boardAnswerWord
-			, board_answer_content 					AS boardAnswerContent
-			, board_answer_reg_date 				AS boardAnswerRegDate
-			, board_answer_update_date 				AS boardAnswerUpdateDate
-		FROM
-			tb_b_board_answer;
-     </select>  
-  
-	<select id="getBoardCommentList" resultType="BoardComment">
-	/*관리자용 게시글 댓글 목록 조회 */
-		SELECT
-			board_comment_code 						AS boardCommentCode
-			, user_id_code 							AS userIdCode
-			, board_post_code 						AS boardPostCode
-			, board_comment_content 				AS boardCommentContent
-			, board_comment_reg_date 				AS boardCommentRegDate
-			, board_comment_use 					AS boardCommentUse
-			, user_name 							AS userName
-			, board_comment_update_date 			AS boardCommentUpdateDate
-		FROM
-			tb_b_board_comment;
-	</select>
-
+	
 	<delete id="removeBoard" parameterType="String">
 	/*게시글 삭제 */
 		DELETE
@@ -243,7 +254,7 @@
 	</update>
 
 	<update id="updateQnaBoardPageView" parameterType="String"> 
-	/*1:1게시글 조회수 증가*/
+	/*1:1 게시글 조회수 증가*/
 		UPDATE
 			tb_b_board_question
 		SET
@@ -277,7 +288,7 @@
 
 	<select id="getQnaBoardByCode" parameterType="String" resultMap="qnaBoardResultMap">
 	/*1:1 문의 게시글 상세 페이지 조회*/
-			SELECT
+		SELECT
 			bq.board_question_code
 			,bq.user_id_code
 			,bq.board_category_code
@@ -291,6 +302,7 @@
 			,bq.board_question_lock
 			,bq.user_email
 			,bq.board_question_answer_method
+			,bq.board_question_page_view
 			,sub.file_code 
 			,sub.user_id_code
 			,sub.file_orginal_name
@@ -383,26 +395,26 @@
 					tb_b_board_question AS q
 				WHERE
 					q.board_question_code = #{boardQuestionCode})
-					
 			, 1
 			, #{boardQuestionTitle}
 			, #{userName}
-			,( SELECT
-					ba.board_answer_content
-				FROM
-				   tb_b_board_question AS bq
-				   INNER JOIN
-				   tb_b_board_answer AS ba
-				WHERE
-				   ba.board_answer_word =
-				   (
-				   SELECT
-				      ba.board_answer_word
-				   WHERE
-				   LOCATE(ba.board_answer_word, bq.board_question_content) > 0
-				   )
-				   AND
-				   bq.board_question_code = #{boardQuestionCode})
+			
+			, IFNULL(( SELECT
+							IF(COUNT(ba.board_answer_content) <![CDATA[<>]]> 1, NULL, ba.board_answer_content)
+						FROM
+						   tb_b_board_question AS bq
+						   INNER JOIN
+						   tb_b_board_answer AS ba
+						WHERE
+						   ba.board_answer_word =
+						   (
+						   SELECT
+						      ba.board_answer_word
+						   WHERE
+						   LOCATE(ba.board_answer_word, bq.board_question_content) > 0
+						   )
+						   AND
+						   bq.board_question_code = #{boardQuestionCode}), #{boardQuestionContent})
 			, NULL
 			, CURDATE()
 			, NULL
@@ -481,25 +493,7 @@
 
 	</insert>
    
-	<insert id="addBoardMediumCategory" parameterType="BoardMediumCategory">
-	/*문의 게시판 2차 카테고리 등록*/
-		INSERT INTO tb_b_board_m_category
-         (	board_m_category_code
-			, user_id_code
-			, board_l_category_code
-			, board_m_category_name
-			, board_m_category_reg_date
-			, board_m_category_update_date
-			, board_m_category_use
-		)VALUES (
-			#{boardMediumCategoryCode}
-			, #{userIdCode}
-			, #{boardLargeCategoryName}
-			, CURDATE() 
-			, CURDATE() 
-			, 'Y'
-		);
-	</insert>
+	
 	
 	<select id="getBoardMediumCategory" parameterType="String" resultType="BoardMediumCategory">
 	/*문의 게시판 2차 카테고리 조회 */
@@ -517,8 +511,8 @@
 		WHERE
 			board_l_category_code = #{boardLargeCategoryName};
 	</select>
-
-
+	
+	
 	<select id="getBoardMediumCategoryList" resultType="BoardMediumCategory">
 	/*문의 게시판 2차 카테고리 조회 */
 		SELECT
@@ -577,37 +571,6 @@
 			tb_b_board_l_category;
 	</select>
     
-	<insert id="addBoardCategory" parameterType="BoardCategory">
-	/*게시글 대분류 카테고리 등록*/
-		INSERT INTO tb_b_board_category
-		(	board_category_code
-			, user_id_code
-			, board_category_name
-			, board_category_reg_date
-			, board_category_update_date
-			, board_category_use
-		)VALUES (
-			#{boardCategoryCode}
-			, #{userIdCode}
-			, #{boardCategoryName}
-			, CURDATE() 
-			, CURDATE() 
-			, 'Y'
-		);
-	</insert>
-     
-	<select id="getBoardCategoryList" resultType="BoardCategory">
-	/*게시글 대분류 카테고리 조회*/
-		SELECT
-			board_category_code						AS boardCategoryCode
-			, user_id_code							AS userIdCode
-			, board_category_name					AS boardCategoryName
-			, board_category_reg_date				AS boardCategoryRegDate
-			, board_category_update_date			AS boardCategoryUpdateDate
-			, board_category_use					AS boardCategoryUse
-		FROM
-			tb_b_board_category;
-   </select>  
 
 	<select id="getQnaBoardList" parameterType="map" resultMap="qnaBoardResultMap">
    /*사용자용 1:1 문의 게시글 목록 조회*/
@@ -628,8 +591,16 @@
 		tb_b_board_question
 		 ORDER BY board_question_origin_no DESC, board_question_group_order ASC
 	LIMIT #{startRow}, #{rowPerPage};
-   </select>
-
+	</select>
+   
+	<select id="getQnaBoardListCount" resultType="int">
+   	/*1:1 문의 게시글 목록 총 row 수*/
+      SELECT
+         COUNT(q.board_question_code)
+      FROM
+         tb_b_board_question AS q;
+	</select>	
+	
 	<select id="getQnaBoard" resultType="Map" parameterType="String">
 	/*사용자용 1:1 문의 게시글 조회*/
 		SELECT
@@ -783,9 +754,131 @@
 			board_category_code = 'board01'
 		ORDER BY board_post_code DESC;
 	</select>
+	
+	<!-- 관리자 화면  -->
+	
+	<select id="getBoardAnswerList" resultType="BoardAnswer">
+	/*게시글 답변 모음 목록 조회 */
+		SELECT
+			board_answer_code 						AS boardAnswerCode
+			, user_id_code 							AS userIdCode
+			, board_l_category_code 				AS boardLargeCategoryCode
+			, board_m_category_code 				AS boardMediumCategoryCode
+			, board_answer_word 					AS boardAnswerWord
+			, board_answer_content 					AS boardAnswerContent
+			, board_answer_reg_date 				AS boardAnswerRegDate
+			, board_answer_update_date 				AS boardAnswerUpdateDate
+		FROM
+			tb_b_board_answer;
+     </select>  
   
+	<select id="getBoardCommentList" resultType="BoardComment">
+	/*관리자용 게시글 댓글 목록 조회 */
+		SELECT
+			board_comment_code 						AS boardCommentCode
+			, user_id_code 							AS userIdCode
+			, board_post_code 						AS boardPostCode
+			, board_comment_content 				AS boardCommentContent
+			, board_comment_reg_date 				AS boardCommentRegDate
+			, board_comment_use 					AS boardCommentUse
+			, user_name 							AS userName
+			, board_comment_update_date 			AS boardCommentUpdateDate
+		FROM
+			tb_b_board_comment;
+	</select>
+	
+	
+
+    <insert id="addBoardMediumCategory" parameterType="BoardMediumCategory">
+	/*문의 게시판 2차 카테고리 등록*/
+		INSERT INTO tb_b_board_m_category
+         (	board_m_category_code
+			, user_id_code
+			, board_l_category_code
+			, board_m_category_name
+			, board_m_category_reg_date
+			, board_m_category_update_date
+			, board_m_category_use
+		)VALUES (
+			#{boardMediumCategoryCode}
+			, #{userIdCode}
+			, #{boardLargeCategoryName}
+			, CURDATE() 
+			, CURDATE() 
+			, 'Y'
+		);
+	</insert>
+	<delete id="removeBoardCategory" parameterType="String">
+	/*게시판 대분류 카테고리 삭제*/
+		DELETE
+		FROM
+			tb_b_board_category
+		WHERE
+			board_category_code = #{boardCategoryCode};
+	</delete>
+	
+	<update id="modifyBoardCategory" parameterType="String">
+	/*게시판 대분류 카테고리 수정*/
+		UPDATE
+			tb_b_board_category
+		SET
+			board_category_code = #{boardCategoryCode}
+			, board_category_name = #{boardCategoryName}
+			, board_category_update_date = CURDATE()
+			, board_category_use = #{boardCategoryUse}
+		WHERE
+			board_category_code = #{boardCategoryCode};
+	</update>
+	
+	<select id="getBoardCategoryByCode" parameterType="String" resultType="BoardCategory">
+	/*게시글 상세 페이지 조회*/
+		SELECT
+			board_category_code						AS boardCategoryCode
+			,user_id_code							AS userIdCode
+			,board_category_name					AS boardCategoryName
+			,board_category_reg_date				AS boardCategoryRegDate
+			,board_category_update_date				AS boardCategoryUpdateDate
+			,board_category_use						AS boardCategoryUse
+		FROM
+			tb_b_board_category 
+		WHERE
+			board_category_code = #{boardCategoryCode};
+   </select>
+	
+	<insert id="addBoardCategory" parameterType="BoardCategory">
+	/*게시글 대분류 카테고리 등록*/
+		INSERT INTO tb_b_board_category
+		(	board_category_code
+			, user_id_code
+			, board_category_name
+			, board_category_reg_date
+			, board_category_update_date
+			, board_category_use
+		)VALUES (
+			#{boardCategoryCode}
+			, #{userIdCode}
+			, #{boardCategoryName}
+			, CURDATE() 
+			, CURDATE() 
+			, 'Y'
+		);
+	</insert>
+	
+	<select id="getBoardCategoryList" resultType="BoardCategory">
+	/*게시글 대분류 카테고리 조회*/
+		SELECT
+			board_category_code						AS boardCategoryCode
+			, user_id_code							AS userIdCode
+			, board_category_name					AS boardCategoryName
+			, board_category_reg_date				AS boardCategoryRegDate
+			, board_category_update_date			AS boardCategoryUpdateDate
+			, board_category_use					AS boardCategoryUse
+		FROM
+			tb_b_board_category;
+	</select>  
+	
 	<select id="getBoardList" resultType="Board">
-	/*관리자용 전체 게시글 조회*/
+	/*전체 게시글 목록 조회*/
 		SELECT
 			board_post_code							AS boardPostCode       
 			, user_id_code							AS userIdCode
@@ -800,14 +893,5 @@
 		FROM
 			tb_b_board_post
 		ORDER BY board_post_code DESC;
-  </select>
-  
-	<select id="getQnaBoardListCount" resultType="int">
-   	/*1:1 문의 게시글 목록 총 row 수*/
-      SELECT
-         COUNT(q.board_question_code)
-      FROM
-         tb_b_board_question AS q;
-   </select>
-
+	</select>
 </mapper>

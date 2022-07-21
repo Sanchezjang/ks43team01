@@ -24,7 +24,6 @@
 			<result column="goods_price" 						property="goodsPrice"/>
 			<result column="goods_working_period" 				property="goodsWorkingPeriod"/>
 			<result column="goods_modified_possibility_count"	property="goodsModifiedPossibilityCount"/>
-			<result column="goods_image_reg" 					property="goodsImageReg"/>
 			<result column="goods_pre_requests_answer_type" 	property="goodsPreRequestsAnswerType"/>
 			<result column="goods_pre_request" 					property="goodsPreRequest"/>
 			<result column="user_id_code" 						property="userIdCode"/>
@@ -59,30 +58,21 @@
 			<result column="user_email" 							property="userEmail"/>
 			<result column="point_history_reg_date" 				property="pointHistoryRegDate"/>
 		</association>
+		
+		<collection property="file" ofType="File">
+			<id    column="file_code"						property="fileCode"/>
+			<result column="user_id_code"					property="userIdCode"/>
+			<result column="file_orginal_name"				property="fileOriginalName"/>
+			<result column="file_re_name"					property="fileReName"/>
+			<result column="file_main_image"				property="fileMainImage"/>
+			<result column="file_location"					property="fileLocation"/>
+			<result column="file_size"						property="fileSize"/>
+			<result column="file_reg_date"					property="fileRegDate"/>
+			<result column="file_update_date"				property="fileUpdateDate"/>
+			<result column="file_use"						property="fileUse"/>	
+		</collection>
 	</resultMap>
 	
-	<!-- <insert id="addPointList" parameterType="Point">
-	/* 리뷰 등록 후 포인트 내역 추가 */
-	INSERT INTO tb_pt_point_accumulation_details
-		(Point_details_code							
-		,user_id_code								
-		,point_standard_details_code				
-		,point_amount								
-		,user_email									
-		,point_history_reg_date						
-		)
-	VALUES 
-		((SELECT
-			CONCAT('padc0',MAX(CAST(SUBSTRING(pp.Point_details_code,5)AS UNSIGNED)+1))
-		FROM 
-			tb_pt_point_accumulation_details AS pp)
-		,#{userIdCode}
-		,#{pointStandardDetailsCode}
-		,#{pointAmount}
-		,#{userEmail}
-		,CURDATE()
-		);
-	</insert> -->
 	
 	
 	<select id="getReviewAdminList" resultType="Map">
@@ -196,6 +186,16 @@
 			review_code = #{reviewCode};
 	</delete>
 	
+	<delete id="removeImageReview" parameterType="String">
+	/* 회원 페이지 리뷰 이미지파일 삭제 */
+		DELETE 
+			 br
+		FROM 
+			tb_b_rel_file_with_Review AS br
+		WHERE
+			br.review_code = #{reviewCode};
+	</delete>
+	
 	<update id="modifyReview" parameterType="String">
 	/* 회원 페이지 리뷰 수정 */
 		UPDATE
@@ -244,6 +244,15 @@
 			 ,#{reviewRegIp}
 			 ,#{reviewStarScore}
 			 );
+		 <selectKey resultType="String" keyProperty="reviewCode" order="AFTER">
+			/* 상품 등록시 만들어지는 코드 */
+			SELECT
+				r.review_code
+			FROM
+				tb_r_review_contents AS r
+			ORDER BY r.review_code DESC
+			LIMIT 1
+		</selectKey>
 	</insert>
 </mapper>
 	

@@ -2,33 +2,16 @@
 <html class="no-js" lang="zxx" 
 xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{userpage/layout/userdefault}">	
-
+layout:decorate="~{userpage/layout/userdefault}">
 <!------ Include the above in your HEAD tag ---------->
 <div layout:fragment="content">
 	<style>
-	html, body, div, a, table, thead, tbody, tr, th, td {
-		margin:0; outline:0; border:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent;
+	.headWrap h2{
+		text-align: center;
+		padding: 35px 0 10px 0;
 	}
-	body { 
-		font-size:0.875em; line-height:1.5; color:#666; -webkit-text-size-adjust:none; min-width:320px;
-	}
-	ul{
-		margin:0;
-	}
-	a:link, a:visited {
-		text-decoration:none; 
-		color: #656565;
-	}
-	.container {
-		max-width:1024px; 
-		margin:30px auto;
-	}
-	.blog-pagination {
-	    margin-top: 0;
-	}    
-	.boardForm{
-		padding-top: 50px;
+	.headWrap{
+		margin-bottom: 30px;
 	}
 	.section-top-border{
 		width: 1200px;
@@ -39,23 +22,23 @@ layout:decorate="~{userpage/layout/userdefault}">
 		padding: 15px 0px 30px 0px;
 		min-width: 800px;
 	}
-	.serial{
-		width: 11.83%;
-		padding-left: 30px;
-	}
 	.writer{
-		width:  28.07%;
+		width:  30%;
 	}
 	.regDate {
-		width: 19.74%;
+		width: 20%;
 	}
 	.title {
-		width: 40.36%;
+		width: 50%;
 		padding-right: 50px;
+		padding-left: 30px;
+	}
+	.lock{
+		width: 19.74%;
+		padding-left: 30px;
 	}
 	.pageView{
-		width: 11.83%;
-		padding-left: 30px;
+		width: 10%;
 	}
 	.table-head {
 		padding: 15px 0;
@@ -66,21 +49,24 @@ layout:decorate="~{userpage/layout/userdefault}">
 		text-transform: uppercase;
 		font-weight: 500;
 		border-bottom: 2px solid #c6d8f7;
-		padding-left: 30px;
-		
 	}
 	.table-row {
 		padding: 15px 0;
 		border-top: 1px solid #edf3fd;
 		display: flex;
-		padding-left: 30px;
+	}
+	.blog-pagination{
+		padding-bottom: 30px;
+		margin-top: 0px;
+	}
+	.genric-btn{
+		margin-bottom: 10px;
 	}
 	</style>
 
-		<h2>Notice</h2>
-
-	<!-- Hero End -->
-	<!-- About Details Start -->
+	<div class="headWrap">
+		<h2>공지사항</h2>
+	</div>
 
 	<div class="boardForm">
 		<div class="box" style="width:1200px; margin:0 auto;">
@@ -107,8 +93,10 @@ layout:decorate="~{userpage/layout/userdefault}">
 			<div style="text-align:right; margin-top:20px;">
 				<a th:href="@{/userpage/board/addNoticeBoard}" class="genric-btn primary" >글쓰기</a>
 			</div>
+			<div class="search" th:include="userPage/search/boardSearch :: searchBoardFragment"></div> <br/>
 		</div>
 	</div>
+	
 	<nav class="blog-pagination justify-content-center d-flex">
 		<ul class="pagination">
 			<li class="page-item">
@@ -149,3 +137,4 @@ layout:decorate="~{userpage/layout/userdefault}">
 		</ul>
 	</nav>
 </div>
+

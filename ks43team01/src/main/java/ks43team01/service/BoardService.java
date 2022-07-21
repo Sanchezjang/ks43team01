@@ -19,7 +19,6 @@ import ks43team01.dto.BoardComment;
 import ks43team01.dto.BoardLargeCategory;
 import ks43team01.dto.BoardMediumCategory;
 import ks43team01.dto.QnaBoard;
-import ks43team01.dto.QnaBoardReply;
 import ks43team01.mapper.BoardMapper;
 import ks43team01.mapper.FileMapper;
 
@@ -37,33 +36,42 @@ public class BoardService {
 	
 	private static final Logger log = LoggerFactory.getLogger(BoardService.class);
 	
+	
 	/*
 	 * 사용자 화면
+	 * ((일반 게시글 : 공지사항, 자주묻는 질문, 자유 게시판)
 	 * */
 	
+	/*1:1 게시글 검색*/
+	public List<QnaBoard> getSearchQnaBoardList(String searchKey, String searchValue){
+		List<QnaBoard> searchQnaBoardList = boardMapper.getSearchQnaBoardList(searchKey, searchValue);
+		
+		return searchQnaBoardList;
+	}
+		
 	//1:1 게시글 페이징
 	public Map<String, Object> getQnaBoardList(int currentPage){
 		// 몇개 보여줄지?
-		int rowPerPage = 5;
+		int rowPerPage = 6;
 		int startPageNum = 1;
 		int	endPageNum = 10;
-				
-		
+			
+			
 		//총 행의 갯수
 		double rowCount = boardMapper.getQnaBoardListCount();
-		
+			
 		//마지막페이지
 		int lastPage = (int) Math.ceil(rowCount/rowPerPage);
-		
+			
 		//페이징 처리
 		int startRow = (currentPage -1) * rowPerPage;
-		
+			
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("startRow", startRow);
 		paramMap.put("rowPerPage", rowPerPage);
-		
+			
 		List<Map<String, Object>> qnaBoardList = boardMapper.getQnaBoardList(paramMap);
-		
+			
 		//동적 페이지 번호
 		if(currentPage > 6) {
 			startPageNum =  currentPage - 5;
@@ -73,17 +81,18 @@ public class BoardService {
 				endPageNum = lastPage;
 			}
 		}
-		
-		
+			
+		if(lastPage < endPageNum) endPageNum = lastPage;
+			
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("lastPage", lastPage);
 		resultMap.put("qnaBoardList", qnaBoardList);
 		resultMap.put("startPageNum", startPageNum);
 		resultMap.put("endPageNum" , endPageNum);
-		
+			
 		return resultMap;
 	}
-	
+		
 	/*게시글 조회수 업데이트*/
 	public int updateQnaBoardPageView(String boardQuestionCode) {
 		
@@ -191,13 +200,26 @@ public class BoardService {
 	      
 	      return boardMapper.getQnaBoardByCode(boardQuestionCode);
 	  }
-	/*1:1 문의 게시글 아이디별정보추출.. */
+	
+	/*1:1 문의 게시글 아이디별 조회 */
 	public List<QnaBoard> getQnaBoard(String userIdCode) {
 		List<QnaBoard> resultList = boardMapper.getQnaBoard(userIdCode);
 		
 		return resultList;
 	}
+		
+	/*
+	 * 사용자 화면
+	 * ((일반 게시글 : 공지사항, 자주묻는 질문, 자유 게시판)
+	 * */
 	
+
+	/*게시글 검색*/
+	public List<Board> getSearchBoardList(String searchKey, String searchValue){
+		List<Board> searchBoardList = boardMapper.getSearchBoardList(searchKey, searchValue);
+		
+		return searchBoardList;
+	}
 	
 	
 	/*게시글 댓글 삭제*/
@@ -314,20 +336,39 @@ public class BoardService {
 	 * 관리자 화면
 	 * */
 	
+	/* 게시판 대분류 카테고리 상세 조회 */
+	public BoardCategory getBoardCategoryByCode(String boardCategoryCode) {
+		System.out.println("___________getboardCategoryCode____________");
+		
+		return boardMapper.getBoardCategoryByCode(boardCategoryCode);
+	}
+	
 	/* 게시글 답변모음 목록 조회 */
 	public List<BoardAnswer> getBoardAnswerList(){
 		List<BoardAnswer> boardAnswerList = boardMapper.getBoardAnswerList();
 		
 		return boardAnswerList;
 	}
-	
+
 	/* 게시글 댓글 목록 조회 */
 	public List<BoardComment> getBoardCommentList(){
 		List<BoardComment> boardCommentList = boardMapper.getBoardCommentList();
 		
 		return boardCommentList;
 	}
-	
+	/*문의 게시판 2차 카테고리 삭제*/
+	public int removeBoardMediumCategory(String boardMediumCategoryCode) {
+		int result = boardMapper.removeBoardMediumCategory(boardMediumCategoryCode);
+		
+		return result;
+		
+	}
+	/*문의 게시판 2차 카테고리 수정*/
+	public int modifyBoardMediumCategory(BoardMediumCategory boardMediumCategory) {
+		int result = boardMapper.modifyBoardMediumCategory(boardMediumCategory);
+		
+		return result;
+	}
 	
 	/*문의 게시판 2차 카테고리 등록*/
 	public int addBoardMediumCategory(String sessionId, BoardMediumCategory boardMediumCategory) {
@@ -344,6 +385,20 @@ public class BoardService {
 		return boardMediumCategoryList;
 	}
 	
+	/*문의 게시판 1차 카테고리 삭제*/
+	public int removeBoardLargeCategory(String boardLargeCategoryCode) {
+		int result = boardMapper.removeBoardLargeCategory(boardLargeCategoryCode);
+		
+		return result;
+		
+	}
+	/*문의 게시판 1차 카테고리 수정*/
+	public int modifyBoardLargeCategory(BoardLargeCategory boardLargeCategory) {
+		
+		int result = boardMapper.modifyBoardLargeCategory(boardLargeCategory);
+		
+		return result;
+	}
 	/*문의 게시판 1차 카테고리 등록*/
 	public int addBoardLargeCategory(String sessionId, BoardLargeCategory boardLargeCategory) {
 		boardLargeCategory.setUserIdCode(sessionId);
@@ -359,6 +414,19 @@ public class BoardService {
 		return boardLargeCategoryList;
 	}	
 	
+	/*게시판 대분류 카테고리 삭제*/
+	public int removeBoardCategory(String boardCategoryCode) {
+		int result = boardMapper.removeBoardCategory(boardCategoryCode);
+		
+		return result;
+	}
+	
+	/*게시판 대분류 카테고리 수정*/
+	public int modifyBoardCategory(BoardCategory boardCategory) {
+		int result = boardMapper.modifyBoardCategory(boardCategory);
+		
+		return result;
+	}
 	/*게시판 대분류 카테고리 등록*/
 	public int addBoardCategory(String sessionId, BoardCategory boardCategory) {
 		boardCategory.setUserIdCode(sessionId);

@@ -1,5 +1,8 @@
 package ks43team01.dto;
 
+import java.util.List;
+import java.util.Map;
+
 public class ReviewContentsReg {
 	private String reviewCode;
 	private String goodsCode;
@@ -18,6 +21,8 @@ public class ReviewContentsReg {
 	private User user;
 	private PointSaveByReview pointSaveByReview;
 	private Point point;
+	private List<Map<String, String>> 	relFileWithReview;
+	private List<File> 					file;
 	
 	@Override
 	public String toString() {
@@ -27,7 +32,8 @@ public class ReviewContentsReg {
 				+ reviewDecommendationsCount + ", reviewRegDate=" + reviewRegDate + ", reviewRegBuyerExp="
 				+ reviewRegBuyerExp + ", reviewRegIp=" + reviewRegIp + ", reviewStarScore=" + reviewStarScore
 				+ ", goods=" + goods + ", scoreByReview=" + scoreByReview + ", user=" + user + ", pointSaveByReview="
-				+ pointSaveByReview + ", point=" + point + "]";
+				+ pointSaveByReview + ", point=" + point + ", relFileWithReview=" + relFileWithReview + ", file=" + file
+				+ "]";
 	}
 	public String getReviewCode() {
 		return reviewCode;
@@ -125,4 +131,20 @@ public class ReviewContentsReg {
 	public void setPoint(Point point) {
 		this.point = point;
 	}
+	public List<Map<String, String>> getRelFileWithReview() {
+		return relFileWithReview;
+	}
+	public void setRelFileWithReview(List<Map<String, String>> relFileWithReview) {
+		this.relFileWithReview = relFileWithReview;
+	}
+	public List<File> getFile() {
+		return file;
+	}
+	public void setFile(List<File> file) {
+		this.file = file;
+	}
+	
+	
+	
+	
 }

@@ -1,9 +1,13 @@
 package ks43team01.admin.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.tools.DocumentationTool.Location;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -142,7 +146,21 @@ public class AdminGoodsController {
 	}
 	
 	//상품 상위 카테고리 삭제
-	
+	@GetMapping("/removeGoodsTopCategory")
+	public String removeGoodsTopCategory(String goodsTopCategoryCode ,HttpServletResponse response) throws IOException {
+		
+		//log.info("삭제 : {}" , goodsTopCategoryCode);
+		int result = goodsService.removeGoodsTopCategory(goodsTopCategoryCode);
+		
+		if(result == 0) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+
+			out.println("<script language='javascript'>alert('해당 하위 카테고리가 존재합니다.'); location.href='/adminpage/goods/goodsTopCategoryList';</script>");
+		}
+		
+		return "adminpage/goods/removeGoodsTopCategory";
+	}	
 	
 	//상품 상위 카테고리 수정
 	@PostMapping("/modifyGoodsTopCategory")

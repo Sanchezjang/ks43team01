@@ -162,7 +162,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 		<hr>
                <div class="clickBtn mt-3" >
                		<a th:href="@{/userpage/board/addQnaBoardReply(boardQuestionCode=${qnaBoard.boardQuestionCode})}">
-						<button type="button" class="genric-btn primary-border" th:if="${session.UID == qnaBoard.userIdCode}">답변</button>
+						<button type="button" class="genric-btn primary-border">답변</button>
 					</a>
 					<a th:href="@{/userpage/board/modifyQnaBoard(boardQuestionCode=${qnaBoard.boardQuestionCode})}">
 						<button type="submit" class="genric-btn primary" th:if="${session.UID == qnaBoard.userIdCode}">수정</button>

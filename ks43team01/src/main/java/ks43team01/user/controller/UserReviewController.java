@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks43team01.dto.Point;
@@ -69,6 +70,7 @@ public class UserReviewController {
 	@GetMapping("/removeReview")
 	public String removeReview(@RequestParam(value = "reviewCode") String reviewCode) {
 		log.info("나가는 값:{}", "test");
+		reviewService.removeImageReview(reviewCode);
 		reviewService.removeReview(reviewCode);
 
 		return "redirect:/userpage/reviewUser/reviewUserList";
@@ -90,21 +92,32 @@ public class UserReviewController {
 	public String addReview(ReviewContentsReg reviewContentsReg
 						   ,Point point
 						   ,@RequestParam(value = "pointAmount", required = false)String pointAmount
+						   ,@RequestParam MultipartFile[] reviewImageReg
 						   ,HttpServletRequest request
 						   ,HttpSession session
 						   ,RedirectAttributes reAttr) {
-		
+		String serverName = request.getServerName();
 		String ip = (String) request.getRemoteAddr();
 		String userId = (String) session.getAttribute("UID");
+		String fileRealPath = "";
 		reviewContentsReg.setReviewRegIp(ip);
 		reviewContentsReg.setUserIdCode(userId);
+		if("localhost".equals(serverName)) {
+			// server 가 localhost 일때 접근
+			fileRealPath = System.getProperty("user.dir") + "/src/main/resources/static/";
+			System.out.println(System.getProperty("user.dir"));
+			//fileRealPath = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
+		}else {
+			//배포용 주소
+			fileRealPath = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
+		}
 		log.info("pointAmount:{}",pointAmount);
 		log.info("아이피 가저오는지   :  {}", ip);
 		log.info("아이디 값 가져오는지 : {}", userId);
 		log.info("들어오는 값 :{} ", reviewContentsReg);
 		reviewService.reviewSavePoint(userId);
 		reviewService.userSavePoint(userId);
-		reviewService.addReview(reviewContentsReg);
+		reviewService.addReview(reviewContentsReg, reviewImageReg, fileRealPath);
 		point.setUserIdCode(userId);
 		pointService.addPointList(point); 
 		log.info("들어오는 값 :{} ", point);

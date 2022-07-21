@@ -44,11 +44,40 @@ public class BoardController {
 	}
 	
 	/*
-	 * 사용자 화면
+	 * 1:1 문의 게시글
 	 * 
 	 * */
 	
 	// 1:1 문의 게시글 관리
+	
+	/*1:1 문의 게시글 검색*/
+	@PostMapping("/qnaBoardList")
+	public String getSearchQnaBoardList( @RequestParam(name="searchKey")String searchKey
+										, @RequestParam(name="searchValue", required = false)String searchValue
+										, Model model) {
+		
+		log.info("searchKey: {}", searchKey);
+		log.info("searchValue: {}", searchValue);
+		
+		if("userIdCode".equals(searchKey)) {
+			searchKey = "user_id_code";
+		}else if("boardQuestionTitle".equals(searchKey)) {
+			searchKey = "board_question_title";
+		}else if("userName".equals(searchKey)) {
+			searchKey = "user_name";
+		}else if("boardQuestionContent".equals(searchKey)) {
+			searchKey = "board_question_content";
+		}else {
+			searchKey = "board_question_reg_date";
+		}
+		
+		List<QnaBoard> searchQnaBoardList = boardService.getSearchQnaBoardList(searchKey, searchValue);
+		
+		if(searchQnaBoardList != null) model.addAttribute("qnaBoardList", searchQnaBoardList);
+		
+		
+		return "/userpage/board/qnaBoardList"; 
+	}
 	
 	/*1:1 문의 게시글 페이징*/
 	@GetMapping("/qnaBoardList")
@@ -58,7 +87,7 @@ public class BoardController {
 
 		model.addAttribute("resultMap",				resultMap);
 		model.addAttribute("currentPage", 			currentPage);
-		model.addAttribute("qnaBoardList",	 	resultMap.get("qnaBoardList"));
+		model.addAttribute("qnaBoardList",	 		resultMap.get("qnaBoardList"));
 		model.addAttribute("lastPage",				resultMap.get("lastPage"));
 		model.addAttribute("startPageNum",			resultMap.get("startPageNum"));
 		model.addAttribute("endPageNum",			resultMap.get("endPageNum"));
@@ -162,6 +191,7 @@ public class BoardController {
 		return "redirect:/userpage/board/freeBoardDetail";
 	}
 	
+	
 	/* 게시글  댓글 수정 (get) */
 	@GetMapping("/modifyComment")
 	public String modifyComment(Model model
@@ -174,6 +204,34 @@ public class BoardController {
 
 		
 		return "/userpage/board/freeBoardDetail";
+	}
+	/* 게시글 검색 기능 */
+	@PostMapping("/noticeBoardList")
+	public String getSearchBoardList( @RequestParam(name="searchKey")String searchKey
+									, @RequestParam(name="searchValue", required = false)String searchValue
+									, Model model) {
+		
+		log.info("searchKey: {}", searchKey);
+		log.info("searchValue: {}", searchValue);
+		
+		if("userIdCode".equals(searchKey)) {
+			searchKey = "user_id_code";
+		}else if("boardPostTitle".equals(searchKey)) {
+			searchKey = "board_post_title";
+		}else if("boardUserName".equals(searchKey)) {
+			searchKey = "board_user_name";
+		}else if("boardPostContent".equals(searchKey)) {
+			searchKey = "board_post_content";
+		}else {
+			searchKey = "board_post_reg_date";
+		}
+		
+		List<Board> searchBoardList = boardService.getSearchBoardList(searchKey, searchValue);
+		
+		if(searchBoardList != null) model.addAttribute("noticeBoardList", searchBoardList);
+		
+		
+		return "/userpage/board/noticeBoardList"; 
 	}
 	
 	
@@ -473,6 +531,13 @@ public class BoardController {
        return "/userpage/board/addQnaBoard";
     }
 
+	/*
+	 * 일반 게시글
+	 * 
+	 * */
+    
+    
+    
 	/* 2-3. 사용자 자유게시판 게시글 등록 (post) */
 	@PostMapping("/addFreeBoard")
 	public String addFreeBoard(Board board 
@@ -486,14 +551,14 @@ public class BoardController {
 		return "redirect:/userpage/board/freeBoardList";
     }
 
-    /* 2-3. 사용자 자유게시판 게시글 등록 (get) */
+    /* 자유게시판 게시글 등록 (get) */
 	@GetMapping("/addFreeBoard")
 	public String addFreeBoard(Model model) {
 		
 		return "/userpage/board/addFreeBoard";
     }
 
-	/* 2-2. 사용자 자주묻는 질문 게시글 등록 (post) */
+	/*  자주묻는 질문 게시글 등록 (post) */
 	@PostMapping("/addFaqBoard")
 	public String addFaqBoard(Board board
 							, HttpSession session
@@ -506,15 +571,14 @@ public class BoardController {
 		return "redirect:/userpage/board/faqBoardList";
     }
     
-    /* 2-2. 사용자 자주묻는 질문 게시글 등록 (get) */
+    /* 자주묻는 질문 게시글 등록 (get) */
 	@GetMapping("/addFaqBoard")
 	public String addFaqBoard(Model model) {
 	
 		return "/userpage/board/addFaqBoard";
     }
-    
 
-	/* 2-1. 사용자 공지사항 게시글 등록 (post) */
+	/*  공지사항 게시글 등록 (post) */
 	@PostMapping("/addNoticeBoard")
 	public String addNoticeBoard(Board board
 								, HttpSession session
@@ -526,37 +590,32 @@ public class BoardController {
        
 		return "redirect:/userpage/board/noticeBoardList";
     }
-    
-    /* 2-1. 사용자 공지사항 게시글 등록 (get) */
+	
+    /* 공지사항 게시글 등록 (get) */
 	@GetMapping("/addNoticeBoard")
 	public String addNoticeBoard(Model model) {	
 		
 		return "/userpage/board/addNoticeBoard";
-    }
-
-
+	}
 	      
-	   /* 1. 사용자 게시글 목록 조회 */
-	   @GetMapping("/{boardCategory}")
-	   public String getBoardList(@PathVariable(value="boardCategory", required = false) String boardCategory
+	/* 일반 게시글 목록 조회 */
+	@GetMapping("/{boardCategory}")
+	public String getBoardList(@PathVariable(value="boardCategory", required = false) String boardCategory
 	                        	, Model model) {
 	      
-	      if(boardCategory.equals("noticeBoardList")) {
-	         List<Board> noticeBoardList = boardService.getNoticeBoardList();
-	         log.info("공지사항 게시글 목록: {}", noticeBoardList);
-	         model.addAttribute("noticeBoardList", noticeBoardList);
-	      }else if(boardCategory.equals("faqBoardList")){
-	         List<Board> faqBoardList = boardService.getFaqBoardList();
-	         log.info("자주묻는 질문 게시글 목록: {}", faqBoardList);
-	         model.addAttribute("faqBoardList", faqBoardList);
-	      }else {
-	         List<Board> freeBoardList = boardService.getFreeBoardList();
-	         log.info("자유게시판 게시글 목록: {}", freeBoardList);
-	         model.addAttribute("freeBoardList", freeBoardList);
-	      }
-	      
-	      return "/userpage/board/"+boardCategory;
-	   }
-	   
-	
+		if(boardCategory.equals("noticeBoardList")) {
+			List<Board> noticeBoardList = boardService.getNoticeBoardList();
+			log.info("공지사항 게시글 목록: {}", noticeBoardList);
+			model.addAttribute("noticeBoardList", noticeBoardList);
+		}else if(boardCategory.equals("faqBoardList")){
+			List<Board> faqBoardList = boardService.getFaqBoardList();
+			log.info("자주묻는 질문 게시글 목록: {}", faqBoardList);
+			model.addAttribute("faqBoardList", faqBoardList);
+		}else {
+			List<Board> freeBoardList = boardService.getFreeBoardList();
+			log.info("자유게시판 게시글 목록: {}", freeBoardList);
+			model.addAttribute("freeBoardList", freeBoardList);
+		}
+			return "/userpage/board/"+boardCategory;
+	}
 }

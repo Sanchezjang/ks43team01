@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">	
+	<div th:fragment="searchBoardFragment">
+		<form th:action="@{/userpage/board/noticeBoardList}" class="form-inline row col-12" method="post">
+			<div class="form-group row col-6 justify-content-center">
+				<div class="periodSelect" style="margin-right: 5px;">
+					<select name="searchKey">
+						<option value="">전체</option>
+						<option value="">최근 1주일</option>
+						<option value="">최근 1개월</option>
+						<option value="">최근 6개월</option>
+					</select>
+				</div>
+				<div >
+					<select name="searchKey">
+						<option value="boardPostTitle">제목별</option>
+						<option value="userIdCode">아이디명</option>
+						<option value="boardUserName">작성자명</option>
+						<option value="boardPostContent">내용</option>
+					</select>
+				</div>
+				<input type="text" class="form-control col-sm-5 mx-2 " name="searchValue"/>
+				<button class="searchBtn genric-btn btn-info form-control col-sm-2 p-0 text-center" type="submit" style="margin-top:10px;">검색</button>
+			</div>
+		</form>
+	</div>
+</html>

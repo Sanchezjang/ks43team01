@@ -71,7 +71,7 @@ public interface GoodsMapper {
 	public int addGoodsSubCategory(GoodsSubCategory goodsSubCategory);
 	
 	//상품 상위 카테고리 삭제
-	
+	public int removeGoodsTopCategory(String goodsTopCategoryCode);
 	
 	//상품 상위 카테고리 수정
 	public int modifyGoodsTopCategory(GoodsTopCategory goodsTopCategory);
