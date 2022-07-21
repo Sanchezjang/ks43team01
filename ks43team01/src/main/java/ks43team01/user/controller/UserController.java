@@ -74,7 +74,7 @@ public class UserController {
 		session.setAttribute("UID", user.getUserIdCode());//세션에 있는 정보를 입력한정보가 맞는지 확인//
 		return "userpage/user/login";
 	}
-	@GetMapping("/sellerjoin")// 판매자회원추가진행로
+	@GetMapping("/sellerjoin")// 판매자회원추가진행로직 1차카테고리 작업
 	public String userInsertCheck(Model model) {
 		
 		List<GoodsTopCategory> expertBusinessField = userService.getTopCategory();
@@ -172,7 +172,7 @@ public class UserController {
 	}
 	@PostMapping("/idCheck")////아이디 중복체크!!!!!
 	@ResponseBody
-	public boolean CheckId(@RequestParam(name = "userId")String userId) {
+	public boolean CheckId(@RequestParam(name = "userIdCode")String userId) {
 			
 		log.info("아이디 중복체크 : {}", userId);
 
