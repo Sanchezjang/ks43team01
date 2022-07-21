@@ -266,7 +266,7 @@
 							정말 게시판 대분류 카테고리를 삭제하시겠습니까?
 						</div>
 						<div class="modal-footer">
-			                 <form th:action="@{/adminpage/goods/removeBoardCategory}" method="get">
+			                 <form action="/adminpage/boardAdmin/removeBoardCategory" method="get">
 								<input type="hidden" name="boardCategoryCode" id="removeboardCategoryCode">
 								<button type="button" class="btn btn-primary" data-dismiss="modal">취소</button>
 								<button type="submit" class="btn btn-danger">삭제</button>
