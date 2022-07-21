@@ -26,32 +26,32 @@ layout:decorate="~{userpage/layout/userdefault}">
 	        	<div class="input-form mx-auto refund" style="max-width: 100%;">
 	        		<h1 class="text-center login-title" id="mainfont">상품환불신청</h1>
 						<form class="validation-form" novalidate id="addUserForm" th:action="@{orderCancel}" method="post">
-				               	<th:block th:if="${not #lists.isEmpty(requstList)}" th:each="q : ${requstList}">
+			               	<th:block th:if="${not #lists.isEmpty(requstList)}" th:each="q : ${requstList}">
 		         			<div class="from-group col-12 row" style="margin:0 auto; padding:15px 0; border-bottom:1px solid #eee;">
-				               	<div class="font2 col-12">
-			        					환불요청하시는 상품이 맞는지 반드시 확인해주세요!
+			            	   	<div class="font2 col-12">
+        						환불요청하시는 상품이 맞는지 반드시 확인해주세요!
 		       					</div>
-				               	<label for="userIdCode"class="col-12 font4">상품명</label>
-				               	<input type="hidden" class="form-control col-4" id="paymentCode" name="paymentCode" readonly th:value="${q.paymentCode}" required>
-				               	<input type="hidden" class="form-control col-4" id="goodsCode" name="goodsCode" readonly th:value="${q.goodsCode}" required>
-				               	<input type="hidden" class="form-control col-4" id="orderCode" name="orderCode" readonly th:value="${q.orderCode}" required>
-				               	<input type="hidden" class="form-control col-4" id="paymentByCashTime" name="paymentByCashTime" readonly th:value="${q.paymentByCashTime}" required>
-				               	<input type="text" class="form-control col-4" id="goodsName" name="goodsName" readonly th:value="${q.goodsName}" required>
+					               	<label for="userIdCode"class="col-12 font4">상품명</label>
+					               	<input type="hidden" class="form-control col-4" id="paymentCode" name="paymentCode" readonly th:value="${q.paymentCode}" required>
+					               	<input type="hidden" class="form-control col-4" id="goodsCode" name="goodsCode" readonly th:value="${q.goodsCode}" required>
+					               	<input type="hidden" class="form-control col-4" id="orderCode" name="orderCode" readonly th:value="${q.orderCode}" required>
+					               	<input type="hidden" class="form-control col-4" id="paymentByCashTime" name="paymentByCashTime" readonly th:value="${q.paymentByCashTime}" required>
+					               	<input type="text" class="form-control col-4" id="goodsName" name="goodsName" readonly th:value="${q.goodsName}" required>
 				               	<div class="font2 col-12">
-			        					판매자
+	        					판매자
 		       					</div>
 				               	<input type="text" class="form-control col-4" id="userIdCode" name="userIdCode" readonly th:value="${q.sellerId}" required>
 	    					</div>
 		         			<div class="from-group col-6 row" style="margin:0 auto; padding:15px 0; border-bottom:1px solid #eee;">
 				               	<label for="userIdCode" class="col-12 font4" style="display:block;">환불신청이유</label>
-				               	<select class="col-8 row" id="refundRequestReasonCode" name="refundRequestReasonCode" value="">
+				               		<select class="col-8 row" id="refundRequestReasonCode" name="refundRequestReasonCode" value="">
 				               			<option class="text-center">: : : : 환불신청사유 : : : :</option>
 				               			<th:block th:if="${not #lists.isEmpty(reasonList)}" th:each="r : ${reasonList}">
 				               			<option class="" th:value="${r.refundRequestReasonCode}">[[${r.refundRequestReasonCodeName}]]</option>
 				               			</th:block>
-				               	</select>
+				               		</select>
 				               	<div class="font2 col-12">	
-			        					기타내용을 상세히 적어주시면 보다 빠른 처리가 가능합니다!
+	        					기타내용을 상세히 적어주시면 보다 빠른 처리가 가능합니다!
 		       					</div>
 			       				<textarea rows="6" cols="4" class="col-8"></textarea>	
 	    					</div>
@@ -71,13 +71,13 @@ layout:decorate="~{userpage/layout/userdefault}">
 								    	<option th:value="refund_bs_010">협의된 진행율 90% = 10%환불</option>
 								    	<option th:value="refund_bs_011">협의된 진행율 100% = 0%환불</option>
 				               		</select>
-				               	<a class="btn-danger col-8" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+			               		<a class="btn-danger col-8" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 								  : : : :환불전꼭확인하세요!!: : : :
 								</a>
 								<div class="collapse col-8 row" id="collapseExample" style="color:firebrick">
-								    환불신청전 판매자와 합의된 진행율을 적어주세요!
-								    저희가 최선을 다해 중재하지만 이견이 있을 경우 
-								    당사자 합의가 우선인점 꼭 참고해주세요!
+							    환불신청전 판매자와 합의된 진행율을 적어주세요!
+							    저희가 최선을 다해 중재하지만 이견이 있을 경우 
+							    당사자 합의가 우선인점 꼭 참고해주세요!
 								</div>
 	    					</div>
 		         			<div class="col-4" style="margin:0 auto; padding:0;">

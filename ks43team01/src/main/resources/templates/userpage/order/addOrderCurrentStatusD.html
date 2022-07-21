@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">	 
+
+<!------ Include the above in your HEAD tag ---------->
+<div layout:fragment="content">
+	<style>
+	html, body, div, a, table, thead, tbody, tr, th, td {
+		margin:0; outline:0; border:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent;
+	}
+	
+	body { 
+		font-size:0.875em; line-height:1.5; color:#666; -webkit-text-size-adjust:none; min-width:320px;
+	}
+	
+	.section-top-border{
+	    width: 1200px;
+    	height: 150px;
+	}
+	
+	.x_panel{
+	width: 1200px;
+    margin: 0 auto;
+    padding-top: 80px;
+    padding-bottom: 80px;
+		
+	}
+
+	.col-6{
+		padding-bottom: 20px;
+	}
+
+	.check{
+	    width: 300px;
+	}
+
+	
+	th{
+		height: 50px;
+		font-size: 20px;
+	}
+	td{
+		font-size: 15px;
+	}
+	
+	.col-lg-6{
+		text-align: right;
+	}
+
+	.pointCheckBox{
+		padding-top : 10px;
+	    text-align: right;
+	}
+	.title{
+		font-size: 20px;
+		padding-bottom: 10px;
+	}
+	hr{
+		width: 600px;
+	}
+	
+	.totalOrder {
+    width: 400px;
+    position: relative;
+}
+
+	.total{
+		border: 1px solid #BDBDBD;
+	    margin: 10px;
+	    padding: 30px;
+	    width: 500px;
+	    height: 300px;
+	}
+	
+	h3{
+		padding-bottom: 10px;
+	}
+	
+	.totalCount{
+		float: right;
+	}	
+	.title{
+		padding-right: 20px;
+	}
+	
+	.totalOrderDetails{
+		float: right;
+	}
+	
+	p{
+	text-align: center;
+	}
+
+	</style>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+		<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+		<script>
+			window.onload = function(){
+			    document.getElementById("postnumber").addEventListener("click", function(){ //주소입력칸을 클릭하면
+			        //카카오 지도 발생
+			        new daum.Postcode({
+			            oncomplete: function(data) { //선택시 입력값 세팅
+			                document.getElementById("orderReceiveAddr").value = data.address; // 주소 넣기
+			                document.getElementById("postnumber").value = data.zonecode; // 주소 넣기
+			                document.querySelector("input[name=deliveryAddrDetail]").focus(); //상세입력 포커싱
+			            }
+			        }).open();
+			    });
+			}
+			
+			
+			
+					/*결제API*/
+		/*  var IMP = window.IMP; // 생략가능
+		  IMP.init('imp05239063');
+			  function requestPay(date) {	
+				  IMP.request_pay({
+				    pg: "html5_inicis",
+				    pay_method: "card",
+				    merchant_uid : 'merchant_'+new Date().getTime(),
+				    name : '결제테스트',
+				    amount : 14000,
+				    buyer_email : 'iamport@siot.do',
+				    buyer_name : '구매자',
+				    buyer_tel : '010-1234-5678',
+				    buyer_addr : '서울특별시 강남구 삼성동',
+				    buyer_postcode : '123-456'
+				  }, function (rsp) {
+					    console.log(rsp);
+					    if (rsp.success) {
+					      var msg = '결제가 완료되었습니다.';
+					      alert(msg);
+					      location.href = "/oderSuccess"
+					    } else {
+					      var msg = '결제에 실패하였습니다.';
+					      msg += '에러내용 : ' + rsp.error_msg;
+					      alert(msg);
+					    }
+				    }); 
+			  }*/
+			  
+			  	
+			$(document).ready(function(){
+				$('#allPoint').on('click',function(){
+					var point = $('#point').val();
+					$('#usePoint').val(point);
+					$('#discount').text(point+'원');
+				var count =	$('#usePoint').val(point);
+				var count1 = $('#discount').text(point+'원');
+				$('allCount')
+					
+				});
+			});
+			</script>
+			  
+	<div class="x_panel">
+		<h2>주문/결제</h2>
+		<div class="x_content">
+			<table class="section-top-border">
+				<thead>
+					<tr class="table-head">
+						<th>항목</th>
+						<th>판매자</th>
+						<th>가격</th>
+		<form id="demo-form row" th:action="@{/orderSuccess}" method="post" data-parsley-validate >
+					</tr>
+				</thead>
+				
+					<th:block th:if="${not #lists.isEmpty(goodslist)}" th:each="g : ${goodslist}">
+				<tbody>
+					<tr class="table-row">
+						<input type="hidden" id="userIdCode" name="userIdCode"th:value="${session.UID}">
+						<input type="hidden" id="goodsCode" name="goodsCode" th:value="${g.goodsCode}">
+						<td th:text="${g.goodsName}">1</td>
+						<td id="orderSendname" th:text="${g.userIdCode}" th:value="${g.userIdCode}">2</td>
+						<td th:text="${g.goodsPrice+'원'}">3</td>
+					</tr>
+				</tbody>
+					</th:block>
+			
+			
+			</table>
+		<hr style="width: 1200px"/>
+		
+		<!-- start form for validation -->
+			<div class="totalCount">
+				<div class="total">
+					<th:block th:if="${not #lists.isEmpty(orderCartList)}" th:each="o : ${orderCartList}">
+					<h3 class="totalOrder">
+						<span class="totalOrdertitle">가격</span>
+						<span class="totalOrderDetails" th:text="${o.goodsPrice+'원'}">0000원</span>
+					</h3>
+					<h3 class="totalOrder">
+						<span class="totalOrdertitle">할인금액</span>
+						<span class="totalOrderDetails" id="discount" value="">0원</span>
+					</h3>
+					<h3 class="totalOrder">
+						<span class="totalOrdertitle">총금액</span>
+						<span class="totalOrderDetails" id="allCount" th:text="${o.goodsPrice+'원'}">000원</span>
+					</th:block>
+					</h3>
+					<p><input type="checkbox" class="totalCheck" value="Y"> 주문 내용을 확인했으며, 결제 내용에 동의합니다.</p>
+					<button type="submit" id="iamportPayment" class="btn-primary btn-lg btn-block" style="float: right;">결제하기</button>
+				</div>
+			</div>
+			<th:block th:if="${not #lists.isEmpty(userList)}" th:each="u : ${userList}">
+			<div class="orderer">
+			<label class="title">주문자 정보</label>
+				<div class="col-6">
+					<label for="fullname">주문자</label>
+						<input type="text" id="fullname" class="form-control" name="fullname" th:value="${u.userName}" required />
+				</div>
+				<div class="col-6">
+					<label for="phone">주문자 연락처</label>
+						<input type="tel" id="orderReceiveContact" class="form-control" name="orderReceiveContact" th:value="${u.userContact}" required />
+				</div>
+			</div>
+			
+			<hr/>
+			
+			<div class="recipient">
+			<label class="title">배송지 정보</label>
+				<div class="col-6">
+					<label for="fullname">수령인</label>
+						<input type="text" id="fullname" class="form-control" name="fullname" th:value="${u.userName}" required />
+				</div>
+				<div class="col-6">
+					<label for="phone">수령인 연락처</label>
+						<input type="tel" id="orderContact" class="form-control" name="orderContact" th:value="${u.userContact}" required />
+				</div>
+				<div class="col-6">
+					<label for="postnumber">배송지 ::우편번호 클릭시 주소입력창이 팝업됩니다::</label>
+						<input type="text" id="postnumber" class="form-control" name="postnumber" placeholder="우편번호"  readonly="readonly" />
+				</div>
+					<div class="col-6">
+						<input type="text" id="orderReceiveAddr" class="form-control" name="orderReceiveAddr" placeholder="주소"  readonly="readonly" />
+				</div>
+				<div class="col-lg-6">
+                       <button type="button" class="genric-btn primary circle" id="postNum">우편번호</button>
+                 </div>
+				<div class="col-6">
+					<label for="deliveryAddrDetail"></label>
+						<input type="text" id="deliveryAddrDetail" class="form-control" name="deliveryAddrDetail" placeholder="상세주소" required />
+				</div>   
+			
+			</div>
+			
+			<hr/>
+		
+			<div class="discount">
+				<label class="title">포인트 및 할인</label>
+				<div class="col-3">
+					<label>현재 보유 포인트</label>
+					<input type="number" id="point" class="form-control" th:value="${u.userPoint}"name="point"/>  
+					<div class="pointCheckBox">
+						<input type="checkbox" Id="allPoint"class="allPoint"> 전액 사용
+					</div>
+				</div>
+				<div class="col-3">
+					<label>사용 포인트</label>
+					<input type="number" id="usePoint" class="form-control" name="point" value=""/>
+				</div>
+				</th:block>	
+			</div>
+			
+			<hr/>
+			
+			<div class="pay">
+				<label class="title">결제 수단</label>
+					<input type="radio" class="flat" name="payment" id="transfer" value="카카오페이" checked="checked"/> 카카오페이
+					<input type="radio" class="flat" name="payment" id="bankbook" value="무통장입금" /> 무통장입금
+					<input type="radio" class="flat" name="payment" id="card" value="카드결제" /> 카드결제
+			</div>
+			
+			<hr/>
+			
+			<div class="issuance">
+				<label class="title">현금 영수증 발급</label>
+					<input type="checkbox" class="checkPay" name="receipt" id="receipt" value="Y"> 신청하기
+					<input type="checkbox" class="checkPay" name="receipt" id="receipt" value="N"> 신청안함
+			</div>
+			
+			<div class="issuance">
+				<label class="title">세금 계산서 발급</label>
+					<input type="checkbox" class="tax" name="taxInvoice" id="taxInvoice" value="Y"> 신청하기
+					<input type="checkbox" class="tax" name="taxInvoice" id="taxInvoice" value="N"> 신청안함
+			</div>
+				
+				<hr/>	
+	
+			
+			
+		</form>
+		
+		<!-- end form for validations -->
+	</div>
+</div>
+</div>
+
+	
+                          

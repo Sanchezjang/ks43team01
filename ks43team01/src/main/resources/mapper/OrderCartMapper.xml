@@ -87,6 +87,17 @@
 	  		<result column="level_num_code" property="userLevel"/>
   		</resultMap>
 	
+	<select id="addPayDirect" parameterType="String" resultType="Goods">
+		SELECT 
+			g.goods_code as goodsCode
+			,g.goods_name as goodsName
+			,g.user_id_code as userIdCode
+			,g.goods_price goodsPrice
+		FROM 
+		 	tb_g_goods as g
+		WHERE 
+			g.goods_code = #{goodsCode}
+	</select>
 	
 	<insert id="addPaymentGoods" parameterType="PaymentGoods">
 		/*주문>결제완료시 페이먼트 테이블로 인썰트되는정보*/
