@@ -165,17 +165,6 @@
 			ua.user_id_code = #{userIdCode};
 		
 	</update>
-	
-	<update id="reviewSavePoint" parameterType="String">
-	/* 리뷰 등록시 포인트적립내역테이블 포인트 적립 */
-		UPDATE
-			tb_pt_point_accumulation_details AS pa
-		SET
-			pa.point_amount = pa.point_amount + 100 
-		WHERE
-			pa.user_id_code = #{userIdCode};
-		
-	</update>
 
 	<delete id="removeReview" parameterType="String">
 	/* 회원 페이지 리뷰 삭제 */

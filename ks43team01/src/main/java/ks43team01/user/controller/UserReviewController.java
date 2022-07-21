@@ -12,13 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -115,7 +112,6 @@ public class UserReviewController {
 		log.info("아이피 가저오는지   :  {}", ip);
 		log.info("아이디 값 가져오는지 : {}", userId);
 		log.info("들어오는 값 :{} ", reviewContentsReg);
-		reviewService.reviewSavePoint(userId);
 		reviewService.userSavePoint(userId);
 		reviewService.addReview(reviewContentsReg, reviewImageReg, fileRealPath);
 		point.setUserIdCode(userId);

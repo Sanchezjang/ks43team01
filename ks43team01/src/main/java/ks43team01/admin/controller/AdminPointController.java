@@ -129,14 +129,15 @@ public class AdminPointController {
 	}
 	
 	/* 관리자 페이지 포인트 내역 날짜 별 조회 */
-	@GetMapping("/searchDatePointList")
+	@GetMapping("/getDatePointList")
 	public String searchDatePointList(Model model
 								,@RequestParam(name ="startDate", required = false)String startDate
 								,@RequestParam(name = "endDate", required = false)String endDate){
 		log.info("startDate",startDate);
 		log.info("endDate",endDate);
-		List<Point> searchDatePointList = pointService.searchDatePointList(startDate, endDate);
-		model.addAttribute("pointList:{}",searchDatePointList);
+		List<Point> getDatePointList = pointService.getDatePointList(startDate, endDate);
+		model.addAttribute("pointList",getDatePointList);
+
 		
 		return "adminpage/pointDetails/pointList";
 	}
@@ -175,24 +176,24 @@ public class AdminPointController {
 	/* 관리자 페이지 수단 별 적립 검색 내역 조회 */
 	@GetMapping("/meansPointList")
 	public String meansPointList(Model model
-								,@RequestParam(value="searchKey", required= false)String searchKey
-								,@RequestParam(value="searchValue", required= false)String searchValue) {
+								,@RequestParam(name="searchKey", required= false)String searchKey
+								,@RequestParam(name="searchValue", required= false)String searchValue) {
+		log.info("searchKey : {}",searchKey);
+		log.info("searchValue : {}",searchValue);
+		if(searchKey != null) {
+			if(searchKey.indexOf("user_") > -1) {
+				searchKey = "pa." + searchKey;
+			}else if(searchKey.indexOf("point_") > -1) {
+				searchKey = "pd." + searchKey;
+			}
+		}
 		
 		
-		  if(searchKey != null) {
-		  
-		  }if(searchKey.indexOf("user_") > -1) {
-			  searchKey= "u." + searchKey; 
-		  }else if(searchKey.indexOf("point_") > -1) {
-			  searchKey= "p."+searchKey;
-		  }
-		  
 		List<Point> pointList = pointService.meansPointList(searchKey, searchValue);
-		
 		model.addAttribute("pointList",pointList);
-		
 		return "/adminpage/pointDetails/pointList";
 	}
+	
 	
 	/* 관리자 페이지 회원 포인트 적립 내역 테이블 조회 */
 	@GetMapping("/pointList")

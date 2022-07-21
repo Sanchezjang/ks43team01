@@ -1,6 +1,5 @@
 package ks43team01.mapper;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -28,9 +27,6 @@ public interface ReviewMapper {
 
 	/* 리뷰 등록시 회원 테이블에 포인트 적립 */
 	public int userSavePoint(String userIdCode);
-
-	/* 리뷰 등록 시 포인트 내역에 포인트 적립 */
-	public int reviewSavePoint(String userIdCode);
 
 	/* 리뷰 등록 */
 	public int addReview(ReviewContentsReg reviewContentsReg);

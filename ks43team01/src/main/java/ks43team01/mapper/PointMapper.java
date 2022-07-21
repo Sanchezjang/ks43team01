@@ -2,6 +2,7 @@ package ks43team01.mapper;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,11 +14,17 @@ import ks43team01.dto.PointStandardDetails;
 @Mapper
 public interface PointMapper {
 	
+	/* 관리자 페이지 포인트 기준 별 검색 내역 조회 */
+	public List<Point> standardPointList(String searchKey, String searchValue);
+	
+	/* 관리자 페이지 아이디 별 적립 검색 내역 조회 */
+	public List<Point> userIdPointList(String searchKey, String searchValue); 
+	
 	/* 관리자 페이지  수단 별 적립  검색 내역 조회 */
 	public List<Point> meansPointList(String searchKey, String searchValue); 
 	
 	/* 관리자 페이지 포인트 내역 날짜 별 조회 */
-	public List<Point> searchDatePointList(String startDate, String endDate);
+	public List<Point> getDatePointList(String startDate, String endDate);
 	
 	/* 관리자 페이지 포인트 기준 내역 수정 */
 	public int modifyGradeList(PointSaveByGrade pointSaveByGrade);
