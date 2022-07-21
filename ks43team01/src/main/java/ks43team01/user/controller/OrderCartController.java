@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +23,6 @@ import ks43team01.dto.OrderCurrent;
 import ks43team01.dto.OrderStatusComplete;
 import ks43team01.dto.PaymentGoods;
 import ks43team01.dto.User;
-import ks43team01.service.GoodsService;
 import ks43team01.service.OrderCartService;
 import ks43team01.service.OrderService;
 import ks43team01.service.UserService;
@@ -34,12 +35,9 @@ public class OrderCartController {
 	////DI///
 	private final OrderCartService orderCartService;
 	private final UserService userService;
-	private final GoodsService goodsService;
-	
-	public OrderCartController(OrderCartService orderCartService,UserService userService,GoodsService goodsService) {
+	public OrderCartController(OrderCartService orderCartService,UserService userService) {
 		this.orderCartService = orderCartService;
 		this.userService = userService;
-		this.goodsService = goodsService;
 	}
 	/* 사용자화면 장바구니 리스트 출력 */
 	@GetMapping("/orderCart")
@@ -64,16 +62,19 @@ public class OrderCartController {
 		orderCartService.removeAllOrderCart(userIdCode);
 		return "redirect:/orderCart";
 	}
-	/*상품다이렉트로 구입하는 방법!!!*/
-	@GetMapping("userpage/order/addOrderCurrentStatusD")
-	public String orderSucces1(@RequestParam(name="goodsCode")String goodsCode,HttpSession session, User user,Goods goods,Model model) {
+	@GetMapping("/userpage/order/addOrderCurrentStatusD")
+	public String addPayDirect(@RequestParam(name="goodsCode")String goodsCode,Model model,User user,Goods goods,HttpSession session) {
+		StopWatch stopWatch = new StopWatch();
+		stopWatch.start();
 		String userIdCode = (String) session.getAttribute("UID");
 		User userList = userService.getUserInfoById(userIdCode);
 		model.addAttribute("userList", userList);
-		log.info("주문자 정보 받아오는지 출력!!직접결제  :  {}",userList);
+		log.info("주문자 정보 받아오는지 출력!!  :  {}",userList);
 		List<Goods> goodslist = orderCartService.addPayDirect(goodsCode);
 		model.addAttribute("goodslist", goodslist);
-		return "userpage/order/addOrderCurrentStatusD";
+		stopWatch.stop();
+		log.info("메서드 걸린시간!!!    :   {}",stopWatch.prettyPrint());
+		return "/userpage/order/addOrderCurrentStatusD";
 	}
 	/*사용자가 선택한 제품만 주문으로 이동*/
 	@PostMapping("/orderCheck")
