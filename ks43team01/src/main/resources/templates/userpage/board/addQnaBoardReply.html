@@ -1,115 +1,284 @@
 <!DOCTYPE html>
-<html class="no-js" lang="zxx" 
-xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{userpage/layout/userdefault}">	 
-
-
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{userpage/layout/userdefault}">
 <div layout:fragment="content">
-	<style>
-	html, body, div, a, table, thead, tbody, tr, th, td {
-		margin:0; outline:0; border:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent;
-	}
-	body { 
-		font-size:0.875em; line-height:1.5; color:#666; -webkit-text-size-adjust:none; min-width:320px;
-	}
-	.section-top-border{
-	    width: 1200px;
-    	height: 150px;
-	}
-	
-	.x_panel{
-	width: 1200px;
-    margin: 0 auto;
-    padding-top: 80px;
-    padding-bottom: 80px;
-	}
-	.writer{
-	}
-	.col-6{
-		padding-bottom: 20px;
-	}
-	.pay{
-		padding-left: 10px;	
-	}
-	.flat{
-	
-	}
-	.check{
-	    width: 300px;
-	}
-	.explanation{
-		color:grey;
-		font-size: 12px;
-		margin-bottom: 10px;
-	}
-	.mainExplanation{
-		color : black;
-		font-weight: bold;
-		margin-top: 10px;
-	}
-	.goods{
-		border-bottom: 1px solid grey;
-	}
-	.select1{
-		padding-bottom: 0;
-		margin-bottom: 0;
-	}
-	.btn-lg{
-		text-align: center;
-		margin-top: 20px;
-	}
-	
-	</style>
-	
-	<div class="qnaBoard">
-		<div class="x_panel">
-			<div class="x_title">
-				<h2>1:1 문의 답변</h2>
-					<ul class="nav navbar-right panel_toolbox">
-						<li class="dropdown"></li>
-						<li><a class="close-link"><i class="fa fa-close"></i></a></li>
-					</ul>
-				<div class="clearfix"></div>
-			</div>
-			<!-- start form for validation -->
-			<form th:action="@{/userpage/board/addQnaBoardReply(boardQuestionCode=${qnaBoard.boardQuestionCode})}" method="post" id="demo-form" data-parsley-validate enctype="multipart/form-data" name="multipart">
-				<div class="writer form-group">
-					<div class="col-6 board">
-						<label for="boardLargeCategoryCode" class="mainExplanation">1차 카테고리</label>
-						<input th:value="${qnaBoard.boardLargeCategoryCode}" id="boardLargeCategoryCode" class="form-control col-6" name="boardLargeCategoryCode" required />
-					</div>
-					<div class="col-6 board">
-						<label for="boardMediumCategoryCode"  class="mainExplanation">2차 문의 카테고리</label>
-						<input th:value="${qnaBoard.boardMediumCategoryCode}" id="boardMediumCategoryCode" class="form-control col-6" name="boardMediumCategoryCode" required />
-					</div>
-					<div class="col-6 board">
-						<label for="boardQuestionTitle" class="mainExplanation">제목</label>
-						<input th:value="|RE : ${qnaBoard.boardQuestionTitle}|" id="boardQuestionTitle" class="form-control  col-md-10" name="boardQuestionTitle" required />
-					</div>
-					<div class="col-6 board">
-						<label for="userName" class="mainExplanation">이름</label>
-						<input type="text" th:value="${session.UNAME}" id="userName" class="form-control col-6" name="userName" required />
-					</div>
-					<div class="col-6 board">
-						<label for="boardQuestionContent" class="mainExplanation">본문</label>
-						<textarea th:utext="${qnaBoard.boardQuestionContent+'&#10;' + '---------------------답변이에요~----------------------'+'&#10;'}" class="form-control col-md-10"  rows="5"cols="10" name="boardQuestionContent" id="boardQuestionContent"></textarea>
-					<div class="col-6 board">
-						<label for="boardQuestionLock" class="mainExplanation">공개여부</label>
-						<input type="radio" id="boardQuestionLock" class="form-control col-6" name="boardQuestionLock" value="공개글" checked="checked"/>공개글
-						<input type="radio" id="boardQuestionLock" class="form-control col-6" name="boardQuestionLock" value="비밀글"/>비밀글
-					</div>
-					<div class="col-6 board">
-						<label for="boardQuestionPw" class="mainExplanation">비밀번호</label>
-						<input  th:value="${qnaBoard.boardQuestionPw}" type="password" id="boardQuestionPw" class="form-control col-6" name="boardQuestionPw"/>
-					</div>
-					<div class="totalOrder">
-						<button type="submit" class="genric-btn primary btn-sm" id="addQnaBoardReply">등록</button>
-					</div>
-				</div>
-				</div>
-			</form>
-		</div>
-</div>
-</div>
 
+	<th:block layout:fragment="customScript">
+		<script>
+			$(function(){
+				$(document).on('change', '#boardLargeCategoryName', function(){
+					var $boardLargeCategoryName = $("#boardLargeCategoryName").val()
+					console.log($boardLargeCategoryName);
+					var request = $.ajax({
+						url: "/userpage/board/getBoardMediumCategory",
+						method: "GET",
+						data: { 'boardLargeCategoryName' : $boardLargeCategoryName},
+						dataType: "json"
+					});
+			 		
+					request.done(function( data ) {
+					console.log(data)
+					var html = '', $boardMediumCategory = $('#boardMediumCategoryCode');
+					if(data.length == 0){
+						html += '<option value=""> :: 문의 2차 카테고리 :: </option>';
+					}else{ 								
+						for(var i=0; i < data.length; i++){
+							html += '<option value="'+data[i].boardMediumCategoryCode+'"> ' + data[i].boardMediumCategoryName + ' </option>';
+						}
+					}
+						$boardMediumCategory.html(html);
+						$boardMediumCategory.niceSelect('update');
+					});
+					 
+						request.fail(function( jqXHR, textStatus ) {
+							alert( "Request failed: " + textStatus );
+					});
+				});22
+			});
+			$(document).ready(function(){
+				$("#file").on('change',function(){
+					  var fileName = $("#file").val();
+					  $("#boardPostFileCode").val(fileName);
+				});
+			});
+			
+		</script>
+		
+	</th:block>
+	
+<style>
+.bigWrap {
+	margin: 0 20% 0 20%;
+	padding: 0;
+}
+
+table {
+	position: relative;
+	margin: 10px 0 30px 0;
+	border: 1px solid #eaeaea;
+	border-top: 0;
+	color: #fff;
+	line-height: 1.5;
+	border-spacing: 0;
+	border-collapse: collapse;
+	text-indent: initial;
+	width: 100%;
+}
+
+.topWrap {
+	text-align: center;
+	padding: 40px 0 25px 0 ;
+}
+
+table tbody th {
+	padding: 8px 14px;
+	border: 1px solid #eaeaea;
+	border-bottom-width: 0;
+	color: #333333;
+	text-align: center;
+	font-weight: normal;
+	background-color: #fbfafa;
+	width: 100px;
+	vertical-align: middle;
+}
+
+table tbody th:first-child {
+	border-left: 0;
+}
+
+table tbody td {
+	padding: 8px 10px 7px;
+	border-top: 1px solid #eaeaea;
+	color: #333333;
+	vertical-align: middle;
+}
+
+input[type="text"] {
+	height: 30px;
+	line-height: 30px;
+	padding: 0 13px;
+	border: 1px solid #f0f0f0;
+	background: #fff;
+	border-radius: 5px;
+	font-size: 11px;
+	color: #666;
+	box-sizing: border-box;
+	width: 390px;
+}
+td input{
+	height: 30px;
+	line-height: 30px;
+	padding: 0 13px;
+	border: 1px solid #d9d9d9;
+	background: #fff;
+	border-radius: 5px;
+	font-size: 11px;
+	color: #666;
+	box-sizing: border-box;
+	width: 50%;
+}
+.clear{
+	border: 1px solid #d9d9d9;
+	padding: 20px;
+}
+.fr-wrapper iframe {
+    width: 100%;
+    border: none;
+    position: relative;
+    display: block;
+    z-index: 2;
+    box-sizing: border-box;
+    background-clip: padding-box;
+}
+.textArea{
+	width: 100%;
+	height:300px;
+	border: none;
+	resize: none;
+}
+td label , td input{
+	margin: 0;
+	vertical-align: middle;
+}
+td input[type="radio"] {
+	width: 15px;
+	height: 15px;
+	
+}
+.filebox .upload-name {
+    display: inline-block;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    width: 88%;
+    color: #999999;
+}
+.filebox label {
+    display: inline-block;
+    padding: 6px 10px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #0064ff;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 15px;
+}
+.selectBox{
+	box-sizing: border-box;
+	height:	84px;
+}
+.nice-select{
+	float: none;
+	height: 30px;
+	vertical-align: middle;
+	line-height: 30px;
+}
+.botWrapBtn{
+	background-color: #d9d9d9;
+	color: #333;
+	border: none;
+	border-radius: 10px;
+	width: 70px;
+	height: 40px;
+	font-size: 20px;
+}
+.botWrapBtn:hover{
+	background-color: #0064ff;
+	color: #fff;
+}
+#viewQnaBoard{
+	float: left;
+}
+#addQnaBoard{
+	float: right;
+}
+.botWrap{
+	padding-bottom: 60px;
+}
+</style>
+
+	<div class="bigWrap">
+		<div class="topWrap">
+			<h2>1:1 문의 답변</h2>
+		</div>
+		<form th:action="@{/userpage/board/addQnaBoardReply(boardQuestionCode=${qnaBoard.boardQuestionCode})}" method="post" id="demo-form" data-parsley-validate enctype="multipart/form-data" name="multipart">
+			<table>
+			<colgroup>
+				<col width="20%">
+				<col width="21%">
+				<col width="3.75%">
+				<col width="22.75%">
+				<col width="14.75%">
+				<col width="19.75%">
+			</colgroup>
+				<tbody>
+					<tr>
+						<th scope="row" colspan="1">카테고리</th>
+							<td colspan="2"  style="width: 120px;">
+								<input th:value="${qnaBoard.boardLargeCategoryCode}" id="boardLargeCategoryCode" class="form-control col-6" name="boardLargeCategoryCode" required />
+							</td>
+							<td style="width: 120px;" colspan="1">
+								<input th:value="${qnaBoard.boardMediumCategoryCode}" id="boardMediumCategoryCode" class="form-control col-6" name="boardMediumCategoryCode" required />
+							</td>
+							<td colspan="2">
+							</td>
+					</tr>
+					<tr>
+						<th scope="row" colspan="1">제목</th>
+							<td colspan="3">
+								<input th:value="|RE : ${qnaBoard.boardQuestionTitle}|" id="subject" class="inputTypeText" name="boardQuestionTitle" placeholder="" style="width: 100%;" value="" type="text">
+							</td>
+						<th style="width: 120px;" colspan="1">작성자</th>
+							<td style="width: 120px;" colspan="1">
+								<input type="text" style="border: none; font-size: 14px; width: 60px;" th:value="${session.UNAME}" id="userName" name="userName" required readonly />
+							</td>
+					</tr>
+					<tr>
+						<td colspan="6" class="clear">	
+							<div class="fr-wrapper" dir="ltr">
+								<textarea th:utext="${qnaBoard.boardQuestionContent+'&#10;' + '---------------------답변이에요~----------------------'+'&#10;'}" class="textArea" rows="5"cols="10" name="boardQuestionContent" id="boardQuestionContent" required></textarea>
+							</div>
+	
+						</td>
+					</tr>
+					<tr>
+						<th>공개여부 </th>
+						<td class="boardQuestionLock">	
+							<label for="gongGae">공개글</label>
+							<input type="radio" style="margin-right: 5px;" id="gongGae" class="" name="boardQuestionLock" value="공개글" checked="checked"/>
+							<label for="bimil">비밀글</label>
+							<input type="radio" id="bimil" class="" name="boardQuestionLock" value="비밀글"/>
+						</td>
+						<td colspan="4">
+							<input type="password" th:value="${qnaBoard.boardQuestionPw}" style="width: 100%; font-size: 12px;" id="boardQuestionPw" class="" name="boardQuestionPw" placeholder="비밀번호를 입력해주세요."/>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="botWrap">
+				<button type="submit" class="botWrapBtn" id="viewQnaBoard">목록</button>
+				<button type="submit" class="botWrapBtn" id="addQnaBoard">등록</button>
+			</div>
+		</form>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
