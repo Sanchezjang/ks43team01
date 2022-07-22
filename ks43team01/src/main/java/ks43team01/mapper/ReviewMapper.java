@@ -33,11 +33,15 @@ public interface ReviewMapper {
 
 	/* 유저페이지 회원 리뷰 조회 */
 	public ReviewContentsReg getReviewByCode(String reviewCode);
-
+	
+	/* 회원 페이지 회원 리뷰 상품코드로 조회 */
+	public List<ReviewContentsReg> getReviewByGoodsCode(String goodsCode);
+	
 	/* 유저페이지 회원 리뷰 목록 조회 */
 	public List<ReviewContentsReg> getReviewUserList();
 
 	/* 관리자페이지 회원 리뷰 목록 조회 */
 	public List<ReviewContentsReg> getReviewAdminList();
+
 
 }
