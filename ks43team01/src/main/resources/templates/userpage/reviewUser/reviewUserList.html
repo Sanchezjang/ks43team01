@@ -139,6 +139,21 @@ layout:decorate="~{userpage/layout/userdefault}">
 										<button class="btn" id="swal-delete-review"
 											th:if="${session.UID == r.userIdCode}">삭제</button>
 									</a>
+									<!-- <div th:if="${not #lists.isEmpty(reviewContentsReg.file)}" th:each="r : ${reviewContentsReg.file}">
+											<div class="review-image" th:if="${r.fileMainImage eq 'Y'}">
+												<img th:src="@{'/' + ${#strings.replace(l.fileLocation,'\','/')}}" alt="..." />
+											</div>
+											<div class="review_gallery" th:unless="${r.fileMainImage eq 'Y'}">
+												<a><img th:src="@{'/' + ${#strings.replace(l.fileLocation,'\','/')}}" alt="..." /></a>
+										@{${#strings.replace(t.storedFilePath,'\','/')}}
+											</div>
+			
+										db에서 저장된 사진 불러오기
+									</div>
+									<div th:unless="${not #lists.isEmpty(reviewContentsReg.file)}">
+										저장된 사진 없음
+										<a><img th:src="@{/images/notImage.jfif}" alt="..." /></a>
+									</div> -->
 							</div>
 						</div>
 							

@@ -125,11 +125,19 @@ public class ReviewService {
 		}
 	}
 
-	/* 회원페이지 회원 상세 리뷰 조회 */
+	/* 회원페이지 회원  리뷰 상세  조회 */
 	public ReviewContentsReg getReviewByCode(String reviewCode) {
 		System.out.println("___________getReviewByCode_________");
 		return reviewMapper.getReviewByCode(reviewCode);
 
+	}
+	
+	/* 회원 페이지 회원 리뷰 이미지 조회 */
+	public List<ReviewContentsReg> getReviewImageCode(String reviewCode){
+		
+		List<ReviewContentsReg> reviewImageCode = reviewMapper.getReviewImageCode(reviewCode);
+		
+		return reviewImageCode;
 	}
 	
 	/* 회원 페이지 회원 리뷰 상품코드로 조회 */
