@@ -32,6 +32,7 @@ public class UserReviewController {
 
 	private final ReviewService reviewService;
 	private final PointService pointService;
+
 	public UserReviewController(ReviewService reviewService, PointService pointService) {
 		this.reviewService = reviewService;
 		this.pointService = pointService;
@@ -46,7 +47,7 @@ public class UserReviewController {
 		reviewService.modifyReview(reviewContentsReg);
 		String reviewCode = reviewContentsReg.getReviewCode();
 		reAttr.addAttribute("reviewCode", reviewCode);
-		Map<String, Object> resultMap = new HashMap<String,Object>();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("reviewCode", reviewCode);
 		resultMap.put("href", "/userpage/reviewUser/reviewUserList");
 		return resultMap;
@@ -73,99 +74,103 @@ public class UserReviewController {
 		return "redirect:/userpage/reviewUser/reviewUserList";
 	}
 
-	/* 유저화면 리뷰 상세 페이지 */
-	@GetMapping("/reviewDetail")
-	public String reviewDetail(@RequestParam(value = "reviewCode") String reviewCode, Model model) {
-
-		ReviewContentsReg reviewContentsReg = reviewService.getReviewByCode(reviewCode);
-		log.info("reviewContentsReg :{}", reviewContentsReg);
-		model.addAttribute("reviewContentsReg", reviewContentsReg);
-		return "/userpage/reviewUser/reviewDetail";
-
-	}
+	/*
+	 * 유저화면 리뷰 상세 페이지
+	 * 
+	 * @GetMapping("/reviewDetail") public String reviewDetail(@RequestParam(value =
+	 * "reviewCode") String reviewCode, Model model) {
+	 * 
+	 * ReviewContentsReg reviewContentsReg =
+	 * reviewService.getReviewByCode(reviewCode); log.info("reviewContentsReg :{}",
+	 * reviewContentsReg); model.addAttribute("reviewContentsReg",
+	 * reviewContentsReg); return "/userpage/reviewUser/reviewDetail";
+	 * 
+	 * }
+	 */
 
 	/* 리뷰 등록-포인트 적립 (post), */
 	@PostMapping("/addReview")
-	public String addReview(ReviewContentsReg reviewContentsReg
-						   ,Point point
-						   ,@RequestParam(value = "pointAmount", required = false)String pointAmount
-						   ,@RequestParam MultipartFile[] reviewImageReg
-						   ,HttpServletRequest request
-						   ,HttpSession session
-						   ,RedirectAttributes reAttr) {
+	public String addReview(ReviewContentsReg reviewContentsReg, Point point,
+			@RequestParam(value = "pointAmount", required = false) String pointAmount,
+			@RequestParam MultipartFile[] reviewImageReg, HttpServletRequest request, HttpSession session,
+			RedirectAttributes reAttr) {
 		String serverName = request.getServerName();
 		String ip = (String) request.getRemoteAddr();
 		String userId = (String) session.getAttribute("UID");
 		String fileRealPath = "";
 		reviewContentsReg.setReviewRegIp(ip);
 		reviewContentsReg.setUserIdCode(userId);
-		if("localhost".equals(serverName)) {
+		if ("localhost".equals(serverName)) {
 			// server 가 localhost 일때 접근
 			fileRealPath = System.getProperty("user.dir") + "/src/main/resources/static/";
 			System.out.println(System.getProperty("user.dir"));
-			//fileRealPath = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
-		}else {
-			//배포용 주소
+			// fileRealPath =
+			// request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
+		} else {
+			// 배포용 주소
 			fileRealPath = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
 		}
-		log.info("pointAmount:{}",pointAmount);
+		log.info("pointAmount:{}", pointAmount);
 		log.info("아이피 가저오는지   :  {}", ip);
 		log.info("아이디 값 가져오는지 : {}", userId);
 		log.info("들어오는 값 :{} ", reviewContentsReg);
 		reviewService.userSavePoint(userId);
 		reviewService.addReview(reviewContentsReg, reviewImageReg, fileRealPath);
 		point.setUserIdCode(userId);
-		pointService.addPointList(point); 
+		pointService.addPointList(point);
 		log.info("들어오는 값 :{} ", point);
-		
-		
-		
+
 		return "redirect:/userpage/reviewUser/reviewUserList";
 	}
 
 	/* 리뷰 등록(get) */
 	@GetMapping("/addReview")
 	public String addReview(Model model,
-							@RequestParam(name = "reviewStarScore", required = false) String reviewStarScore,
-							@RequestParam(name = "userIdCode", required = false) String usedIdCode,
-							@RequestParam(name = "goodsCode", required = false) String goodsCode,
-							@RequestParam(name = "reviewScoreStandardCode", required = false) String reviewScoreStandardCode) {
-		
+			@RequestParam(name = "reviewStarScore", required = false) String reviewStarScore,
+			@RequestParam(name = "userIdCode", required = false) String usedIdCode,
+			@RequestParam(name = "goodsCode", required = false) String goodsCode,
+			@RequestParam(name = "reviewScoreStandardCode", required = false) String reviewScoreStandardCode) {
+
 		List<ReviewContentsReg> reviewUserList = reviewService.getReviewUserList();
-		model.addAttribute("reviewUserList",reviewUserList);
+		model.addAttribute("reviewUserList", reviewUserList);
 		model.addAttribute("goodsCode", goodsCode);
 		model.addAttribute("reviewScoreStandardCode", reviewScoreStandardCode);
 		return "/userpage/reviewUser/addReview";
 	}
 
-	/* 유저 페이지 회원 리뷰 상품코드별   조회 */
+	/* 유저 페이지 회원 리뷰 상품코드별 조회 */
 	@GetMapping("/reviewGoodsList")
-	public String getReviewByGoodsCode(@RequestParam(name = "goodsCode", required = false) String goodsCode
-									,@RequestParam(name = "userName", required = false) String userName
-									, Model model) {
-		
+	public String getReviewByGoodsCode(@RequestParam(name = "goodsCode", required = false) String goodsCode,
+										@RequestParam(name = "userName", required = false) String userName, Model model) {
+
 		List<ReviewContentsReg> reviewByGoodsCode = reviewService.getReviewByGoodsCode(goodsCode);
 		/*
 		 * List<ReviewContentsReg> reviewUserList = reviewService.getReviewUserList();
 		 * model.addAttribute("reviewUserList", reviewUserList);
 		 */
-		model.addAttribute("reviewByGoodsCode",reviewByGoodsCode);
-		log.info("goodsCode값:{}",goodsCode);
+		model.addAttribute("reviewByGoodsCode", reviewByGoodsCode);
+		log.info("goodsCode값:{}", goodsCode);
 		return "/userpage/reviewUser/reviewGoodsList";
 
 	}
-	
+
 	/* 유저페이지 회원 리뷰 목록 조회 */
 	@GetMapping("/reviewUserList")
-	public String getReviewUserList(@RequestParam(name = "goodsCode", required = false) String goodsCode
-								   ,@RequestParam(name = "userName", required = false) String userName
-								   , Model model) {
-		
+	public String getReviewUserList(@RequestParam(name = "goodsCode", required = false) String goodsCode,
+									@RequestParam(name = "userName", required = false) String userName,
+									@RequestParam(value = "reviewCode", required = false) String reviewCode
+									, Model model) {
+
+		/*
+		 * List<ReviewContentsReg> reviewImageCode =
+		 * reviewService.getReviewImageCode(reviewCode);
+		 */
 		List<ReviewContentsReg> reviewUserList = reviewService.getReviewUserList();
-		 
+
 		model.addAttribute("reviewUserList", reviewUserList);
-	
-		 return "/userpage/reviewUser/reviewUserList";
+		/* model.addAttribute("reviewImageCode", reviewImageCode); */
+		model.addAttribute("reviewCode", reviewCode);
+		return "/userpage/reviewUser/reviewUserList";
 
 	}
 }

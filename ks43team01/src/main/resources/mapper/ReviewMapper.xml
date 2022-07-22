@@ -133,6 +133,57 @@
 			tr.review_code DESC;
 	</select>
 	
+	<!-- <select id="getReviewImageCode" parameterType="String" resultMap="ReviewContentsRegResultMap">
+		SELECT
+		 	rr.review_code
+		  ,rr.goods_code
+		  ,rr.user_id_code
+		  ,rr.review_score_standard_code
+		  ,rr.review_content
+		  ,rr.review_recommendations_count
+		  ,rr.review_decommendations_count
+		  ,rr.review_reg_date
+		  ,rr.review_reg_buyer_exp
+		  ,rr.review_reg_ip
+		  ,rr.review_star_score
+		  ,sub.file_code 
+		  ,sub.user_id_code
+		  ,sub.file_orginal_name
+		  ,sub.file_re_name
+		  ,sub.file_main_image
+		  ,sub.file_location
+		  ,sub.file_size
+		  ,sub.file_reg_date
+		  ,sub.file_update_date
+		  ,sub.file_use
+		  ,sub.review_code
+		FROM 
+			tb_r_review_contents AS rr
+			LEFT JOIN  
+			(SELECT  
+			   f.file_code 
+	     	  ,f.user_id_code
+			  ,f.file_orginal_name
+			  ,f.file_re_name
+			  ,f.file_main_image
+			  ,f.file_location
+			  ,f.file_size
+			  ,f.file_reg_date
+			  ,f.file_update_date
+			  ,f.file_use
+			  ,rf.review_code
+			 FROM 
+				tb_f_file AS f 
+				INNER JOIN 
+				tb_b_rel_file_with_Review AS rf 
+				ON 
+				f.file_code = rf.file_code) AS sub 
+				ON 
+				sub.review_code = rr.review_code 
+				WHERE 
+				rr.review_code = #{reviewCode};
+	</select> -->
+	
 	<select id="getReviewUserList" resultType="Map">
 	/* 유저페이지 회원 리뷰 목록*/
 		SELECT
@@ -162,7 +213,7 @@
 			tr.review_code DESC;
 	</select>
 	
-	<select id="getReviewByCode" parameterType="String" resultMap="ReviewContentsRegResultMap">
+	<!-- <select id="getReviewByCode" parameterType="String" resultMap="ReviewContentsRegResultMap">
 	/* 리뷰 상세페이지 조회 */
 		SELECT
 		    rr.review_code							
@@ -176,7 +227,7 @@
 			tb_r_review_contents AS rr 
 		WHERE
 			rr.review_code = #{reviewCode};
-	</select>
+	</select> -->
 	
 	<delete id="removeAdminReview" parameterType="String">
 		DELETE
