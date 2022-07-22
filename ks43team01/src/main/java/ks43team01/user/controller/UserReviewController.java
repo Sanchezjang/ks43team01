@@ -138,17 +138,34 @@ public class UserReviewController {
 		return "/userpage/reviewUser/addReview";
 	}
 
-	/* 유저 페이지 회원 리뷰 목록 조회 */
-	@GetMapping("/reviewUserList")
-	public String getReviewUserList(@RequestParam(name = "goodsCode", required = false) String goodsCode
+	/* 유저 페이지 회원 리뷰 상품코드별   조회 */
+	@GetMapping("/reviewGoodsList")
+	public String getReviewByGoodsCode(@RequestParam(name = "goodsCode", required = false) String goodsCode
 									,@RequestParam(name = "userName", required = false) String userName
 									, Model model) {
-
-		List<ReviewContentsReg> reviewUserList = reviewService.getReviewUserList();
-		model.addAttribute("reviewUserList", reviewUserList);
-
-		return "/userpage/reviewUser/reviewUserList";
+		
+		List<ReviewContentsReg> reviewByGoodsCode = reviewService.getReviewByGoodsCode(goodsCode);
+		/*
+		 * List<ReviewContentsReg> reviewUserList = reviewService.getReviewUserList();
+		 * model.addAttribute("reviewUserList", reviewUserList);
+		 */
+		model.addAttribute("reviewByGoodsCode",reviewByGoodsCode);
+		log.info("goodsCode값:{}",goodsCode);
+		return "/userpage/reviewUser/reviewGoodsList";
 
 	}
+	
+	/* 유저페이지 회원 리뷰 목록 조회 */
+	@GetMapping("/reviewUserList")
+	public String getReviewUserList(@RequestParam(name = "goodsCode", required = false) String goodsCode
+								   ,@RequestParam(name = "userName", required = false) String userName
+								   , Model model) {
+		
+		List<ReviewContentsReg> reviewUserList = reviewService.getReviewUserList();
+		 
+		model.addAttribute("reviewUserList", reviewUserList);
+	
+		 return "/userpage/reviewUser/reviewUserList";
 
+	}
 }

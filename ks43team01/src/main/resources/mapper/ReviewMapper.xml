@@ -102,8 +102,8 @@
 			tr.review_reg_date DESC;
 	</select>
 	
-	<select id="getReviewUserList" resultType="Map">
-	/* 유저페이지 회원 리뷰 목록*/
+	<select id="getReviewByGoodsCode" resultType="Map">
+	/* 유저페이지 회원 리뷰 상품코드별 조회*/
 		SELECT
 			 gg.goods_code							AS goodsCode
 			,tr.review_code							AS reviewCode
@@ -129,6 +129,35 @@
 			tr.review_score_standard_code = rb.review_score_standard_code
 			WHERE
 				gg.goods_code = #{goodsCode}
+			ORDER BY 
+			tr.review_code DESC;
+	</select>
+	
+	<select id="getReviewUserList" resultType="Map">
+	/* 유저페이지 회원 리뷰 목록*/
+		SELECT
+			 gg.goods_code							AS goodsCode
+			,tr.review_code							AS reviewCode
+			,tr.review_reg_date                   	AS reviewRegDate    			
+			,tr.review_content						AS reviewContent
+			,ua.user_id_code						AS userIdCode
+			,tr.review_star_score					AS reviewStarScore
+			,tr.review_recommendations_count		AS reviewRecommendationsCount
+			,tr.review_decommendations_count		AS reviewDecommendationsCount
+		FROM 
+			tb_r_review_contents AS tr 
+			INNER join
+			tb_g_goods AS gg
+			on
+			tr.goods_code = gg.goods_code
+			INNER JOIN 
+			tb_u_all_user AS ua
+			ON 
+			tr.user_id_code = ua.user_id_code 
+			INNER JOIN 
+			tb_r_based_on_score_by_review AS rb 
+			ON 
+			tr.review_score_standard_code = rb.review_score_standard_code
 			ORDER BY 
 			tr.review_code DESC;
 	</select>
