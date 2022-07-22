@@ -6,11 +6,12 @@ layout:decorate="~{userpage/layout/userdefault}">
 <!------ Include the above in your HEAD tag ---------->
 <div layout:fragment="content">
 <style>
-	html, body, div, a, table, thead, tbody, tr, th, td {
-		margin:0; outline:0; border:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent;
+	.headWrap h2{
+		text-align: center;
+		padding: 35px 0 10px 0;
 	}
-	body { 
-		font-size:0.875em; line-height:1.5; color:#666; -webkit-text-size-adjust:none; min-width:320px;
+	.headWrap{
+		margin-bottom: 30px;
 	}
 	.boardDetailView{
 		width: 1000px;
@@ -63,21 +64,14 @@ layout:decorate="~{userpage/layout/userdefault}">
 	
 </style>
 
-<div class="slider-area">
-	<div class="slider-height2 d-flex align-items-center">
-		<div class="container">
-			<div class="BoardRow">
-				<div class="col-xl-12">
-					<div class="hero-cap hero-cap2 text-center">
-					<h2>Q&A</h2>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-</div>
+
 <!-- Hero End -->
 <!-- About Details Start -->
+	<div class="headWrap">
+		<h2>1:1 문의</h2>
+	</div>
+
+
    <div class="boardDetailView">
       <div class="col-12">
          <div class="boardPostDetail">
@@ -94,12 +88,6 @@ layout:decorate="~{userpage/layout/userdefault}">
                      <col width="35%">
                   </colgroup>
                   <tbody>
-                     <tr>
-                        <th>문의 1차 카테고리</th>
-                        <td th:text="${qnaBoard.boardLargeCategoryCode}"></td>
-                        <th>문의 2차 카테고리</th>
-                        <td th:text="${qnaBoard.boardMediumCategoryCode}"></td>
-                     </tr>
                      <tr>
                         <th>제목</th>
                         <td th:text="${qnaBoard.boardQuestionTitle}"></td>
