@@ -1,87 +1,216 @@
 <!DOCTYPE html>
-<html class="no-js" lang="zxx" 
-xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{userpage/layout/userdefault}">	 
-
-<!------ Include the above in your HEAD tag ---------->
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{userpage/layout/userdefault}">
 <div layout:fragment="content">
-<style>
 
-	.BoardRow{
-		width: 1200px;
-		margin:0 auto;	
-	}
 	
-	.addBoardForm {
-		width: 1200px;
-		margin:0 auto;	
-		margin-bottom: 100px;
-		margin-top:100px;
-	}
+<style>
+.bigWrap {
+	margin: 0 20% 0 20%;
+	padding: 0;
+	height: 700px;
+}
+table {
+	position: relative;
+	margin: 10px 0 30px 0;
+	border: 1px solid #eaeaea;
+	border-top: 0;
+	color: #fff;
+	line-height: 1.5;
+	border-spacing: 0;
+	border-collapse: collapse;
+	text-indent: initial;
+	width: 100%;
+}
+
+.topWrap {
+	text-align: center;
+	padding: 40px 0 25px 0 ;
+}
+
+table tbody th {
+	padding: 8px 14px;
+	border: 1px solid #eaeaea;
+	border-bottom-width: 0;
+	color: #333333;
+	text-align: center;
+	font-weight: normal;
+	background-color: #fbfafa;
+	width: 100px;
+	vertical-align: middle;
+}
+
+table tbody th:first-child {
+	border-left: 0;
+}
+
+table tbody td {
+	padding: 8px 10px 7px;
+	border-top: 1px solid #eaeaea;
+	color: #333333;
+	vertical-align: middle;
+}
+
+input[type="text"] {
+	height: 30px;
+	line-height: 30px;
+	padding: 0 13px;
+	border: 1px solid #f0f0f0;
+	background: #fff;
+	border-radius: 5px;
+	font-size: 11px;
+	color: #666;
+	box-sizing: border-box;
+	width: 390px;
+}
+td input{
+	height: 30px;
+	line-height: 30px;
+	padding: 0 13px;
+	border: 1px solid #d9d9d9;
+	background: #fff;
+	border-radius: 5px;
+	font-size: 11px;
+	color: #666;
+	box-sizing: border-box;
+	width: 50%;
+}
+.clear{
+	border: 1px solid #d9d9d9;
+	padding: 20px;
+}
+.fr-wrapper iframe {
+    width: 100%;
+    border: none;
+    position: relative;
+    display: block;
+    z-index: 2;
+    box-sizing: border-box;
+    background-clip: padding-box;
+}
+.textArea{
+	width: 100%;
+	height:300px;
+	border: none;
+	resize: none;
+}
+td label , td input{
+	margin: 0;
+	vertical-align: middle;
+}
+td input[type="radio"] {
+	width: 15px;
+	height: 15px;
 	
-	.single-element-widget{
-		margin-bottom: 30px;
-	}
-	
-	.clickBtn{
-		width: 1200px;
-		text-align:center;
-	}
-	.totalOrder{
-		padding-top: 10px;
-	}
-	</style>
-	
-	 <div class="slider-area">
-	            <div class="slider-height2 d-flex align-items-center">
-	                <div class="container">
-	                    <div class="BoardRow">
-	                        <div class="col-xl-12">
-	                            <div class="hero-cap hero-cap2 text-center">
-	                                <h2>Notice</h2>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	        <!-- Hero End -->
-	        <!-- About Details Start -->
-	
-			<div class="addBoardForm">
-					<form class="" th:action="@{/userpage/board/modifyNoticeBoard}" method="post">
-				<div class="BoardRow">
+}
+.filebox .upload-name {
+    display: inline-block;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    width: 88%;
+    color: #999999;
+}
+.filebox label {
+    display: inline-block;
+    padding: 6px 10px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #0064ff;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 15px;
+}
+.selectBox{
+	box-sizing: border-box;
+	height:	84px;
+}
+.nice-select{
+	float: none;
+	height: 30px;
+	vertical-align: middle;
+	line-height: 30px;
+}
+.botWrapBtn{
+	background-color: #d9d9d9;
+	color: #333;
+	border: none;
+	border-radius: 10px;
+	width: 70px;
+	height: 40px;
+	font-size: 20px;
+}
+.botWrapBtn:hover{
+	background-color: #0064ff;
+	color: #fff;
+}
+
+.clickBtn{
+	float: right;
+}
+</style>
+
+	<div class="bigWrap">
+		<div class="topWrap">
+			<h2>공지사항</h2>
+		</div>
+		<form class="" th:action="@{/userpage/board/modifyNoticeBoard}" method="post">
+			<table>
+			<colgroup>
+				<col width="14.75%">
+				<col width="22.75%">
+				<col width="14.75%">
+				<col width="19.75%">
+			</colgroup>
+				<tbody>
 					
-							<div class="col-12">
-								<div class="form-group">
-									<h4>제목</h4>
-									<input class="form-control" th:value="${board.boardPostTitle}" name="boardPostTitle" id="boardPostTitle" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '제목입력하세요.'" placeholder="제목을 입력하세요."  required>
-								</div>
+					<tr>
+						<th scope="row" colspan="1">제목</th>
+							<td colspan="3">
+								<input id="subject" class="inputTypeText"th:value="${board.boardPostTitle}" name="boardPostTitle" placeholder="" style="width: 100%;" value="" type="text">
+							</td>
+						<th style="width: 120px;" colspan="1">작성자</th>
+							<td style="width: 120px;" colspan="1">
+								<input type="text" style="border: none; font-size: 14px; width: 60px;" th:value="${board.boardUserName}"  id="boardUserName" name="boardUserName" required readonly />
+							</td>
+					</tr>
+					<tr>
+						<td colspan="6" class="clear">
+
+							<div class="fr-wrapper" dir="ltr">
+								<textarea class="textArea" th:text="${board.boardPostContent}" rows="5"cols="10" name="boardPostContent" id="boardPostContent" required></textarea>
 							</div>
-							<div class="col-6">
-								<div class="form-group">
-								<h4>이름</h4>
-									<input th:value="${board.boardUserName}" class="form-control valid" name="boardUserName" id="boardUserName" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = '이름입력하세요.'" placeholder="이름을 입력하세요."  required>
-								</div>
-							</div>
-						
-							<div class="col-12">
-								<div class="form-group">
-								<h4>본문</h4>
-									<textarea th:text="${board.boardPostContent}" class="form-control w-100" name="boardPostContent" id="boardPostContent" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = '본문을 입력하세요.'" placeholder="본문을 입력하세요."  required></textarea>
-								</div>
-							</div>
-								<div class="form-group">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="form-group">
 							<input class="form-control" name="boardPostCode" type="hidden" th:value="${board.boardPostCode}"></input>
 						</div>
 							<div class="clickBtn mt-3" >
-								<button type="submit" class="save boxed-btn">저장</button>
-								<a th:href="@{/userpage/board/noticeBoardList}"><button type="button" class="cancel boxed-btn">취소</button></a>
+								<a th:href="@{/userpage/board/noticeBoardList}"><button type="button" class="botWrapBtn">취소</button></a>
+								<button type="submit" class="botWrapBtn">저장</button>
 							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-			
+		</form>
+	</div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

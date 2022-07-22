@@ -51,6 +51,7 @@
 .bigWrap {
 	margin: 0 20% 0 20%;
 	padding: 0;
+	height: 900px;
 }
 
 table {
@@ -194,7 +195,7 @@ td input[type="radio"] {
 	float: right;
 }
 .botWrap{
-	padding-bottom: 60px;
+	padding-top : 30px;
 }
 </style>
 
@@ -290,7 +291,7 @@ td input[type="radio"] {
 				</tbody>
 			</table>
 			<div class="botWrap">
-				<button type="submit" class="botWrapBtn" id="viewQnaBoard">목록</button>
+				<button type="button" onclick="history.back(-1)" class="botWrapBtn" id="viewQnaBoard">목록</button>
 				<button type="submit" class="botWrapBtn" id="addQnaBoard">등록</button>
 			</div>
 		</form>
