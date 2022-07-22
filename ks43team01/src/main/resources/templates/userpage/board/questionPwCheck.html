@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">
+<!------ Include the above in your HEAD tag ---------->
+
+<th:block layout:fragment="customScript">
+	<script>
+		function pwCheck(){
+			var viewPw = document.getQuestionByPw('boardQuestionPw').value;
+			
+			if(viewPw != qnaBoard.Question){
+				alert("비밀번호가 일치 하지 않습니다.");
+				return false;
+			}else{
+				alert("비밀번호가 일치합니다.");
+				return true;
+			}
+		}	
+	</script>
+
+
+</th:block>
+
+
+
+<div layout:fragment="content">	
+	<style>
+	.headWrap h2{
+		text-align: center;
+		padding: 35px 0 10px 0;
+	
+	}
+	.headWrap{
+		margin-bottom: 30px;
+	}
+	.bigWrap {
+		margin: 5% 20% 5% 20%;
+		padding: 0;
+		height: 200px;
+	}
+	.bigWrap p{
+		text-align: center;
+	}
+	.botWrapBtn{
+		background-color: #d9d9d9;
+		color: #333;
+		border: none;
+		border-radius: 10px;
+		width: 70px;
+		height: 40px;
+		font-size: 20px;
+	}
+	.botWrapBtn:hover{
+		background-color: #0064ff;
+		color: #fff;
+	}
+	.botWrap{
+		padding-top: 30px;
+		text-align: center;
+	}
+	.qnaBoardPwCheck{
+		width: 100%; 
+		font-size: 12px;
+		text-align: center;
+	}
+	.input-form{
+		margin-top : 20px;
+		margin-bottom: 50px;
+	}
+	
+	</style>
+	<div class="headWrap">
+		<h2>비밀글 보기</h2>
+	</div>
+		<div class="input-form mx-auto"> 
+			<div class="bigWrap">
+				<p>이 글은 비밀글 입니다. 비밀번호를 입력해주세요.</p>
+				<p>관리자의 경우 확인버튼을 클릭해주세요.</p>
+				<div class="qnaBoardPwCheck">
+					<label style="padding-right: 10px;">비밀번호</label>
+					<input type="password" id="boardQuestionPw" class="pwCheck col-6" name="boardQuestionPw" placeholder="비밀번호를 입력해주세요."/>
+				</div>
+				<div class="botWrap">
+					<button type="button" onclick="history.back(-1)" class="botWrapBtn">목록</button>
+					<button type="button" onclick="pwCheck()" class="botWrapBtn" id="addQnaBoard">확인</button>
+				</div>
+				
+			</div>
+		
+		
+		</div>
+		
+</div>
+
+</html>

@@ -583,7 +583,8 @@
 		, board_question_group_order     
 		, board_question_title               
 		, user_name                        
-		, board_question_lock               
+		, board_question_lock     
+		, board_question_pw          
 		, board_question_reg_date            
 		, board_question_page_view
 	FROM
@@ -613,6 +614,7 @@
 			, board_question_title					AS boardQuestionTitle
 			, user_name								AS userName
 			, board_question_lock					AS boardQuestionLock
+			, board_question_pw						AS boardQuestionPw
 			, board_question_reg_date				AS boardQuestionRegDate
 			, board_question_page_view				AS boardQuestionPageView
 		FROM
