@@ -10,7 +10,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 		function pwCheck(){
 			var viewPw = document.getQuestionByPw('boardQuestionPw').value;
 			
-			if(viewPw != qnaBoard.Question){
+			if(viewPw != qnaBoard.QuestionPw){
 				alert("비밀번호가 일치 하지 않습니다.");
 				return false;
 			}else{
@@ -19,8 +19,6 @@ layout:decorate="~{userpage/layout/userdefault}">
 			}
 		}	
 	</script>
-
-
 </th:block>
 
 
@@ -84,7 +82,10 @@ layout:decorate="~{userpage/layout/userdefault}">
 				</div>
 				<div class="botWrap">
 					<button type="button" onclick="history.back(-1)" class="botWrapBtn">목록</button>
-					<button type="button" onclick="pwCheck()" id="" class="botWrapBtn" id="addQnaBoard">확인</button>
+					<button type="submit" onclick="pwCheck()" class="botWrapBtn" id="addQnaBoard">확인</button>
+					
+					<!-- <a th:href="@{/userpage/board/qnaBoardDetail(boardQuestionCode=${qnaBoard.boardQuestionCode})}">
+					</a> -->
 				</div>
 				
 			</div>
