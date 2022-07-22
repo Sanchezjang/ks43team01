@@ -127,6 +127,8 @@
 			tb_r_based_on_score_by_review AS rb 
 			ON 
 			tr.review_score_standard_code = rb.review_score_standard_code
+			WHERE
+				gg.goods_code = #{goodsCode}
 			ORDER BY 
 			tr.review_code DESC;
 	</select>
