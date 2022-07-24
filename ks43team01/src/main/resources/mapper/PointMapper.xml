@@ -151,7 +151,7 @@
 	</select>
 	
 	<select id="getDatePointList" parameterType="String" resultType="Map">
-	/* 관리자 페이지 날짜 별 결제 내역 조회 */
+	/* 관리자 페이지 날짜 별 포인트 내역 조회 */
 		SELECT
 		   	 pd.point_standard_details_code		AS pointStandardDetailsCode
 	        ,pa.point_details_code             	AS pointDetailsCode    
@@ -171,6 +171,7 @@
 	</select>
 	
 	<select id="meansPointList"  parameterType="String" resultType="Map">
+	/* 관리자 페이지 수단 별 포인트 내역 조회*/
 	 SELECT
 		   	 pd.point_standard_details_code		AS pointStandardDetailsCode
 	        ,pa.point_details_code             	AS pointDetailsCode    

@@ -133,7 +133,7 @@
 			tr.review_code DESC;
 	</select>
 	
-	<!-- <select id="getReviewImageCode" parameterType="String" resultMap="ReviewContentsRegResultMap">
+	<select id="getReviewImageCode" parameterType="String" resultMap="ReviewContentsRegResultMap">
 		SELECT
 		 	rr.review_code
 		  ,rr.goods_code
@@ -182,7 +182,7 @@
 				sub.review_code = rr.review_code 
 				WHERE 
 				rr.review_code = #{reviewCode};
-	</select> -->
+	</select>
 	
 	<select id="getReviewUserList" resultType="Map">
 	/* 유저페이지 회원 리뷰 목록*/
@@ -212,22 +212,6 @@
 			ORDER BY 
 			tr.review_code DESC;
 	</select>
-	
-	<!-- <select id="getReviewByCode" parameterType="String" resultMap="ReviewContentsRegResultMap">
-	/* 리뷰 상세페이지 조회 */
-		SELECT
-		    rr.review_code							
-		   ,rr.review_reg_date						
-		   ,rr.user_id_code						
-		   ,rr.review_content						
-		   ,rr.review_recommendations_count			
-		   ,rr.review_decommendations_count			
-		   ,rr.review_star_score 					
-		FROM 
-			tb_r_review_contents AS rr 
-		WHERE
-			rr.review_code = #{reviewCode};
-	</select> -->
 	
 	<delete id="removeAdminReview" parameterType="String">
 		DELETE

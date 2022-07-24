@@ -147,25 +147,6 @@ public class AdminPointController {
 		return "redirect:/adminpage/pointDetails/pointList";
 	}
 
-	/*
-	 * 리뷰 작성 후 포인트 적립 내역에 등록(post)
-	 * 
-	 * @PostMapping("/addPointList") public String addPointList(Point point) {
-	 * log.info("들어오는 값:{}",point); pointService.addPointList(point);
-	 * 
-	 * return "redirect:/adminpage/pointDetails/pointList"; }
-	 * 
-	 * 리뷰 작성 후 포인트 적립 내역에 등록(get)
-	 * 
-	 * @GetMapping("/addPointList") public String addPointList(Model model) {
-	 * 
-	 * List<Point> pointList = pointService.getPointList();
-	 * 
-	 * model.addAttribute("pointList",pointList);
-	 * 
-	 * return "/adminpage/pointDetails/addPointList"; }
-	 */
-
 	/* 관리자 페이지 수단 별 적립 검색 내역 조회 */
 	@GetMapping("/meansPointList")
 	public String meansPointList(Model model, @RequestParam(name = "searchKey", required = false) String searchKey,
