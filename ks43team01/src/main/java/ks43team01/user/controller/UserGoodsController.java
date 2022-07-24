@@ -38,7 +38,6 @@ public class UserGoodsController {
 	@GetMapping("/removeUserGoods")
 	public String removeUserGoods(@RequestParam(value= "goodsCode")String goodsCode) {
 		
-		//log.info("삭제  : {}" , goodsCode);
 		goodsService.removeUserGoods(goodsCode);
 		return "userpage/goods/removeUserGoods";
 	}
@@ -48,8 +47,9 @@ public class UserGoodsController {
 	public String goodsInfo(@RequestParam(value = "goodsCode")String goodsCode, Model model) {
 		
 		Goods goods = goodsService.getGoodsInfoCode(goodsCode);
-		//log.info("goods :{}", goods);
+
 		model.addAttribute("goods", goods);
+		
 		return "userpage/goods/goodsInfo" ;
 		
 	}
@@ -61,9 +61,9 @@ public class UserGoodsController {
 		List<Goods> userGoodsList = goodsService.getUserGoodsListByTopCategoryCode(goodsTopCategoryCode);
 		
 		model.addAttribute("userGoodsList", userGoodsList);
-		//log.info("상품리스트 : {}", userGoodsList);
 		
 		return "userpage/goods/userGoodsList";
+		
 	}
 	
 	//하위 카테고리별 상품리스트
@@ -73,9 +73,9 @@ public class UserGoodsController {
 		List<Goods> userGoodsList = goodsService.getUserGoodsListBySubCategoryCode(goodsSubCategoryCode);
 		
 		model.addAttribute("userGoodsList", userGoodsList);
-		//log.info("상품리스트 : {}", userGoodsList);
 		
 		return "userpage/goods/userGoodsList";
+		
 	}
 	
 	//상품리스트
@@ -83,22 +83,24 @@ public class UserGoodsController {
 	public String getUserGoodsList(Model model) {
       
 	List<Goods> userGoodsList = goodsService.getUserGoodsList();
+	
 	model.addAttribute("userGoodsList", userGoodsList);
-	//log.info("상품리스트 : {}", userGoodsList);
   
 	return "userpage/goods/userGoodsList";
+	
 	}
 	
 	//상품 수정
 	@PostMapping("/modifyGoods")
 	public String modifyGoods(Goods goods
 			,RedirectAttributes reAttr) {
-		log.info("goods: {}", goods);
 		
 		goodsService.modifyGoods(goods);
 		String goodsCode = goods.getGoodsCode();
 		reAttr.addAttribute("goodsCode", goodsCode);
+		
 		return "redirect:/userpage/goods/userGoodsList";
+		
 	}
 	
 	//상품 수정
@@ -106,16 +108,14 @@ public class UserGoodsController {
 	public String modifyGoods(@RequestParam(value="goodsCode", required= false)String goodsCode
 			,Model model) {
 		
-		//log.info("상품 {}", goodsCode);
 		Goods goods = goodsService.getModifyGoodsInfoCode(goodsCode);
 		List<GoodsTopCategory> goodsTopCategory = goodsService.getGoodsTopCategory();
-		
-		log.info("goods {}", goods);
 		
 		model.addAttribute("goods", goods);
 		model.addAttribute("goodsTopCategory", goodsTopCategory);
 		
 		return "userpage/goods/modifyGoodsInfo";
+		
 	}
 		
 	//상품 등록
@@ -125,17 +125,17 @@ public class UserGoodsController {
 			,@RequestParam MultipartFile[] goodsImageReg
 			,HttpServletRequest request) {
 		
-		//log.info("상품 등록 처리 goods : {}", goods);
 		String serverName = request.getServerName();
 		String sessionId = (String) session.getAttribute("UID");
 		
 		String fileRealPath = "";
 		
 		if("localhost".equals(serverName)) {
-			// server 가 localhost 일때 접근
+			
 			fileRealPath = System.getProperty("user.dir") + "/src/main/resources/static/";
+			
 			System.out.println(System.getProperty("user.dir"));
-			//fileRealPath = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
+			
 		}else {
 			//배포용 주소
 			fileRealPath = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
@@ -144,6 +144,7 @@ public class UserGoodsController {
 		goodsService.addGoods(sessionId, goods, goodsImageReg, fileRealPath);
 		
 		return "redirect:/userpage/goods/userGoodsList";
+		
 	}
 	
 	//상품 등록
@@ -155,9 +156,9 @@ public class UserGoodsController {
 		
 		model.addAttribute("userGoodsList", userGoodsList);
 		model.addAttribute("goodsTopCategory", goodsTopCategory);
-		log.info("상위 카테고리  :{}", goodsTopCategory);
 		
 		return "userpage/goods/addGoods";
+		
 	}
 	
 	//상위카테고리에 해당하는 하위카테고리 불러오기
@@ -165,9 +166,10 @@ public class UserGoodsController {
 	@ResponseBody
 	public List<GoodsSubCategory> getGoodsSubCategory(@RequestParam(name="goodsTopCategoryName")String goodsTopCategory) {
 		
-		//log.info("서브카테고리 받아온값  :{}", goodsTopCategory);
 		List<GoodsSubCategory> getGoodsSubCategory = goodsService.getGoodsSubCategory(goodsTopCategory);
+		
 		return getGoodsSubCategory;
+		
 	}
 
 }

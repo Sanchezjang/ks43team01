@@ -19,7 +19,6 @@ public class AdminPaymentController {
 	
 	private static final Logger log = LoggerFactory.getLogger(AdminPaymentController.class);
 
-	//생성자 메서드 주입방식
 	private final PaymentService paymentService;
 	
 	public AdminPaymentController(PaymentService paymentService) {
@@ -31,8 +30,9 @@ public class AdminPaymentController {
 	public String paymentInfo(@RequestParam(value = "paymentCode")String paymentCode, Model model) {
 		
 		Payment payment = paymentService.getPaymentInfoCode(paymentCode);
-		log.info("payment :{}", payment);
+
 		model.addAttribute("payment", payment);
+		
 		return "adminpage/payment/paymentInfo";
 		
 	}
@@ -44,7 +44,7 @@ public class AdminPaymentController {
 		List<Payment> paymentList = paymentService.getPaymentList();
 		
 		String str = "";
-		//log.info("결제 내역 리스트 : {}", paymentList);
+
 		model.addAttribute("paymentList", paymentList);
 		model.addAttribute("str", str);
 		

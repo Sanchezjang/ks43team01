@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       lang="en">
-  <head>
+	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<!-- Meta, title, CSS, favicons, etc. -->
 	<meta charset="utf-8">
@@ -37,29 +37,24 @@
 	<body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
-		
-            <!-- left menu -->
+			<!-- left menu -->
 			<div th:replace="adminpage/fragments/leftmenu :: leftmenuFragment"></div>
             <!-- /left menu -->
 
 			<!-- top navigation -->
-				<div th:replace="adminpage/fragments/header :: headerFragment"></div>
+			<div th:replace="adminpage/fragments/header :: headerFragment"></div>
 			<!-- /top navigation -->
 		
-        <!-- page content -->
-        <div class="right_col" role="main">
-            <h3>매출/지출</h3>
-         
-		    <div class="col-md-12 col-sm-12 ">
+	        <!-- page content -->
+	        <div class="right_col" role="main">
+	            <h3>매출/지출</h3>
+			    <div class="col-md-12 col-sm-12 ">
 					<div class="x_panel">
 						<div class="x_title">
-							<h2>
-								삭제완료
-							</h2>
+							<h2>삭제완료</h2>
 							 <div class="clearfix"></div>
 						</div>
-						<div class="x_content">
-							<br />
+						<div class="x_content"><br/>
 							<form class="form-horizontal form-label-left">
 								<div class="form-group row ">
 									<label class="control-label col-md-3 col-sm-3 ">
@@ -73,13 +68,13 @@
 							</form>
 						</div>
 					</div>
-					</div>
-					</div>
 				</div>
 			</div>
-			<!-- footer content -->
-			<div th:replace="adminpage/fragments/footer :: footerFragment"></div>
-			<!-- /footer content -->
+		</div>
+	</div>
+	<!-- footer content -->
+	<div th:replace="adminpage/fragments/footer :: footerFragment"></div>
+	<!-- /footer content -->
 
 	<!-- jQuery -->
 	<script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>

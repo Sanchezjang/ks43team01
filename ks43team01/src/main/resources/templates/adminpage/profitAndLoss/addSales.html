@@ -37,87 +37,79 @@
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
-		
             <!-- left menu -->
 			<div th:replace="adminpage/fragments/leftmenu :: leftmenuFragment"></div>
             <!-- /left menu -->
 
 			<!-- top navigation -->
-				<div th:replace="adminpage/fragments/header :: headerFragment"></div>
+			<div th:replace="adminpage/fragments/header :: headerFragment"></div>
 			<!-- /top navigation -->
 
 			<!-- page content -->
-				<div class="right_col" role="main">
-					<h3>매출/지출</h3>
-						<div class="col-md-9 ">
-							<div class="x_panel">
-								<div class="x_title">
-									<h2>매출 내역 등록</h2>
-									<ul class="nav navbar-right panel_toolbox">
-										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-										</li>
-										<li><a class="close-link"><i class="fa fa-close"></i></a>
-										</li>
-									</ul>
-									<div class="clearfix"></div>
-								</div>
-								<div class="x_content">
-									<br />
-									<form class="form-horizontal form-label-left" th:action="@{/adminpage/profitAndLoss/addSales}" method="post">
-										<div class="form-group row">
-											<label class="control-label col-md-3 col-sm-3 " for="accountName">계정과목<span class="required">*</span></label>
-											<div class="col-md-9 col-sm-9 ">
-												<select required="required" class="form-control col-md-10" id="accountName" name="accountName">
-													<option value="" disabled selected> :: 계정과목 선택:: </option>
-													<th:block th:if="${not #lists.isEmpty(accountList)}" th:each="a:${accountList}">
-														<option th:if="${a.profitLossClassification} == '매출'" th:value="${a.accountName}">[[${a.accountName}]]</option>
-													</th:block>
-												</select>
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="control-label col-md-3 col-sm-3" for="salesDate">매출 날짜<span class="required">*</span>
-											</label>
-											<div class="col-md-9 col-sm-9">
-												<input id="salesDate" name="salesDate" class="date-picker form-control col-md-10" placeholder="연도-월-일" type="text" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
-											</div>
-										</div>
-										
-										<div class="form-group row">
-											<label class="control-label col-md-3 col-sm-3 " for="salesAmount">매출 금액<span class="required">*</span>
-											</label>
-											<div class="col-md-9 col-sm-9 ">
-												<input type="text" name="salesAmount" id="salesAmount" required="required" class="form-control col-md-10" /><span style="font-size: 20px; line-height: 40px;"> 원</span>
-											</div>
-										</div>
-
-										<div class="form-group row">
-											<label class="control-label col-md-3 col-sm-3 " id="salesInfo" for="salesInfo">매출 내역<span class="required">*</span>
-											</label>
-											<div class="col-md-9 col-sm-9 ">
-												<textarea class="form-control col-md-10" required="required" rows="3" id="salesInfo" name="salesInfo"></textarea>
-											</div>
-										</div>
-
-										<div class="ln_solid"></div>
-										<div class="form-group">
-											<div class="col-md-12">
-												<button style="float: right;" type="submit" class="btn btn-success">등록</button>
-											</div>
-										</div>
-									</form>
-									
-								</div>
+			<div class="right_col" role="main">
+				<h3>매출/지출</h3>
+					<div class="col-md-9 ">
+						<div class="x_panel">
+							<div class="x_title">
+								<h2>매출 내역 등록</h2>
+								<ul class="nav navbar-right panel_toolbox">
+									<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+									<li><a class="close-link"><i class="fa fa-close"></i></a></li>
+								</ul>
+								<div class="clearfix"></div>
 							</div>
+						<div class="x_content"><br/>
+							<form class="form-horizontal form-label-left" th:action="@{/adminpage/profitAndLoss/addSales}" method="post">
+								<div class="form-group row">
+									<label class="control-label col-md-3 col-sm-3 " for="accountName">계정과목<span class="required">*</span></label>
+									<div class="col-md-9 col-sm-9 ">
+										<select required="required" class="form-control col-md-10" id="accountName" name="accountName">
+											<option value="" disabled selected> :: 계정과목 선택:: </option>
+											<th:block th:if="${not #lists.isEmpty(accountList)}" th:each="a:${accountList}">
+												<option th:if="${a.profitLossClassification} == '매출'" th:value="${a.accountName}">[[${a.accountName}]]</option>
+											</th:block>
+										</select>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="control-label col-md-3 col-sm-3" for="salesDate">매출 날짜<span class="required">*</span>
+									</label>
+									<div class="col-md-9 col-sm-9">
+										<input id="salesDate" name="salesDate" class="date-picker form-control col-md-10" placeholder="연도-월-일" type="text" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="control-label col-md-3 col-sm-3 " for="salesAmount">매출 금액<span class="required">*</span>
+									</label>
+									<div class="col-md-9 col-sm-9 ">
+										<input type="text" name="salesAmount" id="salesAmount" required="required" class="form-control col-md-10" /><span style="font-size: 20px; line-height: 40px;"> 원</span>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="control-label col-md-3 col-sm-3 " id="salesInfo" for="salesInfo">매출 내역<span class="required">*</span>
+									</label>
+									<div class="col-md-9 col-sm-9 ">
+										<textarea class="form-control col-md-10" required="required" rows="3" id="salesInfo" name="salesInfo"></textarea>
+									</div>
+								</div>
+								<div class="ln_solid"></div>
+									<div class="form-group">
+									<div class="col-md-12">
+										<button style="float: right;" type="submit" class="btn btn-success">등록</button>
+									</div>
+								</div>
+							</form>
 						</div>
 					</div>
-			<!-- /page content -->
 				</div>
 			</div>
+	<!-- /page content -->
+		</div>
+	</div>
 			
-			<!-- footer content -->
-			<div th:replace="adminpage/fragments/footer :: footerFragment"></div>
-			<!-- /footer content -->
+	<!-- footer content -->
+	<div th:replace="adminpage/fragments/footer :: footerFragment"></div>
+	<!-- /footer content -->
 
 	<!-- jQuery -->
 	<script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>
