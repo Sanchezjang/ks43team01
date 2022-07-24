@@ -412,9 +412,7 @@
 		</selectKey>
 	</insert>
 	
-
 	
-	<!-- 관리자 화면 -->
 	<!-- 관리자 화면 -->
 	<delete id="removeAdminGoods" parameterType="Goods">
 		/* 상품 삭제 */

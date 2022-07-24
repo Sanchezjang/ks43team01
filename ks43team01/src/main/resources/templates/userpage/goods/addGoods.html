@@ -9,31 +9,43 @@ layout:decorate="~{userpage/layout/userdefault}">
 		<script>
  			$(function(){
 				$(document).on('change', '#goodsTopCategoryName', function(){
+					
 					var $goodsTopCategoryName = $("#goodsTopCategoryName").val()
-					console.log($goodsTopCategoryName);
+					
 					var request = $.ajax({
+						
 						url: "/userpage/goods/getGoodsSubCategory",
 						method: "GET",
 						data: { 'goodsTopCategoryName' : $goodsTopCategoryName},
 						dataType: "json"
+						
 					});
 			 		
 					request.done(function( data ) {
-					console.log(data)
-					var html = '', $goodsSubCategory = $('#goodsSubCategoryCode');
-					if(data.length == 0){
-						html += '<option value=""> :: 하위 카테고리 :: </option>';
-					}else{ 								
-						for(var i=0; i < data.length; i++){
-							html += '<option value="'+data[i].goodsSubCategoryCode+'"> ' + data[i].goodsSubCategoryName + ' </option>';
+						
+						var html = '', $goodsSubCategory = $('#goodsSubCategoryCode');
+						
+						if(data.length == 0){
+							
+							html += '<option value=""> :: 하위 카테고리 :: </option>';
+							
+						}else{ 								
+							
+							for(var i=0; i < data.length; i++){
+								
+								html += '<option value="'+data[i].goodsSubCategoryCode+'"> ' + data[i].goodsSubCategoryName + ' </option>';
+							}
 						}
-					}
-						$goodsSubCategory.html(html);
-						$goodsSubCategory.niceSelect('update');
-					});
+						
+							$goodsSubCategory.html(html);
+							$goodsSubCategory.niceSelect('update');
+							
+						});
 					 
 						request.fail(function( jqXHR, textStatus ) {
+							
 							alert( "Request failed: " + textStatus );
+							
 					});
 				});
 			});
@@ -43,58 +55,58 @@ layout:decorate="~{userpage/layout/userdefault}">
 
 <div layout:fragment="content">
 	<style>
-	html, body, div, a, table, thead, tbody, tr, th, td {
-		margin:0; outline:0; border:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent;
-	}
-	body { 
-		font-size:0.875em; line-height:1.5; color:#666; -webkit-text-size-adjust:none; min-width:320px;
-		font-family:'NanumGothic','나눔고딕',dotum, "Helvetica Neue", Helvetica, Verdana, Arial, Sans-Serief;
-	}
-	.section-top-border{
-	    width: 1200px;
-    	height: 150px;
-	}
-	.x_panel{
-	width: 1200px;
-    margin: 0 auto;
-    padding-top: 80px;
-    padding-bottom: 80px;
-	}
-	.orderer{
-	}
-	.col-6{
-		padding-bottom: 20px;
-	}
-	.pay{
-		padding-left: 10px;	
-	}
-	.flat{
-	
-	}
-	.check{
-	    width: 300px;
-	}
-	.explanation{
-		color:grey;
-		font-size: 12px;
-		margin-bottom: 10px;
-	}
-	.mainExplanation{
-		color : black;
-		font-weight: bold;
-		margin-top: 10px;
-	}
-	.goods{
-		border-bottom: 1px solid grey;
-	}
-	.select1{
-		padding-bottom: 0;
-		margin-bottom: 0;
-	}
-	.btn-lg{
-		text-align: center;
-		margin-top: 20px;
-	}
+		html, body, div, a, table, thead, tbody, tr, th, td {
+			margin:0; outline:0; border:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent;
+		}
+		body { 
+			font-size:0.875em; line-height:1.5; color:#666; -webkit-text-size-adjust:none; min-width:320px;
+			font-family:'NanumGothic','나눔고딕',dotum, "Helvetica Neue", Helvetica, Verdana, Arial, Sans-Serief;
+		}
+		.section-top-border{
+		    width: 1200px;
+	    	height: 150px;
+		}
+		.x_panel{
+		width: 1200px;
+	    margin: 0 auto;
+	    padding-top: 80px;
+	    padding-bottom: 80px;
+		}
+		.orderer{
+		}
+		.col-6{
+			padding-bottom: 20px;
+		}
+		.pay{
+			padding-left: 10px;	
+		}
+		.flat{
+		
+		}
+		.check{
+		    width: 300px;
+		}
+		.explanation{
+			color:grey;
+			font-size: 12px;
+			margin-bottom: 10px;
+		}
+		.mainExplanation{
+			color : black;
+			font-weight: bold;
+			margin-top: 10px;
+		}
+		.goods{
+			border-bottom: 1px solid grey;
+		}
+		.select1{
+			padding-bottom: 0;
+			margin-bottom: 0;
+		}
+		.btn-lg{
+			text-align: center;
+			margin-top: 20px;
+		}
 	</style>
 	
 	<div style=" margin-left: 220px;">
@@ -107,8 +119,6 @@ layout:decorate="~{userpage/layout/userdefault}">
 					</ul>
 				<div class="clearfix"></div>
 			</div>
-
-			<!-- start form for validation -->
 			<form th:action="@{/userpage/goods/addGoods}" method="post" id="demo-form" data-parsley-validate enctype="multipart/form-data" name="multipart">
 				<div class="orderer form-group">
 					<div class="form-group">
@@ -160,7 +170,5 @@ layout:decorate="~{userpage/layout/userdefault}">
 				</div>
 			</form>
 		</div>
-
-	<!-- end form for validations -->
 	</div>
 </div>

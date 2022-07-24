@@ -7,7 +7,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.tools.DocumentationTool.Location;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,8 +29,6 @@ public class AdminGoodsController {
 	
 	private static final Logger log = LoggerFactory.getLogger(AdminGoodsController.class);
 
-	//DI (의존성 주입)
-	// 3. 생성자 메서드 주입방식
 	private final GoodsService goodsService;
 	
 	public AdminGoodsController(GoodsService goodsService) {
@@ -42,8 +39,8 @@ public class AdminGoodsController {
 	@GetMapping("/removeAdminGoods")
 	public String removeAdminGoods(String goodsCode) {
 		
-		//log.info("삭제  : {}" , goodsCode);
 		goodsService.removeAdminGoods(goodsCode);
+		
 		return "adminpage/goods/removeAdminGoods";
 	}
 	
@@ -52,8 +49,8 @@ public class AdminGoodsController {
 	public String goodsInfo(@RequestParam(value = "goodsCode")String goodsCode, Model model) {
 		
 		Goods goods = goodsService.getGoodsInfoCode(goodsCode);
-		//log.info("goods :{}", goods);
 		model.addAttribute("goods", goods);
+		
 		return "userpage/goods/goodsInfo" ;
 		
 	}
@@ -63,31 +60,34 @@ public class AdminGoodsController {
 	public String getAdminGoodsList(Model model) {
 		
 		List<Goods> adminGoodsList = goodsService.getAdminGoodsList();
-		//log.info("매출 내역 : {}", adminGoodsList);
+		
 		model.addAttribute("adminGoodsList", adminGoodsList);
 		
 		return "adminpage/goods/adminGoodsList";
+		
 	}
 	
 	//상품 하위 카테고리 삭제
 	@GetMapping("/removeGoodsSubCategory")
 	public String removeGoodsSubCategory(String goodsSubCategoryCode) {
 		
-		//log.info("삭제 : {}" , goodsSubCategoryCode);
 		goodsService.removeGoodsSubCategory(goodsSubCategoryCode);
+		
 		return "adminpage/goods/removeGoodsSubCategory";
+	
 	}
 	
 	//상품 하위 카테고리 수정
 	@PostMapping("/modifyGoodsSubCategory")
 	public String modifyGoodsSubCategory(GoodsSubCategory goodsSubCategory
 			,RedirectAttributes reAttr) {
-		//log.info("goodsSubCategory: {}", goodsSubCategory);
 		
 		goodsService.modifyGoodsSubCategory(goodsSubCategory);
 		String goodsSubCategoryCode = goodsSubCategory.getGoodsSubCategoryCode();
 		reAttr.addAttribute("goodsSubCategoryCode", goodsSubCategoryCode);
+		
 		return "redirect:/adminpage/goods/goodsSubCategoryList";
+		
 	}
 	
 	//상품 하위 카테고리 수정
@@ -98,12 +98,12 @@ public class AdminGoodsController {
 		GoodsSubCategory goodsSubCategory = goodsService.getModifyGoodsSubCategoryCode(goodsSubCategoryCode);
 		List<GoodsTopCategory> goodsTopCategoryList = goodsService.getGoodsTopCategoryList();
 		
-		log.info("goodsSubCategory : {}", goodsSubCategory);
 		model.addAttribute("goodsSubCategory", goodsSubCategory);
 		model.addAttribute("goodsTopCategoryList", goodsTopCategoryList);
 		model.addAttribute("goodsSubCategoryCode", goodsSubCategoryCode);
 		
 		return "adminpage/goods/modifyGoodsSubCategory";
+		
 	}	
 
 	//상품 하위 카테고리 리스트
@@ -111,10 +111,11 @@ public class AdminGoodsController {
 	public String getGoodsSubCategoryList(Model model) {
 		
 		List<GoodsSubCategory> goodsSubCategoryList = goodsService.getGoodsSubCategoryList();
-		//log.info("상품 하위 카테고리 : {}", goodsSubCategoryList);
+		
 		model.addAttribute("goodsSubCategoryList", goodsSubCategoryList);
 		
 		return "adminpage/goods/goodsSubCategoryList";
+		
 	}
 	
 	//상품 하위 카테고리 등록
@@ -123,9 +124,7 @@ public class AdminGoodsController {
 			,GoodsSubCategory goodsSubCategory
 			,HttpServletRequest request) {
 		
-		//log.info("매출 등록 처리 sales : {}", sales);
 		String sessionId = (String) session.getAttribute("UID");
-		
 		goodsService.addGoodsSubCategory(sessionId, goodsSubCategory);
 
 			return "redirect:/adminpage/goods/goodsSubCategoryList";
@@ -143,13 +142,13 @@ public class AdminGoodsController {
 		model.addAttribute("goodsTopCategoryList", goodsTopCategoryList);
 		
 		return "adminpage/goods/addGoodsSubCategory";
+		
 	}
 	
 	//상품 상위 카테고리 삭제
 	@GetMapping("/removeGoodsTopCategory")
 	public String removeGoodsTopCategory(String goodsTopCategoryCode ,HttpServletResponse response) throws IOException {
 		
-		//log.info("삭제 : {}" , goodsTopCategoryCode);
 		int result = goodsService.removeGoodsTopCategory(goodsTopCategoryCode);
 		
 		if(result == 0) {
@@ -157,6 +156,7 @@ public class AdminGoodsController {
 			PrintWriter out = response.getWriter();
 
 			out.println("<script language='javascript'>alert('해당 하위 카테고리가 존재합니다.'); location.href='/adminpage/goods/goodsTopCategoryList';</script>");
+			
 		}
 		
 		return "adminpage/goods/removeGoodsTopCategory";
@@ -166,12 +166,13 @@ public class AdminGoodsController {
 	@PostMapping("/modifyGoodsTopCategory")
 	public String modifyGoodsTopCategory(GoodsTopCategory goodsTopCategory
 			,RedirectAttributes reAttr) {
-		//log.info("goodsTopCategory: {}", goodsTopCategory);
 		
 		goodsService.modifyGoodsTopCategory(goodsTopCategory);
 		String goodsTopCategoryCode = goodsTopCategory.getGoodsTopCategoryCode();
 		reAttr.addAttribute("goodsTopCategoryCode", goodsTopCategoryCode);
+		
 		return "redirect:/adminpage/goods/goodsTopCategoryList";
+		
 	}
 	
 	//상품 상위 카테고리 수정
@@ -186,6 +187,7 @@ public class AdminGoodsController {
 		model.addAttribute("goodsTopCategoryCode", goodsTopCategoryCode);
 		
 		return "adminpage/goods/modifyGoodsTopCategory";
+		
 	}	
 	
 	//상품 상위 카테고리 리스트
@@ -193,10 +195,11 @@ public class AdminGoodsController {
 	public String getGoodsTopCategoryList(Model model) {
 		
 		List<GoodsTopCategory> goodsTopCategoryList = goodsService.getGoodsTopCategoryList();
-		//log.info("상품 상위 카테고리 : {}", goodsTopCategoryList);
+		
 		model.addAttribute("goodsTopCategoryList", goodsTopCategoryList);
 		
 		return "adminpage/goods/goodsTopCategoryList";
+		
 	}
 	
 	//상품 상위 카테고리 등록
@@ -205,7 +208,6 @@ public class AdminGoodsController {
 			,GoodsTopCategory goodsTopCategory
 			,HttpServletRequest request) {
 		
-		//log.info("매출 등록 처리 sales : {}", sales);
 		String sessionId = (String) session.getAttribute("UID");
 		
 		goodsService.addGoodsTopCategory(sessionId, goodsTopCategory);

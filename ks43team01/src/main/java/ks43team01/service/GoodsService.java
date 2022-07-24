@@ -120,7 +120,6 @@ public class GoodsService {
 		int result = goodsMapper.addGoods(goods);
 		String goodsCode = goods.getGoodsCode();
 		
-		log.info(goodsCode);
 		List<Map<String, String>> relationFileList = new ArrayList<>();
 		for(Map<String, String> m : dtoFileList) {
 			m.put("goodsCode", goodsCode);
@@ -162,7 +161,7 @@ public class GoodsService {
 	
 	// 상품 하위 카테고리 수정
 	public int modifyGoodsSubCategory(GoodsSubCategory goodsSubCategory) {
-		log.info("goodsSubCategory:{}",goodsSubCategory);
+
 		int result = goodsMapper.modifyGoodsSubCategory(goodsSubCategory);
 		
 		return result;
@@ -208,7 +207,7 @@ public class GoodsService {
 	
 	// 상품 상위 카테고리 수정
 	public int modifyGoodsTopCategory(GoodsTopCategory goodsTopCategory) {
-		log.info("goodsTopCategory:{}",goodsTopCategory);
+
 		int result = goodsMapper.modifyGoodsTopCategory(goodsTopCategory);
 		
 		return result;
