@@ -50,6 +50,46 @@ public class BoardController {
 	
 	// 1:1 문의 게시글 관리
 	
+	/* 1:1 문의 게시글 비밀번호 검사 */
+	
+	@PostMapping("/questionPwCheck")
+	public String getQuestionPwCheck(@RequestParam(value = "boardQuestionCode", required = false)String boardQuestionCode
+									, @RequestParam(name="boardQuestionPw", required = false) String boardQuestionPw
+									, Model model
+									, RedirectAttributes reAttr
+									
+									) {
+		QnaBoard qnaBoard = boardService.getQnaBoardByCode(boardQuestionCode);
+		log.info("코드값 가져오는지 : {}", qnaBoard);
+		boardService.updateQnaBoardPageView(boardQuestionCode);
+		log.info("qnaBoard : {}", qnaBoard);
+		
+		model.addAttribute("qnaBoard", qnaBoard);
+		
+		if(qnaBoard != null) {
+			String questionPwCheck = qnaBoard.getBoardQuestionPw();
+			if(boardQuestionPw.equals(questionPwCheck)) {
+				
+				System.out.println("비밀번호 일치");
+				
+			
+				return "redirect:/userpage/board/qnaBoardDetail";
+			}
+		
+		}
+			System.out.println("비밀번호 불일치");
+		
+			reAttr.addAttribute("boardQuestionCode", boardQuestionCode);
+			return "redirect:/userpage/board/qnaBoardDetail";
+	}
+	
+	@GetMapping("/questionPwCheck")
+	public String getQuestionPwCheck() {
+		
+		return "/userpage/board/questionPwCheck";
+	}
+	
+	
 	/*1:1 문의 게시글 검색*/
 	@PostMapping("/qnaBoardList")
 	public String getSearchQnaBoardList( @RequestParam(name="searchKey")String searchKey

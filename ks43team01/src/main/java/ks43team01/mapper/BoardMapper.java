@@ -123,9 +123,14 @@ public interface BoardMapper {
 	/*
 	 * 관리자 화면
 	 * */
+
 	
-	//1:1 문의 게시글 댓글 목록 조회
-	
+	//게시글 답변 모음 삭제
+	public int removeBoardAnswer(String boardAnswerCode);
+	//게시글 답변 모음 수정
+	public int modifyBoardAnswer(BoardAnswer boardAnswer);
+	//게시글 답변 모음 등록
+	public int addBoardAnswer(BoardAnswer boardAnswer);
 	//게시글 답변 모음 목록 조회
 	public List<BoardAnswer> getBoardAnswerList();
 	
@@ -160,8 +165,6 @@ public interface BoardMapper {
 	public int addBoardCategory(BoardCategory boardCategory);
 	//게시판 대분류 카테고리 조회
 	public List<BoardCategory> getBoardCategoryList();
-	
-	
 	
 	//전체 게시글 목록 조회
 	public List<Board> getBoardList();
