@@ -52,13 +52,21 @@ public class ReviewService {
 		return result;
 	}
 
-	/* 회원페이지 리뷰 수정 */
+	/* 회원페이지 리뷰 수정(post) */
 	public int modifyReview(ReviewContentsReg reviewContentsReg) {
 
 		int result = reviewMapper.modifyReview(reviewContentsReg);
 		
 		return result;
 	}
+	
+	/* 회원 페이지 리뷰 수정(get)  */
+	public ReviewContentsReg getReviewByCode(String reviewCode) {
+		System.out.println("___________getReviewByCode_________");
+		return reviewMapper.getReviewByCode(reviewCode);
+		
+	}
+	
 	/* 회원페이지 리뷰 이미지 삭제  */
 	public int removeImageReview(String reviewCode) {
 		
@@ -125,27 +133,22 @@ public class ReviewService {
 		}
 	}
 
-	/* 회원페이지 회원  리뷰 상세  조회 */
-	public ReviewContentsReg getReviewByCode(String reviewCode) {
-		System.out.println("___________getReviewByCode_________");
-		return reviewMapper.getReviewByCode(reviewCode);
-
-	}
 	
 	/* 회원 페이지 회원 리뷰 이미지 조회 */
 	public List<ReviewContentsReg> getReviewImageCode(String reviewCode){
 		
-		List<ReviewContentsReg> reviewImageCode = reviewMapper.getReviewImageCode(reviewCode);
+		List<ReviewContentsReg> reviewGoodsList = reviewMapper.getReviewImageCode(reviewCode);
 		
-		return reviewImageCode;
+		return reviewGoodsList;
 	}
 	
 	/* 회원 페이지 회원 리뷰 상품코드로 조회 */
 	public List<ReviewContentsReg> getReviewByGoodsCode(String goodsCode){
 		
-		List<ReviewContentsReg> reviewByGoodsCode = reviewMapper.getReviewByGoodsCode(goodsCode);
+		List<ReviewContentsReg> reviewGoodsList = reviewMapper.getReviewByGoodsCode(goodsCode);
+		log.info("goodsCode:{}",goodsCode);
 		
-		return reviewByGoodsCode;
+		return reviewGoodsList;
 	}
 	
 	/* 회원 페이지 회원 리뷰 목록 조회 */

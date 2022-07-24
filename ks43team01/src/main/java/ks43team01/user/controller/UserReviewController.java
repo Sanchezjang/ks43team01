@@ -74,19 +74,6 @@ public class UserReviewController {
 		return "redirect:/userpage/reviewUser/reviewUserList";
 	}
 
-	/*
-	 * 유저화면 리뷰 상세 페이지
-	 * 
-	 * @GetMapping("/reviewDetail") public String reviewDetail(@RequestParam(value =
-	 * "reviewCode") String reviewCode, Model model) {
-	 * 
-	 * ReviewContentsReg reviewContentsReg =
-	 * reviewService.getReviewByCode(reviewCode); log.info("reviewContentsReg :{}",
-	 * reviewContentsReg); model.addAttribute("reviewContentsReg",
-	 * reviewContentsReg); return "/userpage/reviewUser/reviewDetail";
-	 * 
-	 * }
-	 */
 
 	/* 리뷰 등록-포인트 적립 (post), */
 	@PostMapping("/addReview")
@@ -141,15 +128,20 @@ public class UserReviewController {
 	/* 유저 페이지 회원 리뷰 상품코드별 조회 */
 	@GetMapping("/reviewGoodsList")
 	public String getReviewByGoodsCode(@RequestParam(name = "goodsCode", required = false) String goodsCode,
-										@RequestParam(name = "userName", required = false) String userName, Model model) {
+										@RequestParam(name = "userName", required = false) String userName,
+										@RequestParam(value = "reviewCode", required = false) String reviewCode
+										, Model model) {
 
-		List<ReviewContentsReg> reviewByGoodsCode = reviewService.getReviewByGoodsCode(goodsCode);
+		List<ReviewContentsReg> reviewGoodsList = reviewService.getReviewByGoodsCode(goodsCode);
 		/*
 		 * List<ReviewContentsReg> reviewUserList = reviewService.getReviewUserList();
 		 * model.addAttribute("reviewUserList", reviewUserList);
 		 */
-		model.addAttribute("reviewByGoodsCode", reviewByGoodsCode);
+		model.addAttribute("reviewGoodsList", reviewGoodsList);
+		model.addAttribute("goodsCode",goodsCode);
+		model.addAttribute("reviewCode",reviewCode);
 		log.info("goodsCode값:{}", goodsCode);
+		
 		return "/userpage/reviewUser/reviewGoodsList";
 
 	}
@@ -161,13 +153,12 @@ public class UserReviewController {
 									@RequestParam(value = "reviewCode", required = false) String reviewCode
 									, Model model) {
 
-		/*
-		 * List<ReviewContentsReg> reviewImageCode =
-		 * reviewService.getReviewImageCode(reviewCode);
-		 */
+		
+		List<ReviewContentsReg> reviewGoodsList = reviewService.getReviewImageCode(reviewCode);
 		List<ReviewContentsReg> reviewUserList = reviewService.getReviewUserList();
 
 		model.addAttribute("reviewUserList", reviewUserList);
+		model.addAttribute("reviewGoodsList",reviewGoodsList);
 		/* model.addAttribute("reviewImageCode", reviewImageCode); */
 		model.addAttribute("reviewCode", reviewCode);
 		return "/userpage/reviewUser/reviewUserList";

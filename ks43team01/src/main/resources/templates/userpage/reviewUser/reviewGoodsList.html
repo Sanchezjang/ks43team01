@@ -94,13 +94,10 @@ layout:decorate="~{userpage/layout/userdefault}">
 
 		<div class="headWrap">
        		<h2>리뷰</h2>
-		</div>			
+		</div>		
 	<div class="reviewContainer">
 			<div class="countingStar">
-				<th:block th:each="r : ${reviewUserList}">
-					<div>
-						<input type="hidden" name="goodsCode" id="goodsCode" th:value="${r.goodsCode}">
-					</div>
+				<th:block th:each="r : ${reviewGoodsList}">
 						<div class="mainWrap">
 							<div class="reviewLeft">
 								<div th:text="상품이미지 "></div>
@@ -129,6 +126,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 							</div>
 							<div class="mainContent ">
 								<div th:text="${r.reviewContent}" style="height: 114px;">내용</div>
+								<input type="hidden" name="goodsCode" id="goodsCode" th:value="${r.goodsCode}">
 							</div>	
 							<div class="reviewBottom">
 									<a th:href="@{/userpage/reviewUser/modifyReview(reviewCode=${r.reviewCode})}">
@@ -141,13 +139,11 @@ layout:decorate="~{userpage/layout/userdefault}">
 									</a>
 							</div>
 						</div>
-							
 						</div>
+						</th:block>
 					</div>					
 				</div>
 			</div>
-			</th:block>
-			
 	</html>
 		
 						
