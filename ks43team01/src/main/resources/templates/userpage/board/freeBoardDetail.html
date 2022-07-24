@@ -7,112 +7,98 @@ layout:decorate="~{userpage/layout/userdefault}">
 <div layout:fragment="content">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
 <style>
-	html, body, div, a, table, thead, tbody, tr, th, td {
-		margin:0; outline:0; border:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent;
-	}
-	body { 
-		font-size:0.875em; line-height:1.5; color:#666; -webkit-text-size-adjust:none; min-width:320px;
-	}
-	.boardDetailView{
-		width: 1000px;
-		min-height:800px;
-		margin: 0 auto;
-		padding-top: 50px;
-	}
-	.boardView{
-		border: 1px solid #ccc;
-		width: 1000px;
-	}
-	
-	th{
-		background-color: #F6F6F6;
-		height: 40px;
-		text-align: center;
-		border: 1px solid #ccc;
-		vertical-align: middle;
-	}
-	
-	td{
-		border: 1px solid #ccc;
-		vertical-align: middle;
-		padding: 15px;
-		
-	}
-	
-	.detailContent{
-		height: 200px;
-		
-	}
-	
-	.clickBtn{
-		width: 1000px;
-		text-align:right;
-		padding-top: 20px;
-	}
+.headWrap h2{
+	text-align: center;
+	padding: 35px 0 10px 0;
+}
+.headWrap{
+	margin-bottom: 30px;
+}
 
-	.returnPage{
-		padding-bottom: 30px;
-	}
-	
-	.comment{
-		width: 1000px;
-		margin: 0 auto;
-		text-align: center;
-	}
-   
-	.btn{
-		margin-left: 10px;
-		margin-bottom: 40px;
-	}
+.boardDetailView{
+	width: 1000px;
+	min-height:800px;
+	margin: 0 auto;
+}
+.boardView{
+	border: 1px solid #ccc;
+	width: 1000px;
+}
 
-	#boardComment{
+th{
+	background-color: #F6F6F6;
+	height: 40px;
+	text-align: center;
+	border: 1px solid #ccc;
+	vertical-align: middle;
+}
+
+td{
+	border: 1px solid #ccc;
+	vertical-align: middle;
+	padding: 15px;
+	
+}
+
+.detailContent{
+	height: 400px;
+}
+
+.clickBtn{
+	width: 1000px;
+	text-align:right;
+	padding-top: 20px;
+}
+
+.returnPage{
+	padding-bottom: 30px;
+}
+
+.comment{
+	width: 1000px;
+	margin: 0 auto;
+	text-align: center;
+}
+  
+.btn{
+	margin-left: 10px;
+	margin-bottom: 40px;
+	border-radius: 10px;
+}
+
+#boardComment{
 	width: 800px;
-	}
+}
 
-	.modifyBtn{
-		color: black;
-	}
-	.removeBtn{
-		color: black;
-	}
+.modifyBtn{
+	color: black;
+}
+.removeBtn{
+	color: black;
+}
 
-	.userName{
-		font-size: 15px;
-		font-weight: bold;
-		margin-bottom: 5px;
-	}
+.userName{
+	font-size: 15px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
 
-	.commentContent{
-		margin-bottom: 5px;	
-	}
+.commentContent{
+	margin-bottom: 5px;	
+}
 
-	textarea {
-		width: 800px;
-	}
-	.commentUpdateForm{
-		display: none;
-	}
-
-
+textarea {
+	width: 800px;
+}
+.commentUpdateForm{
+	display: none;
+}
 </style>
 
-	<!-- Hero Start -->
-	<div class="slider-area">
-		<div class="slider-height2 d-flex align-items-center">
-			<div class="container">
-				<div class="BoardRow">
-					<div class="col-xl-12">
-						<div class="hero-cap hero-cap2 text-center">
-						<h2>Free bulletin board</h2>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class="headWrap">
+		<h2>자유게시판</h2>
 	</div>
-	<!-- Hero End -->
 
-	<!-- About Details Start -->
 	<div class="boardDetailView">
 		<div class="col-12">
 			<div class="boardPostDetail">
@@ -193,9 +179,5 @@ layout:decorate="~{userpage/layout/userdefault}">
 			$(this).parent().parent().find(".commentUpdateForm").slideToggle(200);
 		});
 	</script>
-	
-
-	
-
 </div>
 </html>

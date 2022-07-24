@@ -3,7 +3,6 @@ package ks43team01.admin.controller;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -23,7 +22,6 @@ import ks43team01.dto.BoardCategory;
 import ks43team01.dto.BoardComment;
 import ks43team01.dto.BoardLargeCategory;
 import ks43team01.dto.BoardMediumCategory;
-import ks43team01.dto.BoardPostFile;
 import ks43team01.service.BoardService;
 import ks43team01.user.controller.BoardController;
 
@@ -39,16 +37,16 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 		this.boardService = boardService;
 	}
 	
-	/* 게시판 카테고리 삭제 */
+	/*게시판 대분류 카테고리 삭제 */
 	@GetMapping("/removeBoardCategory")
 	public String removeBoardCategory(String boardCategoryCode) {
 		
 		boardService.removeBoardCategory(boardCategoryCode);
-		
+		log.info("삭제 확인 :{}", boardCategoryCode);
 		return "adminpage/boardAdmin/removeBoardCategory";
 	}
 	
-	/* 게시판 카테고리 수정 (post)*/
+	/*게시판 대분류 카테고리 수정 (post)*/
 	@PostMapping("/modifyBoardCategory")
 	public String modifyBoardCategory(BoardCategory boardCategory
 									,RedirectAttributes reAttr) {
@@ -60,7 +58,7 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 		return "redirect:/adminpage/boardAdmin/boardCategoryList";
 	}
 	
-	/* 게시판 카테고리 수정 (get)*/
+	/*게시판 대분류 카테고리 수정 (get)*/
 	@GetMapping("/modifyBoardCategory")
 	public String modifyBoardCategory(@RequestParam(value = "boardCategoryCode", required = false)String boardCategoryCode
 									, Model model) {
@@ -76,7 +74,7 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 	}
 	
 	
-	/* 게시글 답변 모음 목록 조회*/
+	/*게시글 답변 모음 목록 조회*/
 	@GetMapping("/boardAnswerList")
 	public String getBoardAnswerList(Model model) {
 		List<BoardAnswer> boardAnswerList = boardService.getBoardAnswerList();
@@ -86,7 +84,7 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 		return "adminpage/boardAdmin/boardAnswerList";
 	}
 	
-	/* 게시글 댓글 목록 조회 */
+	/*게시글 댓글 목록 조회 */
 	@GetMapping("/boardCommentList")
 	public String getBoardCommentList(Model model) {
 		List<BoardComment> boardCommentList = boardService.getBoardCommentList();
@@ -97,7 +95,7 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 	}
 	
 	
-	/* 3-2.문의게시판 2차 카테고리 등록 (post) */
+	/*문의게시판 2차 카테고리 등록 (post) */
 	@PostMapping("/addBoardMediumCategory")
 	public String addBoardMediumCategory(HttpSession session
 								, BoardMediumCategory boardMediumCategory
@@ -107,7 +105,7 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 		
 		return "redirect:/adminpage/boardAdmin/boardMediumCategoryList";
 	}
-	/* 3-2.문의게시판 2차 카테고리 등록 (get) */
+	/*문의게시판 2차 카테고리 등록 (get) */
 	@GetMapping("/addBoardMediumCategory")
 	public String addBoardMediumCategory(Model model) {
 		List<BoardLargeCategory> boardLargeCategoryList = boardService.getBoardLargeCategoryList();
@@ -118,7 +116,7 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 		return "adminpage/boardAdmin/addBoardMediumCategory";
 	}
 	
-	/* 3. 문의 게시판 2차 카테고리 조회 */
+	/*문의 게시판 2차 카테고리 조회 */
 	@GetMapping("/boardMediumCategoryList")
 		public String getBoardMediumCategoryList(Model model) {
 		List<BoardMediumCategory> boardMediumCategoryList = boardService.getBoardMediumCategoryList();
@@ -128,7 +126,7 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 		return "adminpage/boardAdmin/boardMediumCategoryList";
 	}
 	
-	/* 2-2.문의게시판 1차 카테고리 등록 (post) */
+	/*문의게시판 1차 카테고리 등록 (post) */
 	@PostMapping("/addBoardLargeCategory")
 	public String addBoardLargeCategory(HttpSession session
 								, BoardLargeCategory boardLargeCategory
@@ -138,7 +136,7 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 		
 		return "redirect:/adminpage/boardAdmin/boardLargeCategoryList";
 	}
-	/* 2-2.문의게시판 1차 카테고리 등록 (get) */
+	/*문의게시판 1차 카테고리 등록 (get) */
 	@GetMapping("/addBoardLargeCategory")
 	public String addBoardLargeCategory(Model model) {
 		List<BoardLargeCategory> boardLargeCategoryList = boardService.getBoardLargeCategoryList();
@@ -147,7 +145,7 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 		return "adminpage/boardAdmin/addBoardLargeCategory";
 	}
 	
-	/* 문의 게시판 1차 카테고리 조회 */
+	/*문의 게시판 1차 카테고리 조회 */
 	@GetMapping("/boardLargeCategoryList")
 		public String getBoardLargeCategoryList(Model model) {
 		List<BoardLargeCategory> boardLargeCategoryList = boardService.getBoardLargeCategoryList();
@@ -156,7 +154,7 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 		
 		return "adminpage/boardAdmin/boardLargeCategoryList";
 	}
-	/* 1-2.게시판 대분류 카테고리 등록 (post) */
+	/*게시판 대분류 카테고리 등록 (post) */
 	@PostMapping("/addBoardCategory")
 	public String addBoardCategory(HttpSession session
 								, BoardCategory boardCategory
@@ -166,7 +164,7 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 		
 		return "redirect:/adminpage/boardAdmin/boardCategoryList";
 	}
-	/* 1-2.게시판 대분류 카테고리 등록 (get) */
+	/*게시판 대분류 카테고리 등록 (get) */
 	@GetMapping("/addBoardCategory")
 	public String addBoardCategory(Model model) {
 		List<BoardCategory> boardCategoryList = boardService.getBoardCategoryList();
@@ -175,7 +173,7 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 		return "adminpage/boardAdmin/addBoardCategory";
 	}
 	
-	/* 1.게시판 대분류 카테고리 조회 */
+	/*게시판 대분류 카테고리 조회 */
 	@GetMapping("/boardCategoryList")
 		public String getBoardCategoryList(Model model) {
 		List<BoardCategory> boardCategoryList = boardService.getBoardCategoryList();
@@ -185,7 +183,16 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 		return "adminpage/boardAdmin/boardCategoryList";
 	   }
 	
-	/* 관리자용 게시글 목록 조회 */
+	/*게시글 목록 삭제*/
+	@GetMapping("/removeBoard")
+	public String removeBoard(String boardPostCode) {
+		
+		boardService.removeBoard(boardPostCode);
+		
+		return "adminpage/boardAdmin/removeBoard";
+	}
+	
+	/*게시글 목록 조회 */
 	@GetMapping("/boardList")
 	public String getBoardList(Model model) {
 		List<Board> boardList = boardService.getBoardList();

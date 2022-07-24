@@ -215,19 +215,19 @@
 	</insert>
  
 	<select id="getBoardPostCommentList" resultType="BoardComment">
-		/*게시글 댓글 조회 */
-			SELECT
-				board_comment_code					AS boardCommentCode
-				, user_id_code						AS userIdCode
-				, board_post_code					AS boardPostCode
-				, board_comment_content				AS boardCommentContent
-				, board_comment_reg_date			AS boardCommentRegDate
-				, user_name							AS userName
-				, board_comment_update_date			AS boardCommentUpdateDate
-			FROM
-				tb_b_board_comment
-			WHERE
-				board_post_code = #{boardPostCode};
+	/*게시글 댓글 조회 */
+		SELECT
+			board_comment_code					AS boardCommentCode
+			, user_id_code						AS userIdCode
+			, board_post_code					AS boardPostCode
+			, board_comment_content				AS boardCommentContent
+			, board_comment_reg_date			AS boardCommentRegDate
+			, user_name							AS userName
+			, board_comment_update_date			AS boardCommentUpdateDate
+		FROM
+			tb_b_board_comment
+		WHERE
+			board_post_code = #{boardPostCode};
 	</select>
 
 	
@@ -299,6 +299,7 @@
 			,bq.board_question_file
 			,bq.board_question_reg_date
 			,bq.board_question_lock
+			,bq.board_question_pw
 			,bq.user_email
 			,bq.board_question_answer_method
 			,bq.board_question_page_view

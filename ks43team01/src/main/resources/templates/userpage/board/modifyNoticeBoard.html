@@ -155,29 +155,28 @@ td input[type="radio"] {
 		<div class="topWrap">
 			<h2>공지사항</h2>
 		</div>
+		
 		<form class="" th:action="@{/userpage/board/modifyNoticeBoard}" method="post">
 			<table>
-			<colgroup>
-				<col width="14.75%">
-				<col width="22.75%">
-				<col width="14.75%">
-				<col width="19.75%">
-			</colgroup>
+				<colgroup>
+					<col width="14.75%">
+					<col width="22.75%">
+					<col width="14.75%">
+					<col width="19.75%">
+				</colgroup>
 				<tbody>
-					
 					<tr>
 						<th scope="row" colspan="1">제목</th>
-							<td colspan="3">
-								<input id="subject" class="inputTypeText"th:value="${board.boardPostTitle}" name="boardPostTitle" placeholder="" style="width: 100%;" value="" type="text">
-							</td>
+						<td colspan="3">
+							<input id="subject" class="inputTypeText"th:value="${board.boardPostTitle}" name="boardPostTitle" placeholder="" style="width: 100%;" value="" type="text">
+						</td>
 						<th style="width: 120px;" colspan="1">작성자</th>
-							<td style="width: 120px;" colspan="1">
-								<input type="text" style="border: none; font-size: 14px; width: 60px;" th:value="${board.boardUserName}"  id="boardUserName" name="boardUserName" required readonly />
-							</td>
+						<td style="width: 120px;" colspan="1">
+							<input type="text" style="border: none; font-size: 14px; width: 60px;" th:value="${board.boardUserName}"  id="boardUserName" name="boardUserName" required readonly />
+						</td>
 					</tr>
 					<tr>
 						<td colspan="6" class="clear">
-
 							<div class="fr-wrapper" dir="ltr">
 								<textarea class="textArea" th:text="${board.boardPostContent}" rows="5"cols="10" name="boardPostContent" id="boardPostContent" required></textarea>
 							</div>
@@ -186,31 +185,12 @@ td input[type="radio"] {
 				</tbody>
 			</table>
 			<div class="form-group">
-							<input class="form-control" name="boardPostCode" type="hidden" th:value="${board.boardPostCode}"></input>
-						</div>
-							<div class="clickBtn mt-3" >
-								<a th:href="@{/userpage/board/noticeBoardList}"><button type="button" class="botWrapBtn">취소</button></a>
-								<button type="submit" class="botWrapBtn">저장</button>
-							</div>
+				<input class="form-control" name="boardPostCode" type="hidden" th:value="${board.boardPostCode}"></input>
+			</div>
+			<div class="clickBtn mt-3" >
+				<a th:href="@{/userpage/board/noticeBoardList}"><button type="button" class="botWrapBtn">취소</button></a>
+				<button type="submit" class="botWrapBtn">저장</button>
+			</div>
 		</form>
 	</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </div>

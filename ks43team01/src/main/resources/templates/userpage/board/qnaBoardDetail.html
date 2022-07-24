@@ -6,160 +6,166 @@ layout:decorate="~{userpage/layout/userdefault}">
 <!------ Include the above in your HEAD tag ---------->
 <div layout:fragment="content">
 <style>
-	.headWrap h2{
-		text-align: center;
-		padding: 35px 0 10px 0;
-	}
-	.headWrap{
-		margin-bottom: 30px;
-	}
-	.boardDetailView{
-		width: 1000px;
-		min-height:800px;
-		margin: 0 auto;
-		padding-top: 50px;
-	}
-	.boardView{
-		border: 1px solid #ccc;
-		width: 1000px;
-	}
+.headWrap h2{
+	text-align: center;
+	padding: 35px 0 10px 0;
+}
+.headWrap{
+	margin-bottom: 30px;
+}
+.boardDetailView{
+	width: 1000px;
+	min-height:800px;
+	margin: 0 auto;
+}
+.boardView{
+	border: 1px solid #ccc;
+	width: 1000px;
+}
+
+th{
+	background-color: #F6F6F6;
+	height: 40px;
+	text-align: center;
+	border: 1px solid #ccc;
+	vertical-align: middle;
+}
+
+td{
+	border: 1px solid #ccc;
+	vertical-align: middle;
+	padding: 15px;
 	
-	th{
-		background-color: #F6F6F6;
-		height: 40px;
-		text-align: center;
-		border: 1px solid #ccc;
-		vertical-align: middle;
-	}
+}
+
+.detailContent{
+	height: 400px;
 	
-	td{
-		border: 1px solid #ccc;
-		vertical-align: middle;
-		padding: 15px;
-		
-	}
-	
-	.detailContent{
-		height: 200px;
-		
-	}
-	
-	.clickBtn{
+}
+
+.clickBtn{
 	width: 1000px;
 	text-align:right;
 	padding-top: 10px;
 	padding-bottom: 30px;
-	}
+}
 
-	.returnPage{
-		padding-bottom: 30px;
-	}
-	
-	.qna-image{
-		border: none;
-	}
-	.detailContent{
-		border-bottom: none;
-	}
-	
+.returnPage{
+	padding-bottom: 30px;
+}
+
+.qna-image{
+	border: none;
+}
+.detailContent{
+	border-bottom: none;
+}
+.botWrapBtn{
+	background-color: #d9d9d9;
+	color: #333;
+	border: none;
+	border-radius: 10px;
+	width: 70px;
+	height: 40px;
+	font-size: 20px;
+}
+.botWrapBtn:hover{
+	background-color: #0064ff;
+	color: #fff;
+}
+
+.botWrap{
+	padding-top : 30px;
+}
 </style>
 
 
-<!-- Hero End -->
-<!-- About Details Start -->
 	<div class="headWrap">
 		<h2>1:1 문의</h2>
 	</div>
 
-
-   <div class="boardDetailView">
-      <div class="col-12">
-         <div class="boardPostDetail">
-               <div>
-                  <a type="button" class="returnPage"
-                     onclick="history.back(-1)">돌아가기</a>
-               </div>
-               	<input type="hidden" th:value="${qnaBoard.boardQuestionCode}">
-  				<table class="boardView">
-                  <colgroup>
-                     <col width="15%">
-                     <col width="35%">
-                     <col width="15%">
-                     <col width="35%">
-                  </colgroup>
-                  <tbody>
-                     <tr>
-                        <th>제목</th>
-                        <td th:text="${qnaBoard.boardQuestionTitle}"></td>
-                        <th>조회수</th>
-                        <td th:text="${qnaBoard.boardQuestionPageView}"></td>
-                     </tr>
-                     <tr>
-                        <th>작성자</th>
-                        <td th:text="${qnaBoard.userName}"></td>
-                        <th>작성시간</th>
-                        <td th:text="${qnaBoard.boardQuestionRegDate}"></td>
-                     </tr>
-                     <tr>
-                        <th colspan="4">내용</th>
-                     </tr>
-                     <tr>
-                        <td class="detailContent" colspan="4" th:text="${qnaBoard.boardQuestionContent}"></td>
-                        
-                     </tr>
-                     <tr class="postFile" >
-                        <td class="qna-image" colspan="4">
-							<div class="col-md-7 col-sm-7 " >
-							<!-- db에서 저장된 사진 불러오기 -->
-							<div th:if="${not #lists.isEmpty(qnaBoard.file)}" th:each="l : ${qnaBoard.file}">
-								<div class="board-image" th:if="${l.fileMainImage eq 'Y'}">
-									<img th:src="@{'/' + ${#strings.replace(l.fileLocation,'\','/')}}" alt="..." />
+	<div class="boardDetailView">
+		<div class="col-12">
+			<div class="boardPostDetail">
+				<div>
+					<a type="button" class="returnPage" onclick="history.back(-1)">돌아가기</a>
+				</div>
+				<input type="hidden" th:value="${qnaBoard.boardQuestionCode}">
+				<table class="boardView">
+					<colgroup>
+						<col width="15%">
+						<col width="35%">
+						<col width="15%">
+						<col width="35%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th>제목</th>
+							<td th:text="${qnaBoard.boardQuestionTitle}"></td>
+							<th>조회수</th>
+							<td th:text="${qnaBoard.boardQuestionPageView}"></td>
+						</tr>
+						<tr>
+							<th>작성자</th>
+							<td th:text="${qnaBoard.userName}"></td>
+	                        <th>작성시간</th>
+							<td th:text="${qnaBoard.boardQuestionRegDate}"></td>
+						</tr>
+						<tr>
+							<th colspan="4">내용</th>
+						</tr>
+						<tr>
+							<td class="detailContent" colspan="4" th:text="${qnaBoard.boardQuestionContent}"></td>
+						</tr>
+						<tr class="postFile" >
+							<td class="qna-image" colspan="4">
+								<div class="col-md-7 col-sm-7 " >
+									<!-- db에서 저장된 사진 불러오기 -->
+									<div th:if="${not #lists.isEmpty(qnaBoard.file)}" th:each="l : ${qnaBoard.file}">
+										<div class="board-image" th:if="${l.fileMainImage eq 'Y'}">
+											<img th:src="@{'/' + ${#strings.replace(l.fileLocation,'\','/')}}" alt="..." />
+										</div>
+										<div class="board_gallery" th:unless="${l.fileMainImage eq 'Y'}">
+											<a><img th:src="@{'/' + ${#strings.replace(l.fileLocation,'\','/')}}" alt="..." /></a>
+									<!-- @{${#strings.replace(t.storedFilePath,'\','/')}} -->
+										</div>
+		
+									<!-- db에서 저장된 사진 불러오기 -->
+									</div>
+									<div th:unless="${not #lists.isEmpty(qnaBoard.file)}">
+										<!-- 저장된 사진 없음 -->
+										<a><img th:src="@{/images/notImage.jfif}" alt="..." /></a>
+									</div>
 								</div>
-								<div class="board_gallery" th:unless="${l.fileMainImage eq 'Y'}">
-									<a><img th:src="@{'/' + ${#strings.replace(l.fileLocation,'\','/')}}" alt="..." /></a>
-							<!-- @{${#strings.replace(t.storedFilePath,'\','/')}} -->
-								</div>
-
-							<!-- db에서 저장된 사진 불러오기 -->
-							</div>
-							<div th:unless="${not #lists.isEmpty(qnaBoard.file)}">
-								<!-- 저장된 사진 없음 -->
-								<a><img th:src="@{/images/notImage.jfif}" alt="..." /></a>
-							</div>
-						</div>
-						
-				
-						</td>
-                     </tr>
-                      <tr>
-                        <th>답변 방법</th>
-                        <td th:text="${qnaBoard.boardQuestionAnswerMethod}"></td>
-                        <th>이메일</th>
-                        <td th:text="${qnaBoard.userEmail}"></td>
-                       </tr>
-                      <tr>
-                        <th>공개 여부</th>
-                        <td th:text="${qnaBoard.boardQuestionLock}" colspan="4"></td>
-                       </tr>
-    
-                  </tbody>
-               </table>
-				
+							</td>
+						</tr>
+						<tr>
+							<th>답변 방법</th>
+							<td th:text="${qnaBoard.boardQuestionAnswerMethod}"></td>
+							<th>이메일</th>
+							<td th:text="${qnaBoard.userEmail}"></td>
+						</tr>
+						<tr>
+							<th>공개 여부</th>
+							<td th:text="${qnaBoard.boardQuestionLock}" colspan="4"></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>   
 		</div>
 		<hr>
-               <div class="clickBtn mt-3" >
-               		<a th:href="@{/userpage/board/addQnaBoardReply(boardQuestionCode=${qnaBoard.boardQuestionCode})}">
-						<button type="button" class="genric-btn primary-border">답변</button>
-					</a>
-					<a th:href="@{/userpage/board/modifyQnaBoard(boardQuestionCode=${qnaBoard.boardQuestionCode})}">
-						<button type="submit" class="genric-btn primary" th:if="${session.UID == qnaBoard.userIdCode}">수정</button>
-					</a>
-					<a th:href="@{/userpage/board/removeQnaBoard(boardQuestionCode=${qnaBoard.boardQuestionCode})}">
-						<button type="button" class="genric-btn primary-border" th:if="${session.UID == qnaBoard.userIdCode}">삭제</button>
-					</a>
-				</div>
-            </div>   
-          </div>
-
+		
+		<div class="clickBtn mt-3" >
+			<a th:href="@{/userpage/board/addQnaBoardReply(boardQuestionCode=${qnaBoard.boardQuestionCode})}">
+				<button type="button" class="botWrapBtn">답변</button>
+			</a>
+			<a th:href="@{/userpage/board/modifyQnaBoard(boardQuestionCode=${qnaBoard.boardQuestionCode})}">
+				<button type="submit" class="botWrapBtn" th:if="${session.UID == qnaBoard.userIdCode}">수정</button>
+			</a>
+			<a th:href="@{/userpage/board/removeQnaBoard(boardQuestionCode=${qnaBoard.boardQuestionCode})}">
+				<button type="button" class="botWrapBtn" th:if="${session.UID == qnaBoard.userIdCode}">삭제</button>
+			</a>
+		</div>
+	</div>   
+</div>
 </html>
