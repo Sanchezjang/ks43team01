@@ -180,10 +180,37 @@
 			account_subject_code = #{accountSubjectCode};
 	</delete>
 	
-	<update id="modifyAccount">
+	<update id="modifyAccount" parameterType="String">
 		/*손익 계정과목 수정*/
-		
+		UPDATE
+			tb_a_account_profit_and_loss_management
+		SET
+			account_name = #{accountName},
+			profit_loss_classification = #{profitLossClassification},
+			account_use = #{accountUse},
+			account_reg_date = CURDATE()
+		WHERE
+			account_subject_code = #{accountSubjectCode}
+			AND
+			account_amend = 'Y';
 	</update>
+	
+	<select id="getModifyAccountSubjectCode" parameterType="String" resultMap="ProfitAndLossResultMap">
+		/*손익 계정과목 수정화면 기존 데이터 조회*/
+		SELECT
+			a.account_subject_code			AS accountSubjectCode,
+			a.account_name					AS accountName,
+			a.profit_loss_classification	AS profitLossClassification,
+			a.account_use					AS accountUse,
+			a.account_amend					AS accountAmend,
+			a.account_reg_date				AS accountRegDate,
+			a.user_id_code					AS userIdCode,
+			a.account_year					AS accountYear
+		FROM
+			tb_a_account_profit_and_loss_management AS a
+		WHERE
+			a.account_subject_code = #{accountSubjectCode};
+	</select>
 	
 	<select id="getAccountList" resultType="Account">
 		/* 손익 계정과목 리스트 조회 */
