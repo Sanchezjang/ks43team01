@@ -48,7 +48,6 @@
 		<result column="board_question_title"				property="boardQuestionTitle"/>
 		<result column="user_name"							property="userName"/>
 		<result column="board_question_content"				property="boardQuestionContent"/>
-		<result column="board_question_file"				property="boardQuestionFile"/>
 		<result column="board_question_reg_date"			property="boardQuestionRegDate"/>
 		<result column="user_email"							property="userEmail"/>
 		<result column="board_question_answer_method"		property="boardQuestionAnswerMethod"/>
@@ -105,24 +104,35 @@
 
 	<!-- 사용자 화면 -->
 
+	<select id="checkPw" resultType="int">
+	/*비밀번호 확인*/
+		SELECT
+			COUNT(*)
+		FROM
+			tb_b_board_question AS q
+		WHERE 
+			q.board_question_pw = #{boardQuestionPw};
+	</select>
+
 	<select id="getSearchBoardList" fetchSize="1000" parameterType="String" resultType="Board">
 	/*게시글 검색*/
 		SELECT
 			board_post_code									AS boardPostCode
 			, user_id_code 									AS userIdCode
+			, board_category_code							AS boardCategoryCode
 			, board_post_title 								AS boardPostTitle
 			, board_user_name 								AS boardUserName
 			, board_post_content 							AS boardPostContent
 			, board_post_reg_date 							AS boardPostRegDate
 		FROM
 			tb_b_board_post
-		<trim prefix="WHERE" prefixOverrides="AND |OR ">
-			<if test="searchValue != null and searchValue != ''">
+		WHERE
+			board_category_code = 'board01'
+		<trim prefix="AND" prefixOverrides="AND |OR ">
+			<if test="  searchValue != null and searchValue != ''">
 				${searchKey} LIKE CONCAT('%',#{searchValue}, '%')
 			</if>
 		</trim>
-		and
-			board_category_code = 'board01';
 	</select>
 	
 	<select id="getSearchQnaBoardList" fetchSize="1000" parameterType="String" resultMap="qnaBoardResultMap">
@@ -138,26 +148,26 @@
 			tb_b_board_question
 		<trim prefix="WHERE" prefixOverrides="AND |OR ">
 			<if test="searchValue != null and searchValue != ''">
-				${searchKey} LIKE CONCAT('%',#{searchValue}, '%');
+				${searchKey} LIKE CONCAT('%',#{searchValue}, '%')
 			</if>
 		</trim>
 	</select>
 
 	<select id="selectBoardFileDetail" parameterType="hashMap" resultType="hashMap">
 	/*게시글 내 첨부파일 수정*/
-	SELECT
-		f.file_code
-		,wb.board_question_code
-		,f.file_orginal_name
-		,f.file_re_name
-	FROM
-		tb_f_file AS f
-		INNER JOIN
-			tb_b_rel_file_with_QnaBoard AS wb
-		on
-			f.file_code = wb.file_code
-	WHERE
-		wb.board_question_code = #{boardQuestionCode};
+		SELECT
+			f.file_code
+			,wb.board_question_code
+			,f.file_orginal_name
+			,f.file_re_name
+		FROM
+			tb_f_file AS f
+			INNER JOIN
+				tb_b_rel_file_with_QnaBoard AS wb
+			on
+				f.file_code = wb.file_code
+		WHERE
+			wb.board_question_code = #{boardQuestionCode};
 	
 	</select>
 
@@ -270,17 +280,37 @@
 		WHERE
 			board_question_code = #{boardQuestionCode};
 	</delete>
+	
+	<delete id="removeImageQnaBoard" parameterType="String">
+	/* 1:1 게시글 이미지파일 삭제 */
+		DELETE 
+			rq
+		FROM 
+			tb_b_rel_file_with_QnaBoard AS rq
+		WHERE
+			rq.board_question_code = #{boardQuestionCode};
+	</delete>
 
-	<update id="modifyQnaBoard" parameterType="String">
+	<update id="modifyQnaBoard" parameterType="QnaBoard">
 	/*1:1 게시글 수정 */
-		UPDATE
-			tb_b_board_question 
-		SET 
-			board_l_category_code = #{boardLargeCategoryCode}
-			, board_m_category_code = #{boardMediumCategoryCode}
-			, board_question_title = #{boardQuestionTitle}
-			, board_question_content = #{boardQuestionContent}
-			, board_question_reg_date = CURDATE()
+		UPDATE tb_b_board_question
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="boardLargeCategoryCode != null and boardLargeCategoryCode != ''">
+				, board_l_category_code = #{boardLargeCategoryCode}
+			</if>
+			<if test="boardMediumCategoryCode != null and boardMediumCategoryCode != ''">
+				, board_m_category_code = #{boardMediumCategoryCode}
+			</if>
+			<if test="boardQuestionTitle != null and boardQuestionTitle != ''">
+				, board_question_title = #{boardQuestionTitle}
+			</if>
+			<if test="boardQuestionContent != null and boardQuestionContent != ''">
+				, board_question_content = #{boardQuestionContent}
+			</if>
+			<if test="boardQuestionUpdateDate != null and boardQuestionUpdateDate != ''">
+				, board_question_update_date = CURDATE()
+			</if>
+		</trim>
 		WHERE
 			board_question_code = #{boardQuestionCode};
 	</update>
@@ -296,7 +326,6 @@
 			,bq.board_question_title
 			,bq.user_name
 			,bq.board_question_content
-			,bq.board_question_file
 			,bq.board_question_reg_date
 			,bq.board_question_lock
 			,bq.board_question_pw
@@ -366,13 +395,11 @@
 			, board_category_code
 			, board_l_category_code
 			, board_m_category_code
-			, board_answer_code
 			, board_question_origin_no
 			, board_question_group_order
 			, board_question_title
 			, user_name
 			, board_question_content
-			, board_question_file
 			, board_question_reg_date
 			, user_email
 			, board_question_answer_method
@@ -388,7 +415,6 @@
 			, 'board03'
 			, #{boardLargeCategoryCode}		
 			, #{boardMediumCategoryCode}
-			, NULL
 			, (SELECT
 					q.board_question_origin_no
 				FROM
@@ -398,7 +424,6 @@
 			, 1
 			, #{boardQuestionTitle}
 			, #{userName}
-			
 			, IFNULL(( SELECT
 							IF(COUNT(ba.board_answer_content) <![CDATA[<>]]> 1, NULL, ba.board_answer_content)
 						FROM
@@ -415,7 +440,6 @@
 						   )
 						   AND
 						   bq.board_question_code = #{boardQuestionCode}), #{boardQuestionContent})
-			, NULL
 			, CURDATE()
 			, NULL
 			, '댓글'
@@ -441,7 +465,6 @@
 			, board_question_title
 			, user_name
 			, board_question_content
-			, board_question_file
 			, board_question_reg_date
 			, user_email
 			, board_question_answer_method
@@ -472,7 +495,6 @@
 			, #{boardQuestionTitle}
 			, #{userName}
 			, #{boardQuestionContent}
-			, #{boardQuestionFile}
 			, CURDATE()
 			, #{userEmail}
 			, #{boardQuestionAnswerMethod}

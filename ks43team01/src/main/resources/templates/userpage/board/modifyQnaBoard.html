@@ -253,42 +253,11 @@ td input[type="radio"] {
 	
 						</td>
 					</tr>
-					<tr>
-						<th scope="col">답변 방법</th>
-						<td scope="col">
-							<label for="textRadio">답변글</label>
-							<input type="radio" style="margin-right: 5px;" id="textRadio" name="boardQuestionAnswerMethod" value="답변글" checked="checked"/>
-							<label for="emailRadio">이메일</label>
-							<input type="radio" id="emailRadio" name="boardQuestionAnswerMethod" value="이메일"/>
-						</td>
-						<td scope="col" colspan="4" id="emailTd">
-							<input type="email" th:text="${qnaBoard.userEmail}" style="width: 100%; font-size: 12px;" id="emailInput" name="userEmail" placeholder="이메일을 입력해주세요."/>		
-						</td>
-					</tr>
-					<tr>
-						<th>공개여부 </th>
-						<td class="boardQuestionLock">	
-							<label for="gongGae">공개글</label>
-							<input type="radio" style="margin-right: 5px;" id="gongGae" class="" name="boardQuestionLock" value="공개글" checked="checked"/>
-							<label for="bimil">비밀글</label>
-							<input type="radio" id="bimil" class="" name="boardQuestionLock" value="비밀글"/>
-						</td>
-						<td colspan="4">
-							<input type="password" th:text="${qnaBoard.boardQuestionPw}" style="width: 100%; font-size: 12px;" id="boardQuestionPw" class="" name="boardQuestionPw" placeholder="비밀번호를 입력해주세요."/>
-						</td>
-					</tr>
-					<tr>
-						<th>첨부파일</th>
-						<td colspan="6">
-							<div class="filebox">
-							    <input id="boardPostFileCode" class="upload-name" value="첨부파일" placeholder="첨부파일" name="boardImgFile" style="margin-right: 7px;">
-							    <label for="file">파일찾기</label> 
-							    <input type="file" id="file" value=" " name="boardImgFile" style="display: none;">
-							</div>
-						</td>
-					</tr>
 				</tbody>
 			</table>
+			<div class="form-group">
+				<input class="form-control" name="boardQuestionCode" type="hidden" th:value="${qnaBoard.boardQuestionCode}"></input>
+			</div>
 			<div class="botWrap">
 				<button type="button" onclick="history.back(-1)" class="botWrapBtn" id="viewQnaBoard">목록</button>
 				<button type="submit" class="botWrapBtn" id="addQnaBoard">등록</button>

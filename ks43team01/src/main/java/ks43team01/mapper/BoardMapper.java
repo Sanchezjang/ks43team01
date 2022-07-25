@@ -45,6 +45,9 @@ public interface BoardMapper {
 	//답변 조회
 	public List<QnaBoardReply> getQnaBoardReplyList(String boardQuestionReplyCode);
 
+	//게시글 이미지 삭제
+	public int removeImageQnaBoard(String boardQuestionCode);
+	
 	//게시글 삭제
 	public int removeQnaBoard(String boardQuestionCode);
 	
