@@ -50,5 +50,9 @@ public class AdminPaymentController {
 		
 		return "adminpage/payment/paymentList";
 	}
+
+	public static Logger getLog() {
+		return log;
+	}
 	
 }

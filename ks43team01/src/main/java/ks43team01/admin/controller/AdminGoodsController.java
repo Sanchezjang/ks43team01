@@ -181,8 +181,7 @@ public class AdminGoodsController {
 			,Model model) {
 		
 		GoodsTopCategory goodsTopCategory = goodsService.getModifyGoodsTopCategoryCode(goodsTopCategoryCode);
-		
-		log.info("goodsTopCategory : {}", goodsTopCategory);
+
 		model.addAttribute("goodsTopCategory", goodsTopCategory);
 		model.addAttribute("goodsTopCategoryCode", goodsTopCategoryCode);
 		
@@ -225,6 +224,10 @@ public class AdminGoodsController {
 		model.addAttribute("goodsTopCategoryList", goodsTopCategoryList);
 		
 		return "adminpage/goods/addGoodsTopCategory";
+	}
+
+	public static Logger getLog() {
+		return log;
 	}
 	
 }

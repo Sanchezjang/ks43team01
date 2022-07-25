@@ -14,24 +14,6 @@ import ks43team01.mapper.ProfitAndLossMapper;
 @Transactional
 public class ProfitAndLossService {
 	
-	// DI (의존성 주입) 
-	// 1. 필드주입방식
-	/* 
-		@Autowired
-		private MemberMapper memberMapper;
-	 */
-	
-	// 2. setter 메서드 주입방식 
-	/*
-		@Autowired
-		private MemberMapper memberMapper;
-		
-		public void setMemberMapper(MemberMapper memberMapper) {
-			this.memberMapper = memberMapper;
-		}
-	 */
-	
-	// 3. 생성자 메서드 주입방식 
 	private final ProfitAndLossMapper profitAndLossMapper;
 	
 	public ProfitAndLossService(ProfitAndLossMapper profitAndLossMapper) {
@@ -114,7 +96,21 @@ public class ProfitAndLossService {
 	 * 계정과목 수정
 	 * */
 	public int modifyAccount(Account account) {
-		return profitAndLossMapper.modifyAccount(account);
+		
+		int result = profitAndLossMapper.modifyAccount(account);
+		
+		return result;
+	}
+	
+	/*
+	 * 계정과목 수정
+	 * */
+	public Account getModifyAccountSubjectCode(String accountSubjectCode) {
+		
+		Account account = profitAndLossMapper.getModifyAccountSubjectCode(accountSubjectCode);
+		
+		return account;
+		
 	}
 	
 	/*

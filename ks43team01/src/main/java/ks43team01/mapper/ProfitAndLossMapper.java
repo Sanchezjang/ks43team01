@@ -39,6 +39,9 @@ public interface ProfitAndLossMapper {
 	//계정과목 수정
 	public int modifyAccount(Account account);
 	
+	//계정과목 수정 기존 데이터 불러오기
+	public Account getModifyAccountSubjectCode(String accountSubjectCode);
+	
 	//손익 계정과목 리스트
 	public List<Account> getAccountList();	
 	

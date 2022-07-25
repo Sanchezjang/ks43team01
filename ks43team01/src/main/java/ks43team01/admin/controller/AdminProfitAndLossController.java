@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks43team01.dto.Account;
@@ -146,17 +147,27 @@ public class AdminProfitAndLossController {
 	//손익 계정과목 수정
 	@PostMapping("/modifyAccount")
 	public String modifyAccount(Account account
-							   ,HttpSession session
-							   ,HttpServletRequest request
 							   ,RedirectAttributes reAttr) {
 		
 		profitAndLossService.modifyAccount(account);
-		
-		String sessionId = (String) session.getAttribute("UID");
 		String accountSubjectCode = account.getAccountSubjectCode();
 		reAttr.addAttribute("accountSubjectCode", accountSubjectCode);
 		
 		return "redirect:/adminpage/profitAndLoss/accountList";
+		
+	}
+	
+	//손익 계정과목 수정
+	@GetMapping("/modifyAccount")
+	public String modifyAccount(@RequestParam(value="accountSubjectCode", required= false)String accountSubjectCode
+			,Model model) {
+		
+		Account account = profitAndLossService.getModifyAccountSubjectCode(accountSubjectCode);
+
+		model.addAttribute("account", account);
+		model.addAttribute("accountSubjectCode", accountSubjectCode);
+		
+		return "adminpage/profitAndLoss/modifyAccount";
 		
 	}
 	
@@ -197,6 +208,10 @@ public class AdminProfitAndLossController {
 		
 		return "adminpage/profitAndLoss/addAccount";
 		
+	}
+
+	public static Logger getLog() {
+		return log;
 	}
 	
 }
