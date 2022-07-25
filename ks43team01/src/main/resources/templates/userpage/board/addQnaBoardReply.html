@@ -187,10 +187,10 @@ td input[type="radio"] {
 	background-color: #0064ff;
 	color: #fff;
 }
-#viewQnaBoard{
+#viewQnaBoardReply{
 	float: left;
 }
-#addQnaBoard{
+#addQnaBoardReply{
 	float: right;
 }
 .botWrap{
@@ -216,10 +216,10 @@ td input[type="radio"] {
 					<tr>
 						<th scope="row" colspan="1">카테고리</th>
 							<td colspan="2"  style="width: 120px;">
-								<input th:value="${qnaBoard.boardLargeCategoryCode}" id="boardLargeCategoryCode" class="form-control col-6" name="boardLargeCategoryCode" required />
+								<input th:value="${qnaBoard.boardLargeCategoryCode}" id="boardLargeCategoryCode" class="form-control col-12" name="boardLargeCategoryCode" required />
 							</td>
 							<td style="width: 120px;" colspan="1">
-								<input th:value="${qnaBoard.boardMediumCategoryCode}" id="boardMediumCategoryCode" class="form-control col-6" name="boardMediumCategoryCode" required />
+								<input th:value="${qnaBoard.boardMediumCategoryCode}" id="boardMediumCategoryCode" class="form-control col-12" name="boardMediumCategoryCode" required />
 							</td>
 							<td colspan="2">
 							</td>
@@ -251,14 +251,14 @@ td input[type="radio"] {
 							<input type="radio" id="bimil" class="" name="boardQuestionLock" value="비밀글"/>
 						</td>
 						<td colspan="4">
-							<input type="password" th:value="${qnaBoard.boardQuestionPw}" style="width: 100%; font-size: 12px;" id="boardQuestionPw" class="" name="boardQuestionPw" placeholder="비밀번호를 입력해주세요."/>
+							<input type="password" style="width: 100%; font-size: 12px;" id="boardQuestionPw" class="" name="boardQuestionPw" placeholder="비밀번호를 입력해주세요."/>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 			<div class="botWrap">
-				<button type="submit" class="botWrapBtn" id="viewQnaBoard">목록</button>
-				<button type="submit" class="botWrapBtn" id="addQnaBoard">등록</button>
+				<button type="button" onclick="history.back(-1)" class="botWrapBtn" id="viewQnaBoardReply">목록</button>
+				<button type="submit" class="botWrapBtn" id="addQnaBoardReply">등록</button>
 			</div>
 		</form>
 	</div>

@@ -12,7 +12,6 @@ import ks43team01.dto.BoardComment;
 import ks43team01.dto.BoardLargeCategory;
 import ks43team01.dto.BoardMediumCategory;
 import ks43team01.dto.QnaBoard;
-import ks43team01.dto.QnaBoardReply;
 
 @Mapper
 public interface BoardMapper {
@@ -42,8 +41,6 @@ public interface BoardMapper {
 	//답변 등록
 	public int addQnaBoardReply(QnaBoard qnaBoard);
 	
-	//답변 조회
-	public List<QnaBoardReply> getQnaBoardReplyList(String boardQuestionReplyCode);
 
 	//게시글 이미지 삭제
 	public int removeImageQnaBoard(String boardQuestionCode);

@@ -93,6 +93,9 @@ textarea {
 .commentUpdateForm{
 	display: none;
 }
+.genric-btn{
+	border-radius: 10px;
+}
 </style>
 
 	<div class="headWrap">
@@ -159,7 +162,6 @@ textarea {
 				<form class="commentUpdateForm" th:action="@{/userpage/board/modifyComment(boardPostCode=${l.boardPostCode},boardCommentCode=${l.boardCommentCode})}" method="post">
 					<textarea rows="2" cols="120" name="boardCommentContent" th:text="${l.boardCommentContent}"></textarea>
 						<button type="submit" id="modifyCom" class="btn genric-btn primary">수정</button>
-					
 				</form>
 			</div>
 			<hr>
