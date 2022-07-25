@@ -101,21 +101,21 @@
                         </tr>
                       </thead>
                        <tbody>
-                     <tr th:if="${not #lists.isEmpty(pointGradeList)}" th:each="p:${pointGradeList}">
-                     <td>
-                        <input type="checkbox" id="check-all" >
-                     </td>
-                     
-                     	<td hidden="pointBuySaveStandardGradeCode" th:text="${p.pointBuySaveStandardGradeCode}"></td>
-                     	<td hidden="gradeUser" th:text="${p.gradeUserCode}"></td>
-                     	<td hidden="pointStandardDetailsCode" th:text="${p.pointStandardDetailsCode}"></td>
-                     	<td th:text="${p.pointStandardDetailsName}"></td>
-                     	<td th:text="${p.gradeName}"></td>
-                        <td th:text="${p.pointSaveByGradePercent}"></td>
-		                <td th:text="${p.pointSaveByGradeUnit}"></td>
-              			<td><a type="button" class="btn btn-primary" style="font-size: 10px" th:href="@{/adminpage/pointDetails/modifyGradeList(pointBuySaveStandardGradeCode=${p.pointBuySaveStandardGradeCode})}">수정</a></td>
-						<td><button type="button" class="btn btn-danger removePointGradeModalBtn" data-toggle="modal" data-target="#removePointGradeModal" style="font-size: 10px" th:value="${p.pointBuySaveStandardGradeCode}">삭제</button></td>
-                     </tr>
+	                     <tr th:if="${not #lists.isEmpty(pointGradeList)}" th:each="p:${pointGradeList}">
+	                     	<td>
+	                        	<input type="checkbox" id="check-all" >
+	                     	</td>
+	                     
+	                     	<td hidden="pointBuySaveStandardGradeCode" th:text="${p.pointBuySaveStandardGradeCode}"></td>
+	                     	<td hidden="gradeUser" th:text="${p.gradeUserCode}"></td>
+	                     	<td hidden="pointStandardDetailsCode" th:text="${p.pointStandardDetailsCode}"></td>
+	                     	<td th:text="${p.pointStandardDetailsName}"></td>
+	                     	<td th:text="${p.gradeName}"></td>
+	                        <td th:text="${p.pointSaveByGradePercent}"></td>
+			                <td th:text="${p.pointSaveByGradeUnit}"></td>
+	              			<td><a type="button" class="btn btn-primary" style="font-size: 10px" th:href="@{/adminpage/pointDetails/modifyGradeList(pointBuySaveStandardGradeCode=${p.pointBuySaveStandardGradeCode})}">수정</a></td>
+							<td><button type="button" class="btn btn-danger removePointGradeModalBtn" data-toggle="modal" data-target="#removePointGradeModal" style="font-size: 10px" th:value="${p.pointBuySaveStandardGradeCode}">삭제</button></td>
+	                     </tr>
                   </tbody>
                     </table>
                   </div>

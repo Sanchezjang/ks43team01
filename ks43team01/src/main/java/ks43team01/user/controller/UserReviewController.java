@@ -133,14 +133,13 @@ public class UserReviewController {
 										, Model model) {
 
 		List<ReviewContentsReg> reviewGoodsList = reviewService.getReviewByGoodsCode(goodsCode);
-		/*
-		 * List<ReviewContentsReg> reviewUserList = reviewService.getReviewUserList();
-		 * model.addAttribute("reviewUserList", reviewUserList);
-		 */
+		
+		
 		model.addAttribute("reviewGoodsList", reviewGoodsList);
 		model.addAttribute("goodsCode",goodsCode);
 		model.addAttribute("reviewCode",reviewCode);
-		log.info("goodsCode값:{}", goodsCode);
+		log.info("reviewGoodsList goodsCode값:{}", goodsCode);
+		log.info("reviewImageList goodsCode값:{}", goodsCode);
 		
 		return "/userpage/reviewUser/reviewGoodsList";
 
@@ -154,12 +153,9 @@ public class UserReviewController {
 									, Model model) {
 
 		
-		List<ReviewContentsReg> reviewGoodsList = reviewService.getReviewImageCode(reviewCode);
 		List<ReviewContentsReg> reviewUserList = reviewService.getReviewUserList();
 
 		model.addAttribute("reviewUserList", reviewUserList);
-		model.addAttribute("reviewGoodsList",reviewGoodsList);
-		/* model.addAttribute("reviewImageCode", reviewImageCode); */
 		model.addAttribute("reviewCode", reviewCode);
 		return "/userpage/reviewUser/reviewUserList";
 
