@@ -122,6 +122,9 @@ layout:decorate="~{userpage/layout/userdefault}">
 								<!-- <span th:text="${r.reviewImg}"></span> -->
 							</div>
 							<div class="reviewRight">
+							<div class="reviewMiddle" style="display: inline; margin-right: 10px;">
+								<span> 상품: [[${r.goods.goodsName}]]</span>
+							</div>
 							<div class="reviewTop">
 								<div th:text="|작성자 : ${r.userIdCode} /|" style="display: inline; margin-right: 10px;"></div>
 									<div class="rating" id="viewScore" data-rate="3" style="display: inline;">
