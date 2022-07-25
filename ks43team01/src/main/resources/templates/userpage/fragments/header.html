@@ -138,7 +138,7 @@
 						  </li>	
 					  </ul>			
 						<ul>
-                           	<li><a th:href="@{/default}">!관리자</a></li>
+                           	<li><a th:href="@{/default}">관리자</a></li>
                               	<li th:unless="${session.UID == null}"><a th:href="@{/userinfomation}"><i class="ti-user"></i>내정보</a></li>
                                <li th:unless="${session.UID != null}"><a th:href="@{/userpage/login/login}"><i class="ti-user"></i>로그인</a></li>
                               	<li th:unless="${session.UID == null}"><a th:href="@{/userpage/login/logout}"><i class="ti-user"></i>로그아웃</a></li>
@@ -185,9 +185,9 @@
                                         <li><a th:href="@{/userpage/board/qnaBoardList}">1:1 문의 게시판</a></li>
                                     </ul>
                                	</li>
-                                <li><a href="#">임시리뷰</a>
+                                <li><a href="#">전체리뷰</a>
                                     <ul class="submenu">
-                                        <li><a th:href="@{/userpage/reviewUser/reviewUserList}">리뷰등록</a></li>
+                                        <li><a th:href="@{/userpage/reviewUser/reviewUserList}">리뷰목록</a></li>
                                     </ul>
                                 </li>
                            	</ul>
@@ -198,7 +198,7 @@
 								<ul class="topUl">
 	                               	<li th:unless="${session.UID == null}"><a th:href="@{/sellerjoin}"><i class="ti-user"></i>전문가 등록</a></li>
 	                               	<li th:unless="${session.UID == null}"><a th:href="@{/userpage/goods/addGoods}"><i class="ti-user"></i>상품 등록</a></li>
-	                                <li><a th:href="@{/orderCart}"><i class="ti-bag"></i>#장바구니</a></li>
+	                                <li><a th:href="@{/orderCart}"><i class="ti-bag"></i>장바구니</a></li>
 								</ul>
                                 <form action="#" class="form-box f-right ">
                                     <input type="text" name="Search" placeholder="상품검색">

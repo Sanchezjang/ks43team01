@@ -132,15 +132,6 @@ public class ReviewService {
 			return Integer.toString(result);
 		}
 	}
-
-	
-	/* 회원 페이지 회원 리뷰 이미지 조회 */
-	public List<ReviewContentsReg> getReviewImageCode(String goodsCode){
-		
-		List<ReviewContentsReg> reviewGoodsList = reviewMapper.getReviewImageCode(goodsCode);
-		log.info(goodsCode);
-		return reviewGoodsList;
-	}
 	
 	/* 회원 페이지 회원 리뷰 상품코드로 조회 */
 	public List<ReviewContentsReg> getReviewByGoodsCode(String goodsCode){
@@ -153,9 +144,10 @@ public class ReviewService {
 	
 	/* 회원 페이지 회원 리뷰 목록 조회 */
 	public List<ReviewContentsReg> getReviewUserList() {
-		 log.info("들어오는 값:{}", "test");
 		
 		List<ReviewContentsReg> reviewUserList = reviewMapper.getReviewUserList();
+		log.info("들어오는 값:{}", "reviewCode");
+		log.info("들어오는 값:{}", "goodsCode");
 
 		return reviewUserList;
 	}

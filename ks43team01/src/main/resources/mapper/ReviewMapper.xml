@@ -105,7 +105,8 @@
 	<select id="getReviewByGoodsCode" resultMap="ReviewContentsRegResultMap">
 	/* 유저페이지 회원 리뷰 상품코드별 조회*/
 		SELECT
-			 gg.goods_code							
+			 gg.goods_code	
+			,gg.goods_name						
 			,tr.review_code						
 			,tr.review_reg_date                      			
 			,tr.review_content						
@@ -165,19 +166,18 @@
 			tr.review_code DESC;
 	</select>
 	
-	<!-- <select id="getReviewImageCode" parameterType="String" resultMap="ReviewContentsRegResultMap">
+	<select id="getReviewUserList" resultMap="ReviewContentsRegResultMap">
+	/* 유저페이지 회원 리뷰 목록*/
 		SELECT
-			 rr.review_code
-			,rr.goods_code
-			,rr.user_id_code
-			,rr.review_score_standard_code
-			,rr.review_content
-			,rr.review_recommendations_count
-			,rr.review_decommendations_count
-			,rr.review_reg_date
-			,rr.review_reg_buyer_exp
-			,rr.review_reg_ip
-			,rr.review_star_score
+			 gg.goods_code	
+			,gg.goods_name 						
+			,tr.review_code						
+			,tr.review_reg_date                      			
+			,tr.review_content						
+			,ua.user_id_code						
+			,tr.review_star_score				
+			,tr.review_recommendations_count		
+			,tr.review_decommendations_count	
 			,sub.file_code 
 			,sub.user_id_code
 			,sub.file_orginal_name
@@ -189,10 +189,22 @@
 			,sub.file_update_date
 			,sub.file_use
 			,sub.review_code
-			FROM 
-				tb_r_review_contents AS rr 
-				LEFT JOIN 
-				(SELECT 
+		FROM 
+			tb_r_review_contents AS tr 
+			INNER join
+			tb_g_goods AS gg
+			on
+			tr.goods_code = gg.goods_code
+			INNER JOIN 
+			tb_u_all_user AS ua
+			ON 
+			tr.user_id_code = ua.user_id_code 
+			INNER JOIN 
+			tb_r_based_on_score_by_review AS rb 
+			ON 
+			tr.review_score_standard_code = rb.review_score_standard_code
+			LEFT JOIN
+			(SELECT 
 				   f.file_code 
 			 	  ,f.user_id_code
 				  ,f.file_orginal_name
@@ -211,36 +223,7 @@
 				 	ON 
 				 	f.file_code = rf.file_code) AS sub 
 				ON 
-					sub.review_code = rr.review_code 
-				WHERE 
-					rr.goods_code = #{goodsCode};
-	</select> -->
-	
-	<select id="getReviewUserList" resultType="Map">
-	/* 유저페이지 회원 리뷰 목록*/
-		SELECT
-			 gg.goods_code							AS goodsCode
-			,tr.review_code							AS reviewCode
-			,tr.review_reg_date                   	AS reviewRegDate    			
-			,tr.review_content						AS reviewContent
-			,ua.user_id_code						AS userIdCode
-			,tr.review_star_score					AS reviewStarScore
-			,tr.review_recommendations_count		AS reviewRecommendationsCount
-			,tr.review_decommendations_count		AS reviewDecommendationsCount
-		FROM 
-			tb_r_review_contents AS tr 
-			INNER join
-			tb_g_goods AS gg
-			on
-			tr.goods_code = gg.goods_code
-			INNER JOIN 
-			tb_u_all_user AS ua
-			ON 
-			tr.user_id_code = ua.user_id_code 
-			INNER JOIN 
-			tb_r_based_on_score_by_review AS rb 
-			ON 
-			tr.review_score_standard_code = rb.review_score_standard_code
+					sub.review_code = tr.review_code 
 			ORDER BY 
 			tr.review_code DESC;
 	</select>
@@ -295,7 +278,7 @@
 			review_code = #{reviewCode};
 	</update>
 	
-	<insert id="addReview" parameterType="ReviewContentsReg">
+	<insert id="addReview" parameterType="reviewContentsReg">
 	/* 리뷰 등록 */
 		INSERT INTO tb_r_review_contents 
 			( review_code

@@ -86,6 +86,7 @@ layout:decorate="~{userpage/layout/userdefault}">
     text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
     margin: -2px;
 }
+
 .reviewTop{
 	height: 36px;
 }
@@ -98,15 +99,29 @@ layout:decorate="~{userpage/layout/userdefault}">
 	<div class="reviewContainer">
 			<div class="countingStar">
 				<th:block th:each="r : ${reviewUserList}">
-					<div>
-						<input type="hidden" name="goodsCode" id="goodsCode">
-					</div>
 						<div class="mainWrap">
 							<div class="reviewLeft">
-								<div th:text="상품이미지 "></div>
+								<div th:if="${not #lists.isEmpty(r.file)}" th:each="f : ${r.file}">
+										<div class="review-image" th:if="${f.fileMainImage eq 'Y'}" style="height: 140px; width: 98%;">
+											<img style="width: 100%; height: 100%;" th:src="@{'/' + ${#strings.replace(f.fileLocation,'\','/')}}" alt="..." />
+										</div>
+										<div class="review_gallery" th:unless="${f.fileMainImage eq 'Y'}">
+											<a><img th:src="@{'/' + ${#strings.replace(f.fileLocation,'\','/')}}" alt="..." /></a>
+									<!-- @{${#strings.replace(t.storedFilePath,'\','/')}} -->
+										</div>
+		
+									<!-- db에서 저장된 사진 불러오기 -->
+									</div>
+									<div th:unless="${not #lists.isEmpty(r.file)}">
+										<!-- 저장된 사진 없음 -->
+										<a><img th:src="@{/images/notImage.jfif}" alt="..." /></a>
+									</div>
 								<!-- <span th:text="${r.reviewImg}"></span> -->
 							</div>
 							<div class="reviewRight">
+							<div  class="reviewMiddle" style="display: inline; margin-right: 8px;">
+								<h6><a th:href="@{/userpage/goods/goodsInfo(goodsCode=${r.goods.goodsCode})}"> 상품: [[${r.goods.goodsName}]]</a></h6>
+							</div>
 							<div class="reviewTop">
 								<div th:text="|작성자 : ${r.userIdCode} /|" style="display: inline; margin-right: 10px;"></div>
 									<div class="rating" id="viewScore" data-rate="3" style="display: inline;">

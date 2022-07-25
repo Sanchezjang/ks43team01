@@ -116,11 +116,13 @@ public class UserReviewController {
 			@RequestParam(name = "reviewStarScore", required = false) String reviewStarScore,
 			@RequestParam(name = "userIdCode", required = false) String usedIdCode,
 			@RequestParam(name = "goodsCode", required = false) String goodsCode,
+			@RequestParam(name = "reviewCode", required = false) String reviewCode,
 			@RequestParam(name = "reviewScoreStandardCode", required = false) String reviewScoreStandardCode) {
 
 		List<ReviewContentsReg> reviewUserList = reviewService.getReviewUserList();
 		model.addAttribute("reviewUserList", reviewUserList);
 		model.addAttribute("goodsCode", goodsCode);
+		model.addAttribute("reviewCode",reviewCode);
 		model.addAttribute("reviewScoreStandardCode", reviewScoreStandardCode);
 		return "/userpage/reviewUser/addReview";
 	}
@@ -144,19 +146,15 @@ public class UserReviewController {
 		return "/userpage/reviewUser/reviewGoodsList";
 
 	}
+	
+
 
 	/* 유저페이지 회원 리뷰 목록 조회 */
 	@GetMapping("/reviewUserList")
-	public String getReviewUserList(@RequestParam(name = "goodsCode", required = false) String goodsCode,
-									@RequestParam(name = "userName", required = false) String userName,
-									@RequestParam(value = "reviewCode", required = false) String reviewCode
-									, Model model) {
-
+	public String getReviewUserList(Model model) {
 		
 		List<ReviewContentsReg> reviewUserList = reviewService.getReviewUserList();
-
 		model.addAttribute("reviewUserList", reviewUserList);
-		model.addAttribute("reviewCode", reviewCode);
 		return "/userpage/reviewUser/reviewUserList";
 
 	}
