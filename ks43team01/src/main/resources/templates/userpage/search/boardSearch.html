@@ -3,8 +3,22 @@
 xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{userpage/layout/userdefault}">	
+
+<!-- <th:block layout:fragment="customScript">
+	<script>
+	  $("#next").click(function(){
+		    if($.trim($("#searchValue").val())==""){
+		      alert("입력해주세요.");
+		      return false;
+		    } 
+		    $("#searchForm").submit();
+		  });
+		
+	</script>
+</th:block> -->
+	
 	<div th:fragment="searchBoardFragment">
-		<form th:action="@{/userpage/board/noticeBoardList}" class="form-inline row col-12" method="post">
+		<form th:action="@{/userpage/board/noticeBoardList}" id="searchForm" class="form-inline row col-12" method="post">
 			<div class="form-group row col-6 justify-content-center">
 				<div>
 					<select name="searchKey">
@@ -14,8 +28,8 @@ layout:decorate="~{userpage/layout/userdefault}">
 						<option value="boardPostContent">내용</option>
 					</select>
 				</div>
-				<input type="text" class="form-control col-sm-5 mx-2 " name="searchValue"/>
-				<button class="botWrapBtn" type="submit">검색</button>
+				<input type="text" class="form-control col-sm-5 mx-2 " id="searchValue" name="searchValue"/>
+				<button type="submit" id="next" class="botWrapBtn">검색</button>
 			</div>
 		</form>
 	</div>

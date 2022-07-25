@@ -19,6 +19,7 @@ import ks43team01.dto.BoardComment;
 import ks43team01.dto.BoardLargeCategory;
 import ks43team01.dto.BoardMediumCategory;
 import ks43team01.dto.QnaBoard;
+import ks43team01.dto.User;
 import ks43team01.mapper.BoardMapper;
 import ks43team01.mapper.FileMapper;
 
@@ -101,11 +102,18 @@ public class BoardService {
 	
 
 	/* 1:1 게시글 답변글 등록 */
-	public int addQnaBoardReply(String sessionId, String sessionName, QnaBoard qnaBoard) {
+	public int addQnaBoardReply(String sessionId, String sessionName,  QnaBoard qnaBoard) {
 		qnaBoard.setUserIdCode(sessionId);
 		qnaBoard.setUserName(sessionName);
 		
 		int result = boardMapper.addQnaBoardReply(qnaBoard);
+		
+		return result;
+	}
+	/* 1:1 게시글 이미지 삭제*/
+	public int removeImageQnaBoard(String boardQuestionCode) {
+		
+		int result = boardMapper.removeImageQnaBoard(boardQuestionCode);
 		
 		return result;
 	}
@@ -193,6 +201,7 @@ public class BoardService {
 		
 		return boardLargeCategory;
 	}
+
 
 	/*1:1 문의 게시글 상세 조회  + 게시글 답변 상세 조회 */
 	public QnaBoard getQnaBoardByCode(String boardQuestionCode) {

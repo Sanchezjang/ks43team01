@@ -5,22 +5,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{userpage/layout/userdefault}">
 <!------ Include the above in your HEAD tag ---------->
 
-<th:block layout:fragment="customScript">
-	<script>
-		function pwCheck(){
-			var viewPw = document.getQuestionByPw('boardQuestionPw').value;
-			
-			if(viewPw != qnaBoard.QuestionPw){
-				alert("비밀번호가 일치 하지 않습니다.");
-				return false;
-			}else{
-				alert("비밀번호가 일치합니다.");
-				return true;
-			}
-		}	
-	</script>
-</th:block>
-
 <div layout:fragment="content">	
 <style>
 .headWrap h2{
@@ -71,8 +55,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 	<div class="headWrap">
 		<h2>비밀글 보기</h2>
 	</div>
-	
-	<form th:action="@{/userpage/board/questionPwCheck}" method="post">
+	<form th:action="@{/userpage/board/questionPwCheck}" method="post" autocomplete="off">
 		<div class="input-form mx-auto"> 
 			<div class="bigWrap">
 				<p>이 글은 비밀글 입니다. 비밀번호를 입력해주세요.</p>
