@@ -52,8 +52,9 @@ public class BoardController {
 
 	/* 1:1 문의 게시글 검색 */
 	@PostMapping("/qnaBoardList")
-	public String getSearchQnaBoardList(@RequestParam(name = "searchKey") String searchKey,
-			@RequestParam(name = "searchValue", required = false) String searchValue, Model model) {
+	public String getSearchQnaBoardList(@RequestParam(name = "searchKey") String searchKey
+										, @RequestParam(name = "searchValue", required = false) String searchValue
+										, Model model) {
 
 		log.info("searchKey: {}", searchKey);
 		log.info("searchValue: {}", searchValue);
@@ -80,8 +81,9 @@ public class BoardController {
 
 	/* 1:1 문의 게시글 페이징 */
 	@GetMapping("/qnaBoardList")
-	public String qnaBoardList(
-			@RequestParam(name = "currentPage", required = false, defaultValue = "1") int currentPage, Model model) {
+	public String qnaBoardList(@RequestParam(name = "currentPage", required = false, defaultValue = "1") int currentPage
+								, Model model) {
+		
 		Map<String, Object> resultMap = boardService.getQnaBoardList(currentPage);
 
 		model.addAttribute("resultMap", resultMap);
@@ -117,10 +119,10 @@ public class BoardController {
 
 	/* 1:1 문의 게시글 답변글 등록(get) */
 	@GetMapping("/addQnaBoardReply")
-	public String addQnaBoardReply(@RequestParam(name = "boardQuestionCode", required = false) String boardQuestionCode,
-			@RequestParam(name = "boardLargeCategoryCode", required = false) String boardLargeCategoryCode,
-			@RequestParam(name = "boardMediumCategoryCode", required = false) String boardMediumCategoryCode,
-			Model model) {
+	public String addQnaBoardReply(@RequestParam(name = "boardQuestionCode", required = false) String boardQuestionCode
+									, @RequestParam(name = "boardLargeCategoryCode", required = false) String boardLargeCategoryCode
+									, @RequestParam(name = "boardMediumCategoryCode", required = false) String boardMediumCategoryCode
+									, Model model) {
 
 		QnaBoard qnaBoard = boardService.getQnaBoardByCode(boardQuestionCode);
 		model.addAttribute("qnaBoard", qnaBoard);
@@ -144,45 +146,10 @@ public class BoardController {
 	}
 
 
-	 
-	 @PostMapping("/questionPwCheck") 
-	 public String getQuestionPwCheck(@RequestParam(value = "boardQuestionCode", required =false)String boardQuestionCode
-			 						, @RequestParam(name="boardQuestionPw",required = false) String boardQuestionPw 
-			 						, QnaBoard qnaBoard ) {
-	 
-		 if(qnaBoard != null) { 
-			 String questionPwCheck = qnaBoard.getBoardQuestionPw();
-			 if(boardQuestionPw.equals(questionPwCheck)) {
-				 System.out.println("비밀번호 일치");
-				 
-				 return "redirect:/userpage/board/qnaBoardDetail";
-			 }else{
-				 System.out.println("비밀번호 불일치");
-				
-			 }
-		 }
-		 return "redirect:/userpage/board/questionPwCheck"; 
-	 }
-	 
-	 
-	  @GetMapping("/questionPwCheck")
-	  public String getQuestionPwCheck(@RequestParam(value = "boardQuestionCode", required =false)String boardQuestionCode
-			  							) {
-		 
-		  
-		
-		  
-		  return "/userpage/board/questionPwCheck"; 
-	 }
-	 
-	  
-	
 	/* 1:1 문의 게시글 상세 조회 */  
-
 	@GetMapping("/qnaBoardDetail") 
 	public String qnaBoardDetail(@RequestParam(value = "boardQuestionCode")String boardQuestionCode 
-								, Model model 
-								, HttpSession session) { 
+								, Model model) { 
 		
 		QnaBoard qnaBoard =  boardService.getQnaBoardByCode(boardQuestionCode);
 		boardService.updateQnaBoardPageView(boardQuestionCode);
@@ -193,242 +160,10 @@ public class BoardController {
 		}
 
 
-	/* 게시글 댓글 삭제 */
-	@GetMapping("/removeComment")
-	public String removeComment(Model model, BoardComment boardComment,
-			@RequestParam(name = "boardCommentCode", required = false) String boardCommentCode,
-			@RequestParam(value = "boardPostCode", required = false) String boardPostCode, RedirectAttributes reAttr) {
-
-		boardService.getBoardByCode(boardPostCode);
-		boardService.removeComment(boardCommentCode);
-
-		log.info("댓글 삭제 : {}", boardCommentCode);
-		reAttr.addAttribute("boardPostCode", boardPostCode);
-
-		return "redirect:/userpage/board/freeBoardDetail";
-	}
-
-	/* 게시글 댓글 수정 (post) */
-	@PostMapping("/modifyComment")
-	public String modifyComment(BoardComment boardComment, Board board, RedirectAttributes reAttr) {
-		log.info("boardComment: {}", boardComment);
-		boardService.modifyComment(boardComment);
-		String boardPostCode = board.getBoardPostCode();
-		reAttr.addAttribute("boardPostCode", boardPostCode);
-
-		return "redirect:/userpage/board/freeBoardDetail";
-	}
-
-	/* 게시글 댓글 수정 (get) */
-	@GetMapping("/modifyComment")
-	public String modifyComment(Model model,
-			@RequestParam(value = "boardPostCode", required = false) String boardPostCode,
-			@RequestParam(value = "boardCommentCode", required = false) String boardCommentCode) {
-		Board board = boardService.getBoardByCode(boardPostCode);
-		List<BoardComment> boardComment = boardService.getBoardCommentList();
-		model.addAttribute("board", board);
-		model.addAttribute("boardComment", boardComment);
-
-		return "/userpage/board/freeBoardDetail";
-	}
-
-	/* 게시글 검색 기능 */
-	@PostMapping("/noticeBoardList")
-	public String getSearchBoardList(@RequestParam(name = "searchKey") String searchKey,
-			@RequestParam(name = "searchValue", required = false) String searchValue, Model model) {
-
-		log.info("searchKey: {}", searchKey);
-		log.info("searchValue: {}", searchValue);
-
-		if ("userIdCode".equals(searchKey)) {
-			searchKey = "user_id_code";
-		} else if ("boardPostTitle".equals(searchKey)) {
-			searchKey = "board_post_title";
-		} else if ("boardUserName".equals(searchKey)) {
-			searchKey = "board_user_name";
-		} else if ("boardPostContent".equals(searchKey)) {
-			searchKey = "board_post_content";
-		} else {
-			searchKey = "board_post_reg_date";
-		}
-
-		List<Board> searchBoardList = boardService.getSearchBoardList(searchKey, searchValue);
-
-		if (searchBoardList != null)
-			model.addAttribute("noticeBoardList", searchBoardList);
-
-		return "/userpage/board/noticeBoardList";
-	}
-
-	/* 게시글 댓글 등록 (post) */
-	@PostMapping("/addComment")
-	public String addComment(@RequestParam(name = "boardPostCode", required = false) String boardPostCode,
-			BoardComment boardComment, HttpSession session, Board board, RedirectAttributes reAttr) {
-
-		session.setAttribute("userName", boardComment.getUserName()); // 세션 값 설정
-		String sessionId = (String) session.getAttribute("UID");
-		String sessionName = (String) session.getAttribute("UNAME"); // 세션값 가져오기
-		boardComment.setUserName(sessionName);
-		log.info("sessionName값 : {}", sessionName);
-		String boardPostCode1 = board.getBoardPostCode();
-		boardComment.setBoardPostCode(boardPostCode1);
-		log.info("가져온 코드값 :  {}", boardPostCode1);
-		boardService.addComment(sessionId, sessionName, boardComment);
-
-		reAttr.addAttribute("boardPostCode", boardPostCode1);
-		return "redirect:/userpage/board/freeBoardDetail";
-	}
-
-	/* 게시글 댓글 등록 (get) */
-	@GetMapping("/addComment")
-	public String addComment(Model model) {
-
-		return "/userpage/board/freeBoardDetail";
-	}
-
-	/* 5-3. 자유게시판 게시글 삭제 */
-	@GetMapping("/removeFreeBoard")
-	public String removeFreeBoard(@RequestParam(value = "boardPostCode") String boardPostCode,
-			@RequestParam(value = "boardCommentCode") String boardCommentCode) {
-		log.info("나가는 값:{}", "test");
-		boardService.removeBoard(boardPostCode);
-		boardService.removeComment(boardCommentCode);
-
-		return "redirect:/userpage/board/freeBoardList";
-	}
-
-	/* 5-2. 자주묻는 질문 게시글 삭제 */
-	@GetMapping("/removeFaqBoard")
-	public String removeFaqBoard(@RequestParam(value = "boardPostCode") String boardPostCode) {
-		log.info("나가는 값:{}", "test");
-		boardService.removeBoard(boardPostCode);
-
-		return "redirect:/userpage/board/faqBoardList";
-	}
-
-	/* 5-1. 공지사항 게시글 삭제 */
-	@GetMapping("/removeNoticeBoard")
-	public String removeNoticeBoard(@RequestParam(value = "boardPostCode", required = false) String boardPostCode) {
-		log.info("나가는 값:{}", "test");
-		boardService.removeBoard(boardPostCode);
-
-		return "redirect:/userpage/board/noticeBoardList";
-	}
-
-	/* 4-3. 자유게시판 게시글 수정 (post) */
-	@PostMapping("/modifyFreeBoard")
-	public String modifyFreeBoard(Board board, RedirectAttributes reAttr) {
-
-		log.info("board: {}", board);
-		boardService.modifyBoard(board);
-		String boardPostCode = board.getBoardPostCode();
-		reAttr.addAttribute("boardPostCode", boardPostCode);
-
-		return "redirect:/userpage/board/freeBoardDetail";
-	}
-
-	/* 4-3. 자유게시판 게시글 수정 (get) */
-	@GetMapping("/modifyFreeBoard")
-	public String modifyFreeBoard(@RequestParam(value = "boardPostCode", required = false) String boardPostCode,
-			Model model) {
-
-		Board board = boardService.getBoardByCode(boardPostCode);
-		model.addAttribute("board", board);
-
-		return "/userpage/board/modifyFreeBoard";
-	}
-
-	/* 4-2. 자주묻는 질문 게시글 수정 (post) */
-	@PostMapping("/modifyFaqBoard")
-	public String modifyFaqBoard(Board board, RedirectAttributes reAttr) {
-
-		log.info("board: {}", board);
-		boardService.modifyBoard(board);
-		String boardPostCode = board.getBoardPostCode();
-		reAttr.addAttribute("boardPostCode", boardPostCode);
-
-		return "redirect:/userpage/board/faqBoardDetail";
-	}
-
-	/* 4-2. 자주묻는 질문 게시글 수정 (get) */
-	@GetMapping("/modifyFaqBoard")
-	public String modifyFaqBoard(@RequestParam(value = "boardPostCode", required = false) String boardPostCode,
-			Model model) {
-
-		Board board = boardService.getBoardByCode(boardPostCode);
-		model.addAttribute("board", board);
-
-		return "/userpage/board/modifyFaqBoard";
-	}
-
-	/* 4-1. 공지사항 게시글 수정 (post) */
-	@PostMapping("/modifyNoticeBoard")
-	public String modifyNoticeBoard(Board board, RedirectAttributes reAttr) {
-
-		log.info("board: {}", board);
-		boardService.modifyBoard(board);
-		String boardPostCode = board.getBoardPostCode();
-		reAttr.addAttribute("boardPostCode", boardPostCode);
-
-		return "redirect:/userpage/board/noticeBoardDetail";
-	}
-
-	/* 4-1. 공지사항 게시글 수정 (get) */
-	@GetMapping("/modifyNoticeBoard")
-	public String modifyNoticeBoard(@RequestParam(value = "boardPostCode", required = false) String boardPostCode,
-			Model model) {
-
-		Board board = boardService.getBoardByCode(boardPostCode);
-		model.addAttribute("board", board);
-
-		return "/userpage/board/modifyNoticeBoard";
-	}
-
-	/* 3-3. 자유게시판 게시글 상세 페이지 조회 */
-	@GetMapping("/freeBoardDetail")
-	public String freeBoardDetail(@RequestParam(value = "boardPostCode") String boardPostCode, Model model) {
-
-		Board board = boardService.getBoardByCode(boardPostCode);
-		boardService.updateBoardPageView(boardPostCode);
-
-		List<BoardComment> boardPostCommentList = boardService.getBoardPostCommentList(boardPostCode);
-		model.addAttribute("board", board);
-		model.addAttribute("boardPostCommentList", boardPostCommentList);
-
-		log.info("board : {}", board);
-		log.info("boardPostCommentList: {}", boardPostCommentList);
-
-		return "/userpage/board/freeBoardDetail";
-
-	}
-
-	/* 3-2. 자주묻는 질문 게시글 상세 페이지 조회 */
-	@GetMapping("/faqBoardDetail")
-	public String faqBoardDetail(@RequestParam(value = "boardPostCode") String boardPostCode, Model model) {
-
-		Board board = boardService.getBoardByCode(boardPostCode);
-		boardService.updateBoardPageView(boardPostCode);
-		log.info("board : {}", board);
-		model.addAttribute("board", board);
-		return "/userpage/board/faqBoardDetail";
-	}
-
-	/* 3-1. 공지사항 게시글 상세 페이지 조회 */
-	@GetMapping("/noticeBoardDetail")
-	public String noticeBoardDetail(@RequestParam(value = "boardPostCode") String boardPostCode, Model model) {
-
-		Board board = boardService.getBoardByCode(boardPostCode);
-
-		boardService.updateBoardPageView(boardPostCode);
-		log.info("board : {}", board);
-		model.addAttribute("board", board);
-		return "/userpage/board/noticeBoardDetail";
-	}
-
 	/* 1:1 게시글 삭제 */
 	@GetMapping("/removeQnaBoard")
-	public String removeQnaBoard(
-			@RequestParam(value = "boardQuestionCode", required = false) String boardQuestionCode) {
+	public String removeQnaBoard(@RequestParam(value = "boardQuestionCode", required = false) String boardQuestionCode) {
+		
 		log.info("나가는 값:{}", "test");
 		boardService.removeImageQnaBoard(boardQuestionCode);
 		boardService.removeQnaBoard(boardQuestionCode);
@@ -452,7 +187,7 @@ public class BoardController {
 	/* 1:1 게시글 수정 (get) */
 	@GetMapping("/modifyQnaBoard")
 	public String modifyQnaBoard(@RequestParam(value = "boardQuestionCode", required = false) String boardQuestionCode
-								,Model model) {
+								, Model model) {
 		List<BoardLargeCategory> boardLargeCategory = boardService.getBoardLargeCategory();
 
 		model.addAttribute("boardLargeCategory", boardLargeCategory);
@@ -491,10 +226,13 @@ public class BoardController {
 
 	}
 
-	/* 2-4. 사용자 1:1 문의 게시판 게시글 등록 (post) */
+	/* 1:1 문의 게시판 게시글 등록 (post) */
 	@PostMapping("/addQnaBoard")
-	public String addQnaBoard(QnaBoard qnaBoard, HttpSession session, RedirectAttributes reAttr,
-			@RequestParam MultipartFile[] boardImgFile, HttpServletRequest request) {
+	public String addQnaBoard(QnaBoard qnaBoard
+							, HttpSession session
+							, RedirectAttributes reAttr
+							, @RequestParam MultipartFile[] boardImgFile
+							, HttpServletRequest request) {
 
 		String serverName = request.getServerName();
 		String sessionId = (String) session.getAttribute("UID");
@@ -521,8 +259,7 @@ public class BoardController {
 			fileRealPath = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
 		}
 
-		String boardQuestionCode = boardService.addQnaBoard(sessionId, qnaBoard, sessionName, boardImgFile,
-				fileRealPath);
+		String boardQuestionCode = boardService.addQnaBoard(sessionId, qnaBoard, sessionName, boardImgFile, fileRealPath);
 		log.info("boardQuestionCode : {}", boardQuestionCode);
 
 		reAttr.addAttribute("boardQuestionCode", boardQuestionCode);
@@ -530,7 +267,7 @@ public class BoardController {
 		return "redirect:/userpage/board/qnaBoardList";
 	}
 
-	/* 2-4. 사용자 1:1 문의 게시판 게시글 등록 (get) */
+	/* 1:1 문의 게시판 게시글 등록 (get) */
 	@GetMapping("/addQnaBoard")
 	public String addQnaBoard(Model model) {
 		List<BoardLargeCategory> boardLargeCategory = boardService.getBoardLargeCategory();
@@ -547,7 +284,249 @@ public class BoardController {
 	 * 
 	 */
 
-	/* 2-3. 사용자 자유게시판 게시글 등록 (post) */
+	/* 게시글 댓글 삭제 */
+	@GetMapping("/removeComment")
+	public String removeComment(@RequestParam(name = "boardCommentCode", required = false) String boardCommentCode
+								, @RequestParam(value = "boardPostCode", required = false) String boardPostCode
+								, Model model
+								, BoardComment boardComment
+								, RedirectAttributes reAttr) {
+
+		boardService.getBoardByCode(boardPostCode);
+		boardService.removeComment(boardCommentCode);
+
+		log.info("댓글 삭제 : {}", boardCommentCode);
+		reAttr.addAttribute("boardPostCode", boardPostCode);
+
+		return "redirect:/userpage/board/freeBoardDetail";
+	}
+
+	/* 게시글 댓글 수정 (post) */
+	@PostMapping("/modifyComment")
+	public String modifyComment(BoardComment boardComment, Board board, RedirectAttributes reAttr) {
+		
+		log.info("boardComment: {}", boardComment);
+		boardService.modifyComment(boardComment);
+		String boardPostCode = board.getBoardPostCode();
+		reAttr.addAttribute("boardPostCode", boardPostCode);
+
+		return "redirect:/userpage/board/freeBoardDetail";
+	}
+
+	/* 게시글 댓글 수정 (get) */
+	@GetMapping("/modifyComment")
+	public String modifyComment(Model model
+								, @RequestParam(value = "boardPostCode", required = false) String boardPostCode
+								, @RequestParam(value = "boardCommentCode", required = false) String boardCommentCode) {
+		Board board = boardService.getBoardByCode(boardPostCode);
+		List<BoardComment> boardComment = boardService.getBoardCommentList();
+		model.addAttribute("board", board);
+		model.addAttribute("boardComment", boardComment);
+
+		return "/userpage/board/freeBoardDetail";
+	}
+
+	/* 게시글 검색 기능 */
+	@PostMapping("/noticeBoardList")
+	public String getSearchBoardList(@RequestParam(name = "searchKey") String searchKey
+									, @RequestParam(name = "searchValue", required = false) String searchValue
+									, Model model) {
+
+		log.info("searchKey: {}", searchKey);
+		log.info("searchValue: {}", searchValue);
+
+		if ("userIdCode".equals(searchKey)) {
+			searchKey = "user_id_code";
+		} else if ("boardPostTitle".equals(searchKey)) {
+			searchKey = "board_post_title";
+		} else if ("boardUserName".equals(searchKey)) {
+			searchKey = "board_user_name";
+		} else if ("boardPostContent".equals(searchKey)) {
+			searchKey = "board_post_content";
+		} else {
+			searchKey = "board_post_reg_date";
+		}
+
+		List<Board> searchBoardList = boardService.getSearchBoardList(searchKey, searchValue);
+
+		if (searchBoardList != null)
+			model.addAttribute("noticeBoardList", searchBoardList);
+
+		return "/userpage/board/noticeBoardList";
+	}
+
+	/* 게시글 댓글 등록 (post) */
+	@PostMapping("/addComment")
+	public String addComment(@RequestParam(name = "boardPostCode", required = false) String boardPostCode
+							, BoardComment boardComment
+							, HttpSession session
+							, Board board
+							, RedirectAttributes reAttr) {
+
+		session.setAttribute("userName", boardComment.getUserName()); // 세션 값 설정
+		String sessionId = (String) session.getAttribute("UID");
+		String sessionName = (String) session.getAttribute("UNAME"); // 세션값 가져오기
+		boardComment.setUserName(sessionName);
+		log.info("sessionName값 : {}", sessionName);
+		String boardPostCode1 = board.getBoardPostCode();
+		boardComment.setBoardPostCode(boardPostCode1);
+		log.info("가져온 코드값 :  {}", boardPostCode1);
+		boardService.addComment(sessionId, sessionName, boardComment);
+
+		reAttr.addAttribute("boardPostCode", boardPostCode1);
+		return "redirect:/userpage/board/freeBoardDetail";
+	}
+
+	/* 게시글 댓글 등록 (get) */
+	@GetMapping("/addComment")
+	public String addComment(Model model) {
+
+		return "/userpage/board/freeBoardDetail";
+	}
+
+	/* 자유게시판 게시글 삭제 */
+	@GetMapping("/removeFreeBoard")
+	public String removeFreeBoard(@RequestParam(value = "boardPostCode") String boardPostCode
+								, @RequestParam(value = "boardCommentCode") String boardCommentCode) {
+		
+		log.info("나가는 값:{}", "test");
+		boardService.removeComment(boardCommentCode);
+		boardService.removeBoard(boardPostCode);
+
+		return "redirect:/userpage/board/freeBoardList";
+	}
+
+	/* 자주 하는 질문 게시글 삭제  */
+	@GetMapping("/removeFaqBoard")
+	public String removeFaqBoard(@RequestParam(value = "boardPostCode") String boardPostCode) {
+		
+		log.info("나가는 값:{}", "test");
+		boardService.removeBoard(boardPostCode);
+
+		return "redirect:/userpage/board/faqBoardList";
+	}
+
+	/* 공지사항 게시글 삭제 */
+	@GetMapping("/removeNoticeBoard")
+	public String removeNoticeBoard(@RequestParam(value = "boardPostCode", required = false) String boardPostCode) {
+		
+		log.info("나가는 값:{}", "test");
+		boardService.removeBoard(boardPostCode);
+
+		return "redirect:/userpage/board/noticeBoardList";
+	}
+
+	/* 자유게시판 게시글 수정 (post) */
+	@PostMapping("/modifyFreeBoard")
+	public String modifyFreeBoard(Board board, RedirectAttributes reAttr) {
+
+		log.info("board: {}", board);
+		boardService.modifyBoard(board);
+		String boardPostCode = board.getBoardPostCode();
+		reAttr.addAttribute("boardPostCode", boardPostCode);
+
+		return "redirect:/userpage/board/freeBoardDetail";
+	}
+
+	/* 자유게시판 게시글 수정 (get) */
+	@GetMapping("/modifyFreeBoard")
+	public String modifyFreeBoard(@RequestParam(value = "boardPostCode", required = false) String boardPostCode
+								, Model model) {
+
+		Board board = boardService.getBoardByCode(boardPostCode);
+		model.addAttribute("board", board);
+
+		return "/userpage/board/modifyFreeBoard";
+	}
+
+	/* 자주묻는 질문 게시글 수정 (post) */
+	@PostMapping("/modifyFaqBoard")
+	public String modifyFaqBoard(Board board, RedirectAttributes reAttr) {
+
+		log.info("board: {}", board);
+		boardService.modifyBoard(board);
+		String boardPostCode = board.getBoardPostCode();
+		reAttr.addAttribute("boardPostCode", boardPostCode);
+
+		return "redirect:/userpage/board/faqBoardDetail";
+	}
+
+	/* 자주묻는 질문 게시글 수정 (get) */
+	@GetMapping("/modifyFaqBoard")
+	public String modifyFaqBoard(@RequestParam(value = "boardPostCode", required = false) String boardPostCode
+								, Model model) {
+
+		Board board = boardService.getBoardByCode(boardPostCode);
+		model.addAttribute("board", board);
+
+		return "/userpage/board/modifyFaqBoard";
+	}
+
+	/* 공지사항 게시글 수정 (post) */
+	@PostMapping("/modifyNoticeBoard")
+	public String modifyNoticeBoard(Board board, RedirectAttributes reAttr) {
+
+		log.info("board: {}", board);
+		boardService.modifyBoard(board);
+		String boardPostCode = board.getBoardPostCode();
+		reAttr.addAttribute("boardPostCode", boardPostCode);
+
+		return "redirect:/userpage/board/noticeBoardDetail";
+	}
+
+	/* 공지사항 게시글 수정 (get )*/
+	@GetMapping("/modifyNoticeBoard")
+	public String modifyNoticeBoard(@RequestParam(value = "boardPostCode", required = false) String boardPostCode
+									, Model model) {
+
+		Board board = boardService.getBoardByCode(boardPostCode);
+		model.addAttribute("board", board);
+
+		return "/userpage/board/modifyNoticeBoard";
+	}
+
+	/* 자유게시판 게시글 상세 페이지 조회 */
+	@GetMapping("/freeBoardDetail")
+	public String freeBoardDetail(@RequestParam(value = "boardPostCode") String boardPostCode, Model model) {
+
+		Board board = boardService.getBoardByCode(boardPostCode);
+		boardService.updateBoardPageView(boardPostCode);
+
+		List<BoardComment> boardPostCommentList = boardService.getBoardPostCommentList(boardPostCode);
+		model.addAttribute("board", board);
+		model.addAttribute("boardPostCommentList", boardPostCommentList);
+
+		log.info("board : {}", board);
+		log.info("boardPostCommentList: {}", boardPostCommentList);
+
+		return "/userpage/board/freeBoardDetail";
+
+	}
+
+	/* 자주 하는 질문 게시글 상세 페이지 조회 */
+	@GetMapping("/faqBoardDetail")
+	public String faqBoardDetail(@RequestParam(value = "boardPostCode") String boardPostCode, Model model) {
+
+		Board board = boardService.getBoardByCode(boardPostCode);
+		boardService.updateBoardPageView(boardPostCode);
+		log.info("board : {}", board);
+		model.addAttribute("board", board);
+		return "/userpage/board/faqBoardDetail";
+	}
+
+	/* 공지사항 게시글 상세 페이지 조회  */
+	@GetMapping("/noticeBoardDetail")
+	public String noticeBoardDetail(@RequestParam(value = "boardPostCode") String boardPostCode, Model model) {
+
+		Board board = boardService.getBoardByCode(boardPostCode);
+
+		boardService.updateBoardPageView(boardPostCode);
+		log.info("board : {}", board);
+		model.addAttribute("board", board);
+		return "/userpage/board/noticeBoardDetail";
+	}
+	
+	/* 자유게시판 게시글 등록 (post) */
 	@PostMapping("/addFreeBoard")
 	public String addFreeBoard(Board board, HttpSession session, HttpServletRequest request) {
 
@@ -565,7 +544,7 @@ public class BoardController {
 		return "/userpage/board/addFreeBoard";
 	}
 
-	/* 자주묻는 질문 게시글 등록 (post) */
+	/* 자주 하는 질문 게시글 등록 (post) */
 	@PostMapping("/addFaqBoard")
 	public String addFaqBoard(Board board, HttpSession session, HttpServletRequest request) {
 
@@ -576,7 +555,7 @@ public class BoardController {
 		return "redirect:/userpage/board/faqBoardList";
 	}
 
-	/* 자주묻는 질문 게시글 등록 (get) */
+	/* 자주 하는 질문 게시글 등록 (get) */
 	@GetMapping("/addFaqBoard")
 	public String addFaqBoard(Model model) {
 
@@ -601,10 +580,10 @@ public class BoardController {
 		return "/userpage/board/addNoticeBoard";
 	}
 
-	/* 일반 게시글 목록 조회 */
+	/* 일반 게시글 목록 조회  */
 	@GetMapping("/{boardCategory}")
-	public String getBoardList(@PathVariable(value = "boardCategory", required = false) String boardCategory,
-			Model model) {
+	public String getBoardList(@PathVariable(value = "boardCategory", required = false) String boardCategory
+								,Model model) {
 
 		if (boardCategory.equals("noticeBoardList")) {
 			List<Board> noticeBoardList = boardService.getNoticeBoardList();
@@ -612,7 +591,7 @@ public class BoardController {
 			model.addAttribute("noticeBoardList", noticeBoardList);
 		} else if (boardCategory.equals("faqBoardList")) {
 			List<Board> faqBoardList = boardService.getFaqBoardList();
-			log.info("자주묻는 질문 게시글 목록: {}", faqBoardList);
+			log.info("자주 하는 질문 게시글 목록: {}", faqBoardList);
 			model.addAttribute("faqBoardList", faqBoardList);
 		} else {
 			List<Board> freeBoardList = boardService.getFreeBoardList();

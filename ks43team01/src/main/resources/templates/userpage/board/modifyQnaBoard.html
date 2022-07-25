@@ -191,7 +191,7 @@ td input[type="radio"] {
 #viewQnaBoard{
 	float: left;
 }
-#addQnaBoard{
+#modifyQnaBoard{
 	float: right;
 }
 .botWrap{
@@ -257,10 +257,10 @@ td input[type="radio"] {
 			</table>
 			<div class="form-group">
 				<input class="form-control" name="boardQuestionCode" type="hidden" th:value="${qnaBoard.boardQuestionCode}"></input>
-			</div>
+			</div> 
 			<div class="botWrap">
 				<button type="button" onclick="history.back(-1)" class="botWrapBtn" id="viewQnaBoard">목록</button>
-				<button type="submit" class="botWrapBtn" id="addQnaBoard">등록</button>
+				<button type="submit" class="botWrapBtn" id="modifyQnaBoard">등록</button>
 			</div>
 		</form>
 	</div>

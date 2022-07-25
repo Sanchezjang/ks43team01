@@ -3,20 +3,6 @@
 xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{userpage/layout/userdefault}">	
-
-<!-- <th:block layout:fragment="customScript">
-	<script>
-	  $("#next").click(function(){
-		    if($.trim($("#searchValue").val())==""){
-		      alert("입력해주세요.");
-		      return false;
-		    } 
-		    $("#searchForm").submit();
-		  });
-		
-	</script>
-</th:block> -->
-	
 	<div th:fragment="searchBoardFragment">
 		<form th:action="@{/userpage/board/noticeBoardList}" id="searchForm" class="form-inline row col-12" method="post">
 			<div class="form-group row col-6 justify-content-center">

@@ -33,19 +33,6 @@ public class QnaBoard {
 	
 	private List<Map<String, String>> 	relFileWithQnaBoard;
 	private List<File> 				file;
-	
-	public int getBoardQuestionOriginNo() {
-		return boardQuestionOriginNo;
-	}
-	public void setBoardQuestionOriginNo(int boardQuestionOriginNo) {
-		this.boardQuestionOriginNo = boardQuestionOriginNo;
-	}
-	public int getBoardQuestionGroupOrd() {
-		return boardQuestionGroupOrd;
-	}
-	public void setBoardQuestionGroupOrd(int boardQuestionGroupOrd) {
-		this.boardQuestionGroupOrd = boardQuestionGroupOrd;
-	}
 	public String getBoardQuestionCode() {
 		return boardQuestionCode;
 	}
@@ -142,6 +129,18 @@ public class QnaBoard {
 	public void setBoardQuestionUse(String boardQuestionUse) {
 		this.boardQuestionUse = boardQuestionUse;
 	}
+	public int getBoardQuestionOriginNo() {
+		return boardQuestionOriginNo;
+	}
+	public void setBoardQuestionOriginNo(int boardQuestionOriginNo) {
+		this.boardQuestionOriginNo = boardQuestionOriginNo;
+	}
+	public int getBoardQuestionGroupOrd() {
+		return boardQuestionGroupOrd;
+	}
+	public void setBoardQuestionGroupOrd(int boardQuestionGroupOrd) {
+		this.boardQuestionGroupOrd = boardQuestionGroupOrd;
+	}
 	public BoardCategory getBoardCategory() {
 		return boardCategory;
 	}
@@ -232,8 +231,6 @@ public class QnaBoard {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-
 	
 	
 

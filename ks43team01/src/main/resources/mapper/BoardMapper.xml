@@ -138,7 +138,7 @@
 	<select id="getSearchQnaBoardList" fetchSize="1000" parameterType="String" resultMap="qnaBoardResultMap">
 	/*1:1 게시글 검색*/
 		SELECT
-			board_question_code						AS boardQuestionCode"
+			board_question_code						AS boardQuestionCode
 			, user_id_code							AS userIdCode
 			, board_question_title					AS boardQuestionTitle
 			, user_name								AS userName 
@@ -184,10 +184,11 @@
 	<delete id="removeComment" parameterType="String">
 	/*게시글 댓글 삭제 */
 		DELETE
+			bc
 		FROM
-			tb_b_board_comment
+			tb_b_board_comment AS bc
 		WHERE
-			board_comment_code = #{boardCommentCode};
+			bc.board_comment_code = #{boardCommentCode};
 	</delete>
   
 	<update id="modifyComment" parameterType="String">
@@ -442,7 +443,7 @@
 						   bq.board_question_code = #{boardQuestionCode}), #{boardQuestionContent})
 			, CURDATE()
 			, NULL
-			, '댓글'
+			, '답변글'
 			, #{boardQuestionLock}
 			, #{boardQuestionPw}
 			, CURDATE()
@@ -488,7 +489,7 @@
 				)	
 			, #{boardMediumCategoryCode}
 			, (SELECT
-					max(q.board_question_origin_no)+1
+					max(q.board_question_origin_no) + 1
 				FROM
 					tb_b_board_question AS q)
 			, #{boardQuestionGroupOrd}
@@ -500,7 +501,7 @@
 			, #{boardQuestionAnswerMethod}
 			, #{boardQuestionLock}
 			, #{boardQuestionPw}
-			, CURDATE()
+			, NULL
 			, #{boardQuestionPageView}
 			, 'Y'
 		);

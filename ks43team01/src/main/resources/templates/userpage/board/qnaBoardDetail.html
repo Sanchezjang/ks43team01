@@ -157,7 +157,7 @@ td{
 		
 		<div class="clickBtn mt-3" >
 			<a th:href="@{/userpage/board/addQnaBoardReply(boardQuestionCode=${qnaBoard.boardQuestionCode})}">
-				<button type="button" class="botWrapBtn">답변</button>
+				<button type="button" class="botWrapBtn" th:if="${session.UID == qnaBoard.userIdCode}">답변</button>
 			</a>
 			<a th:href="@{/userpage/board/modifyQnaBoard(boardQuestionCode=${qnaBoard.boardQuestionCode})}">
 				<button type="submit" class="botWrapBtn" th:if="${session.UID == qnaBoard.userIdCode}">수정</button>
