@@ -102,17 +102,28 @@
 			tr.review_reg_date DESC;
 	</select>
 	
-	<select id="getReviewByGoodsCode" resultType="Map">
+	<select id="getReviewByGoodsCode" resultMap="ReviewContentsRegResultMap">
 	/* 유저페이지 회원 리뷰 상품코드별 조회*/
 		SELECT
-			 gg.goods_code							AS goodsCode
-			,tr.review_code							AS reviewCode
-			,tr.review_reg_date                   	AS reviewRegDate    			
-			,tr.review_content						AS reviewContent
-			,ua.user_id_code						AS userIdCode
-			,tr.review_star_score					AS reviewStarScore
-			,tr.review_recommendations_count		AS reviewRecommendationsCount
-			,tr.review_decommendations_count		AS reviewDecommendationsCount
+			 gg.goods_code							
+			,tr.review_code						
+			,tr.review_reg_date                      			
+			,tr.review_content						
+			,ua.user_id_code						
+			,tr.review_star_score				
+			,tr.review_recommendations_count		
+			,tr.review_decommendations_count	
+			,sub.file_code 
+			,sub.user_id_code
+			,sub.file_orginal_name
+			,sub.file_re_name
+			,sub.file_main_image
+			,sub.file_location
+			,sub.file_size
+			,sub.file_reg_date
+			,sub.file_update_date
+			,sub.file_use
+			,sub.review_code
 		FROM 
 			tb_r_review_contents AS tr 
 			INNER join
@@ -127,62 +138,83 @@
 			tb_r_based_on_score_by_review AS rb 
 			ON 
 			tr.review_score_standard_code = rb.review_score_standard_code
+			LEFT JOIN
+			(SELECT 
+				   f.file_code 
+			 	  ,f.user_id_code
+				  ,f.file_orginal_name
+				  ,f.file_re_name
+				  ,f.file_main_image
+				  ,f.file_location
+			  	  ,f.file_size
+				  ,f.file_reg_date
+				  ,f.file_update_date
+				  ,f.file_use
+				  ,rf.review_code
+				 FROM 
+				 	tb_f_file AS f
+				 	INNER JOIN 
+				 	tb_b_rel_file_with_Review AS rf 
+				 	ON 
+				 	f.file_code = rf.file_code) AS sub 
+				ON 
+					sub.review_code = tr.review_code 
 			WHERE
 				gg.goods_code = #{goodsCode}
 			ORDER BY 
 			tr.review_code DESC;
 	</select>
 	
-	<select id="getReviewImageCode" parameterType="String" resultMap="ReviewContentsRegResultMap">
+	<!-- <select id="getReviewImageCode" parameterType="String" resultMap="ReviewContentsRegResultMap">
 		SELECT
-		 	rr.review_code
-		  ,rr.goods_code
-		  ,rr.user_id_code
-		  ,rr.review_score_standard_code
-		  ,rr.review_content
-		  ,rr.review_recommendations_count
-		  ,rr.review_decommendations_count
-		  ,rr.review_reg_date
-		  ,rr.review_reg_buyer_exp
-		  ,rr.review_reg_ip
-		  ,rr.review_star_score
-		  ,sub.file_code 
-		  ,sub.user_id_code
-		  ,sub.file_orginal_name
-		  ,sub.file_re_name
-		  ,sub.file_main_image
-		  ,sub.file_location
-		  ,sub.file_size
-		  ,sub.file_reg_date
-		  ,sub.file_update_date
-		  ,sub.file_use
-		  ,sub.review_code
-		FROM 
-			tb_r_review_contents AS rr
-			LEFT JOIN  
-			(SELECT  
-			   f.file_code 
-	     	  ,f.user_id_code
-			  ,f.file_orginal_name
-			  ,f.file_re_name
-			  ,f.file_main_image
-			  ,f.file_location
-			  ,f.file_size
-			  ,f.file_reg_date
-			  ,f.file_update_date
-			  ,f.file_use
-			  ,rf.review_code
-			 FROM 
-				tb_f_file AS f 
-				INNER JOIN 
-				tb_b_rel_file_with_Review AS rf 
+			 rr.review_code
+			,rr.goods_code
+			,rr.user_id_code
+			,rr.review_score_standard_code
+			,rr.review_content
+			,rr.review_recommendations_count
+			,rr.review_decommendations_count
+			,rr.review_reg_date
+			,rr.review_reg_buyer_exp
+			,rr.review_reg_ip
+			,rr.review_star_score
+			,sub.file_code 
+			,sub.user_id_code
+			,sub.file_orginal_name
+			,sub.file_re_name
+			,sub.file_main_image
+			,sub.file_location
+			,sub.file_size
+			,sub.file_reg_date
+			,sub.file_update_date
+			,sub.file_use
+			,sub.review_code
+			FROM 
+				tb_r_review_contents AS rr 
+				LEFT JOIN 
+				(SELECT 
+				   f.file_code 
+			 	  ,f.user_id_code
+				  ,f.file_orginal_name
+				  ,f.file_re_name
+				  ,f.file_main_image
+				  ,f.file_location
+			  	  ,f.file_size
+				  ,f.file_reg_date
+				  ,f.file_update_date
+				  ,f.file_use
+				  ,rf.review_code
+				 FROM 
+				 	tb_f_file AS f
+				 	INNER JOIN 
+				 	tb_b_rel_file_with_Review AS rf 
+				 	ON 
+				 	f.file_code = rf.file_code) AS sub 
 				ON 
-				f.file_code = rf.file_code) AS sub 
-				ON 
-				sub.review_code = rr.review_code 
+					sub.review_code = rr.review_code 
 				WHERE 
-				rr.review_code = #{reviewCode};
-	</select>
+					rr.goods_code = #{goodsCode};
+	</select> -->
 	
 	<select id="getReviewUserList" resultType="Map">
 	/* 유저페이지 회원 리뷰 목록*/

@@ -135,20 +135,20 @@ public class ReviewService {
 
 	
 	/* 회원 페이지 회원 리뷰 이미지 조회 */
-	public List<ReviewContentsReg> getReviewImageCode(String reviewCode){
+	public List<ReviewContentsReg> getReviewImageCode(String goodsCode){
 		
-		List<ReviewContentsReg> reviewGoodsList = reviewMapper.getReviewImageCode(reviewCode);
-		
+		List<ReviewContentsReg> reviewGoodsList = reviewMapper.getReviewImageCode(goodsCode);
+		log.info(goodsCode);
 		return reviewGoodsList;
 	}
 	
 	/* 회원 페이지 회원 리뷰 상품코드로 조회 */
 	public List<ReviewContentsReg> getReviewByGoodsCode(String goodsCode){
 		
-		List<ReviewContentsReg> reviewGoodsList = reviewMapper.getReviewByGoodsCode(goodsCode);
+		List<ReviewContentsReg> reviewImageList = reviewMapper.getReviewByGoodsCode(goodsCode);
 		log.info("goodsCode:{}",goodsCode);
 		
-		return reviewGoodsList;
+		return reviewImageList;
 	}
 	
 	/* 회원 페이지 회원 리뷰 목록 조회 */

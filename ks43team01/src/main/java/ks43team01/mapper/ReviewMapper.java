@@ -35,7 +35,7 @@ public interface ReviewMapper {
 	public ReviewContentsReg getReviewByCode(String reviewCode);
 	
 	/* 회원 페이지 회원 리뷰 이미지 조회 */
-	public List<ReviewContentsReg> getReviewImageCode(String reviewCode);
+	public List<ReviewContentsReg> getReviewImageCode(String goodsCode);
 	
 	/* 회원 페이지 회원 리뷰 상품코드로 조회 */
 	public List<ReviewContentsReg> getReviewByGoodsCode(String goodsCode);

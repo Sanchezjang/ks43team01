@@ -100,7 +100,25 @@ layout:decorate="~{userpage/layout/userdefault}">
 				<th:block th:each="r : ${reviewGoodsList}">
 						<div class="mainWrap">
 							<div class="reviewLeft">
-								<div th:text="상품이미지 "></div>
+									<div class="reviewImg">
+									<!-- db에서 저장된 사진 불러오기 -->
+									<div th:if="${not #lists.isEmpty(r.file)}" th:each="f : ${r.file}">
+										<div class="review-image" th:if="${f.fileMainImage eq 'Y'}" style="height: 140px; width: 98%;">
+											<img style="width: 100%; height: 100%;" th:src="@{'/' + ${#strings.replace(f.fileLocation,'\','/')}}" alt="..." />
+										</div>
+										<div class="review_gallery" th:unless="${f.fileMainImage eq 'Y'}">
+											<a><img th:src="@{'/' + ${#strings.replace(f.fileLocation,'\','/')}}" alt="..." /></a>
+									<!-- @{${#strings.replace(t.storedFilePath,'\','/')}} -->
+										</div>
+		
+									<!-- db에서 저장된 사진 불러오기 -->
+									</div>
+									<div th:unless="${not #lists.isEmpty(r.file)}">
+										<!-- 저장된 사진 없음 -->
+										<a><img th:src="@{/images/notImage.jfif}" alt="..." /></a>
+									</div>
+								
+								</div>
 								<!-- <span th:text="${r.reviewImg}"></span> -->
 							</div>
 							<div class="reviewRight">
@@ -138,13 +156,13 @@ layout:decorate="~{userpage/layout/userdefault}">
 											th:if="${session.UID == r.userIdCode}">삭제</button>
 									</a>
 							</div>
+							</div>
 						</div>
-						</div>
-						</th:block>
-					</div>					
-				</div>
+					</th:block>
+				</div>					
 			</div>
-	</html>
+</div>
+</html>
 		
 						
 						
