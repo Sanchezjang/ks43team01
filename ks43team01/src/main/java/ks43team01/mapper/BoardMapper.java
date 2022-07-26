@@ -73,7 +73,11 @@ public interface BoardMapper {
 	
 	/*일반 게시글 */
 	
-	//게시글 검색
+	//자유게시판 게시글 검색
+	public List<Board> getSearchFreeList(String searchKey, String searchValue);
+	//자주 하는 질문 게시글 검색
+	public List<Board> getSearchFaqList(String searchKey, String searchValue);
+	//공지사항 게시글 검색
 	public List<Board> getSearchBoardList(String searchKey, String searchValue);
 	
 	//댓글 삭제
@@ -141,6 +145,8 @@ public interface BoardMapper {
 	public int removeBoardMediumCategory(String boardMediumCategoryCode);
 	//문의 게시판 2차 카테고리 수정
 	public int modifyBoardMediumCategory(BoardMediumCategory boardMediumCategory);
+	//문의 게시판 2차 카테고리  상세 조회
+	public BoardMediumCategory getBoardMediumCategoryByCode(String boardMediumCategoryCode);	
 	//문의 게시판 2차 카테고리 등록
 	public int addBoardMediumCategory(BoardMediumCategory boardMediumCategory);
 	//문의 게시판 2차 카테고리 조회
@@ -150,6 +156,8 @@ public interface BoardMapper {
 	public int removeBoardLargeCategory(String boardLargeCategoryCode);
 	//문의 게시판 1차 카테고리 수정
 	public int modifyBoardLargeCategory(BoardLargeCategory boardLargeCategory);
+	//문의 게시판 1차 카테고리  상세 조회
+	public BoardLargeCategory getBoardLargeCategoryByCode(String boardLargeCategoryCode);	
 	//문의 게시판 1차 카테고리 등록
 	public int addBoardLargeCategory(BoardLargeCategory boardLargeCategory);
 	//문의 게시판 1차 카테고리 조회 

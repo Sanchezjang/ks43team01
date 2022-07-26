@@ -9,7 +9,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>문의게시판 2차 카테고리 등록</title>
+	<title>문의게시판 1차 카테고리 수정</title>
 
 	<!-- Bootstrap -->
 	<link th:href="@{/admin/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
@@ -48,11 +48,11 @@
 	
 				<!-- page content -->
 					<div class="right_col" role="main">
-						<h3>문의 게시글 2차 카테고리</h3>
+						<h3>문의 게시글 1차 카테고리</h3>
 							<div class="col-md-9 ">
 								<div class="x_panel">
 									<div class="x_title">
-										<h2>문의 게시글 2차 카테고리 등록</h2>
+										<h2>문의 게시글 1차 카테고리 수정</h2>
 										<ul class="nav navbar-right panel_toolbox">
 											<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 											</li>
@@ -63,52 +63,41 @@
 									</div>
 									<div class="x_content">
 										<br />
-										<form class="form-horizontal form-label-left" th:action="@{/adminpage/boardAdmin/addBoardMediumCategory}" method="post">
-											<div class="form-group row">
-			                                    <label class="control-label col-md-3 col-sm-3 " for="boardLargeCategoryName">계정과목<span class="required">*</span></label>
-			                                    <div class="col-md-9 col-sm-9 ">
-			                                       <select required="required" class="form-control" id="boardLargeCategoryName" name="boardLargeCategoryName">
-			                                          <option value="" disabled selected> :: 문의 1차 카테고리 선택:: </option>
-			                                          <th:block th:if="${not #lists.isEmpty(boardLargeCategoryList)}" th:each="l:${boardLargeCategoryList}">
-			                                               <option th:value="${l.boardLargeCategoryCode">[[${l.boardLargeCategoryName}]]</option>
-			                                          </th:block>
-			                                       </select>
-			                                    </div>
-			                                 </div>
-											<div class="form-group row">
-												<label class="control-label col-md-3 col-sm-3 " for="boardMediumCategoryCode">문의 2차 카테고리 코드<span class="required">*</span>
-												</label>
-												<div class="col-md-9 col-sm-9 ">
-													<input type="text" name=boardMediumCategoryCode id="boardMediumCategoryCode" required="required" class="form-control col-md-10" />
-												</div>
-											</div>
+										<form class="form-horizontal form-label-left" th:action="@{/adminpage/boardAdmin/modifyBoardLargeCategory}" method="post">
 											
 											<div class="form-group row">
-												<label class="control-label col-md-3 col-sm-3 " for="boardMediumCategoryName">문의 2차 카테고리명<span class="required">*</span>
+												<label class="control-label col-md-3 col-sm-3 " for="boardLargeCategoryCode">문의 1차 카테고리 코드<span class="required">*</span>
 												</label>
 												<div class="col-md-9 col-sm-9 ">
-													<input type="text" name="boardMediumCategoryName" id="boardMediumCategoryName" required="required" class="form-control col-md-10" />
+													<input type="text" th:value="${boardLargeCategory.boardLargeCategoryCode}" name=boardLargeCategoryCode id="boardLargeCategoryCode" required="required" class="form-control col-md-10" />
 												</div>
 											</div>
 											<div class="form-group row">
-												<label class="control-label col-md-3 col-sm-3" for="boardMediumCategoryRegDate">반영일자<span class="required">*</span>
+												<label class="control-label col-md-3 col-sm-3 " for="boardLargeCategoryName">문의 1차 카테고리명<span class="required">*</span>
 												</label>
-												<div class="col-md-9 col-sm-9">
-													<input id="boardMediumCategoryRegDate" name="boardMediumCategoryRegDate" class="date-picker form-control" placeholder="연도-월-일" type="text" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+												<div class="col-md-9 col-sm-9 ">
+													<input type="text" th:value="${boardLargeCategory.boardLargeCategoryName}" name="boardLargeCategoryName" id="boardLargeCategoryName" required="required" class="form-control col-md-10" />
 												</div>
 											</div>
 											<div class="form-group row">
-												<label class="control-label col-md-3 col-sm-3 " for="boardMediumCategoryUse">사용여부<span class="required">*</span>
+												<label class="control-label col-md-3 col-sm-3" for="boardLargeCategoryUpdateDate">수정일자<span class="required">*</span>
 												</label>
 												<div class="col-md-9 col-sm-9">
-													Y <input type="radio" name="boardMediumCategoryUse" id="boardMediumCategoryUse" value="Y">
-													N <input type="radio" name="boardMediumCategoryUse" id="boardMediumCategoryUse" value="N">
+													<input id="boardLargeCategoryUpdateDate" th:value="${boardLargeCategory.boardLargeCategoryUpdateDate}" name="boardLargeCategoryUpdateDate" class="date-picker form-control" placeholder="연도-월-일" type="text" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="control-label col-md-3 col-sm-3 " for="boardLargeCategoryUse">사용여부<span class="required">*</span>
+												</label>
+												<div class="col-md-9 col-sm-9">
+													Y <input type="radio" name="boardLargeCategoryUse" id="boardLargeCategoryUse" value="Y">
+													N <input type="radio" name="boardLargeCategoryUse" id="boardLargeCategoryUse" value="N">
 												</div>
 											</div>
 											<div class="ln_solid"></div>
 											<div class="form-group">
 												<div class="col-md-12">
-													<button style="float: right;" type="submit" class="btn btn-success" id="addBoardMediumCategory">등록</button>
+													<button style="float: right;" type="submit" class="btn btn-success" id="modifyBoardLargeCategory">수정</button>
 												</div>
 											</div>
 										</form>

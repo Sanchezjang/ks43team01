@@ -62,6 +62,15 @@ layout:decorate="~{userpage/layout/userdefault}">
 	padding-bottom: 30px;
 	margin-top: 0px;
 }
+.botWrapBtn{
+	background-color: #d9d9d9;
+	color: #333;
+	border: none;
+	border-radius: 10px;
+	width: 70px;
+	height: 40px;
+	font-size: 20px;
+}
 .genric-btn{
 	border-radius: 10px;
 }
@@ -95,6 +104,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 				</tbody>
 			</table>
 			<div style="text-align:right; margin-top:20px;"><a th:href="@{/userpage/board/addFaqBoard}" class="genric-btn primary" >글쓰기</a></div>
+			<div class="search" th:include="userPage/search/faqSearch :: searchfaqFragment"></div> <br/>
 		</div>
 	</div>
 	<nav class="blog-pagination justify-content-center d-flex">

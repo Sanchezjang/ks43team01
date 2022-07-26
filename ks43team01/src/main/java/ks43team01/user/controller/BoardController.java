@@ -326,9 +326,9 @@ public class BoardController {
 		return "/userpage/board/freeBoardDetail";
 	}
 
-	/* 게시글 검색 기능 */
-	@PostMapping("/noticeBoardList")
-	public String getSearchBoardList(@RequestParam(name = "searchKey") String searchKey
+	/* 자유게시판 게시글 검색 기능 */
+	@PostMapping("/freeBoardList")
+	public String getSearchFreeList(@RequestParam(name = "searchKey") String searchKey
 									, @RequestParam(name = "searchValue", required = false) String searchValue
 									, Model model) {
 
@@ -347,11 +347,68 @@ public class BoardController {
 			searchKey = "board_post_reg_date";
 		}
 
-		List<Board> searchBoardList = boardService.getSearchBoardList(searchKey, searchValue);
+		List<Board> searchFreeList = boardService.getSearchFreeList(searchKey, searchValue);
 
+		if (searchFreeList != null)
+			model.addAttribute("freeBoardList", searchFreeList);
+
+		return "/userpage/board/freeBoardList";
+	}
+	/* 자주 하는 질문 게시글 검색 기능 */
+	@PostMapping("/faqBoardList")
+	public String getSearchFaqList(@RequestParam(name = "searchKey") String searchKey
+									, @RequestParam(name = "searchValue", required = false) String searchValue
+									, Model model) {
+		
+		log.info("searchKey: {}", searchKey);
+		log.info("searchValue: {}", searchValue);
+		
+		if ("userIdCode".equals(searchKey)) {
+			searchKey = "user_id_code";
+		} else if ("boardPostTitle".equals(searchKey)) {
+			searchKey = "board_post_title";
+		} else if ("boardUserName".equals(searchKey)) {
+			searchKey = "board_user_name";
+		} else if ("boardPostContent".equals(searchKey)) {
+			searchKey = "board_post_content";
+		} else {
+			searchKey = "board_post_reg_date";
+		}
+		
+		List<Board> searchFaqList = boardService.getSearchFaqList(searchKey, searchValue);
+		
+		if (searchFaqList != null)
+			model.addAttribute("faqBoardList", searchFaqList);
+		
+		return "/userpage/board/faqBoardList";
+	}
+	
+	/* 공지사항 게시글 검색 기능 */
+	@PostMapping("/noticeBoardList")
+	public String getSearchBoardList(@RequestParam(name = "searchKey") String searchKey
+			, @RequestParam(name = "searchValue", required = false) String searchValue
+			, Model model) {
+		
+		log.info("searchKey: {}", searchKey);
+		log.info("searchValue: {}", searchValue);
+		
+		if ("userIdCode".equals(searchKey)) {
+			searchKey = "user_id_code";
+		} else if ("boardPostTitle".equals(searchKey)) {
+			searchKey = "board_post_title";
+		} else if ("boardUserName".equals(searchKey)) {
+			searchKey = "board_user_name";
+		} else if ("boardPostContent".equals(searchKey)) {
+			searchKey = "board_post_content";
+		} else {
+			searchKey = "board_post_reg_date";
+		}
+		
+		List<Board> searchBoardList = boardService.getSearchBoardList(searchKey, searchValue);
+		
 		if (searchBoardList != null)
 			model.addAttribute("noticeBoardList", searchBoardList);
-
+		
 		return "/userpage/board/noticeBoardList";
 	}
 
