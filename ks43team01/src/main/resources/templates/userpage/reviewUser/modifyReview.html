@@ -106,13 +106,9 @@ layout:decorate="~{userpage/layout/userdefault}">
 						</div>
 					</div>
 					<div class="form-group">
-						<input class="form-control" name="reviewCode" type="hidden" th:value="${reviewContentsReg.reviewCode}"></input>
+						<input class="form-control" name="reviewCode" type="hidden" th:value="${reviewCode}"></input>
 					</div>
-					<div class="col-12 goods">
-						<h4>첨부파일</h4>
-						<input type="file" id="reviewImageReg" class="form-control col-12" name="reviewImageReg"/>
-						<div class="explanation">첨부파일을 등록해주세요.</div>
-					</div>
+					
 					<div class="clickBtn mt-3" >
 						<button type="button" class="save boxed-btn modifyReviewBtn">저장</button>>
 						<a th:href="@{/reviewUserList}" class="cancel boxed-btn">취소</a>

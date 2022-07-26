@@ -60,27 +60,32 @@ public class UserReviewController {
 		ReviewContentsReg reviewContentsReg = reviewService.getReviewByCode(reviewCode);
 
 		model.addAttribute("reviewContentsReg", reviewContentsReg);
-
+		model.addAttribute("reviewCode",reviewCode);
+		log.info("reviewCode:{}",reviewCode);
 		return "userpage/reviewUser/modifyReview";
 	}
 
 	/* 리뷰 삭제 */
 	@GetMapping("/removeReview")
-	public String removeReview(@RequestParam(value = "reviewCode") String reviewCode) {
+	public String removeReview(@RequestParam(value = "reviewCode") String reviewCode
+			  				  ,Point point) {
 		log.info("나가는 값:{}", "test");
 		reviewService.removeImageReview(reviewCode);
 		reviewService.removeReview(reviewCode);
-
+		pointService.removeGradeList(reviewCode);
 		return "redirect:/userpage/reviewUser/reviewUserList";
 	}
 
 
 	/* 리뷰 등록-포인트 적립 (post), */
 	@PostMapping("/addReview")
-	public String addReview(ReviewContentsReg reviewContentsReg, Point point,
-			@RequestParam(value = "pointAmount", required = false) String pointAmount,
-			@RequestParam MultipartFile[] reviewImageReg, HttpServletRequest request, HttpSession session,
-			RedirectAttributes reAttr) {
+	public String addReview(ReviewContentsReg reviewContentsReg
+							,Point point
+							,@RequestParam(value = "pointAmount", required = false) String pointAmount
+							,@RequestParam MultipartFile[] reviewImageReg
+							,HttpServletRequest request
+							,HttpSession session
+							,RedirectAttributes reAttr) {
 		String serverName = request.getServerName();
 		String ip = (String) request.getRemoteAddr();
 		String userId = (String) session.getAttribute("UID");

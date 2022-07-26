@@ -166,7 +166,7 @@ public class AdminPointController {
 		return "/adminpage/pointDetails/pointList";
 	}
 
-	/* 관리자 페이지 회원 포인트 적립 내역 테이블 조회 */
+	/* 관리자 페이지 회원 포인트 적립 내역 조회 */
 	@GetMapping("/pointList")
 	public String getPointList(Model model) {
 
