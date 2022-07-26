@@ -19,7 +19,6 @@ import ks43team01.dto.BoardComment;
 import ks43team01.dto.BoardLargeCategory;
 import ks43team01.dto.BoardMediumCategory;
 import ks43team01.dto.QnaBoard;
-import ks43team01.dto.User;
 import ks43team01.mapper.BoardMapper;
 import ks43team01.mapper.FileMapper;
 
@@ -223,7 +222,19 @@ public class BoardService {
 	 * */
 	
 
-	/*게시글 검색*/
+	/*자유게시판 게시글 검색*/
+	public List<Board> getSearchFreeList(String searchKey, String searchValue){
+		List<Board> searchFreeList = boardMapper.getSearchFreeList(searchKey, searchValue);
+		
+		return searchFreeList;
+	}
+	/*자주 하는 질문 게시글 검색*/
+	public List<Board> getSearchFaqList(String searchKey, String searchValue){
+		List<Board> searchFaqList = boardMapper.getSearchFaqList(searchKey, searchValue);
+		
+		return searchFaqList;
+	}
+	/*공지사항 게시글 검색*/
 	public List<Board> getSearchBoardList(String searchKey, String searchValue){
 		List<Board> searchBoardList = boardMapper.getSearchBoardList(searchKey, searchValue);
 		
@@ -345,12 +356,7 @@ public class BoardService {
 	 * 관리자 화면
 	 * */
 	
-	/* 게시판 대분류 카테고리 상세 조회 */
-	public BoardCategory getBoardCategoryByCode(String boardCategoryCode) {
-		System.out.println("___________getboardCategoryCode____________");
-		
-		return boardMapper.getBoardCategoryByCode(boardCategoryCode);
-	}
+
 	
 	/* 게시글 답변모음 목록 조회 */
 	public List<BoardAnswer> getBoardAnswerList(){
@@ -377,6 +383,13 @@ public class BoardService {
 		int result = boardMapper.modifyBoardMediumCategory(boardMediumCategory);
 		
 		return result;
+	}
+	
+	/* 문의 게시판 2차 카테고리 상세 조회 */
+	public BoardMediumCategory getBoardMediumCategoryByCode(String boardMediumCategoryCode) {
+		System.out.println("___________getboardMediumLargeCategoryCode____________");
+		
+		return boardMapper.getBoardMediumCategoryByCode(boardMediumCategoryCode);
 	}
 	
 	/*문의 게시판 2차 카테고리 등록*/
@@ -408,6 +421,14 @@ public class BoardService {
 		
 		return result;
 	}
+	
+	/* 문의 게시판 1차 카테고리 상세 조회 */
+	public BoardLargeCategory getBoardLargeCategoryByCode(String boardLargeCategoryCode) {
+		System.out.println("___________getboardLargeCategoryCode____________");
+		
+		return boardMapper.getBoardLargeCategoryByCode(boardLargeCategoryCode);
+	}
+	
 	/*문의 게시판 1차 카테고리 등록*/
 	public int addBoardLargeCategory(String sessionId, BoardLargeCategory boardLargeCategory) {
 		boardLargeCategory.setUserIdCode(sessionId);
@@ -436,6 +457,14 @@ public class BoardService {
 		
 		return result;
 	}
+	
+	/* 게시판 대분류 카테고리 상세 조회 */
+	public BoardCategory getBoardCategoryByCode(String boardCategoryCode) {
+		System.out.println("___________getboardCategoryCode____________");
+		
+		return boardMapper.getBoardCategoryByCode(boardCategoryCode);
+	}
+	
 	/*게시판 대분류 카테고리 등록*/
 	public int addBoardCategory(String sessionId, BoardCategory boardCategory) {
 		boardCategory.setUserIdCode(sessionId);
