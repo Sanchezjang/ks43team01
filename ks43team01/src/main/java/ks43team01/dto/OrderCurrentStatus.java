@@ -11,6 +11,15 @@ public class OrderCurrentStatus {
 	private String orderSendName;
 	private String orderSendPhone;
 	private String orderDate;
+	
+	private OrderStatusStandard orderStatusStandard;
+	
+	public OrderStatusStandard getOrderStatusStandard() {
+		return orderStatusStandard;
+	}
+	public void setOrderStatusStandard(OrderStatusStandard orderStatusStandard) {
+		this.orderStatusStandard = orderStatusStandard;
+	}
 	public String getOrderCode() {
 		return orderCode;
 	}
@@ -86,6 +95,8 @@ public class OrderCurrentStatus {
 		builder.append(orderSendPhone);
 		builder.append(", orderDate=");
 		builder.append(orderDate);
+		builder.append(", orderStatusStandard=");
+		builder.append(orderStatusStandard);
 		builder.append("]");
 		return builder.toString();
 	}

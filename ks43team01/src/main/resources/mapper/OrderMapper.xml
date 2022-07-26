@@ -23,19 +23,7 @@
 	</resultMap>
 	
 	
-		<select id="getOrderCurrentStatusInfoCode" parameterType="String" resultMap="orderCurrentStatusResultMap">
-		/* 현재 주문 상태 상세보기 */
-			SELECT
-				goods_code
-				,order_receive_addr
-				,order_receive_contact
-				,order_sendname
-				,order_sendphone
-			FROM
-				tb_o_order_current_status
-			WHERE
-				order_code = #{orderCode};
-	</select>
+
 
 	<insert id="addOrderCurrentStatus"></insert>
     
@@ -53,19 +41,43 @@
 	      );
     
     </insert>
+	
+	<delete id="removeOrderCurrentStatus" parameterType="String">
+	/* 현재 주문 상태 삭제 */
+		DELETE
+		FROM
+			tb_o_order_current_status
+		WHERE
+			order_code = #{orderCode};
+	</delete>
+	
+	<select id="getOrderCurrentStatusInfoCode" parameterType="String" resultMap="orderCurrentStatusResultMap">
+	/* 현재 주문 상태 상세보기 */
+		SELECT
+			order_code
+			, goods_code
+			, order_receive_addr
+			, order_receive_contact
+			, order_sendname
+			, order_sendphone
+		FROM
+			tb_o_order_current_status
+		WHERE
+			order_code = #{orderCode};
+	</select>
 
  	<select id="getOrderCurrentStatusList" resultType="OrderCurrentStatus">
  	/* 현재 주문 상태 조회 */
 	 SELECT 
-		order_code 				AS orderCode
-		,order_status_code 		AS orderStatusCode
-		,user_id_code 			AS userIdCode
-		,goods_code 			AS goodsCode
-		,order_receive_addr 	AS orderReceiveAddr
-		,order_receive_contact 	AS orderReceiveContact
-		,order_sendname 		AS orderSendName
-		,order_sendphone 		AS orderSendPhone
-		,order_date 			AS orderDate
+		order_code 							AS orderCode
+		, order_status_code 				AS orderStatusCode
+		, user_id_code 						AS userIdCode
+		, goods_code 						AS goodsCode
+		, order_receive_addr 				AS orderReceiveAddr
+		, order_receive_contact 			AS orderReceiveContact
+		, order_sendname 					AS orderSendName
+		, order_sendphone 					AS orderSendPhone
+		, order_date 						AS orderDate
 	FROM
 		tb_o_order_current_status;
  	</select>

@@ -37,7 +37,40 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 		this.boardService = boardService;
 	}
 	
+	/*게시글 답변 모음 삭제*/
+	@GetMapping("/removeBoardAnswer")
+	public String removeBoardAnswer(String boardAnswerCode) {
+		
+		boardService.removeBoardAnswer(boardAnswerCode);
+		
+		return "redirect:/adminpage/boardAdmin/boardAnswerList";
+	}
+	
+	
+	/*게시글 답변 모음 수정*/
 
+	/*게시글 답변 모음 등록 (post)*/
+	@PostMapping("/addBoardAnswer")
+	public String addBoardAnswer(HttpSession session
+								,BoardAnswer boardAnswer
+								, HttpServletRequest request) {
+		
+		String sessionId = (String) session.getAttribute("UID");
+		boardService.addBoardAnswer(sessionId, boardAnswer);
+		
+		return "redirect:/adminpage/boardAdmin/boardLargeCategoryList";
+	}
+	
+	/*게시글 답변 모음 등록 (get) */
+	@GetMapping("/addBoardAnswer")
+	public String addBoardAnswer(Model model) {
+		List<BoardAnswer> boardAnswerList = boardService.getBoardAnswerList();
+		
+		model.addAttribute("boardAnswerList", boardAnswerList);
+		return "adminpage/boardAdmin/addBoardAnswer";
+	}
+	
+	
 	/*게시글 답변 모음 목록 조회*/
 	@GetMapping("/boardAnswerList")
 	public String getBoardAnswerList(Model model) {
@@ -46,6 +79,15 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 		model.addAttribute("boardAnswerList", boardAnswerList);
 		
 		return "adminpage/boardAdmin/boardAnswerList";
+	}
+	
+	/*게시글 댓글 삭제*/
+	@GetMapping("/removeComment")
+	public String removeComment(String boardCommentCode) {
+		
+		boardService.removeComment(boardCommentCode);
+		
+		return "redirect:/adminpage/boardAdmin/boardCommentList";
 	}
 	
 	/*게시글 댓글 목록 조회 */
@@ -58,13 +100,13 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 		return "adminpage/boardAdmin/boardCommentList";
 	}
 	
-	/*문의게시판 1차 카테고리 삭제 */
+	/*문의게시판 2차 카테고리 삭제 */
 	@GetMapping("/removeBoardMediumCategory")
 	public String removeBoardMediumCategory(String boardMediumCategoryCode) {
 		
 		boardService.removeBoardMediumCategory(boardMediumCategoryCode);
 		log.info("boardMediumCategoryCode 삭제 확인 :{}", boardMediumCategoryCode);
-		return "adminpage/boardAdmin/removeBoardMediumCategory";
+		return "redirect:/adminpage/boardAdmin/boardMediumCategoryList";
 	}
 	
 	/*문의 게시판 2차  카테고리 수정 (post)*/
@@ -136,7 +178,7 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 		boardService.removeBoardLargeCategory(boardLargeCategoryCode);
 		log.info("boardLargeCategoryCode 삭제 확인 :{}", boardLargeCategoryCode);
 		
-		return "adminpage/boardAdmin/removeBoardLargeCategory";
+		return "redirect:/adminpage/boardAdmin/boardLargeCategoryList";
 	}
 	
 	
@@ -273,7 +315,7 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 		
 		boardService.removeBoard(boardPostCode);
 		
-		return "adminpage/boardAdmin/removeBoard";
+		return "redirect:/adminpage/boardAdmin/removeBoard";
 	}
 	
 	/*게시글 목록 조회 */

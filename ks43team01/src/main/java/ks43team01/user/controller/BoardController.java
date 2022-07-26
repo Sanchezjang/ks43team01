@@ -443,11 +443,10 @@ public class BoardController {
 
 	/* 자유게시판 게시글 삭제 */
 	@GetMapping("/removeFreeBoard")
-	public String removeFreeBoard(@RequestParam(value = "boardPostCode") String boardPostCode
-								, @RequestParam(value = "boardCommentCode") String boardCommentCode) {
+	public String removeFreeBoard(@RequestParam(value = "boardPostCode") String boardPostCode) {
 		
 		log.info("나가는 값:{}", "test");
-		boardService.removeComment(boardCommentCode);
+		
 		boardService.removeBoard(boardPostCode);
 
 		return "redirect:/userpage/board/freeBoardList";

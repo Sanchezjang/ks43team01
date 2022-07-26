@@ -20,13 +20,14 @@ public class OrderService {
 			this.orderMapper = orderMapper;
 	}
 	
-	/* 현재 주문 상태 등록 */
-	public int addOrderCurrentStatus(String sessionId, OrderCurrentStatus orderCurrentStatus) {
-		orderCurrentStatus.setUserIdCode(sessionId);
-		int result = orderMapper.addOrderCurrentStatus(orderCurrentStatus);
+	/*현재 주문 상태 삭제*/
+	public int removeOrderCurrentStatus(String orderCode) {
+		
+		int result = orderMapper.removeOrderCurrentStatus(orderCode);
 		
 		return result;
 	}
+	
 	
 	/* 현재 주문 상태 상세 내역 */
 	public OrderCurrentStatus getOrderCurrentStatusInfoCode(String orderCode) {
