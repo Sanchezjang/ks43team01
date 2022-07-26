@@ -30,6 +30,7 @@
 
     <!-- Custom Theme Style -->
     <link th:href="@{/admin/build/css/custom.min.css}" rel="stylesheet">
+     <script type="text/javascript" th:src="@{/Doc/js/jquery-3.6.0.min.js}"></script>
   </head>
 
   <body class="nav-md">
@@ -37,26 +38,7 @@
       <div class="main_container">
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <!-- menu profile quick info -->
-            <div class="profile clearfix">
-              <div class="profile_pic">
-                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
-              </div>
-              <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>John Doe</h2>
-              </div>
-            </div>
-            <!-- /menu profile quick info -->
-
-            <br />
-
+         
             <!-- sidebar menu -->
 			<div th:replace="adminpage/fragments/leftmenu :: leftmenuFragment"></div>
             <!-- /sidebar menu -->
@@ -226,6 +208,7 @@
 											<th>게시글 답변 모음 내용</th>
 											<th>게시글 답변 모음 등록일</th>
 											<th>게시글 답변 모음 수정일</th>
+											<th>수정
 											<th>삭제</th>
 										</tr>
 									</thead>
@@ -239,7 +222,8 @@
 											<td th:text="${l.boardAnswerContent}"></td>
 											<td th:text="${l.boardAnswerRegDate}"></td>
 											<td th:text="${l.boardAnswerUpdateDate}"></td>
-											<td><button type="button" class="btn btn-danger" style="font-size: 10px">삭제</button></td>
+											<td><a class="btn btn-primary" style="font-size: 10px" th:href="@{/adminpage/boardAdmin/modifyBoardAnswer(boardAnswerCode=${l.boardAnswerCode})}">수정</a></td>
+											<td><button type="button" class="btn btn-danger removeBoardAnswerModalBtn" data-toggle="modal" data-target="#removeBoardAnswerModal" style="font-size: 10px" th:value="${l.boardAnswerCode}">삭제</button></td>
 										</tr>
 										<tr th:unless="${not #lists.isEmpty(boardAnswerList)}" >
 											<td colspan="8">조회된 내용이 없습니다.</td>
@@ -256,7 +240,37 @@
             </div>
           </div>
         <!-- /page content -->
+		<!-- Modal -->
+			<div class="modal fade" id="removeBoardAnswerModal" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">게시글 답변 모음 삭제</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+						</div>
+						<div class="modal-body">
+							정말 삭제하시겠습니까?
+						</div>
+						<div class="modal-footer">
+			                 <form action="/adminpage/boardAdmin/removeBoardAnswer" method="get">
+								<input type="hidden" name="boardAnswerCode" id="removeBoardAnswerCode">
+								<button type="button" class="btn btn-primary" data-dismiss="modal">취소</button>
+								<button type="submit" class="btn btn-danger">삭제</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Modal -->
 
+			<script type="text/javascript">
+				var $removeBoardCategoryCode = $('#removeBoardCategoryCode');
+				$('.removeBoardCategoryModalBtn').on('click', function() {
+					$removeBoardCategoryCode.val($(this).val());            	  
+				});
+			</script>
         <!-- footer content -->
         <footer>
           <div class="pull-right">

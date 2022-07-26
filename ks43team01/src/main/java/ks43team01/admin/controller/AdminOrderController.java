@@ -34,16 +34,26 @@ public class AdminOrderController {
 	public AdminOrderController(OrderService orderService) {
 		this.orderService = orderService;
 	}
-	//현재 주문 상태 조회 상세내역
-		@GetMapping("/orderCurrentStatusInfo")
-		public String orderCurrentStatusInfo(@RequestParam(value = "orderCode")String orderCode, Model model) {
-			
-			OrderCurrentStatus orderCurrentStatus = orderService.getOrderCurrentStatusInfoCode(orderCode);
-			log.info("orderCurrentStatus :{}", orderCurrentStatus);
-			model.addAttribute("orderCurrentStatus", orderCurrentStatus);
-			return "adminpage/orderAdmin/orderCurrentStatusInfo";
-			
-		}
+	/*현재 주문 상태 삭제*/
+	@GetMapping("/removeOrderCurrentStatus")
+	public String removeOrderCurrentStatus(String orderCode) {
+		
+		log.info("orderCode", orderCode);
+		orderService.removeOrderCurrentStatus(orderCode);
+		
+		return "redirect:/adminpage/orderAdmin/orderCurrentStatusList";
+	}
+	
+	/*현재 주문 상태 조회 상세내역*/
+	@GetMapping("/orderCurrentStatusInfo")
+	public String orderCurrentStatusInfo(@RequestParam(value = "orderCode")String orderCode, Model model) {
+		
+		OrderCurrentStatus orderCurrentStatus = orderService.getOrderCurrentStatusInfoCode(orderCode);
+		log.info("orderCurrentStatus :{}", orderCurrentStatus);
+		model.addAttribute("orderCurrentStatus", orderCurrentStatus);
+		return "adminpage/orderAdmin/orderCurrentStatusInfo";
+		
+	}
 	
 	/* 현재 주문 상태 조회 */
 	@GetMapping("/orderCurrentStatusList")

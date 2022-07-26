@@ -20,34 +20,31 @@ import ks43team01.service.OrderService;
 @Controller
 @RequestMapping("/userpage/order")
 public class OrderController {
-	
-	
-	
+
 	private static final Logger log = LoggerFactory.getLogger(OrderController.class);
-	
+
 	public final OrderService orderService;
-	
+
 	public OrderController(OrderService orderService) {
 		this.orderService = orderService;
 	}
 
-	
-	/* 현재 상품 주문 현황 등록 (post) */
-	@PostMapping("/addOrderCurrentStatus")
-	public String addOrderCurrentStatus(HttpSession session
-										, OrderCurrentStatus orderCurrentStatus
-										, HttpServletRequest request) {
-		String sessionId = (String) session.getAttribute("UID");
-		orderService.addOrderCurrentStatus(sessionId, orderCurrentStatus);
-		
-		return "redirect:/userpage/order/addOrderCurrentStatus";
-	}
-	
+	/*
+	 * 현재 상품 주문 현황 등록 (post)
+	 * 
+	 * @PostMapping("/addOrderCurrentStatus") public String
+	 * addOrderCurrentStatus(HttpSession session , OrderCurrentStatus
+	 * orderCurrentStatus , HttpServletRequest request) { String sessionId =
+	 * (String) session.getAttribute("UID");
+	 * orderService.addOrderCurrentStatus(sessionId, orderCurrentStatus);
+	 * 
+	 * return "redirect:/userpage/order/addOrderCurrentStatus"; }
+	 */
 	/* 현재 상품 주문 현황 등록 (get) */
 	@GetMapping("/addOrderCurrentStatus")
 	public String addOrderCurrentStatus(Model model) {
 		List<OrderCurrentStatus> orderCurrentStatusList = orderService.getOrderCurrentStatusList();
-		
+
 		model.addAttribute("orderCurrentStatusList", orderCurrentStatusList);
 		return "userpage/order/addOrderCurrentStatus";
 	}

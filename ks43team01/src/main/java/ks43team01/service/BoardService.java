@@ -280,7 +280,7 @@ public class BoardService {
 		return boardMapper.updateBoardPageView(boardPostCode);
 	}
 
-	/*게시글삭제*/
+	/*게시글 삭제*/
 	public int removeBoard(String boardPostCode) {
 		int result = boardMapper.removeBoard(boardPostCode);
 		
@@ -356,6 +356,29 @@ public class BoardService {
 	 * 관리자 화면
 	 * */
 	
+	/*게시글 답변 모음 삭제*/
+	public int removeBoardAnswer(String boardAnswerCode) {
+		
+		int result = boardMapper.removeBoardAnswer(boardAnswerCode);
+		
+		return result;
+	}
+	
+	/*게시글 답변 모음 수정*/
+	public int modifyBoardAnswer(BoardAnswer boardAnswer) {
+		
+		int result = boardMapper.modifyBoardAnswer(boardAnswer); 
+		
+		return result;
+	}
+	
+	/*문의 게시판 2차 카테고리 등록*/
+	public int addBoardAnswer(String sessionId, BoardAnswer boardAnswer) {
+		boardAnswer.setUserIdCode(sessionId);
+		int result = boardMapper.addBoardAnswer(boardAnswer);
+		
+		return result;
+	}
 
 	
 	/* 게시글 답변모음 목록 조회 */

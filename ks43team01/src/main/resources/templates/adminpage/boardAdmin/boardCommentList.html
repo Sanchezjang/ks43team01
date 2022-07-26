@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>DataTables | Gentelella</title>
+    <title>게시글 댓글</title>
 
     <!-- Bootstrap -->
     <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -30,6 +30,7 @@
 
     <!-- Custom Theme Style -->
     <link th:href="@{/admin/build/css/custom.min.css}" rel="stylesheet">
+     <script type="text/javascript" th:src="@{/Doc/js/jquery-3.6.0.min.js}"></script>
   </head>
 
   <body class="nav-md">
@@ -37,26 +38,7 @@
       <div class="main_container">
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <!-- menu profile quick info -->
-            <div class="profile clearfix">
-              <div class="profile_pic">
-                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
-              </div>
-              <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>John Doe</h2>
-              </div>
-            </div>
-            <!-- /menu profile quick info -->
-
-            <br />
-
+         
             <!-- sidebar menu -->
 			<div th:replace="adminpage/fragments/leftmenu :: leftmenuFragment"></div>
             <!-- /sidebar menu -->
@@ -240,7 +222,7 @@
 											<td th:text="${l.userName}"></td>
 											<td th:text="${l.boardCommentUpdateDate}"></td>
 											
-											<td><button type="button" class="btn btn-danger" style="font-size: 10px">삭제</button></td>
+											<td><button type="button" class="btn btn-danger removeCommentModalBtn" data-toggle="modal" data-target="#removeCommentModal" style="font-size: 10px" th:value="${l.boardCommentCode}">삭제</button></td>
 										</tr>
 										<tr th:unless="${not #lists.isEmpty(boardCommentList)}" >
 											<td colspan="10">조회된 내용이 없습니다.</td>
@@ -257,7 +239,37 @@
             </div>
           </div>
         <!-- /page content -->
+		<!-- Modal -->
+			<div class="modal fade" id="removeCommentModal" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">게시글 댓글 삭제</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+						</div>
+						<div class="modal-body">
+							정말 게시글 댓글을 삭제하시겠습니까?
+						</div>
+						<div class="modal-footer">
+			                 <form action="/adminpage/boardAdmin/removeComment" method="get">
+								<input type="hidden" name="boardCommentCode" id="removeCommentCode">
+								<button type="button" class="btn btn-primary" data-dismiss="modal">취소</button>
+								<button type="submit" class="btn btn-danger">삭제</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Modal -->
 
+			<script type="text/javascript">
+				var $removeCommentCode = $('#removeCommentCode');
+				$('.removeCommentModalBtn').on('click', function() {
+					$removeCommentCode.val($(this).val());            	  
+				});
+			</script>
         <!-- footer content -->
         <footer>
           <div class="pull-right">
