@@ -40,7 +40,7 @@ public interface GoodsMapper {
 	//상품 상위 카테고리(등록화면)
 	public List<GoodsSubCategory> getGoodsSubCategory(String goodsTopCategory);
 	
-	//상품 상위 카테고리(등록화면)
+	//상품 하위 카테고리(등록화면)
 	public List<GoodsTopCategory> getGoodsTopCategory();
 	
 	//상품 등록
