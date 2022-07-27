@@ -164,7 +164,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>문의 1차 카테고리 목록</h3>
+                <h3>문의 2차 카테고리 목록</h3>
               </div>
 
               <div class="title_right">
@@ -182,7 +182,7 @@
             <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>문의 1차 카테고리 목록 관리</h2>
+                    <h2>문의 2차 카테고리 목록 관리</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -205,6 +205,7 @@
 											<th>문의 게시판 2차 카테고리 코드</th>
 											<th>문의 게시판 2차 카테고리 등록자 코드</th>
 											<th>문의 게시판 1차 카테고리 코드</th>
+											<th>문의 게시판 1차 카테고리 분류명</th>
 											<th>문의 게시판 2차 카테고리 분류명</th>
 											<th>문의 게시판 2차 카테고리 등록일</th>
 											<th>문의 게시판 2차 카테고리 수정일</th>
@@ -218,6 +219,7 @@
 											<td th:text="${l.boardMediumCategoryCode}"></td>
 											<td th:text="${l.userIdCode}"></td>
 											<td th:text="${l.boardLargeCategoryCode}"></td>
+											<td th:text="${l.boardLargeCategoryName}"></td>
 											<td th:text="${l.boardMediumCategoryName}"></td>
 											<td th:text="${l.boardMediumCategoryRegDate}"></td>
 											<td th:text="${l.boardMediumCategoryUpdateDate}"></td>
@@ -226,7 +228,7 @@
 											<td><button type="button" class="btn btn-danger removeBoardMediumCategoryModalBtn" data-toggle="modal" data-target="#removeBoardMediumCategoryModal" style="font-size: 10px" th:value="${l.boardMediumCategoryCode}">삭제</button></td>
 										</tr>
 										<tr th:unless="${not #lists.isEmpty(boardMediumCategoryList)}" >
-											<td colspan="7">조회된 내용이 없습니다.</td>
+											<td colspan="8">조회된 내용이 없습니다.</td>
 										</tr>
 						                  </tbody>
 			                    </table>
