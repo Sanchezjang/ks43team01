@@ -241,7 +241,6 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 		return "adminpage/boardAdmin/modifyBoardLargeCategory";
 	}
 	
-	
 	/*문의게시판 1차 카테고리 등록 (post) */
 	@PostMapping("/addBoardLargeCategory")
 	public String addBoardLargeCategory(HttpSession session
