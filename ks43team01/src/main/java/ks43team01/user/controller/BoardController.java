@@ -28,7 +28,6 @@ import ks43team01.dto.BoardLargeCategory;
 import ks43team01.dto.BoardMediumCategory;
 import ks43team01.dto.File;
 import ks43team01.dto.QnaBoard;
-import ks43team01.dto.User;
 import ks43team01.service.BoardService;
 
 @Controller
@@ -507,7 +506,7 @@ public class BoardController {
 		return "redirect:/userpage/board/faqBoardDetail";
 	}
 
-	/* 자주묻는 질문 게시글 수정 (get) */
+	/* 자주하는 질문 게시글 수정 (get) */
 	@GetMapping("/modifyFaqBoard")
 	public String modifyFaqBoard(@RequestParam(value = "boardPostCode", required = false) String boardPostCode
 								, Model model) {

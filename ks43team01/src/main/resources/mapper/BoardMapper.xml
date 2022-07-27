@@ -902,7 +902,10 @@
 			, board_m_category_update_date
 			, board_m_category_use
 		)VALUES (
-			#{boardMediumCategoryCode}
+			(SELECT
+				CONCAT('medium_board',MAX(CAST(SUBSTRING(board_m_category_code,13)AS UNSIGNED)+1))
+			FROM 
+				tb_b_board_m_category)
 			, #{userIdCode}
 			, #{boardLargeCategoryCode}
 			, #{boardLargeCategoryName}
@@ -981,7 +984,10 @@
 			, board_l_category_update_date
 			, board_l_category_use
 		)VALUES (
-			#{boardLargeCategoryCode}
+			(SELECT
+				CONCAT('large_board0',MAX(CAST(SUBSTRING(board_l_category_code,12)AS UNSIGNED)+1))
+			FROM 
+				tb_b_board_l_category)
 			, #{userIdCode}
 			, #{boardLargeCategoryName}
 			, CURDATE() 

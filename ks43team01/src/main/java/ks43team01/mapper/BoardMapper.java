@@ -174,6 +174,6 @@ public interface BoardMapper {
 	//게시판 대분류 카테고리 조회
 	public List<BoardCategory> getBoardCategoryList();
 	
-	//전체 게시글 목록 조회
+	//전체 게시글 목록 조회 
 	public List<Board> getBoardList();
 }

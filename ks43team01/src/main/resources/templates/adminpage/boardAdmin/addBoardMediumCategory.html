@@ -65,7 +65,7 @@
 										<br />
 										<form class="form-horizontal form-label-left" th:action="@{/adminpage/boardAdmin/addBoardMediumCategory}" method="post">
 											<div class="form-group row">
-			                                    <label class="control-label col-md-3 col-sm-3 " for="boardLargeCategoryName">계정과목<span class="required">*</span></label>
+			                                    <label class="control-label col-md-3 col-sm-3 " for="boardLargeCategoryName">카테고리<span class="required">*</span></label>
 			                                    <div class="col-md-9 col-sm-9 ">
 			                                       <select required="required" class="form-control" id="boardLargeCategoryName" name="boardLargeCategoryName">
 			                                          <option value="" disabled selected> :: 문의 1차 카테고리 선택:: </option>
@@ -76,20 +76,17 @@
 			                                    </div>
 			                                 </div>
 											<div class="form-group row">
-												<label class="control-label col-md-3 col-sm-3 " for="boardMediumCategoryCode">문의 2차 카테고리 코드<span class="required">*</span>
-												</label>
-												<div class="col-md-9 col-sm-9 ">
-													<input type="text" name=boardMediumCategoryCode id="boardMediumCategoryCode" required="required" class="form-control col-md-10" />
-												</div>
-											</div>
+			                                    <label class="control-label col-md-3 col-sm-3 " for="boardMediumCategoryName">카테고리<span class="required">*</span></label>
+			                                    <div class="col-md-9 col-sm-9 ">
+			                                       <select required="required" class="form-control" id="boardMediumCategoryName" name="boardMediumCategoryName">
+			                                          <option value="" disabled selected> :: 문의 2차 카테고리 선택:: </option>
+			                                          <th:block th:if="${not #lists.isEmpty(boardMediumCategoryList)}" th:each="l:${boardMediumCategoryList}">
+			                                               <option th:value="${l.boardMediumCategoryCode">[[${l.boardMediumCategoryName}]]</option>
+			                                          </th:block>
+			                                       </select>
+			                                    </div>
+			                                 </div>
 											
-											<div class="form-group row">
-												<label class="control-label col-md-3 col-sm-3 " for="boardMediumCategoryName">문의 2차 카테고리명<span class="required">*</span>
-												</label>
-												<div class="col-md-9 col-sm-9 ">
-													<input type="text" name="boardMediumCategoryName" id="boardMediumCategoryName" required="required" class="form-control col-md-10" />
-												</div>
-											</div>
 											<div class="form-group row">
 												<label class="control-label col-md-3 col-sm-3" for="boardMediumCategoryRegDate">반영일자<span class="required">*</span>
 												</label>
