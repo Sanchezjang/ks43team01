@@ -48,6 +48,8 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 	
 	
 	/*게시글 답변 모음 수정*/
+	
+	
 
 	/*게시글 답변 모음 등록 (post)*/
 	@PostMapping("/addBoardAnswer")
@@ -58,7 +60,7 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 		String sessionId = (String) session.getAttribute("UID");
 		boardService.addBoardAnswer(sessionId, boardAnswer);
 		
-		return "redirect:/adminpage/boardAdmin/boardLargeCategoryList";
+		return "redirect:/adminpage/boardAdmin/boardAnswerList";
 	}
 	
 	/*게시글 답변 모음 등록 (get) */
@@ -127,12 +129,12 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 											, Model model) {
 		
 		BoardMediumCategory boardMediumCategory = boardService.getBoardMediumCategoryByCode(boardMediumCategoryCode);
-		//List<BoardLargeCategory> boardLargeCategoryList = boardService.getBoardLargeCategoryList();
+		List<BoardLargeCategory> boardLargeCategoryList = boardService.getBoardLargeCategoryList();
 		
 		log.info("boardMediumCategory : {}", boardMediumCategory);
 		model.addAttribute("boardMediumCategory", boardMediumCategory);
 		model.addAttribute("boardMediumCategoryCode", boardMediumCategoryCode);
-		//model.addAttribute("boardLargeCategoryList", boardLargeCategoryList);
+		model.addAttribute("boardLargeCategoryList", boardLargeCategoryList);
 		
 		return "adminpage/boardAdmin/modifyBoardMediumCategory";
 	}

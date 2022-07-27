@@ -20,6 +20,4 @@ public interface FileMapper {
 	//상품, 파일 릴레이션 테이블 삽입
 	public void uploadRelationFileWithGoods(List<Map<String, String>> relationFileList);
 	
-	//전문가, 파일 릴레이션 테이블 삽입
-	
 }
