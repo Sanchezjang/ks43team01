@@ -9,7 +9,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>문의게시판 2차 카테고리 등록</title>
+	<title>상품 주문 현황 기준 수정</title>
 
 	<!-- Bootstrap -->
 	<link th:href="@{/admin/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
@@ -48,11 +48,11 @@
 	
 				<!-- page content -->
 					<div class="right_col" role="main">
-						<h3>문의 게시글 2차 카테고리</h3>
+						<h3>상품 주문 현황 기준</h3>
 							<div class="col-md-9 ">
 								<div class="x_panel">
 									<div class="x_title">
-										<h2>문의 게시글 2차 카테고리 등록</h2>
+										<h2>상품 주문 현황 기준 수정</h2>
 										<ul class="nav navbar-right panel_toolbox">
 											<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 											</li>
@@ -63,45 +63,27 @@
 									</div>
 									<div class="x_content">
 										<br />
-										<form class="form-horizontal form-label-left" th:action="@{/adminpage/boardAdmin/modifyBoardMediumCategory}" method="post">
+										<form class="form-horizontal form-label-left" th:action="@{/adminpage/orderAdmin/modifyOrderStatusStandard}" method="post">
 											<div class="form-group row">
-												<input name="boardMediumCategoryCode" id=boardMediumCategoryCode type="hidden" th:value="${boardMediumCategoryCode}"></input>
-			                                    <label class="control-label col-md-3 col-sm-3 " for="boardLargeCategoryName">1차 카테고리<span class="required">*</span></label>
-			                                    <div class="col-md-9 col-sm-9 ">
-			                                       <select required="required" class="form-control" id="boardLargeCategoryName" name="boardLargeCategoryName">
-			                                          <option value="" disabled selected> :: 문의 1차 카테고리 선택:: </option>
-			                                          <th:block th:if="${not #lists.isEmpty(boardLargeCategoryList)}" th:each="l:${boardLargeCategoryList}">
-			                                               <option th:value="${l.boardLargeCategoryCode}">[[${l.boardLargeCategoryName}]]</option>
-			                                          </th:block>
-			                                       </select>
-			                                    </div>
-			                                 </div>
-											<div class="form-group row">
-												<label class="control-label col-md-3 col-sm-3 " for="boardMediumCategoryName">문의 2차 카테고리명<span class="required">*</span>
+												<label class="control-label col-md-3 col-sm-3 " for="orderStatusStandardDatail">상품주문현황기준내용<span class="required">*</span>
 												</label>
 												<div class="col-md-9 col-sm-9 ">
-													<input type="text"  th:value="${boardMediumCategory.boardMediumCategoryName}" name="boardMediumCategoryName" id="boardMediumCategoryName" required="required" class="form-control col-md-10" />
+													<input type="text"  th:value="${orderStatusStandard.orderStatusStandardDatail}" name="orderStatusStandardDatail" id="orderStatusStandardDatail" required="required" class="form-control col-md-10" />
+													<input name="orderStatusStandardCode" id="orderStatusStandardCode" type="hidden" th:value="${orderStatusStandardCode}"></input>
 												</div>
 											</div>
 											<div class="form-group row">
-												<label class="control-label col-md-3 col-sm-3" for="boardMediumCategoryUpdateDate">수정일자<span class="required">*</span>
+												<label class="control-label col-md-3 col-sm-3" for="orderStatusStandardRegDate">등록일자<span class="required">*</span>
 												</label>
 												<div class="col-md-9 col-sm-9">
-													<input id="boardMediumCategoryUpdateDate" th:value="${boardMediumCategory.boardMediumCategoryUpdateDate}" name="boardMediumCategoryUpdateDate" class="date-picker form-control" placeholder="연도-월-일" type="text" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+													<input id="orderStatusStandardRegDate"  th:value="${orderStatusStandard.orderStatusStandardRegDate}" name="orderStatusStandardRegDate" class="date-picker form-control" placeholder="연도-월-일" type="text" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
 												</div>
 											</div>
-											<div class="form-group row">
-												<label class="control-label col-md-3 col-sm-3 " for="boardMediumCategoryUse">사용여부<span class="required">*</span>
-												</label>
-												<div class="col-md-9 col-sm-9">
-													Y <input type="radio" name="boardMediumCategoryUse" id="boardMediumCategoryUse" value="Y">
-													N <input type="radio" name="boardMediumCategoryUse" id="boardMediumCategoryUse" value="N">
-												</div>
-											</div>
+											
 											<div class="ln_solid"></div>
 											<div class="form-group">
 												<div class="col-md-12">
-													<button style="float: right;" type="submit" class="btn btn-success" id="modifyBoardMediumCategory">수정</button>
+													<button style="float: right;" type="submit" class="btn btn-success">수정</button>
 												</div>
 											</div>
 										</form>

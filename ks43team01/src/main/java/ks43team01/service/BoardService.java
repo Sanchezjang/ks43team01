@@ -1,4 +1,4 @@
-package ks43team01.service;
+ package ks43team01.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -372,16 +372,24 @@ public class BoardService {
 		return result;
 	}
 	
-	/*문의 게시판 2차 카테고리 등록*/
+	/*게시글 답변 모음 상세 조회*/
+	public BoardAnswer getBoardAnswerByCode(String boardAnswerCode) {
+		System.out.println("___________getBoardAnswerByCode____________");
+		
+		BoardAnswer boardAnswer = boardMapper.getBoardAnswerByCode(boardAnswerCode);
+		
+		return boardAnswer;
+	}
+	
+	/*게시글 답변 모음 등록*/
 	public int addBoardAnswer(String sessionId, BoardAnswer boardAnswer) {
 		boardAnswer.setUserIdCode(sessionId);
 		int result = boardMapper.addBoardAnswer(boardAnswer);
 		
 		return result;
 	}
-
 	
-	/* 게시글 답변모음 목록 조회 */
+	/* 게시글 답변 모음 목록 조회 */
 	public List<BoardAnswer> getBoardAnswerList(){
 		List<BoardAnswer> boardAnswerList = boardMapper.getBoardAnswerList();
 		
@@ -412,7 +420,9 @@ public class BoardService {
 	public BoardMediumCategory getBoardMediumCategoryByCode(String boardMediumCategoryCode) {
 		System.out.println("___________getboardMediumLargeCategoryCode____________");
 		
-		return boardMapper.getBoardMediumCategoryByCode(boardMediumCategoryCode);
+		BoardMediumCategory boardMediumCategory = boardMapper.getBoardMediumCategoryByCode(boardMediumCategoryCode);
+		
+		return boardMediumCategory;
 	}
 	
 	/*문의 게시판 2차 카테고리 등록*/
@@ -449,7 +459,9 @@ public class BoardService {
 	public BoardLargeCategory getBoardLargeCategoryByCode(String boardLargeCategoryCode) {
 		System.out.println("___________getboardLargeCategoryCode____________");
 		
-		return boardMapper.getBoardLargeCategoryByCode(boardLargeCategoryCode);
+		BoardLargeCategory boardLargeCategory = boardMapper.getBoardLargeCategoryByCode(boardLargeCategoryCode);
+		
+		return boardLargeCategory;
 	}
 	
 	/*문의 게시판 1차 카테고리 등록*/

@@ -22,25 +22,7 @@
 		</association>
 	</resultMap>
 	
-	
 
-
-	<insert id="addOrderCurrentStatus"></insert>
-    
-    <insert id="addOrderStatusStandard" parameterType="orderStatusStandard">
-    	INSERT INTO tb_o_order_status_standard
-	      (   order_status_standard_code
-	         , order_status_standard_details
-	         , user_id_code
-	         , order_status_standard_registration_date
-	      )VALUES (
-	        #{orderStatusStandardCode}
-	        , #{orderStatusStandardDatail}
-	        , #{userIdCode}
-	        , CURDATE() 
-	      );
-    
-    </insert>
 	
 	<delete id="removeOrderCurrentStatus" parameterType="String">
 	/* 현재 주문 상태 삭제 */
@@ -82,9 +64,64 @@
 		tb_o_order_current_status;
  	</select>
  	
+ 	<delete id="removeOrderStatusStandard" parameterType="String">
+	/* 상품 주문 현황 기준 삭제 */
+		DELETE
+		FROM
+			tb_o_order_status_standard
+		WHERE
+			order_status_standard_code = #{orderStatusStandardCode};
+	</delete>
+	
+	<update id="modifyOrderStatusStandard" parameterType= "OrderStatusStandard">
+	/*상품 주문 현황 기준 수정*/
+		UPDATE tb_o_order_status_standard
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="orderStatusStandardDatail != null and orderStatusStandardDatail != ''">
+				, order_status_standard_details = #{orderStatusStandardDatail}
+			</if>
+			<if test="orderStatusStandardRegDate != null and orderStatusStandardRegDate != ''">
+				, order_status_standard_registration_date = CURDATE()
+			</if>
+		</trim>
+		WHERE
+			order_status_standard_code = #{orderStatusStandardCode};
+	</update>
+	
+	<select id="getOrderStatusStandardByCode" resultType="OrderStatusStandard">
+   /* 상품 주문 현황 기준 조회 */
+      SELECT
+         order_status_standard_code 				AS orderStatusStandardCode
+         ,order_status_standard_details 			AS orderStatusStandardDatail
+         ,user_id_code 								AS userIdCode
+         ,order_status_standard_registration_date 	AS orderStatusStandardRegDate
+      FROM
+         tb_o_order_status_standard
+      WHERE
+		order_status_standard_code = #{orderStatusStandardCode};
+   
+   </select>
+    
+    <insert id="addOrderStatusStandard" parameterType="OrderStatusStandard">
+    /*상품 주문 현황 기준 등록*/
+    	INSERT INTO tb_o_order_status_standard
+	      (   order_status_standard_code
+	         , order_status_standard_details
+	         , user_id_code
+	         , order_status_standard_registration_date
+	      )VALUES (
+	       (SELECT
+				CONCAT('s00',MAX(CAST(SUBSTRING(o.order_status_standard_code,4)AS UNSIGNED)+1))
+			FROM 
+				tb_o_order_status_standard AS o)
+	        , #{orderStatusStandardDatail}
+	        , #{userIdCode}
+	        , CURDATE() 
+	      );
+    </insert>
  	
- <select id="getOrderStatusStandardList" resultType="OrderStatusStandard">
-   /* 주문 현황 기준 조회 */
+	<select id="getOrderStatusStandardList" resultType="OrderStatusStandard">
+   /* 상품 주문 현황 기준 조회 */
       SELECT
          order_status_standard_code 				AS orderStatusStandardCode
          ,order_status_standard_details 			AS orderStatusStandardDatail

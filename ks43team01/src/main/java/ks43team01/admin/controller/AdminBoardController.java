@@ -47,25 +47,57 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 	}
 	
 	
-	/*게시글 답변 모음 수정*/
+	/*게시글 답변 모음 수정 (post)*/
+	@PostMapping("/modifyBoardAnswer")
+	public String modifyBoardAnswer(BoardAnswer boardAnswer
+									, RedirectAttributes reAttr) {
+	
+		boardService.modifyBoardAnswer(boardAnswer);
+		String boardAnswerCode = boardAnswer.getBoardAnswerCode();
+		reAttr.addAttribute("boardAnswerCode", boardAnswerCode);
+		
+		return "redirect:/adminpage/boardAdmin/boardAnswerList";
+	}
+	
+	/*게시글 답변 모음 수정 (get)*/
+	@GetMapping("/modifyBoardAnswer")
+	public String modifyBoardAnswer(@RequestParam(value = "boardAnswerCode", required = false) String boardAnswerCode
+									, Model model) {
+		
+		BoardAnswer boardAnswer = boardService.getBoardAnswerByCode(boardAnswerCode);
+		List<BoardLargeCategory> boardLargeCategoryList = boardService.getBoardLargeCategoryList();
+		List<BoardMediumCategory> boardMediumCategoryList = boardService.getBoardMediumCategoryList();
+		
+		model.addAttribute("boardAnswer", boardAnswer);
+		model.addAttribute("boardAnswerCode", boardAnswerCode);
+		model.addAttribute("boardLargeCategoryList", boardLargeCategoryList);
+		model.addAttribute("boardMediumCategoryList", boardMediumCategoryList);
+		
+		return "adminpage/boardAdmin/modifyBoardAnswer";
+	}
+	
 
 	/*게시글 답변 모음 등록 (post)*/
 	@PostMapping("/addBoardAnswer")
 	public String addBoardAnswer(HttpSession session
-								,BoardAnswer boardAnswer
+								, BoardAnswer boardAnswer
 								, HttpServletRequest request) {
 		
 		String sessionId = (String) session.getAttribute("UID");
 		boardService.addBoardAnswer(sessionId, boardAnswer);
 		
-		return "redirect:/adminpage/boardAdmin/boardLargeCategoryList";
+		return "redirect:/adminpage/boardAdmin/boardAnswerList";
 	}
 	
 	/*게시글 답변 모음 등록 (get) */
 	@GetMapping("/addBoardAnswer")
 	public String addBoardAnswer(Model model) {
 		List<BoardAnswer> boardAnswerList = boardService.getBoardAnswerList();
+		List<BoardLargeCategory> boardLargeCategoryList = boardService.getBoardLargeCategoryList();
+		List<BoardMediumCategory> boardMediumCategoryList = boardService.getBoardMediumCategoryList();
 		
+		model.addAttribute("boardLargeCategoryList", boardLargeCategoryList);
+		model.addAttribute("boardMediumCategoryList", boardMediumCategoryList);
 		model.addAttribute("boardAnswerList", boardAnswerList);
 		return "adminpage/boardAdmin/addBoardAnswer";
 	}
@@ -127,12 +159,12 @@ private static final Logger log = LoggerFactory.getLogger(BoardController.class)
 											, Model model) {
 		
 		BoardMediumCategory boardMediumCategory = boardService.getBoardMediumCategoryByCode(boardMediumCategoryCode);
-		//List<BoardLargeCategory> boardLargeCategoryList = boardService.getBoardLargeCategoryList();
+		List<BoardLargeCategory> boardLargeCategoryList = boardService.getBoardLargeCategoryList();
 		
 		log.info("boardMediumCategory : {}", boardMediumCategory);
 		model.addAttribute("boardMediumCategory", boardMediumCategory);
 		model.addAttribute("boardMediumCategoryCode", boardMediumCategoryCode);
-		//model.addAttribute("boardLargeCategoryList", boardLargeCategoryList);
+		model.addAttribute("boardLargeCategoryList", boardLargeCategoryList);
 		
 		return "adminpage/boardAdmin/modifyBoardMediumCategory";
 	}

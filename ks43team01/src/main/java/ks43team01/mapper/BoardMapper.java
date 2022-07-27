@@ -133,6 +133,8 @@ public interface BoardMapper {
 	public int removeBoardAnswer(String boardAnswerCode);
 	//게시글 답변 모음 수정
 	public int modifyBoardAnswer(BoardAnswer boardAnswer);
+	//게시글 답변 모음 상세 조회
+	public BoardAnswer getBoardAnswerByCode(String boardAnswerCode);
 	//게시글 답변 모음 등록
 	public int addBoardAnswer(BoardAnswer boardAnswer);
 	//게시글 답변 모음 목록 조회
@@ -174,6 +176,6 @@ public interface BoardMapper {
 	//게시판 대분류 카테고리 조회
 	public List<BoardCategory> getBoardCategoryList();
 	
-	//전체 게시글 목록 조회
+	//전체 게시글 목록 조회 
 	public List<Board> getBoardList();
 }

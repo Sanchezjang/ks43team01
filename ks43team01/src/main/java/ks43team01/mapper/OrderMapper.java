@@ -24,8 +24,7 @@ public interface OrderMapper {
 	public int removeOrderCurrentStatus(String orderCode);
 	
 	//현재 주문 상태 수정
-	
-	
+
 	//현재 주문 상태 상세보기
 	public OrderCurrentStatus getOrderCurrentStatusInfoCode(String orderCode);
 	
@@ -33,8 +32,13 @@ public interface OrderMapper {
 	public List<OrderCurrentStatus> getOrderCurrentStatusList();
 	
 	//상품 주문 현황 기준 삭제
+	public int removeOrderStatusStandard (String orderStatusStandardCode);
 	
 	//상품 주문 현황 기준 수정
+	public int modifyOrderStatusStandard (OrderStatusStandard orderStatusStandard);
+	
+	//상품 주문 현황 기준 상세보기
+	public OrderStatusStandard getOrderStatusStandardByCode(String orderStatusStandardCode);
 	
 	//상품 주문 현황 기준 등록
 	public int addOrderStatusStandard(OrderStatusStandard orderStatusStandard);

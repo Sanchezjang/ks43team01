@@ -784,6 +784,30 @@
 			board_answer_code = #{boardAnswerCode};
 	</delete>
 	
+	<update id="modifyBoardAnswer" parameterType="BoardAnswer">
+	/*게시글 답변 모음수정 */
+		UPDATE tb_b_board_answer
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="boardLargeCategoryCode != null and boardLargeCategoryCode != ''">
+				, board_l_category_code = #{boardLargeCategoryCode}
+			</if>
+			<if test="boardMediumCategoryCode != null and boardMediumCategoryCode != ''">
+				, board_m_category_code = #{boardMediumCategoryCode}
+			</if>
+			<if test="boardAnswerWord != null and boardAnswerWord != ''">
+				, board_answer_word = #{boardAnswerWord}
+			</if>
+			<if test="boardAnswerContent != null and boardAnswerContent != ''">
+				, board_answer_content = #{boardAnswerContent}
+			</if>
+			<if test="boardAnswerUpdateDate != null and boardAnswerUpdateDate != ''">
+				, board_answer_update_date = #{boardAnswerUpdateDate}
+			</if>
+		</trim>
+		WHERE
+			board_answer_code = #{boardAnswerCode};
+	</update>
+	
 	<insert id="addBoardAnswer" parameterType="BoardAnswer">
 	/*게시글 답변 모음 등록*/
 		INSERT INTO tb_b_board_answer
@@ -797,9 +821,9 @@
 			, board_answer_update_date
 		)VALUES (
 			(SELECT
-				CONCAT('answer',MAX(CAST(SUBSTRING(board_answer_code,6)AS UNSIGNED)+1))
+				CONCAT('answer',MAX(CAST(SUBSTRING(a.board_answer_code,6)AS UNSIGNED)+1))
 			FROM 
-				tb_b_board_answer)
+				tb_b_board_answer as a)
 			, #{userIdCode}
 			, #{boardLargeCategoryCode}
 			, #{boardMediumCategoryCode}
@@ -809,6 +833,23 @@
 			, NULL 
 		);
 	</insert>
+	
+	<select id="getBoardAnswerByCode" parameterType="String" resultType="BoardAnswer">
+	/*게시글 답변 모음 상세 조회 */
+		SELECT
+			board_answer_code 						AS boardAnswerCode
+			, user_id_code 							AS userIdCode
+			, board_l_category_code 				AS boardLargeCategoryCode
+			, board_m_category_code 				AS boardMediumCategoryCode
+			, board_answer_word 					AS boardAnswerWord
+			, board_answer_content 					AS boardAnswerContent
+			, board_answer_reg_date 				AS boardAnswerRegDate
+			, board_answer_update_date 				AS boardAnswerUpdateDate
+		FROM
+			tb_b_board_answer
+		WHERE
+			board_answer_code = #{boardAnswerCode};;
+     </select>  
 	
 	
 	<select id="getBoardAnswerList" resultType="BoardAnswer">
@@ -854,12 +895,6 @@
 	/*문의 게시판 2차 카테고리 수정 */
 		UPDATE tb_b_board_m_category
 		<trim prefix="SET" prefixOverrides=",">
-			<if test="boardMediumCategoryCode != null and boardMediumCategoryCode != ''">
-				, board_m_category_code = #{boardMediumCategoryCode}
-			</if>
-			<if test="boardLargeCategoryCode != null and boardLargeCategoryCode != ''">
-				, board_l_category_code = #{boardLargeCategoryCode}
-			</if>
 			<if test="boardMediumCategoryName != null and boardMediumCategoryName != ''">
 				, board_m_category_name = #{boardMediumCategoryName}
 			</if>
@@ -867,7 +902,7 @@
 				, board_m_category_update_date = #{boardMediumCategoryUpdateDate}
 			</if>
 			<if test="boardMediumCategoryUse != null and boardMediumCategoryUse != ''">
-				, board_m_category_use = CURDATE()
+				, board_m_category_use = #{boardMediumCategoryUse}
 			</if>
 		</trim>
 		WHERE
@@ -891,21 +926,33 @@
 			board_m_category_code = #{boardMediumCategoryCode};
    </select>
 	
-	<insert id="addBoardMediumCategory" parameterType="BoardMediumCategory">
+	<insert id="addBoardMediumCategory" parameterType="Board">
 	/*문의 게시판 2차 카테고리 등록*/
 		INSERT INTO tb_b_board_m_category
          (	board_m_category_code
 			, user_id_code
 			, board_l_category_code
+			, board_l_category_name
 			, board_m_category_name
 			, board_m_category_reg_date
 			, board_m_category_update_date
 			, board_m_category_use
 		)VALUES (
-			#{boardMediumCategoryCode}
-			, #{userIdCode}
-			, #{boardLargeCategoryCode}
+			(SELECT
+				CONCAT('medium_board',MAX(CAST(SUBSTRING(m.board_m_category_code,13)AS UNSIGNED)+1))
+			FROM 
+				tb_b_board_m_category as m)
+			, #{userIdCode} 
+			,(
+			SELECT
+				l.board_l_category_code
+			FROM
+				tb_b_board_l_category AS l
+			WHERE
+				l.board_l_category_name = #{boardLargeCategoryName}
+			)
 			, #{boardLargeCategoryName}
+			, #{boardMediumCategoryName}
 			, CURDATE() 
 			, NULL 
 			, 'Y'
@@ -918,6 +965,7 @@
 			board_m_category_code					AS boardMediumCategoryCode
 			,user_id_code							AS userIdCode
 			,board_l_category_code					AS boardLargeCategoryCode
+			,board_l_category_name					AS boardLargeCategoryName
 			,board_m_category_name					AS boardMediumCategoryName
 			,board_m_category_reg_date				AS boardMediumCategoryRegDate
 			,board_m_category_update_date			AS boardMediumCategoryUpdateDate
@@ -981,7 +1029,10 @@
 			, board_l_category_update_date
 			, board_l_category_use
 		)VALUES (
-			#{boardLargeCategoryCode}
+			(SELECT
+				CONCAT('large_board0',MAX(CAST(SUBSTRING(board_l_category_code,12)AS UNSIGNED)+1))
+			FROM 
+				tb_b_board_l_category)
 			, #{userIdCode}
 			, #{boardLargeCategoryName}
 			, CURDATE() 
