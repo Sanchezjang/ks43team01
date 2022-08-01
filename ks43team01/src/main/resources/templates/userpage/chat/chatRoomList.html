@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{userpage/layout/userdefault}">
+<!------ Include the above in your HEAD tag ---------->
+<div layout:fragment="content" style="padding-bottom: 10%; background-color: #f2f2f2;">
+<style>
+.chatRoomContainer{
+	box-sizing: border-box;
+	width: 76%;
+	margin: 0 auto;
+	padding: 0 5% 5% 5%;
+	box-shadow: 1px;
+	height: 90%;
+	background-color: #f2f2f2;
+}
+.countingStar{
+	height: 100%;
+}
+.headWrap h2{
+	text-align: center;
+	padding: 35px 0 10px 0;
+	
+}
+.headWrap{
+	margin-bottom: 30px;
+}
+
+.chatRoomBottom{
+	position: absolute;
+    bottom: 0;
+    right: 10px;
+}
+.chatRoomBottom .btn{
+	padding : 15px 20px;
+	background-color: #fff;
+	color: #0064ff;
+	display: inline-block;	
+}
+.rating input{
+	display: none;
+}
+.chatRoomLeft{
+	float: left;
+	width: 20%;
+	height: 150px;
+	padding-right: 1%;
+	border-right: 1px solid #e3e1e1;
+}
+.chatRoomRight{
+	text-align: left;
+	float: right;
+	width: 80%;
+	height: 150px;
+	padding-left: 2%;
+}
+.mainWrap{
+	background-color: #fff;
+	margin-bottom: 3%;
+	box-shadow: 0 1px 1px 0 gray;
+	padding: 25px 30px;
+	height: 200px;
+	position: relative;
+}
+.chatRoomTop{
+	height: 36px;
+}
+.middleContent{
+	height: 30px;
+}
+.middleTitle{
+	padding-bottom: 10px;
+}
+.botWrapBtn{
+	background-color: #d9d9d9;
+	color: #333;
+	border: none;
+	border-radius: 10px;
+	width: 90px;
+	height: 40px;
+	font-size: 20px;
+	margin-bottom: 10px;	
+}
+.botWrapBtn:hover{
+	background-color: #0064ff;
+	color: #fff;
+}
+.botWrapBtn2{
+	background-color: #0064ff;
+	color: #fff;
+	border: none;
+	border-radius: 10px;
+	width: 120px;
+	height: 40px;
+	font-size: 20px;
+	margin-bottom: 10px;	
+}
+.botWrapBtn2:hover{
+	background-color: #d9d9d9;
+	color: #333;
+}
+
+</style>
+
+
+		<div class="headWrap">
+       		<h2>오픈 채팅방</h2>
+		</div>			
+	<div class="chatRoomContainer">
+		<div class="addRoom">
+			<a th:href="@{/userpage/chat/addChatRoom}">
+				<button type="submit" class="botWrapBtn2" id="botWrapBtn2">채팅방 만들기</button>
+			</a>
+		</div>
+			<div class="countingStar">
+				<th:block th:each="l : ${chatRoomList}">
+						<div class="mainWrap">
+							<div class="chatRoomLeft">
+								<div th:if="${not #lists.isEmpty(l.file)}" th:each="f : ${l.file}">
+										<div class="main-image" th:if="${f.fileMainImage eq 'Y'}" style="height: 140px; width: 98%;">
+											<img style="width: 100%; height: 100%;" th:src="@{'/' + ${#strings.replace(f.fileLocation,'\','/')}}" alt="why..." />
+										</div>
+										<div class="chatRoom_gallery" th:unless="${f.fileMainImage eq 'Y'}">
+											<a><img th:src="@{'/' + ${#strings.replace(f.fileLocation,'\','/')}}" alt="why2..." /></a>
+									<!-- @{${#strings.replace(t.storedFilePath,'\','/')}} -->
+										</div>
+		
+								<!-- 	db에서 저장된 사진 불러오기 -->
+									</div>
+									<div th:unless="${not #lists.isEmpty(l.file)}">
+										<!-- 저장된 사진 없음 -->
+										<a><img th:src="@{/images/notImage.jfif}" alt="..." /></a>
+									</div>
+							</div>
+							<div class="chatRoomRight">
+							<div  class="chatRoomMiddle" style="display: inline; margin-right: 8px;">
+								<div class="middleTitle" th:text="${l.chatRoomTitle}" style="font-size: 25px;">제목</div>
+								<div class="middleContent" th:text="|방장 : ${l.chatRoomNickName}|">방장</div>
+								<div class="middleContent" th:text="|입장 인원 : ${l.chatRoomParticipant} / ${l.chatRoomLimit}|">방장</div>
+							</div>
+							<div class="mainContent ">
+								<div class="middleContent"  th:text="${l.chatRoomContent}">내용</div>
+							</div>	
+							<div class="chatRoomBottom">
+									<a>
+										<button type="submit" class="botWrapBtn" id="botWrapBtn">입장하기</button>
+									</a>
+							</div>
+							</div>
+							
+						</div>
+					 </th:block>
+				  </div>					
+			</div>
+</div>
+			
+</html>
+		
+						
+						
+						
+						
+						
+						
+				

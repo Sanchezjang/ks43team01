@@ -30,8 +30,23 @@
 		</foreach>
 	</insert>
 	
+	<insert id="uploadRelationFileWithChat" parameterType="list">
+		/*채팅방, 파일 릴레이션 테이블 삽입*/
+		INSERT tb_b_rel_file_with_Chat
+		(
+			chat_room_code
+			, file_code
+		) VALUES
+		<foreach collection="list" item="item" separator=",">
+		(	
+			#{item.chatRoomCode}
+			, #{item.fileCode}
+		)
+		</foreach>
+	</insert>
+	
 	<insert id="uploadRelationFileWithReview" parameterType="list">
-		/*게시판, 파일 릴레이션 테이블 삽입*/
+		/*리뷰, 파일 릴레이션 테이블 삽입*/
 		INSERT INTO tb_b_rel_file_with_Review
 		(
 			review_code

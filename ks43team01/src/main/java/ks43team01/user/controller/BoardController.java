@@ -75,7 +75,7 @@ public class BoardController {
 		if (searchQnaBoardList != null)
 			model.addAttribute("qnaBoardList", searchQnaBoardList);
 
-		return "/userpage/board/qnaBoardList";
+		return "userpage/board/qnaBoardList";
 	}
 
 	/* 1:1 문의 게시글 페이징 */
@@ -92,7 +92,7 @@ public class BoardController {
 		model.addAttribute("startPageNum", resultMap.get("startPageNum"));
 		model.addAttribute("endPageNum", resultMap.get("endPageNum"));
 
-		return "/userpage/board/qnaBoardList";
+		return "userpage/board/qnaBoardList";
 	}
 
 	/* 1:1 문의 게시글 답변글 등록 (post) */
@@ -129,7 +129,7 @@ public class BoardController {
 		model.addAttribute("boardLargeCategoryCode", boardLargeCategoryCode);
 		model.addAttribute("boardMediumCategoryCode", boardMediumCategoryCode);
 
-		return "/userpage/board/addQnaBoardReply";
+		return "userpage/board/addQnaBoardReply";
 	}
 
 	// 1차 카테고리 선택 시 2차 카테고리 응답
@@ -155,7 +155,7 @@ public class BoardController {
 		log.info("qnaBoard : {}", qnaBoard);
 		model.addAttribute("qnaBoard", qnaBoard);
 		
-			return "/userpage/board/qnaBoardDetail"; 
+			return "userpage/board/qnaBoardDetail"; 
 		}
 
 
@@ -196,7 +196,7 @@ public class BoardController {
 		QnaBoard qnaBoard = boardService.getQnaBoardByCode(boardQuestionCode);
 		model.addAttribute("qnaBoard", qnaBoard);
 
-		return "/userpage/board/modifyQnaBoard";
+		return "userpage/board/modifyQnaBoard";
 	}
 
 	/* 1:1 게시글 파일 다운로드 */
@@ -275,7 +275,7 @@ public class BoardController {
 
 		log.info("1차 카테고리 : {}", boardLargeCategory);
 
-		return "/userpage/board/addQnaBoard";
+		return "userpage/board/addQnaBoard";
 	}
 
 	/*
@@ -322,7 +322,7 @@ public class BoardController {
 		model.addAttribute("board", board);
 		model.addAttribute("boardComment", boardComment);
 
-		return "/userpage/board/freeBoardDetail";
+		return "userpage/board/freeBoardDetail";
 	}
 
 	/* 자유게시판 게시글 검색 기능 */
@@ -351,7 +351,7 @@ public class BoardController {
 		if (searchFreeList != null)
 			model.addAttribute("freeBoardList", searchFreeList);
 
-		return "/userpage/board/freeBoardList";
+		return "userpage/board/freeBoardList";
 	}
 	/* 자주 하는 질문 게시글 검색 기능 */
 	@PostMapping("/faqBoardList")
@@ -379,7 +379,7 @@ public class BoardController {
 		if (searchFaqList != null)
 			model.addAttribute("faqBoardList", searchFaqList);
 		
-		return "/userpage/board/faqBoardList";
+		return "userpage/board/faqBoardList";
 	}
 	
 	/* 공지사항 게시글 검색 기능 */
@@ -408,7 +408,7 @@ public class BoardController {
 		if (searchBoardList != null)
 			model.addAttribute("noticeBoardList", searchBoardList);
 		
-		return "/userpage/board/noticeBoardList";
+		return "userpage/board/noticeBoardList";
 	}
 
 	/* 게시글 댓글 등록 (post) */
@@ -437,7 +437,7 @@ public class BoardController {
 	@GetMapping("/addComment")
 	public String addComment(Model model) {
 
-		return "/userpage/board/freeBoardDetail";
+		return "userpage/board/freeBoardDetail";
 	}
 
 	/* 자유게시판 게시글 삭제 */
@@ -491,7 +491,7 @@ public class BoardController {
 		Board board = boardService.getBoardByCode(boardPostCode);
 		model.addAttribute("board", board);
 
-		return "/userpage/board/modifyFreeBoard";
+		return "userpage/board/modifyFreeBoard";
 	}
 
 	/* 자주묻는 질문 게시글 수정 (post) */
@@ -514,7 +514,7 @@ public class BoardController {
 		Board board = boardService.getBoardByCode(boardPostCode);
 		model.addAttribute("board", board);
 
-		return "/userpage/board/modifyFaqBoard";
+		return "userpage/board/modifyFaqBoard";
 	}
 
 	/* 공지사항 게시글 수정 (post) */
@@ -537,7 +537,7 @@ public class BoardController {
 		Board board = boardService.getBoardByCode(boardPostCode);
 		model.addAttribute("board", board);
 
-		return "/userpage/board/modifyNoticeBoard";
+		return "userpage/board/modifyNoticeBoard";
 	}
 
 	/* 자유게시판 게시글 상세 페이지 조회 */
@@ -554,7 +554,7 @@ public class BoardController {
 		log.info("board : {}", board);
 		log.info("boardPostCommentList: {}", boardPostCommentList);
 
-		return "/userpage/board/freeBoardDetail";
+		return "userpage/board/freeBoardDetail";
 
 	}
 
@@ -566,7 +566,7 @@ public class BoardController {
 		boardService.updateBoardPageView(boardPostCode);
 		log.info("board : {}", board);
 		model.addAttribute("board", board);
-		return "/userpage/board/faqBoardDetail";
+		return "userpage/board/faqBoardDetail";
 	}
 
 	/* 공지사항 게시글 상세 페이지 조회  */
@@ -578,7 +578,7 @@ public class BoardController {
 		boardService.updateBoardPageView(boardPostCode);
 		log.info("board : {}", board);
 		model.addAttribute("board", board);
-		return "/userpage/board/noticeBoardDetail";
+		return "userpage/board/noticeBoardDetail";
 	}
 	
 	/* 자유게시판 게시글 등록 (post) */
@@ -596,7 +596,7 @@ public class BoardController {
 	@GetMapping("/addFreeBoard")
 	public String addFreeBoard(Model model) {
 
-		return "/userpage/board/addFreeBoard";
+		return "userpage/board/addFreeBoard";
 	}
 
 	/* 자주 하는 질문 게시글 등록 (post) */
@@ -614,7 +614,7 @@ public class BoardController {
 	@GetMapping("/addFaqBoard")
 	public String addFaqBoard(Model model) {
 
-		return "/userpage/board/addFaqBoard";
+		return "userpage/board/addFaqBoard";
 	}
 
 	/* 공지사항 게시글 등록 (post) */
@@ -632,8 +632,9 @@ public class BoardController {
 	@GetMapping("/addNoticeBoard")
 	public String addNoticeBoard(Model model) {
 
-		return "/userpage/board/addNoticeBoard";
+		return "userpage/board/addNoticeBoard";
 	}
+
 
 	/* 일반 게시글 목록 조회  */
 	@GetMapping("/{boardCategory}")
@@ -653,6 +654,6 @@ public class BoardController {
 			log.info("자유게시판 게시글 목록: {}", freeBoardList);
 			model.addAttribute("freeBoardList", freeBoardList);
 		}
-		return "/userpage/board/" + boardCategory;
+		return "userpage/board/" + boardCategory;
 	}
 }
