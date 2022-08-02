@@ -59,7 +59,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 	background-color: #fff;
 	margin-bottom: 3%;
 	box-shadow: 0 1px 1px 0 gray;
-	padding: 25px 30px;
+	padding: 20px 30px;
 	height: 200px;
 	position: relative;
 }
@@ -100,7 +100,16 @@ layout:decorate="~{userpage/layout/userdefault}">
 	background-color: #d9d9d9;
 	color: #333;
 }
-
+.removeBtn{
+	color: black;
+	float: right;
+	padding-right: 5px;
+} 
+.modifyBtn{
+	color: black;
+	float: right;
+	padding-right: 5px;
+} 
 </style>
 
 
@@ -133,8 +142,11 @@ layout:decorate="~{userpage/layout/userdefault}">
 										<a><img th:src="@{/images/notImage.jfif}" alt="..." /></a>
 									</div>
 							</div>
+								
 							<div class="chatRoomRight">
 							<div  class="chatRoomMiddle" style="display: inline; margin-right: 8px;">
+								<a class="removeBtn" href="#"  th:if="${session.UID == l.userIdCode}">삭제</a>
+								<a class="modifyBtn" href="#; return false;" onclick="updateCom()"  th:if="${session.UID == l.userIdCode}">수정</a>
 								<div class="middleTitle" th:text="${l.chatRoomTitle}" style="font-size: 25px;">제목</div>
 								<div class="middleContent" th:text="|방장 : ${l.chatRoomNickName}|">방장</div>
 								<div class="middleContent" th:text="|입장 인원 : ${l.chatRoomParticipant} / ${l.chatRoomLimit}|">방장</div>
@@ -143,7 +155,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 								<div class="middleContent"  th:text="${l.chatRoomContent}">내용</div>
 							</div>	
 							<div class="chatRoomBottom">
-									<a>
+									<a th:href="@{/userpage/chat/inChatRoom}">
 										<button type="submit" class="botWrapBtn" id="botWrapBtn">입장하기</button>
 									</a>
 							</div>

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks43team01.dto.Chat;
@@ -39,6 +40,15 @@ public class ChatController {
 	public ChatController(ChatService chatService) {
 		this.chatService = chatService;
 	}
+	
+	@GetMapping("/inChatRoom")
+	public ModelAndView inChatRoom() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("userpage/chat/inChatRoom");
+		
+		return mv;
+	}
+	
 	
 	/*파일 다운로드 */
 	@GetMapping("/download")
@@ -65,7 +75,6 @@ public class ChatController {
 		}
 
 	}
-	
 	
 	/*채팅방 생성 (post)*/
 	@PostMapping("/addChatRoom")
