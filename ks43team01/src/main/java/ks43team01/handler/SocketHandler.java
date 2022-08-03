@@ -20,28 +20,37 @@ public class SocketHandler extends TextWebSocketHandler {
 	public void handleTextMessage(WebSocketSession session, TextMessage message) {
 		//메시지 발송
 		String msg = message.getPayload();
+		JSONObject obj = jsonToObjectParser(msg);
 		for(String key : sessionMap.keySet()) {
 			WebSocketSession wss = sessionMap.get(key);
 			try {
-				wss.sendMessage(new TextMessage(msg));
-			}catch (Exception e) {
+				wss.sendMessage(new TextMessage(obj.toJSONString()));
+			}catch(Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
+
+	@SuppressWarnings("unchecked")
 	@Override
-	public void afterConnectionEstablished(WebSocketSession session)throws Exception{
+	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		//소켓 연결
 		super.afterConnectionEstablished(session);
 		sessionMap.put(session.getId(), session);
+		JSONObject obj = new JSONObject();
+		obj.put("type", "getId");
+		obj.put("sessionId", session.getId());
+		session.sendMessage(new TextMessage(obj.toJSONString()));
 	}
+	
 	@Override
-	public void afterConnectionClosed(WebSocketSession session,  CloseStatus status)throws Exception{
+	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		//소켓 종료
 		sessionMap.remove(session.getId());
 		super.afterConnectionClosed(session, status);
 	}
-	private static JSONObject JsonToObjectParser(String jsonStr) {
+	
+	private static JSONObject jsonToObjectParser(String jsonStr) {
 		JSONParser parser = new JSONParser();
 		JSONObject obj = null;
 		try {

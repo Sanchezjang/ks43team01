@@ -27,6 +27,17 @@
 			<result column="file_use"						property="fileUse"/>	
 		</collection>
 	</resultMap>
+	
+<!-- 	<select id="getChatRoomByCode" parameterType="String" resultMap="ChatResultMap">
+	/*채팅방 상세 조회*/
+		SELECT
+			c.chat_room_code
+			,c.chat_room_title
+		FROM
+			tb_c_chat_room AS c
+		WHERE
+			c.chat_room_code = #{chatRoomCode};
+	</select> -->
 
 	<insert id="addChatRoom" parameterType="Chat">
 	/*채팅방 생성*/

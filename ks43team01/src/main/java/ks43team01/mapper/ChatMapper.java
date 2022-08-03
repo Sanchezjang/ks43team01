@@ -9,6 +9,7 @@ import ks43team01.dto.Chat;
 @Mapper
 public interface ChatMapper {
 
+
 	//채팅방 생성
 	public int addChatRoom(Chat chat);
 	
