@@ -3,6 +3,7 @@ package ks43team01.user.controller;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Member;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -31,26 +33,40 @@ import ks43team01.service.UserService;
 @RequestMapping("/userpage/chat")
 public class ChatController {
 
-	
-	
 	private static final Logger log = LoggerFactory.getLogger(ChatController.class);
 
 	public final ChatService chatService;
-	
+
 	public ChatController(ChatService chatService) {
 		this.chatService = chatService;
 	}
-	
+
+	/*
+	 * 방 페이지 조회
+	 * 
+	 * @GetMapping("/chatRoomList") public String
+	 * getChatRoomByCode(@RequestParam(value = "chatRoomCode") String chatRoomCode,
+	 * Model model) {
+	 * 
+	 * Chat chat = chatService.getChatRoomByCode(chatRoomCode);
+	 * 
+	 * model.addAttribute("chat", chat);
+	 * 
+	 * return "userpage/chat/inChatRoom";
+	 * 
+	 * }
+	 */
+
+	/* 방 페이지 */
 	@GetMapping("/inChatRoom")
 	public ModelAndView inChatRoom() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("userpage/chat/inChatRoom");
-		
+
 		return mv;
 	}
-	
-	
-	/*파일 다운로드 */
+
+	/* 파일 다운로드 */
 	@GetMapping("/download")
 	public void download(HttpServletResponse response, @RequestParam MultipartFile[] chatImgFile, File file) {
 
@@ -75,20 +91,17 @@ public class ChatController {
 		}
 
 	}
-	
-	/*채팅방 생성 (post)*/
+
+	/* 채팅방 생성 (post) */
 	@PostMapping("/addChatRoom")
-	public String addChatRoom(HttpSession session
-							, Chat chat
-							, RedirectAttributes reAttr
-							, @RequestParam MultipartFile[] chatImgFile
-							, HttpServletRequest request) {
-		
+	public String addChatRoom(HttpSession session, Chat chat, RedirectAttributes reAttr,
+			@RequestParam MultipartFile[] chatImgFile, HttpServletRequest request) {
+
 		String serverName = request.getServerName();
 		String sessionId = (String) session.getAttribute("UID");
-		
-		System.out.println(chatImgFile  + "-------------------------------chatImgFile---------------------------");
-		
+
+		System.out.println(chatImgFile + "-------------------------------chatImgFile---------------------------");
+
 		String fileRealPath = "";
 
 		if ("localhost".equals(serverName)) {
@@ -104,35 +117,34 @@ public class ChatController {
 		String chatRoomCode = chatService.addChatRoom(sessionId, chat, chatImgFile, fileRealPath);
 		log.info("chatRoomCode : {}", chatRoomCode);
 		log.info(fileRealPath);
-		
+
 		reAttr.addAttribute("chatRoomCode", chatRoomCode);
-		
+
 		return "redirect:/userpage/chat/chatRoomList";
 	}
-	
-	/*채팅방 생성 (get)*/
+
+	/* 채팅방 생성 (get) */
 	@GetMapping("/addChatRoom")
-	public String addChatRoom(Model model
-							, HttpSession session) {
-		
+	public String addChatRoom(Model model, HttpSession session) {
+
 		List<Chat> chatRoomList = chatService.getChatRoomList();
 		model.addAttribute("chatRoomList", chatRoomList);
-		
+
 		return "userpage/chat/addChatRoom";
 	}
-	
-	/*채팅방 목록 조회*/
+
+	/* 채팅방 목록 조회 */
 	@GetMapping("/chatRoomList")
 	public String getChatRoomList(Model model) {
-		
+
 		List<Chat> chatRoomList = chatService.getChatRoomList();
-		
+
 		log.info("chatRoomList : {}", chatRoomList);
-		
+
 		model.addAttribute("chatRoomList", chatRoomList);
-		
+
 		return "userpage/chat/chatRoomList";
-		
+
 	}
-	
+
 }
