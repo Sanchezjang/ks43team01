@@ -13,7 +13,6 @@ public class QnaBoard {
 	private String boardQuestionTitle;
 	private String userName;
 	private String boardQuestionContent;
-	private String boardQuestionFile;
 	private String boardQuestionRegDate;
 	private String userEmail;
 	private String boardQuestionAnswerMethod;
@@ -34,19 +33,6 @@ public class QnaBoard {
 	
 	private List<Map<String, String>> 	relFileWithQnaBoard;
 	private List<File> 				file;
-	
-	public int getBoardQuestionOriginNo() {
-		return boardQuestionOriginNo;
-	}
-	public void setBoardQuestionOriginNo(int boardQuestionOriginNo) {
-		this.boardQuestionOriginNo = boardQuestionOriginNo;
-	}
-	public int getBoardQuestionGroupOrd() {
-		return boardQuestionGroupOrd;
-	}
-	public void setBoardQuestionGroupOrd(int boardQuestionGroupOrd) {
-		this.boardQuestionGroupOrd = boardQuestionGroupOrd;
-	}
 	public String getBoardQuestionCode() {
 		return boardQuestionCode;
 	}
@@ -95,12 +81,6 @@ public class QnaBoard {
 	public void setBoardQuestionContent(String boardQuestionContent) {
 		this.boardQuestionContent = boardQuestionContent;
 	}
-	public String getBoardQuestionFile() {
-		return boardQuestionFile;
-	}
-	public void setBoardQuestionFile(String boardQuestionFile) {
-		this.boardQuestionFile = boardQuestionFile;
-	}
 	public String getBoardQuestionRegDate() {
 		return boardQuestionRegDate;
 	}
@@ -148,6 +128,18 @@ public class QnaBoard {
 	}
 	public void setBoardQuestionUse(String boardQuestionUse) {
 		this.boardQuestionUse = boardQuestionUse;
+	}
+	public int getBoardQuestionOriginNo() {
+		return boardQuestionOriginNo;
+	}
+	public void setBoardQuestionOriginNo(int boardQuestionOriginNo) {
+		this.boardQuestionOriginNo = boardQuestionOriginNo;
+	}
+	public int getBoardQuestionGroupOrd() {
+		return boardQuestionGroupOrd;
+	}
+	public void setBoardQuestionGroupOrd(int boardQuestionGroupOrd) {
+		this.boardQuestionGroupOrd = boardQuestionGroupOrd;
 	}
 	public BoardCategory getBoardCategory() {
 		return boardCategory;
@@ -204,8 +196,6 @@ public class QnaBoard {
 		builder.append(userName);
 		builder.append(", boardQuestionContent=");
 		builder.append(boardQuestionContent);
-		builder.append(", boardQuestionFile=");
-		builder.append(boardQuestionFile);
 		builder.append(", boardQuestionRegDate=");
 		builder.append(boardQuestionRegDate);
 		builder.append(", userEmail=");
@@ -241,8 +231,6 @@ public class QnaBoard {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-
 	
 	
 

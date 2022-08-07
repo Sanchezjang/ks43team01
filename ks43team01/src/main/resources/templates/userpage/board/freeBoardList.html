@@ -6,74 +6,83 @@ layout:decorate="~{userpage/layout/userdefault}">
 
 <!------ Include the above in your HEAD tag ---------->
 <div layout:fragment="content">
-	<style>
-	.headWrap h2{
-			text-align: center;
-			padding: 35px 0 10px 0;
-		
-		}
-		.headWrap{
-			margin-bottom: 30px;
-		}
-		.section-top-border{
-			width: 1200px;
-			margin:0 auto;
-		}
-		
-		.progress-table{
-			background: #f9f9ff;
-			padding: 15px 0px 30px 0px;
-			min-width: 800px;
-		}
-		.writer{
-			width:  30%;
-		}
-		.regDate {
-			width: 20%;
-		}
-		.title {
-			width: 50%;
-			padding-right: 50px;
-			padding-left: 30px;
-		}
-		.lock{
-			width: 19.74%;
-			padding-left: 30px;
-		}
-		.pageView{
-			width: 10%;
-		}
-		.table-head {
-			padding: 15px 0;
-			display: flex;
-			font-weight: bold;
-			color: $title-color;
-			line-height: 40px;
-			text-transform: uppercase;
-			font-weight: 500;
-			border-bottom: 2px solid #c6d8f7;
-		}
-		.table-row {
-			padding: 15px 0;
-			border-top: 1px solid #edf3fd;
-			display: flex;
-		}
-		.searchBoard{
-			
-		}
-		.blog-pagination{
-			padding-bottom: 30px;
-			margin-top: 0px;
-		}
-	</style>
+<style>
+.headWrap h2{
+	text-align: center;
+	padding: 35px 0 10px 0;
+
+}
+.headWrap{
+	margin-bottom: 30px;
+}
+.section-top-border{
+	width: 1200px;
+	margin:0 auto;
+}
+
+.progress-table{
+	background: #f9f9ff;
+	padding: 15px 0px 30px 0px;
+	min-width: 800px;
+}
+.writer{
+	width:  30%;
+}
+.regDate {
+	width: 20%;
+}
+.title {
+	width: 50%;
+	padding-right: 50px;
+	padding-left: 30px;
+}
+.lock{
+	width: 19.74%;
+	padding-left: 30px;
+}
+.pageView{
+	width: 10%;
+}
+.table-head {
+	padding: 15px 0;
+	display: flex;
+	font-weight: bold;
+	color: $title-color;
+	line-height: 40px;
+	text-transform: uppercase;
+	font-weight: 500;
+	border-bottom: 2px solid #c6d8f7;
+}
+.table-row {
+	padding: 15px 0;
+	border-top: 1px solid #edf3fd;
+	display: flex;
+}
+.searchBoard{
+	
+}
+.blog-pagination{
+	padding-bottom: 30px;
+	margin-top: 0px;
+}
+.botWrapBtn{
+	background-color: #d9d9d9;
+	color: #333;
+	border: none;
+	border-radius: 10px;
+	width: 70px;
+	height: 40px;
+	font-size: 20px;
+}
+.genric-btn{
+	border-radius: 10px;
+}
+</style>
 	
 	<div class="headWrap">
 		<h2>자유게시판</h2>
 	</div>    
 
-	<!-- Hero End -->
-	<!-- About Details Start -->
-				
 	<div class="boardForm">
 		<div class="box" style="width:1200px; margin:0 auto;">
 			<table class="section-top-border">
@@ -97,8 +106,9 @@ layout:decorate="~{userpage/layout/userdefault}">
 					</tbody>
 			</table>
 			<div style="text-align:right; margin-top:20px;">
-				<a th:href="@{/userpage/board/addNoticeBoard}" class="genric-btn primary" >글쓰기</a>
+				<a th:href="@{/userpage/board/addFreeBoard}" class="genric-btn primary" >글쓰기</a>
 			</div>
+		<!-- 	<div class="search" th:include="userPage/search/freeSearch :: searchfreeFragment"></div> <br/> -->
 		</div>
 	</div>
 					

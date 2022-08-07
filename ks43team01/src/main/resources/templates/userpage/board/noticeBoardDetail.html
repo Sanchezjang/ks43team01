@@ -5,47 +5,64 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{userpage/layout/userdefault}">
 <!------ Include the above in your HEAD tag ---------->
 <div layout:fragment="content">
-	<style>
-	.headWrap h2{
-		text-align: center;
-		padding: 35px 0 10px 0;
-	}
-	.headWrap{
-		margin-bottom: 30px;
-	}
-	.boardDetailView{
-		width: 1000px;
-		min-height:700px;
-		margin: 0 auto;
-	}
-	.boardView{
-		border: 1px solid #ccc;
-		width: 1000px;
-	}	
-	th{
-		background-color: #F6F6F6;
-		height: 40px;
-		text-align: center;
-		border: 1px solid #ccc;
-		vertical-align: middle;
-	}
-	td{
-		border: 1px solid #ccc;
-		vertical-align: middle;
-		padding: 15px;
-	}	
-	.detailContent{
-		height: 400px;
-	}
-	.clickBtn{
-		width: 1000px;
-		text-align:right;
-		padding-top: 10px;
-	}
-	.returnPage{
-		padding-bottom: 30px;
-	}
-	</style>
+<style>
+.headWrap h2{
+	text-align: center;
+	padding: 35px 0 10px 0;
+}
+.headWrap{
+	margin-bottom: 30px;
+}
+.boardDetailView{
+	width: 1000px;
+	min-height:700px;
+	margin: 0 auto;
+}
+.boardView{
+	border: 1px solid #ccc;
+	width: 1000px;
+}	
+th{
+	background-color: #F6F6F6;
+	height: 40px;
+	text-align: center;
+	border: 1px solid #ccc;
+	vertical-align: middle;
+}
+td{
+	border: 1px solid #ccc;
+	vertical-align: middle;
+	padding: 15px;
+}	
+.detailContent{
+	height: 400px;
+}
+.clickBtn{
+	width: 1000px;
+	text-align:right;
+	padding-top: 10px;
+}
+.returnPage{
+	padding-bottom: 30px;
+}
+.botWrapBtn{
+	background-color: #d9d9d9;
+	color: #333;
+	border: none;
+	border-radius: 10px;
+	width: 70px;
+	height: 40px;
+	font-size: 20px;
+}
+.botWrapBtn:hover{
+	background-color: #0064ff;
+	color: #fff;
+}
+
+.botWrap{
+	padding-top : 30px;
+}
+</style>
 	
 	<div class="headWrap">
 		<h2>공지사항</h2>
@@ -58,43 +75,43 @@ layout:decorate="~{userpage/layout/userdefault}">
 					<a type="button" class="returnPage" onclick="history.back(-1)">돌아가기</a>
 				</div>
 				<input type="hidden" th:value="${board.boardPostCode}">
-					<table class="boardView">
-						<colgroup>
-							<col width="15%">
-							<col width="35%">
-							<col width="15%">
-						</colgroup>
-						<tbody>
-							<tr>
-								<th>제목</th>
-								<td th:text="${board.boardPostTitle}"></td>
-								<th>조회수</th>
-								<td th:text="${board.boardPostView}"></td>
-							</tr>
-							<tr>
-								<th>작성자</th>
-								<td th:text="${board.boardUserName}"></td>
-								<th>작성시간</th>
-								<td th:text="${board.boardPostRegDate}"></td>
-							</tr>
-							<tr>
-								<th colspan="4">내용</th>
-							</tr>
-							<tr>
-								<td class="detailContent" colspan="4" th:text="${board.boardPostContent}"></td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="clickBtn mt-3" >
-						<a th:href="@{/userpage/board/modifyNoticeBoard(boardPostCode=${board.boardPostCode})}">
-							<button type="submit" class="genric-btn primary" th:if="${session.UID == board.userIdCode}">수정</button>
-						</a>
-						<a th:href="@{/userpage/board/removeNoticeBoard(boardPostCode=${board.boardPostCode})}">
-							<button type="button" class="genric-btn primary-border" th:if="${session.UID == board.userIdCode}">삭제</button>
-						</a>
-					</div>
-				</div>   
-			</div>
+				<table class="boardView">
+					<colgroup>
+						<col width="15%">
+						<col width="35%">
+						<col width="15%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th>제목</th>
+							<td th:text="${board.boardPostTitle}"></td>
+							<th>조회수</th>
+							<td th:text="${board.boardPostView}"></td>
+						</tr>
+						<tr>
+							<th>작성자</th>
+							<td th:text="${board.boardUserName}"></td>
+							<th>작성시간</th>
+							<td th:text="${board.boardPostRegDate}"></td>
+						</tr>
+						<tr>
+							<th colspan="4">내용</th>
+						</tr>
+						<tr>
+							<td class="detailContent" style="white-space:pre-wrap;" colspan="4" th:text="${board.boardPostContent}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="clickBtn mt-3" >
+					<a th:href="@{/userpage/board/modifyNoticeBoard(boardPostCode=${board.boardPostCode})}">
+						<button type="submit" class="botWrapBtn" th:if="${session.UID == board.userIdCode}">수정</button>
+					</a>
+					<a th:href="@{/userpage/board/removeNoticeBoard(boardPostCode=${board.boardPostCode})}">
+						<button type="button" class="botWrapBtn" th:if="${session.UID == board.userIdCode}">삭제</button>
+					</a>
+				</div>
+			</div>   
 		</div>
 	</div>
+</div>
 </html>

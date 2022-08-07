@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{userpage/layout/userdefault}">
+<div layout:fragment="content">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+<th:block layout:fragment="customScript">
+	<script>
+		$(document).ready(function(){
+			$(".nameBtn").click(function(){
+				$("#chatNickName").slideToggle();	
+			});
+		});
+		
+		var ws;
+
+		function wsOpen(){
+			ws = new WebSocket("ws://" + location.host + "/chating");
+			wsEvt();
+		}
+			
+		function wsEvt() {
+			ws.onopen = function(data){
+				//소켓이 열리면 초기화 세팅하기
+			}
+			
+		ws.onmessage = function(data) {
+			//메시지를 받으면 동작
+			var msg = data.data;
+			if(msg != null && msg.trim() != ''){
+				var d = JSON.parse(msg);
+				if(d.type == "getId"){
+					var si = d.sessionId != null ? d.sessionId : "";
+					if(si != ''){
+						$("#sessionId").val(si); 
+					}
+				}else if(d.type == "message"){
+					if(d.sessionId == $("#sessionId").val()){
+						$("#chating").append("<p class='me'>나 : " + d.msg + "</p>");	
+					}else{
+						$("#chating").append("<p class='others'>" + d.chatNick + " : " + d.msg + "</p>");
+					}
+							
+				}else{
+					console.warn("unknown type!")
+				}
+			}
+		}
+
+			document.addEventListener("keypress", function(e){
+				if(e.keyCode == 13){ //enter press
+					send();
+				}
+			});
+		}
+		
+		function chatNick(){
+			var chatNick = $("#chatNick").val();
+			if(chatNick == null || chatNick.trim() == ""){
+				alert("닉네임을 지정해주세요.");
+				$("#chatNick").focus();
+			}else{
+				wsOpen();
+				$("#chatNickName").hide();
+				$("#inner").append("<p>" +chatNick + " 님이 입장하셨습니다.</p>").css({
+		               "text-align": "center"
+				});
+			}
+		}
+		
+		function send() {
+			var option ={
+				type: "message",
+				sessionId : $("#sessionId").val(),
+				chatNick : $("#chatNick").val(),
+				msg : $("#chatting").val()
+			}
+			ws.send(JSON.stringify(option))
+			$('#chatting').val("");
+		}
+	</script>
+</th:block>	
+
+<style>
+.headWrap h2{
+	text-align: center;
+	padding: 35px 0 10px 0;
+} 
+.headWrap{
+	margin-bottom: 30px;
+}
+.bigWrap {
+	margin: 5% 10% 5% 10%;
+	padding: 0;
+	height: 600px;
+}
+
+.botWrapBtn{
+	background-color: #d9d9d9;
+	color: #333;
+	border: none;
+	border-radius: 10px;
+	width: 70px;
+	height: 40px;
+	font-size: 20px;
+	margin-left: 5px;
+}
+.botWrapBtn:hover{
+	background-color: #0064ff;
+	color: #fff;
+}
+.botWrap{
+	padding-top: 30px;
+	text-align: center;
+}
+.input-form{
+	margin-top : 20px;
+	margin-bottom: 50px;
+}
+.chating{
+	height: 500px;
+	border: 1px solid #ad9e9e;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border-radius: 10px;
+	position:relative;
+	overflow: auto;
+}
+.filebox .upload-name {
+    display: inline-block;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    width: 280px;
+    color: #999999;
+}
+.filebox label {
+    display: inline-block;
+    padding: 6px 10px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #0064ff;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.chatMessage{
+	text-align: center;
+	padding-left: 15px;
+    padding-bottom: 5px;
+}
+input[type="text"] {
+	height: 30px;
+	line-height: 30px;
+	padding: 0 13px;
+	border: 1px solid #ad9e9e;
+	background: #fff;
+	border-radius: 5px;
+	font-size: 11px;
+	color: #666;
+	box-sizing: border-box;
+	width: 390px;
+}
+.addNickName{
+	float: right;
+}
+.notice{
+	float: right;
+}
+.nameBtn{
+	background-color: white;
+    color: #333;
+    border: none;
+    border-radius: 10px;
+    width: 50px;
+    height: 40px;
+    margin-left: 5px;
+}
+.nameBtn:hover{
+	border: 1px solid #ad9e9e
+}
+.botWrapBtn2{
+	background-color: #d9d9d9;
+	color: #333;
+	border: none;
+	border-radius: 10px;
+	width: 50px;
+	height: 35px;
+	font-size: 20px;
+	margin-left: 5px;
+}
+.botWrapBtn2:hover{
+	background-color: #0064ff;
+	color: #fff;
+}
+.chatNickName{
+	text-align: right;
+	display: none;
+}
+.chating .me{
+	color: black;
+	padding-right: 10px;
+	position:relative;
+	text-align: left;
+	margin: 10px 20px 10px 10px;
+    float: right;
+    padding: 10px;
+ 	width:300px;
+ 	height:50px;
+  	background:#b2d3f7;
+  	border-radius: 10px;
+}
+.chating .me:after{
+	border-top: 15px solid #b2d3f7;
+    border-left: 0px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 0px solid transparent;
+    content: "";
+    position: absolute;
+    top: 10px;
+    right: -15px;
+}
+.chating .others{
+	color: black;
+	text-align: left;
+	padding-right: 10px;
+	position: relative;
+	margin: 10px 10px 10px 20px;
+    float: left;
+    padding: 10px;
+ 	width:300px;
+ 	height:50px;
+  	background:#dae0e7;
+  	border-radius: 10px;
+}
+.chating .others:after{
+  	border-top: 15px solid #dae0e7;
+    border-left: 15px solid transparent;
+    border-right: 0px solid transparent;
+    border-bottom: 0px solid transparent;
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: -15px;
+}
+
+
+</style>
+
+	<div class="headWrap">
+		<h2>채팅방</h2>
+	</div>
+		
+	
+		<div class="input-form mx-auto"> 
+			<input type="hidden" id="sessionId" value="">
+			<div class="addNickName">
+				<button class="nameBtn" id="nameBtn">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+		 				 <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+					</svg>
+				</button>
+			</div>
+			<p class="notice">오른쪽 상단 더보기 버튼을 눌러 닉네임을 설정해주세요.</p>
+			<div class="bigWrap">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+ 					<path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+				</svg>
+				<a type="button" class="returnPage" onclick="history.back(-1)">나가기</a>
+				<div class="chatNickName" id="chatNickName">
+					<label style="padding-right: 10px;">닉네임</label>
+					<input type="text" id="chatNick" class="chat col-3" name="chatNick" required="required"/>
+					<button class="botWrapBtn2" id="addChatRoom" onclick="chatNick()">설정</button>
+				</div>
+			
+					<div class="chating" id="chating">
+						<div class="inner" id="inner">
+							
+						</div>
+					</div>
+						<div class="chatMessage">
+							<input type="text" id="chatting" class="chat col-10" name="chating"/>
+							<button onclick="send()" class="botWrapBtn" id="sendBtn">보내기</button>
+						</div>
+				
+				
+			</div>
+		</div>
+		
+		
+</div>
+</html>

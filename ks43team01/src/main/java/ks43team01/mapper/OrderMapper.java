@@ -12,16 +12,33 @@ import ks43team01.dto.Payment;
 @Mapper
 public interface OrderMapper {
 	
+	//상품 주문 현황 삭제
 	
-	//현재 주문 상태 등록
-	public int addOrderCurrentStatus(OrderCurrentStatus orderCurrentStatus);
+	//상품 주문 현황 수정
 	
+	//상품 주문 현황 등록
+	
+	//상품 주문 현황 조회
+	
+	//현재 주문 상태 삭제
+	public int removeOrderCurrentStatus(String orderCode);
+	
+	//현재 주문 상태 수정
+
 	//현재 주문 상태 상세보기
 	public OrderCurrentStatus getOrderCurrentStatusInfoCode(String orderCode);
 	
 	//현재 주문 상태 조회
 	public List<OrderCurrentStatus> getOrderCurrentStatusList();
 	
+	//상품 주문 현황 기준 삭제
+	public int removeOrderStatusStandard (String orderStatusStandardCode);
+	
+	//상품 주문 현황 기준 수정
+	public int modifyOrderStatusStandard (OrderStatusStandard orderStatusStandard);
+	
+	//상품 주문 현황 기준 상세보기
+	public OrderStatusStandard getOrderStatusStandardByCode(String orderStatusStandardCode);
 	
 	//상품 주문 현황 기준 등록
 	public int addOrderStatusStandard(OrderStatusStandard orderStatusStandard);

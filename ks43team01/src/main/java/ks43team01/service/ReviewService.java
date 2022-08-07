@@ -1,12 +1,9 @@
 package ks43team01.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +15,6 @@ import ks43team01.common.FileUtils;
 import ks43team01.dto.Point;
 import ks43team01.dto.ReviewContentsReg;
 import ks43team01.mapper.FileMapper;
-import ks43team01.mapper.PointMapper;
 import ks43team01.mapper.ReviewMapper;
 
 @Service
@@ -56,13 +52,21 @@ public class ReviewService {
 		return result;
 	}
 
-	/* 회원페이지 리뷰 수정 */
+	/* 회원페이지 리뷰 수정(post) */
 	public int modifyReview(ReviewContentsReg reviewContentsReg) {
 
 		int result = reviewMapper.modifyReview(reviewContentsReg);
 		
 		return result;
 	}
+	
+	/* 회원 페이지 리뷰 수정(get)  */
+	public ReviewContentsReg getReviewByCode(String reviewCode) {
+		System.out.println("___________getReviewByCode_________");
+		return reviewMapper.getReviewByCode(reviewCode);
+		
+	}
+	
 	/* 회원페이지 리뷰 이미지 삭제  */
 	public int removeImageReview(String reviewCode) {
 		
@@ -88,16 +92,20 @@ public class ReviewService {
 		return result;
 	}
 
-	/* 리뷰 등록 시 포인트 내역에 포인트 적립 */
-	public int reviewSavePoint(String userIdCode) {
-
-		int result = reviewMapper.reviewSavePoint(userIdCode);
-
-		return result;
-	}
 
 	/* 회원페이지 리뷰 등록 */
-	public int addReview(ReviewContentsReg reviewContentsReg, MultipartFile[] reviewImageReg, String fileRealPath) {
+	public String addReview(ReviewContentsReg reviewContentsReg, MultipartFile[] reviewImageReg, String fileRealPath) {
+		
+		boolean fileCheck = true;
+				
+				for (MultipartFile multipartFile : reviewImageReg){
+					if(!multipartFile.isEmpty()) {
+						fileCheck = false;
+					}
+				}
+				
+				if (!fileCheck) {
+			
 		
 		FileUtils fu = new FileUtils(reviewImageReg, reviewContentsReg.getUserIdCode(), fileRealPath);
 		List<Map<String, String>> dtoFileList = fu.parseFileInfo();
@@ -115,20 +123,31 @@ public class ReviewService {
 		}
 
 		fileMapper.uploadRelationFileWithReview(relationFileList);
-		return result;
+		return reviewCode;
+		
+		}else {
+			
+			int result = reviewMapper.addReview(reviewContentsReg);
+			
+			return Integer.toString(result);
+		}
 	}
-
-	/* 회원페이지 회원 상세 리뷰 조회 */
-	public ReviewContentsReg getReviewByCode(String reviewCode) {
-		System.out.println("___________getReviewByCode_________");
-		return reviewMapper.getReviewByCode(reviewCode);
-
+	
+	/* 회원 페이지 회원 리뷰 상품코드로 조회 */
+	public List<ReviewContentsReg> getReviewByGoodsCode(String goodsCode){
+		
+		List<ReviewContentsReg> reviewImageList = reviewMapper.getReviewByGoodsCode(goodsCode);
+		log.info("goodsCode:{}",goodsCode);
+		
+		return reviewImageList;
 	}
-
+	
 	/* 회원 페이지 회원 리뷰 목록 조회 */
 	public List<ReviewContentsReg> getReviewUserList() {
-		// log.info("리뷰 목록 조회:{}", "test");
+		
 		List<ReviewContentsReg> reviewUserList = reviewMapper.getReviewUserList();
+		log.info("들어오는 값:{}", "reviewCode");
+		log.info("들어오는 값:{}", "goodsCode");
 
 		return reviewUserList;
 	}

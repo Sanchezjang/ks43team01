@@ -12,7 +12,6 @@ import ks43team01.dto.BoardComment;
 import ks43team01.dto.BoardLargeCategory;
 import ks43team01.dto.BoardMediumCategory;
 import ks43team01.dto.QnaBoard;
-import ks43team01.dto.QnaBoardReply;
 
 @Mapper
 public interface BoardMapper {
@@ -42,9 +41,10 @@ public interface BoardMapper {
 	//답변 등록
 	public int addQnaBoardReply(QnaBoard qnaBoard);
 	
-	//답변 조회
-	public List<QnaBoardReply> getQnaBoardReplyList(String boardQuestionReplyCode);
 
+	//게시글 이미지 삭제
+	public int removeImageQnaBoard(String boardQuestionCode);
+	
 	//게시글 삭제
 	public int removeQnaBoard(String boardQuestionCode);
 	
@@ -73,7 +73,11 @@ public interface BoardMapper {
 	
 	/*일반 게시글 */
 	
-	//게시글 검색
+	//자유게시판 게시글 검색
+	public List<Board> getSearchFreeList(String searchKey, String searchValue);
+	//자주 하는 질문 게시글 검색
+	public List<Board> getSearchFaqList(String searchKey, String searchValue);
+	//공지사항 게시글 검색
 	public List<Board> getSearchBoardList(String searchKey, String searchValue);
 	
 	//댓글 삭제
@@ -123,9 +127,16 @@ public interface BoardMapper {
 	/*
 	 * 관리자 화면
 	 * */
+
 	
-	//1:1 문의 게시글 댓글 목록 조회
-	
+	//게시글 답변 모음 삭제
+	public int removeBoardAnswer(String boardAnswerCode);
+	//게시글 답변 모음 수정
+	public int modifyBoardAnswer(BoardAnswer boardAnswer);
+	//게시글 답변 모음 상세 조회
+	public BoardAnswer getBoardAnswerByCode(String boardAnswerCode);
+	//게시글 답변 모음 등록
+	public int addBoardAnswer(BoardAnswer boardAnswer);
 	//게시글 답변 모음 목록 조회
 	public List<BoardAnswer> getBoardAnswerList();
 	
@@ -136,6 +147,8 @@ public interface BoardMapper {
 	public int removeBoardMediumCategory(String boardMediumCategoryCode);
 	//문의 게시판 2차 카테고리 수정
 	public int modifyBoardMediumCategory(BoardMediumCategory boardMediumCategory);
+	//문의 게시판 2차 카테고리  상세 조회
+	public BoardMediumCategory getBoardMediumCategoryByCode(String boardMediumCategoryCode);	
 	//문의 게시판 2차 카테고리 등록
 	public int addBoardMediumCategory(BoardMediumCategory boardMediumCategory);
 	//문의 게시판 2차 카테고리 조회
@@ -145,6 +158,8 @@ public interface BoardMapper {
 	public int removeBoardLargeCategory(String boardLargeCategoryCode);
 	//문의 게시판 1차 카테고리 수정
 	public int modifyBoardLargeCategory(BoardLargeCategory boardLargeCategory);
+	//문의 게시판 1차 카테고리  상세 조회
+	public BoardLargeCategory getBoardLargeCategoryByCode(String boardLargeCategoryCode);	
 	//문의 게시판 1차 카테고리 등록
 	public int addBoardLargeCategory(BoardLargeCategory boardLargeCategory);
 	//문의 게시판 1차 카테고리 조회 
@@ -161,8 +176,6 @@ public interface BoardMapper {
 	//게시판 대분류 카테고리 조회
 	public List<BoardCategory> getBoardCategoryList();
 	
-	
-	
-	//전체 게시글 목록 조회
+	//전체 게시글 목록 조회 
 	public List<Board> getBoardList();
 }

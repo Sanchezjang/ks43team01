@@ -73,6 +73,21 @@
 		</collection>
 	</resultMap>
 	
+	<select id="getReviewByCode" parameterType="String" resultMap="ReviewContentsRegResultMap">
+	/* 리뷰 상세페이지 조회 */
+		SELECT
+		    rr.review_code							
+		   ,rr.review_reg_date						
+		   ,rr.user_id_code						
+		   ,rr.review_content						
+		   ,rr.review_recommendations_count			
+		   ,rr.review_decommendations_count			
+		   ,rr.review_star_score 					
+		FROM 
+			tb_r_review_contents AS rr 
+		WHERE
+			rr.review_code = #{reviewCode};
+	</select>
 	
 	
 	<select id="getReviewAdminList" resultType="Map">
@@ -102,17 +117,29 @@
 			tr.review_reg_date DESC;
 	</select>
 	
-	<select id="getReviewUserList" resultType="Map">
-	/* 유저페이지 회원 리뷰 목록*/
+	<select id="getReviewByGoodsCode" resultMap="ReviewContentsRegResultMap">
+	/* 유저페이지 회원 리뷰 상품코드별 조회*/
 		SELECT
-			 gg.goods_code							AS goodsCode
-			,tr.review_code							AS reviewCode
-			,tr.review_reg_date                   	AS reviewRegDate    			
-			,tr.review_content						AS reviewContent
-			,ua.user_id_code						AS userIdCode
-			,tr.review_star_score					AS reviewStarScore
-			,tr.review_recommendations_count		AS reviewRecommendationsCount
-			,tr.review_decommendations_count		AS reviewDecommendationsCount
+			 gg.goods_code	
+			,gg.goods_name						
+			,tr.review_code						
+			,tr.review_reg_date                      			
+			,tr.review_content						
+			,ua.user_id_code						
+			,tr.review_star_score				
+			,tr.review_recommendations_count		
+			,tr.review_decommendations_count	
+			,sub.file_code 
+			,sub.user_id_code
+			,sub.file_orginal_name
+			,sub.file_re_name
+			,sub.file_main_image
+			,sub.file_location
+			,sub.file_size
+			,sub.file_reg_date
+			,sub.file_update_date
+			,sub.file_use
+			,sub.review_code
 		FROM 
 			tb_r_review_contents AS tr 
 			INNER join
@@ -127,27 +154,97 @@
 			tb_r_based_on_score_by_review AS rb 
 			ON 
 			tr.review_score_standard_code = rb.review_score_standard_code
+			LEFT JOIN
+			(SELECT 
+				   f.file_code 
+			 	  ,f.user_id_code
+				  ,f.file_orginal_name
+				  ,f.file_re_name
+				  ,f.file_main_image
+				  ,f.file_location
+			  	  ,f.file_size
+				  ,f.file_reg_date
+				  ,f.file_update_date
+				  ,f.file_use
+				  ,rf.review_code
+				 FROM 
+				 	tb_f_file AS f
+				 	INNER JOIN 
+				 	tb_b_rel_file_with_Review AS rf 
+				 	ON 
+				 	f.file_code = rf.file_code) AS sub 
+				ON 
+					sub.review_code = tr.review_code 
+			WHERE
+				gg.goods_code = #{goodsCode}
 			ORDER BY 
 			tr.review_code DESC;
 	</select>
 	
-	<select id="getReviewByCode" parameterType="String" resultMap="ReviewContentsRegResultMap">
-	/* 리뷰 상세페이지 조회 */
+	<select id="getReviewUserList" resultMap="ReviewContentsRegResultMap">
+	/* 유저페이지 회원 리뷰 목록*/
 		SELECT
-		    rr.review_code							
-		   ,rr.review_reg_date						
-		   ,rr.user_id_code						
-		   ,rr.review_content						
-		   ,rr.review_recommendations_count			
-		   ,rr.review_decommendations_count			
-		   ,rr.review_star_score 					
+			 gg.goods_code	
+			,gg.goods_name 						
+			,tr.review_code						
+			,tr.review_reg_date                      			
+			,tr.review_content						
+			,ua.user_id_code						
+			,tr.review_star_score				
+			,tr.review_recommendations_count		
+			,tr.review_decommendations_count	
+			,sub.file_code 
+			,sub.user_id_code
+			,sub.file_orginal_name
+			,sub.file_re_name
+			,sub.file_main_image
+			,sub.file_location
+			,sub.file_size
+			,sub.file_reg_date
+			,sub.file_update_date
+			,sub.file_use
+			,sub.review_code
 		FROM 
-			tb_r_review_contents AS rr 
-		WHERE
-			rr.review_code = #{reviewCode};
+			tb_r_review_contents AS tr 
+			INNER join
+			tb_g_goods AS gg
+			on
+			tr.goods_code = gg.goods_code
+			INNER JOIN 
+			tb_u_all_user AS ua
+			ON 
+			tr.user_id_code = ua.user_id_code 
+			INNER JOIN 
+			tb_r_based_on_score_by_review AS rb 
+			ON 
+			tr.review_score_standard_code = rb.review_score_standard_code
+			LEFT JOIN
+			(SELECT 
+				   f.file_code 
+			 	  ,f.user_id_code
+				  ,f.file_orginal_name
+				  ,f.file_re_name
+				  ,f.file_main_image
+				  ,f.file_location
+			  	  ,f.file_size
+				  ,f.file_reg_date
+				  ,f.file_update_date
+				  ,f.file_use
+				  ,rf.review_code
+				 FROM 
+				 	tb_f_file AS f
+				 	INNER JOIN 
+				 	tb_b_rel_file_with_Review AS rf 
+				 	ON 
+				 	f.file_code = rf.file_code) AS sub 
+				ON 
+					sub.review_code = tr.review_code 
+			ORDER BY 
+			tr.review_code DESC;
 	</select>
 	
 	<delete id="removeAdminReview" parameterType="String">
+	/* 관리자 페이지 리뷰 삭제 */
 		DELETE
 		FROM
 			tb_r_review_contents 
@@ -163,17 +260,6 @@
 			ua.user_retention_Points = ua.user_retention_Points + 100  
 		WHERE
 			ua.user_id_code = #{userIdCode};
-		
-	</update>
-	
-	<update id="reviewSavePoint" parameterType="String">
-	/* 리뷰 등록시 포인트적립내역테이블 포인트 적립 */
-		UPDATE
-			tb_pt_point_accumulation_details AS pa
-		SET
-			pa.point_amount = pa.point_amount + 100 
-		WHERE
-			pa.user_id_code = #{userIdCode};
 		
 	</update>
 
@@ -208,7 +294,7 @@
 			review_code = #{reviewCode};
 	</update>
 	
-	<insert id="addReview" parameterType="ReviewContentsReg">
+	<insert id="addReview" parameterType="reviewContentsReg">
 	/* 리뷰 등록 */
 		INSERT INTO tb_r_review_contents 
 			( review_code

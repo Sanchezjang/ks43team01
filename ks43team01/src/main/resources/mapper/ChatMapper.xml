@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks43team01.mapper.ChatMapper">
+	<resultMap id="ChatResultMap" type="Chat">
+		<id			property="chatRoomCode" 			column="chat_room_code"/>
+			<result property="userIdCode" 				column="user_id_code"/>
+			<result property="chatRoomTitle" 			column="chat_room_title"/>
+			<result property="chatRoomContent" 			column="chat_room_content"/>
+			<result property="chatRoomParticipant" 		column="chat_room_participant"/>
+			<result property="chatRoomLimit" 			column="chat_room_limit"/>
+			<result property="chatRoomRegDate" 			column="chat_room_reg_date"/>
+			<result property="chatRoomUpdate" 			column="chat_room_update"/>
+			<result property="chatRoomNickName" 		column="chat_room_nickname"/>
+				
+		<collection property="file" ofType="File">
+			<id    column="file_code"						property="fileCode"/>
+			<result column="user_id_code"					property="userIdCode"/>
+			<result column="file_orginal_name"				property="fileOriginalName"/>
+			<result column="file_re_name"					property="fileReName"/>
+			<result column="file_main_image"				property="fileMainImage"/>
+			<result column="file_location"					property="fileLocation"/>
+			<result column="file_size"						property="fileSize"/>
+			<result column="file_reg_date"					property="fileRegDate"/>
+			<result column="file_update_date"				property="fileUpdateDate"/>
+			<result column="file_use"						property="fileUse"/>	
+		</collection>
+	</resultMap>
+	
+<!-- 	<select id="getChatRoomByCode" parameterType="String" resultMap="ChatResultMap">
+	/*채팅방 상세 조회*/
+		SELECT
+			c.chat_room_code
+			,c.chat_room_title
+		FROM
+			tb_c_chat_room AS c
+		WHERE
+			c.chat_room_code = #{chatRoomCode};
+	</select> -->
+
+	<insert id="addChatRoom" parameterType="Chat">
+	/*채팅방 생성*/
+		INSERT INTO tb_c_chat_room(
+			chat_room_code
+			, user_id_code
+			, chat_room_title
+			, chat_room_content
+			, chat_room_participant
+			, chat_room_limit
+			, chat_room_reg_date
+			, chat_room_update
+			, chat_room_nickname
+		)VALUES (
+			(SELECT 
+				CONCAT('chat',LPAD(MAX(CAST(SUBSTRING(c.chat_room_code ,5)AS UNSIGNED)+1),2,0))
+			FROM tb_c_chat_room AS c)
+			, #{userIdCode}
+			, #{chatRoomTitle}
+			, #{chatRoomContent}
+			, 0
+			, #{chatRoomLimit}
+			, NOW()
+			, null
+			, #{chatRoomNickName}
+		); 
+		<selectKey resultType="String" keyProperty="chatRoomCode" order="AFTER">
+			SELECT
+				c.chat_room_code
+			FROM
+				tb_c_chat_room AS c
+			ORDER BY c.chat_room_code DESC
+			LIMIT 1
+		</selectKey>
+	</insert>
+	
+	<select id="getChatRoomList" resultMap="ChatResultMap">
+	/*채팅방 목록 조회*/ 
+		SELECT
+			cr.chat_room_code
+			, cr.user_id_code
+			, cr.chat_room_title
+			, cr.chat_room_content
+			, cr.chat_room_participant
+			, cr.chat_room_limit
+			, cr.chat_room_reg_date
+			, cr.chat_room_update
+			, cr.chat_room_nickname
+			, sub.file_code 
+			, sub.user_id_code
+			, sub.file_orginal_name
+			, sub.file_re_name
+			, sub.file_main_image
+			, sub.file_location
+			, sub.file_size
+			, sub.file_reg_date
+			, sub.file_update_date
+			, sub.file_use
+			, sub.chat_room_code
+		FROM
+			tb_c_chat_room AS cr
+			    LEFT JOIN
+				(SELECT
+					f.file_code 
+					,f.user_id_code
+					,f.file_orginal_name
+					,f.file_re_name
+					,f.file_main_image
+					,f.file_location
+					,f.file_size
+					,f.file_reg_date
+					,f.file_update_date
+					,f.file_use
+					,c.chat_room_code
+				FROM
+					tb_f_file AS f
+					INNER join
+					tb_b_rel_file_with_Chat AS c
+					on
+						f.file_code = c.file_code) AS sub
+			ON
+				sub.chat_room_code = cr.chat_room_code
+			ORDER BY 
+					cr.chat_room_code DESC;
+	</select>
+
+</mapper>

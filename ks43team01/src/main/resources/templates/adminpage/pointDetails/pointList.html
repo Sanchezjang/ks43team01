@@ -76,13 +76,13 @@
                     <!--  시작화면  -->
 			        	<div th:include="adminpage/fragments/searchBar :: searchBarFragment"></div>
 			        <!--  끝 화면 -->
-                    <form th:action="@{/adminpage/pointDetails/pointList}" method="get">
+                    <form th:action="@{/adminpage/pointDetails/meansPointList}" method="get">
 						<div class="form-row mt-2">
 							<div class="form-group col-md-2">
 								<select name="searchKey" class="form-control text-center">
 									<option value=""> :: 선택 :: </option>
-									<option value="userIdCode">아이디</option>
-									<option value="pointStandardDetailsCode">포인트 기준</option>
+									<option value="user_id_code">아이디</option>
+									<option value="point_standard_name">포인트 기준</option>
 								</select>
 							</div>
 							<div class="form-group col-md-6">
@@ -237,7 +237,7 @@
 					dateBtnForm.attr("id", "testForm");
 					dateBtnForm.attr("name", "dateBtnForm");
 					dateBtnForm.attr("method", "get");
-					dateBtnForm.attr("action", "/adminpage/pointDetails/searchDatePointList");
+					dateBtnForm.attr("action", "/adminpage/pointDetails/getDatePointList");
 					
 					dateBtnForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
 					dateBtnForm.append($('<input/>', {type: 'hidden', name: 'endDate', value: endDate}));
@@ -260,7 +260,7 @@
 						datepickerForm.attr("id", "testForm");
 						datepickerForm.attr("name", "datepickerForm");
 						datepickerForm.attr("method", "get");
-						datepickerForm.attr("action", "/adminpage/pointDetails/searchDatePointList");
+						datepickerForm.attr("action", "/adminpage/pointDetails/getDatePointList");
 						
 						datepickerForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
 						datepickerForm.append($('<input/>', {type: 'hidden', name: 'endDate', value: endDate}));
@@ -273,28 +273,28 @@
 						}
 				});
 				
-					$(document).on('click', '.checkType', function(){
+					/* $(document).on('click', '.checkType', function(){
 									
 									$('form').remove('#testForm');
 									
-									var checkPaymentType = $(this).val();
+									var checkReviewType = $(this).val();
 									
-									console.log(checkPaymentType);
+									console.log(checkReviewType);
 									
 									var checkPaymentTypeForm = $('<form></form>');
 									
-									checkPaymentTypeForm.attr("id", "testForm");
-									checkPaymentTypeForm.attr("name", "checkPaymentTypeForm");
-									checkPaymentTypeForm.attr("method", "get");
-									checkPaymentTypeForm.attr("action", "/adminpage/pointDetails/searchDatePointList");
+									checkReviewTypeForm.attr("id", "testForm");
+									checkReviewTypeForm.attr("name", "checkReviewTypeForm");
+									checkReviewTypeForm.attr("method", "get");
+									checkReviewTypeForm.attr("action", "/adminpage/pointDetails/getDatePointList");
 									
-									checkPaymentTypeForm.append($('<input/>', {type: 'hidden', name: 'paymentOption', value: checkPaymentType}));
+									checkReviewTypeForm.append($('<input/>', {type: 'hidden', name: '', value: checkReviewType}));
 									
-									checkPaymentTypeForm.appendTo('body');
+									checkReviewTypeForm.appendTo('body');
 										
-									checkPaymentTypeForm.submit();
+									checkReviewTypeForm.submit();
 				
-								});
+								}); */
 								
 							});
 		</script>	

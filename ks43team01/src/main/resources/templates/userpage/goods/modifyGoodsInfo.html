@@ -9,44 +9,56 @@ layout:decorate="~{userpage/layout/userdefault}">
 		<script>
  			$(function(){
 				$(document).on('change', '#goodsTopCategoryName', function(){
+					
 					var $goodsTopCategoryName = $("#goodsTopCategoryName").val()
-					console.log($goodsTopCategoryName);
+
 					var request = $.ajax({
+						
 						url: "/userpage/goods/getGoodsSubCategory",
 						method: "GET",
 						data: { 'goodsTopCategoryName' : $goodsTopCategoryName},
 						dataType: "json"
-					});
+						
+				});
 			 		
-					request.done(function( data ) {
-					console.log(data)
+				request.done(function( data ) {
+
 					var html = '', $goodsSubCategory = $('#goodsSubCategoryCode');
+				
 					if(data.length == 0){
+						
 						html += '<option value=""> :: 하위 카테고리 :: </option>';
-					}else{ 								
+						
+					}else{ 							
+						
 						for(var i=0; i < data.length; i++){
+							
 							html += '<option value="'+data[i].goodsSubCategoryCode+'"> ' + data[i].goodsSubCategoryName + ' </option>';
+							
 						}
 					}
+					
 						$goodsSubCategory.html(html);
 						$goodsSubCategory.niceSelect('update');
-					});
-					 
-						request.fail(function( jqXHR, textStatus ) {
-							alert( "Request failed: " + textStatus );
+					
+				});
+				 
+					request.fail(function( jqXHR, textStatus ) {
+							
+						alert( "Request failed: " + textStatus );
+								
 					});
 				});
 			});
  			
  			$(function(){
 				$goodsTopCategoryNameVal = $('#goodsTopCategoryName').attr('data-goodsSubCategory');
-					
-					console.log($goodsTopCategoryNameVal);
 				
-					$('#goodsTopCategoryName option[value=' + $goodsTopCategoryNameVal + ']').attr('selected', 'selected');
-				
-						$goodsTopCategoryNameVal.html(html);
-						$goodsTopCategoryNameVal.niceSelect('update');
+				$('#goodsTopCategoryName option[value=' + $goodsTopCategoryNameVal + ']').attr('selected', 'selected');
+			
+				$goodsTopCategoryNameVal.html(html);
+				$goodsTopCategoryNameVal.niceSelect('update');
+						
  			});
  		</script>
  		
@@ -174,7 +186,6 @@ layout:decorate="~{userpage/layout/userdefault}">
 				</div>
 			</form>
 		</div>
-
 	<!-- end form for validations -->
 	</div>
 </div>

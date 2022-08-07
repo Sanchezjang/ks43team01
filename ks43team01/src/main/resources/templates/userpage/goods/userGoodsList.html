@@ -14,92 +14,78 @@ layout:decorate="~{userpage/layout/userdefault}">
 		font-size:0.875em; line-height:1.5; color:#666; -webkit-text-size-adjust:none; min-width:320px;
 		font-family:'NanumGothic','나눔고딕',dotum, "Helvetica Neue", Helvetica, Verdana, Arial, Sans-Serief;
 	}
-	
-	
-	ul{margin:0;}
-	a:link, a:visited {text-decoration:none; color: #656565;}
-	
-	.container {max-width:1024px; margin:30px auto;}
-	
+	ul{
+		margin:0;
+	}
+	a:link, a:visited{
+		text-decoration:none; color: #656565;
+	}
+	.container{
+		max-width:1024px; margin:30px auto;
+	}
 	.blog-pagination {
-	    margin-top: 0;
-	    
+		margin-top: 0;
 	}    
 	.boardForm{
 		padding-top: 50px;
-	
 	}
 	.section-top-border{
 		width: 1200px;
 		margin:0 auto;
-	
 	}
 	.progress-table{
 		background: #f9f9ff;
 		padding: 15px 0px 30px 0px;
 		min-width: 800px;
-		
 	}
-		.serial{
-			width: 11.83%;
-	        padding-left: 30px;
-		}
-		.writer{
-			width:  28.07%;
-		}
-		.regDate {
-	        width: 19.74%;
-	    }
-	    .title {
-	        width: 40.36%;
-	        padding-right: 50px;
-	    }
-	    .pageView{
-	    	width: 11.83%;
-	    	padding-left: 30px;
-	    }
-		.table-head {
-		    	padding: 15px 0;
-	        	display: flex;
-	  			font-weight: bold;
-	            color: $title-color;
-	            line-height: 40px;
-	            text-transform: uppercase;
-	            font-weight: 500;
-	            border-bottom: 2px solid #c6d8f7;
-	    }
-		.table-row {
-	        padding: 15px 0;
-	        border-top: 1px solid #edf3fd;
-	        display: flex;
-	        }
+	.serial{
+		width: 11.83%;
+		padding-left: 30px;
+	}
+	.writer{
+		width:  28.07%;
+	}
+	.regDate {
+		width: 19.74%;
+	}
+	.title {
+		width: 40.36%;
+		padding-right: 50px;
+	}
+	.pageView{
+		width: 11.83%;
+		padding-left: 30px;
+	}
+	.table-head {
+		padding: 15px 0;
+		display: flex;
+		font-weight: bold;
+		color: $title-color;
+		line-height: 40px;
+		text-transform: uppercase;
+		font-weight: 500;
+		border-bottom: 2px solid #c6d8f7;
+	}
+	.table-row {
+		padding: 15px 0;
+		border-top: 1px solid #edf3fd;
+		display: flex;
+	}
+	.headWrap h2{
+		text-align: center;
+		padding: 35px 0 10px 0;
+	}
+	.headWrap{
+		margin-bottom: 30px;
+	}
 	</style>
-	<div class="slider-area">
-		<div class="slider-height2 d-flex align-items-center">
-			<div class="container">
-				<div class="row">
-					<div class="col-xl-12">
-						<div class="hero-cap hero-cap2 text-center">
-							<h2>상품 리스트</h2>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Hero End -->
-        
+	
+	<div class="headWrap">
+		<h2>상품 리스트</h2>
+	</div>	
 	<!--? Popular Course Start -->
-	<div class="popular-course section-padding30">
+	<div class="popular-course">
 		<div class="container">
-			<div class="row justify-content-sm-center">
-				<div class="cl-xl-7 col-lg-8 col-md-10">
-					<!-- Section Tittle -->
-					<div class="section-tittle text-center mb-70">
-						<h3>상품 리스트</h3>
-					</div> 
-				</div> 
-			</div>
 			<div class="row">
 				<th:block th:if="${not #lists.isEmpty(userGoodsList)}" th:each="g:${userGoodsList}">
 					<div class="col-xl-3 col-lg-3 col-md-6">
@@ -132,7 +118,7 @@ layout:decorate="~{userpage/layout/userdefault}">
 										<ul><li th:text="${g.userIdCode}"></li></ul>
 									</div>
 									<div class="course-cap-bottom d-flex justify-content-between">
-										<a th:text="${g.goodsPrice}" style="float: right;"><span>원</span></a>
+										<a th:text="${g.goodsPrice}"><span>원</span></a>
 									</div>
 								</div>
 							</div>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{userpage/layout/userdefault}">
+<div layout:fragment="content">
+
+<th:block layout:fragment="customScript">
+	<script>
+		$(document).ready(function(){
+			$("#file").on('change',function(){
+				  var fileName = $("#file").val();
+				  $("#chatFileCode").val(fileName);
+			});
+		});
+	</script>
+</th:block>	
+
+<style>
+.headWrap h2{
+	text-align: center;
+	padding: 35px 0 10px 0;
+} 
+.headWrap{
+	margin-bottom: 30px;
+}
+.bigWrap {
+	margin: 5% 20% 5% 20%;
+	padding: 0;
+	height: 500px;
+}
+.bigWrap p{
+	text-align: center;
+}
+.botWrapBtn{
+	background-color: #d9d9d9;
+	color: #333;
+	border: none;
+	border-radius: 10px;
+	width: 70px;
+	height: 40px;
+	font-size: 20px;
+}
+.botWrapBtn:hover{
+	background-color: #0064ff;
+	color: #fff;
+}
+.botWrap{
+	padding-top: 30px;
+	text-align: center;
+}
+.input-form{
+	margin-top : 20px;
+	margin-bottom: 50px;
+}
+.chatRoom{
+	padding-bottom: 20px;
+}
+.filebox .upload-name {
+    display: inline-block;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    width: 280px;
+    color: #999999;
+}
+.filebox label {
+    display: inline-block;
+    padding: 6px 10px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #0064ff;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 16px;
+}
+input[type="text"] {
+	height: 30px;
+	line-height: 30px;
+	padding: 0 13px;
+	border: 1px solid #f0f0f0;
+	background: #fff;
+	border-radius: 5px;
+	font-size: 13px;
+	color: #666;
+	box-sizing: border-box;
+	width: 390px;
+}
+input[type="file"] {
+	height: 30px;
+	line-height: 30px;
+	padding: 0 13px;
+	border: 1px solid #f0f0f0;
+	background: #fff;
+	border-radius: 5px;
+	font-size: 13px;
+	color: #666;
+	box-sizing: border-box;
+	width: 390px;
+}
+input[type="number"] {
+	height: 30px;
+	line-height: 30px;
+	padding: 0 13px;
+	border: 1px solid #f0f0f0;
+	background: #fff;
+	border-radius: 5px;
+	font-size: 13px;
+	color: #666;
+	box-sizing: border-box;
+	width: 390px;
+}
+input{
+	height: 30px;
+	line-height: 30px;
+	padding: 0 13px;
+	border: 1px solid #d9d9d9;
+	background: #fff;
+	border-radius: 5px;
+	font-size: 1px;
+	color: #666;
+	box-sizing: border-box;
+	width: 50%;
+}
+</style>
+
+	<div class="headWrap">
+		<h2>채팅방 만들기</h2>
+	</div>
+	<form th:action="@{/userpage/chat/addChatRoom}" method="post" data-parsley-validate enctype="multipart/form-data" name="multipart">
+		<div class="input-form mx-auto"> 
+			<div class="bigWrap">
+				<p>하단의 내용을 작성할 경우 채팅방이 개설됩니다.</p>
+				<div class="chatRoom" >
+					<label style="padding-right: 10px;">채팅방 이름</label>
+					<input type="text" id="chatRoomTitle" class="chat col-12" name="chatRoomTitle" placeholder="이름을 입력해주세요."/>
+				</div>
+				<div class="chatRoom" >
+					<label style="padding-right: 10px;">채팅방 주제</label>
+					<input type="text" id="chatRoomContent" class="chat col-12" name="chatRoomContent" placeholder="주제를 입력해주세요."/>
+				</div>
+				<div class="chatRoom" >
+					<label style="padding-right: 10px;">방장 닉네임</label>
+					<input type="text" id="chatRoomNickName" class="chat col-12" name="chatRoomNickName" placeholder="닉네임을 입력해주세요."/>
+				</div>
+				<div class="chatRoom" >
+					<label style="padding-right: 10px;">제한 인원수</label>
+					<input type="number" id="chatRoomLimit" class="chat col-12" name="chatRoomLimit" placeholder="제한 인원을 입력해주세요."/>
+				</div>
+					<label style="padding-right: 10px;">메인이미지</label>
+				<div class="filebox">
+					<input id="chatFileCode" class="upload-name" value="첨부파일" placeholder="첨부파일" name="chatImgFile" style="margin-right: 7px;">
+					<label for="file">파일찾기</label> 
+					<input type="file" id="file" value=" " name="chatImgFile" style="display: none;">
+				</div>
+				<div class="botWrap">
+					<button type="button" onclick="history.back(-1)" class="botWrapBtn">목록</button>
+					<button type="submit" class="botWrapBtn" id="addChatRoom">확인</button>
+				</div>
+			</div>
+		</div>
+	</form>		
+</div>
+</html>

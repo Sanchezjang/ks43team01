@@ -2,6 +2,7 @@ package ks43team01.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,19 +26,35 @@ public class PointService {
 
 	}
 	
+	/* 관리자 페이지 포인트 기준 별 검색 내역 조회 */
+	public List<Point> standardPointList(String searchKey, String searchValue){
+		
+		List<Point> standardPointList = pointMapper.standardPointList(searchKey, searchValue);
+		
+		return standardPointList;
+	}
+	/* 관리자 페이지 아이디 별 적립 검색 내역 조회 */
+	public List<Point> userIdPointList(String searchKey, String searchValue){
+		
+		List<Point> userIdPointList = pointMapper.userIdPointList(searchKey, searchValue);
+				
+		return userIdPointList;
+	}
+	
 	/* 관리자 페이지  수단 별 적립 검색 내역 조회 */
 	public List<Point> meansPointList(String searchKey, String searchValue){
 		
 		List<Point> pointList = pointMapper.meansPointList(searchKey, searchValue);
-		
+		log.info("pointList-service : {}",pointList);
 		return pointList;
 	}
 	
 	/* 관리자 페이지 포인트 내역 날짜 별 조회 */
-	public List<Point> searchDatePointList(String startDate, String endDate) {
+	public List<Point> getDatePointList(String startDate, String endDate) {
 		log.info("startDate:{}",startDate);
 		log.info("endDate:{}",endDate);
-		List<Point> pointList = pointMapper.searchDatePointList(startDate, endDate);
+		List<Point> pointList = pointMapper.getDatePointList(startDate, endDate);
+		log.info("pointList:{}",pointList);
 		
 		return pointList;
 		

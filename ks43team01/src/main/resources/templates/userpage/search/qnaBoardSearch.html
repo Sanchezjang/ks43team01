@@ -4,17 +4,9 @@ xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{userpage/layout/userdefault}">	
 	<div th:fragment="searchQnaBoardFragment">
-		<form th:action="@{/userpage/board/qnaBoardList}" class="form-inline row col-12" method="post">
+		<form th:action="@{/userpage/board/qnaBoardList}" id="searchForm"  class="form-inline row col-12" method="post">
 			<div class="form-group row col-6 justify-content-center">
-				<div class="periodSelect" style="margin-right: 5px;">
-					<select name="searchKey">
-						<option value="">전체</option>
-						<option value="">최근 1주일</option>
-						<option value="">최근 1개월</option>
-						<option value="">최근 6개월</option>
-					</select>
-				</div>
-				<div >
+				<div>
 					<select name="searchKey">
 						<option value="boardQuestionTitle">제목별</option>
 						<option value="userIdCode">아이디명</option>
@@ -22,8 +14,8 @@ layout:decorate="~{userpage/layout/userdefault}">
 						<option value="boardQuestionContent">내용</option>
 					</select>
 				</div>
-				<input type="text" class="form-control col-sm-5 mx-2 " name="searchValue"/>
-				<button class="searchBtn genric-btn btn-info form-control col-sm-2 p-0 text-center" type="submit" style="margin-top:10px;">검색</button>
+				<input type="text" class="form-control col-sm-5 mx-2 " id="searchValue" name="searchValue"/>
+				<button type="submit" id="next" class="botWrapBtn">검색</button>
 			</div>
 		</form>
 	</div>

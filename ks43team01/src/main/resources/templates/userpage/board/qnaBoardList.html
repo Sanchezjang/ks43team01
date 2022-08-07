@@ -7,137 +7,155 @@ layout:decorate="~{userpage/layout/userdefault}">
 <!------ Include the above in your HEAD tag ---------->
 <div layout:fragment="content">
 
-	<style>
-	
-		
-		.headWrap h2{
-			text-align: center;
-			padding: 35px 0 10px 0;
-		
-		}
-		.headWrap{
-			margin-bottom: 30px;
-		}
-		.section-top-border{
-			width: 1200px;
-			margin:0 auto;
-		}
-		
-		.progress-table{
-			background: #f9f9ff;
-			padding: 15px 0px 30px 0px;
-			min-width: 800px;
-		}
-		.serial{
-			width: 11.83%;
-			padding-left: 30px;
-		}
-		.writer{
-			width:  15%;
-		}
-		.regDate {
-			width: 15%;
-		}
-		.title {
-			width: 40.36%;
-			padding-right: 50px;
-			padding-left: 30px;
-		}
-		.lock{
-			width: 19.74%;
-			padding-left: 30px;
-		}
-		.pageView{
-			width: 10%;
-		}
-		.table-head {
-			padding: 15px 0;
-			display: flex;
-			font-weight: bold;
-			color: $title-color;
-			line-height: 40px;
-			text-transform: uppercase;
-			font-weight: 500;
-			border-bottom: 2px solid #c6d8f7;
-		}
-		.table-row {
-			padding: 15px 0;
-			border-top: 1px solid #edf3fd;
-			display: flex;
-		}
-		.searchBoard{
-			
-		}
-		.blog-pagination{
-			padding-bottom: 30px;
-			margin-top: 0px;
-		}
-	</style>
+<style>
+.headWrap h2{
+	text-align: center;
+	padding: 35px 0 10px 0;
+
+}
+.headWrap{
+	margin-bottom: 30px;
+}
+.section-top-border{
+	width: 1200px;
+	margin:0 auto;
+}
+
+.progress-table{
+	background: #f9f9ff;
+	padding: 15px 0px 30px 0px;
+	min-width: 800px;
+}
+.serial{
+	width: 11.83%;
+	padding-left: 30px;
+}
+.writer{
+	width:  15%;
+}
+.regDate {
+	width: 15%;
+}
+.title {
+	width: 40.36%;
+	padding-right: 50px;
+	padding-left: 30px;
+}
+.lock{
+	width: 19.74%;
+	padding-left: 30px;
+}
+.pageView{
+	width: 10%;
+}
+.table-head {
+	padding: 15px 0;
+	display: flex;
+	font-weight: bold;
+	color: $title-color;
+	line-height: 40px;
+	text-transform: uppercase;
+	font-weight: 500;
+	border-bottom: 2px solid #c6d8f7;
+}
+.table-row {
+	padding: 15px 0;
+	border-top: 1px solid #edf3fd;
+	display: flex;
+}
+.blog-pagination{
+	padding-bottom: 30px;
+	margin-top: 0px;
+}
+.botWrapBtn{
+	background-color: #d9d9d9;
+	color: #333;
+	border: none;
+	border-radius: 10px;
+	width: 70px;
+	height: 40px;
+	font-size: 20px;
+}
+.genric-btn{
+	border-radius: 10px;
+}
+</style>
+
 	<div class="mainContainer">
-	<div class="headWrap">
-       		<h2>1:1 문의 게시판</h2>
-	</div>
-
-	<!-- Hero End -->
-	<!-- About Details Start -->
-	<div class="boardForm">
-		<div class="box" style="width:1200px; margin:0 auto;">
-			<table class="section-top-border" id="boardTable">
-				<thead class="progress-table">
-					<tr class="table-head">
-						<th class="title">제목</th>
-						<th class="writer">작성자</th>
-						<th class="lock">공개유무</th>
-						<th class="regDate">등록일</th>
-						<th class="pageView">조회수</th>
-					</tr>
-				</thead>	
-				<tbody >
-					<tr class="table-row" th:if="${not #lists.isEmpty(qnaBoardList)}" th:each="l: ${qnaBoardList}">
-						<td class="title"><a th:href="@{/userpage/board/qnaBoardDetail(boardQuestionCode=${l.boardQuestionCode})}" th:value="${l.boardQuestionCode}" th:text="${l.boardQuestionTitle}" style="color: #212529;"></a></td>
-						<td class="writer"  th:text="${l.userName}"></td>
-						<td class="lock"  th:text="${l.boardQuestionLock}"></td>
-						<td class="regDate" th:text="${l.boardQuestionRegDate}"> </td>
-						<td class="pageView" th:text="${l.boardQuestionPageView}"> </td>
-					</tr>
-					<tr th:unless="${not #lists.isEmpty(qnaBoardList)}">
-						<td colspan="5">조회된 내용이 없습니다.</td>
-					</tr>
-				</tbody>
-			</table>
-			<div style="text-align:right; margin-top:20px;"><a th:href="@{/userpage/board/addQnaBoard}" class="genric-btn primary" >글쓰기</a></div>	
-
-			<nav class="blog-pagination justify-content-center d-flex">
-				<ul class="pagination">
-					<li class="page-item">
-						<a  th:href="@{/userpage/board/qnaBoardList}" class="page-link" aria-label="RecentList">
-							<i class="ti-angle-double-left"></i>
-						</a>
-					</li>
-					<li class="page-item">
-						<a th:if="${currentPage > 1}" th:href="@{/userpage/board/qnaBoardList(currentPage=${currentPage - 1})}" class="page-link" aria-label="PreviousList">
-							<i class="ti-angle-left"></i>
-						</a>
-					</li>
-					<th:block th:each="num : ${#numbers.sequence(startPageNum,endPageNum)}">
-					<li class="page-item">
-						<a th:if="${currentPage eq num}" th:text="${(num < 10) ? '0' + num : num }" class="page-link"></a>
-						<a th:unless="${currentPage eq num}"th:href="@{/userpage/board/qnaBoardList(currentPage=${num})}" th:text="${(num<10) ? '0' + num  :  num }" class="page-link"></a>
-					</li>
-					</th:block>
-					<li class="page-item">
-						<a th:if="${currentPage < lastPage}" th:href="@{/userpage/board/qnaBoardList(currentPage=${currentPage + 1})}" class="page-link" aria-label="NextList">
-							<i class="ti-angle-right"></i>
-						</a>
-					</li>
-					<li class="page-item">
-						<a th:href="@{/userpage/board/qnaBoardList(currentPage=${lastPage})}" class="page-link" aria-label="OldList">
-							<i class="ti-angle-double-right"></i>
-						</a>
-					</li>
-				</ul>
-			</nav>
+		<div class="headWrap">
+		      		<h2>1:1 문의 게시판</h2>
+		</div>
+		
+		<div class="boardForm">
+			<div class="box" style="width:1200px; margin:0 auto;">
+				<table class="section-top-border" id="boardTable">
+					<thead class="progress-table">
+						<tr class="table-head">
+							<th class="title">제목</th>
+							<th class="writer">작성자</th>
+							<th class="lock">공개유무</th>
+							<th class="regDate">등록일</th>
+							<th class="pageView">조회수</th>
+						</tr>
+					</thead>	
+					<tbody >
+						<tr class="table-row" th:if="${not #lists.isEmpty(qnaBoardList)}" th:each="l: ${qnaBoardList}">
+							<td class="title" th:if="${l.boardQuestionLock == '공개글'}">
+								<a th:href="@{/userpage/board/qnaBoardDetail(boardQuestionCode=${l.boardQuestionCode})}" th:value="${l.boardQuestionCode}" th:text="${l.boardQuestionTitle}" style="color: #212529;"></a>
+							</td>
+							<td class="title" th:if="${l.boardQuestionLock == '비밀글'}">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+		 								<path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
+								</svg>
+								<a th:href="@{/userpage/board/questionPwCheck(boardQuestionCode=${l.boardQuestionCode})}" th:value="${l.boardQuestionCode}" th:text="${l.boardQuestionTitle}" style="color: #212529;"></a>
+							</td>
+							<td class="writer"  th:text="${l.userName}"></td>
+							<td class="lock"  th:text="${l.boardQuestionLock}"></td>
+							<td class="regDate" th:text="${l.boardQuestionRegDate}"> </td>
+							<td class="pageView" th:text="${l.boardQuestionPageView}"> </td>
+						</tr>
+						<tr th:unless="${not #lists.isEmpty(qnaBoardList)}">
+							<td colspan="5">조회된 내용이 없습니다.</td>
+						</tr>
+					</tbody>
+				</table>
+				<div style="text-align:right; margin-top:20px;">
+					<a th:href="@{/userpage/board/addQnaBoard}" class="genric-btn primary" >글쓰기</a>
+				</div>	
+				
+				<!-- <div class="search" th:include="userPage/search/qnaBoardSearch :: searchQnaBoardFragment"></div> <br/> -->
+		
+				<nav class="blog-pagination justify-content-center d-flex">
+					<ul class="pagination">
+						<li class="page-item">
+							<a  th:href="@{/userpage/board/qnaBoardList}" class="page-link" aria-label="RecentList">
+								<i class="ti-angle-double-left"></i>
+							</a>
+						</li>
+						<li class="page-item">
+							<a th:if="${currentPage > 1}" th:href="@{/userpage/board/qnaBoardList(currentPage=${currentPage - 1})}" class="page-link" aria-label="PreviousList">
+								<i class="ti-angle-left"></i>
+							</a>
+						</li>
+						<th:block th:each="num : ${#numbers.sequence(startPageNum,endPageNum)}">
+						<li class="page-item">
+							<a th:if="${currentPage eq num}" th:text="${(num < 10) ? '0' + num : num }" class="page-link"></a>
+							<a th:unless="${currentPage eq num}"th:href="@{/userpage/board/qnaBoardList(currentPage=${num})}" th:text="${(num<10) ? '0' + num  :  num }" class="page-link"></a>
+						</li>
+						</th:block>
+						<li class="page-item">
+							<a th:if="${currentPage < lastPage}" th:href="@{/userpage/board/qnaBoardList(currentPage=${currentPage + 1})}" class="page-link" aria-label="NextList">
+								<i class="ti-angle-right"></i>
+							</a>
+						</li>
+						<li class="page-item">
+							<a th:href="@{/userpage/board/qnaBoardList(currentPage=${lastPage})}" class="page-link" aria-label="OldList">
+								<i class="ti-angle-double-right"></i>
+							</a>
+						</li>
+					</ul>
+				</nav>
+			</div>	
 		</div>	
-	</div>	
 	</div>
 </div>

@@ -5,75 +5,73 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{userpage/layout/userdefault}">
 <!------ Include the above in your HEAD tag ---------->
 <div layout:fragment="content">
-	<style>
-	.headWrap h2{
-		text-align: center;
-		padding: 35px 0 10px 0;
-	}
-	.headWrap{
-		margin-bottom: 30px;
-	}
-	.section-top-border{
-		width: 1200px;
-		margin:0 auto;
-	}
-	.progress-table{
-		background: #f9f9ff;
-		padding: 15px 0px 30px 0px;
-		min-width: 800px;
-	}
-	.writer{
-		width:  30%;
-	}
-	.regDate {
-		width: 20%;
-	}
-	.title {
-		width: 50%;
-		padding-right: 50px;
-		padding-left: 30px;
-	}
-	.lock{
-		width: 19.74%;
-		padding-left: 30px;
-	}
-	.pageView{
-		width: 10%;
-	}
-	.table-head {
-		padding: 15px 0;
-		display: flex;
-		font-weight: bold;
-		color: $title-color;
-		line-height: 40px;
-		text-transform: uppercase;
-		font-weight: 500;
-		border-bottom: 2px solid #c6d8f7;
-	}
-	.table-row {
-		padding: 15px 0;
-		border-top: 1px solid #edf3fd;
-		display: flex;
-	}
-	.blog-pagination{
-		padding-bottom: 30px;
-		margin-top: 0px;
-	}
-	.botWrapBtn{
-		background-color: #d9d9d9;
-		color: #333;
-		border: none;
-		border-radius: 10px;
-		width: 70px;
-		height: 40px;
-		font-size: 20px;
-
-	}
-	.genric-btn{
-		border-radius: 10px;
-	
-	}
-	</style>
+<style>
+.headWrap h2{
+	text-align: center;
+	padding: 35px 0 10px 0;
+}
+.headWrap{
+	margin-bottom: 30px;
+}
+.section-top-border{
+	width: 1200px;
+	margin:0 auto;
+}
+.progress-table{
+	background: #f9f9ff;
+	padding: 15px 0px 30px 0px;
+	min-width: 800px;
+}
+.writer{
+	width:  30%;
+}
+.regDate {
+	width: 20%;
+}
+.title {
+	width: 50%;
+	padding-right: 50px;
+	padding-left: 30px;
+}
+.lock{
+	width: 19.74%;
+	padding-left: 30px;
+}
+.pageView{
+	width: 10%;
+}
+.table-head {
+	padding: 15px 0;
+	display: flex;
+	font-weight: bold;
+	color: $title-color;
+	line-height: 40px;
+	text-transform: uppercase;
+	font-weight: 500;
+	border-bottom: 2px solid #c6d8f7;
+}
+.table-row {
+	padding: 15px 0;
+	border-top: 1px solid #edf3fd;
+	display: flex;
+}
+.blog-pagination{
+	padding-bottom: 30px;
+	margin-top: 0px;
+}
+.botWrapBtn{
+	background-color: #d9d9d9;
+	color: #333;
+	border: none;
+	border-radius: 10px;
+	width: 70px;
+	height: 40px;
+	font-size: 20px;
+}
+.genric-btn{
+	border-radius: 10px;
+}
+</style>
 
 	<div class="headWrap">
 		<h2>공지사항</h2>
@@ -89,22 +87,23 @@ layout:decorate="~{userpage/layout/userdefault}">
 						<th class="regDate">등록일</th>
 						<th class="pageView">조회수</th>
 					</tr>
-					<tbody th:if="${not #lists.isEmpty(noticeBoardList)}" th:each="l : ${noticeBoardList}">
-						<tr class="table-row">
-							<td class="title"><a th:href="@{/userpage/board/noticeBoardDetail(boardPostCode=${l.boardPostCode})}" th:value="${l.boardPostCode}" th:text="${l.boardPostTitle}" style="color: #212529;"></a></td>
-							<td class="writer"  th:text="${l.boardUserName}"></td>
-							<td class="regDate" th:text="${l.boardPostRegDate}"> </td>
-							<td class="pageView" th:text="${l.boardPostView}"> </td>
-						</tr>
-						<tr th:unless="${not #lists.isEmpty(noticeBoardList)}">
-							<td colspan="4">조회된 내용이 없습니다.</td>
-						</tr>
-					</tbody>
+				</thead>
+				<tbody th:if="${not #lists.isEmpty(noticeBoardList)}" th:each="l : ${noticeBoardList}">
+					<tr class="table-row">
+						<td class="title"><a th:href="@{/userpage/board/noticeBoardDetail(boardPostCode=${l.boardPostCode})}" th:value="${l.boardPostCode}" th:text="${l.boardPostTitle}" style="color: #212529;"></a></td>
+						<td class="writer"  th:text="${l.boardUserName}"></td>
+						<td class="regDate" th:text="${l.boardPostRegDate}"> </td>
+						<td class="pageView" th:text="${l.boardPostView}"> </td>
+					</tr>
+					<tr th:unless="${not #lists.isEmpty(noticeBoardList)}">
+						<td colspan="4">조회된 내용이 없습니다.</td>
+					</tr>
+				</tbody>
 			</table>
 			<div style="text-align:right; margin-top:20px;">
 				<a th:href="@{/userpage/board/addNoticeBoard}" class="genric-btn primary" >글쓰기</a>
 			</div>
-			<div class="search" th:include="userPage/search/boardSearch :: searchBoardFragment"></div> <br/>
+<!-- 			<div class="search" th:include="userPage/search/boardSearch :: searchBoardFragment"></div> <br/> -->
 		</div>
 	</div>
 	
