@@ -165,23 +165,21 @@ layout:decorate="~{userpage/layout/userdefault}">
 						<th>항목</th>
 						<th>판매자</th>
 						<th>가격</th>
-		<form id="demo-form row" th:action="@{/orderSuccess}" method="post" data-parsley-validate >
 					</tr>
 				</thead>
+		<form id="demo-form row" th:action="@{/orderSuccess}" method="post" data-parsley-validate >
 				
 					<th:block th:if="${not #lists.isEmpty(goodslist)}" th:each="g : ${goodslist}">
-				<tbody>
-					<tr class="table-row">
-						<input type="hidden" id="userIdCode" name="userIdCode"th:value="${session.UID}">
-						<input type="hidden" id="goodsCode" name="goodsCode" th:value="${g.goodsCode}">
-						<td th:text="${g.goodsName}">1</td>
-						<td id="orderSendname" th:text="${g.userIdCode}" th:value="${g.userIdCode}">2</td>
-						<td th:text="${g.goodsPrice+'원'}">3</td>
-					</tr>
-				</tbody>
+						<tbody>
+							<tr class="table-row">
+								<input type="hidden" id="userIdCode" name="userIdCode"th:value="${session.UID}">
+								<input type="hidden" id="goodsCode" name="goodsCode" th:value="${g.goodsCode}">
+								<td th:text="${g.goodsName}">1</td>
+								<td id="orderSendname" th:text="${g.userIdCode}" th:value="${g.userIdCode}">2</td>
+								<td th:text="${g.goodsPrice+'원'}">3</td>
+							</tr>
+						</tbody>
 					</th:block>
-			
-			
 			</table>
 		<hr style="width: 1200px"/>
 		

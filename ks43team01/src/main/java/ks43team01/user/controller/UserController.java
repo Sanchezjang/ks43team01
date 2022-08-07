@@ -168,7 +168,7 @@ public class UserController {
 		List<RefundPayment> refundPayList = paymentRefundService.getRefundPayList();
 		model.addAttribute("refundPayList", refundPayList);
 		log.info("refundPayList넘어오나  :   {}",refundPayList);
-		return "userpage/user/userinfomation";
+		return "userpage/user/userinfomation" ;
 	}
 	@PostMapping("/idCheck")////아이디 중복체크!!!!!
 	@ResponseBody
