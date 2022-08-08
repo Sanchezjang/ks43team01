@@ -21,6 +21,10 @@ import ks43team01.dto.SellerEducation;
 
 @Mapper
 public interface UserMapper {
+	/*회원총리스트에서 삭제 */
+	public int deleteUserList(String userIdCode);
+	//admin로그이력삭제//	
+	public int removeLoginList(String loginNum);
 	///판매자 비지니스수정처리///
 	public int modifyBusiness(SellerBusiness sellerBusiness);
 	///회원정보수정 고통회원 부분!!!//

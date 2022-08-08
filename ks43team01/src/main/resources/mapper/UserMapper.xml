@@ -58,7 +58,7 @@
   	 	</resultMap>
   	 	
  	 	<resultMap type="ks43team01.dto.UserLog" id="UserLogResultMap">
- 			<id column="login_date" property="loginNum"/>
+ 			<id column="login_num" property="loginNum"/>
  			<result column="login_date" property="loginDate"/>
  			<result column="login_ip" property="loginIp"/>
  			<result column="user_id_code" property="userIdCode"/>
@@ -112,6 +112,23 @@
 	  		<result column="user_agree_date" property="userAgreeDate"/>
 	  		<result column="user_aplct_user_required_input" property="userRequiredInput"/>
 		</resultMap>
+	<delete id="deleteUserList" parameterType="String">
+		/*회원총리스트에서 삭제 */
+		DELETE 
+		FROM 
+			tb_u_all_user
+		WHERE 
+			user_id_code = #{userIdCode};
+	</delete>
+	
+	<delete id="removeLoginList" parameterType="String">
+		/*동의테이블 아이디로 잡아서 삭제*/
+		DELETE 
+		FROM 
+			tb_u_user_log
+		WHERE 
+			login_num = #{loginNum};
+	</delete>
 	
 	<select id="getUserAgreeCheck" resultType="UserAgree">
 		/*동의한회원별 동의로그남김*/
@@ -212,8 +229,8 @@
 			,u.login_date
 			,u.login_ip
 			,u.user_id_code
-			,user_OS
-			,user_Browser
+			,u.user_OS
+			,u.user_Browser
 			,u.buyer_exp
 			,u.seller_exp
 		FROM
@@ -232,7 +249,7 @@
 			,buyer_exp
 			,seller_exp
 		)values(
-			date_format(NOW(),'login_%y%m%d`%H%i%s')
+			date_format(NOW(),'login_%H%i%s')
 			,CURDATE()
 			,#{loginIp}
 			,#{userIdCode}

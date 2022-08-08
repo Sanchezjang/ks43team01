@@ -1,5 +1,6 @@
 package ks43team01.admin.controller;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ks43team01.dto.User;
 import ks43team01.dto.UserAgree;
@@ -39,7 +41,6 @@ public class AdminUserController {
 	public String getLogDate(Model model) {
 		
 		List<UserLog> userLogDate = userService.getLogDate(); 
-		
 		model.addAttribute("userLogDate", userLogDate);
 		log.info("userLogDate값   : {}" , userLogDate);
 		return "/adminpage/user/userLogDate";
@@ -58,5 +59,15 @@ public class AdminUserController {
 		log.info("AgreeCheckList  :  {}",agreeCheckList);
 		model.addAttribute("agreeCheckList", agreeCheckList);
 		return "/adminpage/user/userAgreeCheck";
+	}
+	@GetMapping("/deleteLogList")//admin로그이력삭제//	
+	public String removeLoginList(@RequestParam(name="loginNum", required = false)String loginNum) {
+		int result = userService.removeLoginList(loginNum);
+		return "redirect:/adminpage/user/userLogDate";
+	}
+	@GetMapping("/deleteUserList")//회원삭제///
+	public String deleteUserList(@RequestParam(name="userIdCode", required = false)String userIdCode) {
+		int result = userService.deleteUserList(userIdCode);
+		return "redirect:/adminpage/user/userList";
 	}
 }

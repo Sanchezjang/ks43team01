@@ -34,6 +34,16 @@ public class UserService {
 	public  UserService(UserMapper userMapper) {
 		this.userMapper = userMapper;
 	}
+	/*회원총리스트에서 삭제 */
+	public int deleteUserList(String userIdCode) {
+		int result = userMapper.deleteUserList(userIdCode);
+		return result;
+	}
+	//admin로그이력삭제//	
+	public int removeLoginList(String loginNum) {
+		int result = userMapper.removeLoginList(loginNum);
+		return result;
+	}
 	/*판매자 비지니스수정처리*/
 	public int modifyBusiness(SellerBusiness sellerBusiness) {
 		int result = userMapper.modifyBusiness(sellerBusiness);
